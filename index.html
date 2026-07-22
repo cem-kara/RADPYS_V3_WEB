@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="RADPYS V3 — Radyasyon çalışanları yönetim sistemi. Nöbet, dozimetre, izin, olay bildirimi ve KVKK uyumlu sağlık kayıtları tek platformda." />
+    <title>RADPYS V3 — Radyasyon Çalışanları Yönetim Sistemi</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+        href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=manrope@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind.config.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+</head>
+
+<body>
+    <div id="site-nav"></div>
+
+    <main>
+        <!-- HERO -->
+        <section class="relative min-h-[100vh] pt-32 pb-24 overflow-hidden">
+            <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px">
+            </div>
+            <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px">
+            </div>
+            <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
+
+            <div class="relative container-narrow z-10">
+                <span class="section-label"><span class="text-slate-500">00</span>&nbsp;RADPYS V3 — Radyasyon Ekipleri
+                    İçin</span>
+
+                <h1 class="mt-6 font-display font-medium leading-[0.98] tracking-[-0.035em]"
+                    style="font-size:clamp(2.75rem,7.4vw,7rem)">
+                    <span class="reveal-mask d1"><span>Radyasyon iş gücünüzü</span></span>
+                    <span class="reveal-mask d2"><span>denetime hazır</span></span>
+                    <span class="reveal-mask d3"><span>tutmanın kısa yolu.</span></span>
+                </h1>
+
+                <p class="reveal mt-10 max-w-2xl text-slate-300 text-lg md:text-xl leading-relaxed">
+                    Nöbet, dozimetre, izin, fiili hizmet, sağlık muayeneleri ve olay bildirimi — hepsi tek yerde, KVKK
+                    uyumlu ve zaman damgalı.
+                </p>
+
+                <div class="reveal mt-10 flex flex-wrap items-center gap-4">
+                    <a href="iletisim.html" class="btn btn-primary">Demo Talep Et →</a>
+                    <a href="moduller.html" class="btn btn-ghost">Özellikleri İncele ↗</a>
+                </div>
+
+                <!-- Dashboard mockup -->
+                <div class="reveal relative mt-20">
+                    <div class="absolute -inset-8 md:-inset-14 pointer-events-none">
+                        <div class="absolute inset-0"
+                            style="background:radial-gradient(circle at 50% 20%, rgba(34,211,238,0.35), transparent 60%); filter:blur(30px)">
+                        </div>
+                    </div>
+                    <div class="relative rounded-2xl overflow-hidden border border-white/10 glass"
+                        style="box-shadow:0 40px 120px -30px rgba(0,0,0,0.9)">
+                        <div class="flex items-center justify-between px-5 py-3 border-b border-white/5"
+                            style="background:rgba(0,0,0,0.3)">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-400/70"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400/70"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/70"></span>
+                            </div>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-slate-400">radpys /
+                                kontrol paneli</span>
+                            <span class="text-neon-teal">◆</span>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-0">
+                            <div class="p-6 border-r border-b border-white/5">
+                                <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Aylık
+                                    kolektif doz</div>
+                                <div class="mt-3 font-display text-3xl md:text-4xl">2.14 mSv</div>
+                                <div class="mt-4 h-16 flex items-end gap-1.5" id="bars-1"></div>
+                            </div>
+                            <div class="p-6 border-r border-b border-white/5">
+                                <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Nöbet
+                                    dağılımı</div>
+                                <div class="mt-3 font-display text-3xl md:text-4xl">94% dengeli</div>
+                                <div class="mt-4 h-16 flex items-end gap-1.5" id="bars-2"></div>
+                            </div>
+                            <div class="p-6 border-b border-white/5">
+                                <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Açık olay
+                                    bildirimleri</div>
+                                <div class="mt-3 font-display text-3xl md:text-4xl">0 kritik</div>
+                                <div class="mt-4 h-16 flex items-end gap-1.5" id="bars-3"></div>
+                            </div>
+                        </div>
+                        <div class="p-6 md:p-8 border-t border-white/5" style="background:rgba(0,0,0,0.2)">
+                            <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-neon-teal">canlı akış —
+                                dozimetre okumaları</div>
+                            <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div
+                                    class="rounded-lg border border-white/5 px-3 py-2.5 bg-white/[0.02] flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs text-slate-400 font-mono">K. Yılmaz</div>
+                                        <div class="text-sm mt-0.5">0.12 mSv</div>
+                                    </div><span class="w-2 h-2 rounded-full bg-neon-teal"
+                                        style="box-shadow:0 0 10px #14b8a6"></span>
+                                </div>
+                                <div
+                                    class="rounded-lg border border-white/5 px-3 py-2.5 bg-white/[0.02] flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs text-slate-400 font-mono">A. Demir</div>
+                                        <div class="text-sm mt-0.5">0.31 mSv</div>
+                                    </div><span class="w-2 h-2 rounded-full bg-neon-teal"
+                                        style="box-shadow:0 0 10px #14b8a6"></span>
+                                </div>
+                                <div
+                                    class="rounded-lg border border-white/5 px-3 py-2.5 bg-white/[0.02] flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs text-slate-400 font-mono">M. Öztürk</div>
+                                        <div class="text-sm mt-0.5">0.87 mSv</div>
+                                    </div><span class="w-2 h-2 rounded-full bg-amber-400"
+                                        style="box-shadow:0 0 10px #fbbf24"></span>
+                                </div>
+                                <div
+                                    class="rounded-lg border border-white/5 px-3 py-2.5 bg-white/[0.02] flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs text-slate-400 font-mono">S. Kaya</div>
+                                        <div class="text-sm mt-0.5">0.09 mSv</div>
+                                    </div><span class="w-2 h-2 rounded-full bg-neon-teal"
+                                        style="box-shadow:0 0 10px #14b8a6"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="mt-12 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-slate-500">
+                    <span class="w-6 h-px bg-slate-600"></span>
+                    Aşağı kaydırın
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE -->
+        <section class="relative py-10 border-y border-white/5" style="background:rgba(0,0,0,0.3)">
+            <div class="marquee">
+                <div class="marquee-track font-display text-3xl md:text-5xl text-white/60 tracking-tight"
+                    id="marquee-a"></div>
+                <div class="marquee-track font-display text-3xl md:text-5xl text-white/60 tracking-tight" id="marquee-b"
+                    aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <!-- MANIFESTO -->
+        <section class="relative py-28 md:py-36">
+            <div class="container-narrow grid md:grid-cols-12 gap-10">
+                <div class="md:col-span-4">
+                    <span class="section-label"><span class="text-slate-500">01</span>&nbsp;Neden RADPYS</span>
+                    <h2 class="reveal mt-6 font-display text-4xl md:text-5xl leading-[1.05] tracking-tight">Dört ilke,
+                        <span class="text-neon-teal">bir platform.</span></h2>
+                </div>
+                <div class="md:col-span-8 space-y-16" id="manifesto"></div>
+            </div>
+        </section>
+
+        <!-- MODULES BENTO -->
+        <section class="relative py-24 md:py-32">
+            <div class="container-narrow">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <span class="section-label"><span class="text-slate-500">02</span>&nbsp;Modüller</span>
+                        <h2 class="reveal mt-6 font-display text-4xl md:text-5xl tracking-tight">Altı modül. <br
+                                class="hidden md:block"><span class="text-neon-cyan">Tek gerçek kaynak.</span></h2>
+                    </div>
+                    <a href="moduller.html"
+                        class="reveal inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white">Hepsini
+                        görüntüle ↗</a>
+                </div>
+                <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="module-grid"></div>
+            </div>
+        </section>
+
+        <!-- STATS + TESTIMONIALS -->
+        <section class="relative py-24 md:py-32 border-t border-white/5" style="background:rgba(0,0,0,0.2)">
+            <div class="container-narrow">
+                <span class="section-label"><span class="text-slate-500">03</span>&nbsp;Kanıt</span>
+                <div class="mt-6 grid md:grid-cols-4 gap-8" id="stats-grid"></div>
+                <div class="mt-20 grid md:grid-cols-3 gap-5" id="testimonials-grid"></div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="relative py-28 overflow-hidden">
+            <div class="absolute inset-0"
+                style="background:radial-gradient(circle at 50% 50%, rgba(34,211,238,0.14), transparent 60%)"></div>
+            <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
+            <div class="relative max-w-5xl mx-auto px-6 text-center">
+                <span class="section-label" style="justify-content:center; display:inline-flex"><span
+                        class="text-slate-500">04</span>&nbsp;Sıradaki adım</span>
+                <h2 class="reveal mt-8 font-display text-4xl md:text-6xl leading-[1.05] tracking-tight">Ekibiniz için 20
+                    dakikalık bir <br class="hidden md:block"><span class="text-neon-teal">canlı gösterim
+                        ayarlayalım.</span></h2>
+                <p class="reveal mt-6 text-slate-300 text-lg max-w-2xl mx-auto">Kurumunuza özel senaryolarla —
+                    dozimetre, nöbet ve KVKK yükümlülüklerinin nasıl otomatize edildiğini gösteriyoruz.</p>
+                <div class="reveal mt-10 flex flex-wrap items-center justify-center gap-4">
+                    <a href="iletisim.html" class="btn btn-primary">Demo Talep Et →</a>
+                    <a href="fiyatlandirma.html" class="btn btn-outline">Fiyatları İncele</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/layout.js"></script>
+    <script>
+        // Populate dynamic sections
+        (function () {
+            const { MODULES, TESTIMONIALS, STATS } = window.RADPYS;
+
+            // Bars
+            const bar = (i, off) => {
+                const h = 20 + ((i * 13 + off * 7) % 70);
+                const op = 0.35 + ((i + off) % 5) / 8;
+                return `<div style="flex:1; height:${h}%; opacity:${op}; background:linear-gradient(180deg,rgba(103,232,249,0.8),rgba(20,184,166,0.6)); border-radius:2px"></div>`;
+            };
+            ["bars-1", "bars-2", "bars-3"].forEach((id, off) => {
+                document.getElementById(id).innerHTML = Array.from({ length: 22 })
+                    .map((_, i) => bar(i, off))
+                    .join("");
+            });
+
+            // Marquee
+            const MQ = ["KVKK Uyumlu", "TAEK Bildirim Otomasyonu", "AES-256 Şifreleme", "PySide6 Native", "SQLite Local-First", "Rol Bazlı Erişim", "Yıpranma Payı", "Dozimetre Analitiği"];
+            const mqHtml = MQ.map((m) => `<span style="display:inline-flex; align-items:center; gap:1.25rem"><span>${m}</span><span style="width:6px;height:6px;border-radius:9999px;background:#14b8a6;box-shadow:0 0 12px #14b8a6"></span></span>`).join("");
+            document.getElementById("marquee-a").innerHTML = mqHtml;
+            document.getElementById("marquee-b").innerHTML = mqHtml;
+
+            // Manifesto
+            const MANIFESTO = [
+                { n: "01", t: "Kağıt işine son.", b: "Excel çizelgeleri, imzalı dozimetre çıktıları ve email zincirlerinin sonu. Her kayıt zaman damgalı, denetlenebilir, dijital." },
+                { n: "02", t: "Şeffaflık, güven yaratır.", b: "Nöbet algoritması açık kurallarla çalışır. Ekip neden orada olduğunu görür — 'amirin insafı' değil, prensip." },
+                { n: "03", t: "Güvenlik önce gelir.", b: "AES-256 şifreleme, KVKK uyumu, rol bazlı erişim. Sağlık verileri korumalı, denetim dostu, sızıntıya kapalı." },
+                { n: "04", t: "Zamanı geri kazan.", b: "Denetime iki gün değil, iki saat. Aylık rapora yedi saat değil, yedi dakika. Ölçtük, ekiplerimiz onayladı." },
+            ];
+            document.getElementById("manifesto").innerHTML = MANIFESTO.map(
+                (m) => `
+        <div class="reveal border-t border-white/10 pt-8 grid gap-6 md:gap-10" style="grid-template-columns:auto 1fr">
+          <div class="chapter-number" style="font-size:clamp(4.5rem,8vw,7rem); line-height:1">${m.n}</div>
+          <div class="pt-3">
+            <h3 class="font-display text-2xl md:text-3xl leading-tight">${m.t}</h3>
+            <p class="mt-3 text-slate-300 text-base md:text-lg max-w-xl">${m.b}</p>
+          </div>
+        </div>`
+            ).join("");
+
+            // Modules grid
+            document.getElementById("module-grid").innerHTML = MODULES.map(
+                (m) => `
+        <div class="reveal card card-lift p-7 h-full">
+          <div class="flex items-start justify-between">
+            <div class="w-11 h-11 rounded-xl grid place-items-center" style="background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.25); color:#5eead4">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${m.icon}"/></svg>
+            </div>
+            <span class="font-mono text-[10px] tracking-[0.25em] text-slate-500">${m.tag}</span>
+          </div>
+          <h3 class="mt-6 font-display text-xl md:text-2xl">${m.name}</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">${m.desc}</p>
+          <div class="mt-6 h-px w-full" style="background:linear-gradient(90deg,rgba(20,184,166,0.3),transparent)"></div>
+        </div>`
+            ).join("");
+
+            // Stats
+            const items = [
+                { k: "institutions", label: "Kurum", suf: "+" },
+                { k: "users", label: "Aktif Kullanıcı", suf: "+" },
+                { k: "years", label: "Yıllık Deneyim", suf: "" },
+                { k: "modules", label: "Modül", suf: "" },
+            ];
+            document.getElementById("stats-grid").innerHTML = items
+                .map(
+                    (s) => `
+        <div class="reveal border-t border-white/10 pt-6">
+          <div class="font-display text-5xl md:text-6xl text-glow-teal">${STATS[s.k]}${s.suf}</div>
+          <div class="mt-2 font-mono text-[11px] uppercase tracking-[0.28em] text-slate-500">${s.label}</div>
+        </div>`
+                )
+                .join("");
+
+            // Testimonials
+            document.getElementById("testimonials-grid").innerHTML = TESTIMONIALS.slice(0, 3)
+                .map(
+                    (t) => `
+        <div class="reveal card p-7 h-full flex flex-col">
+          <p class="font-display text-lg leading-snug text-white/90">"${t.quote}"</p>
+          <div class="mt-auto pt-6 flex items-center gap-3">
+            <img src="${t.avatar}" alt="${t.author}" class="w-10 h-10 rounded-full object-cover ring-1 ring-white/20" loading="lazy" />
+            <div>
+              <div class="text-sm">${t.author}</div>
+              <div class="text-xs text-slate-400">${t.role} · ${t.org}</div>
+            </div>
+          </div>
+        </div>`
+                )
+                .join("");
+        })();
+    </script>
+</body>
+
+</html>
