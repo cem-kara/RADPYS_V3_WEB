@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="RADPYS V3 fiyatları — Başlangıç ₺4.900, Kurumsal ₺12.500, Enterprise (özel teklif). 14 gün ücretsiz deneme." />
+    <title>Fiyatlandırma — RADPYS V3</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+        href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=manrope@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind.config.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+</head>
+
+<body>
+    <div id="site-nav"></div>
+
+    <main>
+        <section class="relative pt-40 pb-16 overflow-hidden">
+            <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px">
+            </div>
+            <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px">
+            </div>
+            <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
+            <div class="relative container-narrow text-center">
+                <span class="section-label" style="justify-content:center; display:inline-flex">Fiyatlandırma</span>
+                <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
+                    <span class="reveal-mask d1"><span>Basit fiyat.</span></span>
+                    <span class="reveal-mask d2"><span>Kurumsal güç.</span></span>
+                </h1>
+                <p class="reveal mt-8 max-w-2xl mx-auto text-slate-300 text-lg">Kurumunuzun boyutuna göre üç net
+                    seçenek. Gizli maliyet yok, sözleşme yükü yok.</p>
+            </div>
+        </section>
+
+        <!-- Tiers -->
+        <section class="relative py-16">
+            <div class="container-narrow grid md:grid-cols-3 gap-6" id="tiers"></div>
+        </section>
+
+        <!-- Matrix -->
+        <section class="relative py-24">
+            <div class="max-w-6xl mx-auto px-6 lg:px-10">
+                <span class="section-label">Detaylı Karşılaştırma</span>
+                <h2 class="reveal mt-6 font-display text-4xl md:text-5xl tracking-tight">Katmanlar yan yana.</h2>
+                <div class="reveal mt-12 rounded-2xl overflow-hidden border border-white/10 bg-white/[0.02]"
+                    id="matrix"></div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="relative py-24 border-t border-white/5">
+            <div class="max-w-3xl mx-auto px-6">
+                <span class="section-label">SSS</span>
+                <h2 class="reveal mt-6 font-display text-4xl md:text-5xl tracking-tight">Sık sorulan sorular.</h2>
+                <div class="faq mt-10" id="faq"></div>
+            </div>
+        </section>
+
+        <section class="relative py-28 text-center">
+            <div class="max-w-3xl mx-auto px-6">
+                <h2 class="font-display text-4xl md:text-5xl tracking-tight">Kurumunuza özel bir teklif hazırlayalım.
+                </h2>
+                <p class="mt-4 text-slate-300">30 dakika, hiçbir yükümlülük yok.</p>
+                <div class="mt-8"><a href="iletisim.html" class="btn btn-primary">Özel Teklif Al →</a></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="assets/js/layout.js"></script>
+    <script>
+        const TIERS = [
+            { id: "starter", name: "Başlangıç", price: "₺4.900", period: "aylık", desc: "Küçük görüntüleme merkezleri ve klinikler için.", features: ["25 çalışana kadar", "3 çekirdek modül", "Dozimetre + Nöbet + İzin", "E-posta destek", "AES-256 şifreleme"], cta: "Başla" },
+            { id: "corporate", name: "Kurumsal", price: "₺12.500", period: "aylık", desc: "Hastane ve orta ölçekli kurumlar için — en çok tercih edilen.", features: ["150 çalışana kadar", "Tüm 6 modül", "TAEK bildirim otomasyonu", "Öncelikli destek + Slack", "KVKK VERBIS asistanı", "Aylık rapor sunumu"], cta: "Talep Et", highlight: true },
+            { id: "enterprise", name: "Enterprise", price: "Teklif Al", period: "", desc: "Zincir hastaneler ve devlet grupları için özel dağıtım.", features: ["Sınırsız çalışan", "Özel entegrasyonlar (HBYS, SGK)", "Yerinde (on-prem) kurulum", "Adanmış müşteri başarı yöneticisi", "SLA garantisi", "Yıllık güvenlik denetimi"], cta: "İletişime Geç" },
+        ];
+
+        document.getElementById("tiers").innerHTML = TIERS.map(t => `
+      <div class="reveal relative h-full rounded-2xl border p-8 ${t.highlight ? "border-neon-teal/40" : "border-white/10 bg-white/[0.02]"}" style="${t.highlight ? "background:linear-gradient(180deg, rgba(20,184,166,0.08), transparent); box-shadow:0 0 60px -15px rgba(20,184,166,0.5)" : ""}">
+        ${t.highlight ? `<span class="absolute -top-3 left-6 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.22em] font-semibold" style="background:#14b8a6; color:#0a0f1e">En Popüler</span>` : ""}
+        <h3 class="font-display text-2xl">${t.name}</h3>
+        <p class="mt-2 text-sm text-slate-400" style="min-height:2.5rem">${t.desc}</p>
+        <div class="mt-6 flex items-end gap-1.5">
+          <span class="font-display text-5xl tracking-tight">${t.price}</span>
+          ${t.period ? `<span class="text-slate-400 mb-2">/ ${t.period}</span>` : ""}
+        </div>
+        <ul class="mt-8 space-y-3">
+          ${t.features.map(f => `<li class="flex gap-3 text-sm text-slate-300"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px; flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>${f}</li>`).join("")}
+        </ul>
+        <div class="mt-10"><a href="iletisim.html" class="btn ${t.highlight ? "btn-primary" : "btn-outline"}" style="width:100%; justify-content:center">${t.cta}</a></div>
+      </div>
+    `).join("");
+
+        const ROWS = [
+            ["Nöbet Planlaması", 1, 1, 1], ["Dozimetre Takibi", 1, 1, 1], ["İzin Yönetimi", 1, 1, 1],
+            ["Fiili Hizmet", 0, 1, 1], ["Sağlık Muayeneleri", 0, 1, 1], ["Olay Bildirimi", 0, 1, 1],
+            ["TAEK Bildirim Otomasyonu", 0, 1, 1], ["KVKK VERBIS Asistanı", 0, 1, 1],
+            ["HBYS Entegrasyonu", 0, 0, 1], ["Yerinde (on-prem) Kurulum", 0, 0, 1], ["7/24 Adanmış Destek", 0, 0, 1],
+        ];
+        const cell = (v) => v
+            ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
+            : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+        document.getElementById("matrix").innerHTML = `
+      <div class="grid grid-cols-4 px-6 py-4 border-b border-white/10 font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">
+        <div>Özellik</div><div class="text-center">Başlangıç</div><div class="text-center text-neon-cyan">Kurumsal</div><div class="text-center">Enterprise</div>
+      </div>
+      ${ROWS.map(([label, s, c, e], i) => `
+        <div class="grid grid-cols-4 px-6 py-4 items-center text-sm ${i % 2 === 0 ? "bg-white/[0.015]" : ""}">
+          <div class="text-slate-200">${label}</div>
+          <div class="grid place-items-center">${cell(s)}</div>
+          <div class="grid place-items-center" style="background:rgba(20,184,166,0.03)">${cell(c)}</div>
+          <div class="grid place-items-center">${cell(e)}</div>
+        </div>
+      `).join("")}
+    `;
+
+        const FAQ = [
+            { q: "Fiyatlar KDV dahil mi?", a: "Hayır, fiyatlar KDV hariç aylık bedellerdir. Yıllık ödemede %15 indirim uygulanır." },
+            { q: "Verilerimiz nerede saklanıyor?", a: "Türkiye'de yerli sunucular üzerinde AES-256 ile şifrelenerek saklanır. Enterprise planda kurum içi (on-prem) dağıtım da sunulur." },
+            { q: "Mevcut sistemimizden geçiş yapabilir miyiz?", a: "Evet. Excel, CSV, HBYS raporlarından toplu içe aktarma yapıyoruz. Geçiş desteği ilk 30 gün ücretsizdir." },
+            { q: "Kaç kullanıcıya kadar eklenebilir?", a: "Başlangıç 25, Kurumsal 150 çalışan kapsar. Sınır aşımında Enterprise'a geçilir." },
+            { q: "Deneme sürümü var mı?", a: "14 günlük ücretsiz deneme sunuyoruz. Kredi kartı gerekmez." },
+        ];
+        document.getElementById("faq").innerHTML = FAQ.map(f => `<details><summary>${f.q}</summary><p>${f.a}</p></details>`).join("");
+    </script>
+</body>
+
+</html>

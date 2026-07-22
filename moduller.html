@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi. Altı modül, sıfır elektronik tablo." />
+    <title>Modüller — RADPYS V3</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+        href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=manrope@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind.config.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+</head>
+
+<body>
+    <div id="site-nav"></div>
+
+    <main>
+        <section class="relative pt-40 pb-16 overflow-hidden">
+            <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px">
+            </div>
+            <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px">
+            </div>
+            <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
+            <div class="relative container-narrow">
+                <span class="section-label">Modüller</span>
+                <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
+                    <span class="reveal-mask d1"><span>Altı modül, sıfır</span></span>
+                    <span class="reveal-mask d2"><span>elektronik tablo.</span></span>
+                </h1>
+                <p class="reveal mt-8 max-w-2xl text-slate-300 text-lg">Her modül bağımsız çalışır — hepsi birlikte ise
+                    tek bir gerçek kaynak oluşturur.</p>
+            </div>
+        </section>
+
+        <section class="relative py-16 md:py-24">
+            <div class="container-narrow space-y-32" id="modules-list"></div>
+        </section>
+
+        <section class="relative py-24 text-center">
+            <a href="iletisim.html" class="btn btn-primary">Modülleri Canlı Görün — Demo Talep Et →</a>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/layout.js"></script>
+    <script>
+        const MODULE_DETAILS = [
+            {
+                n: "01", name: "Nöbet Planlaması", tag: "Adil, şeffaf, kısıt-bilinçli.",
+                img: "https://images.pexels.com/photos/6804068/pexels-photo-6804068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                features: ["Otomatik çizelge üretimi", "Kısıt tanımlama (izin, hamilelik, fiili hizmet)", "Şeffaf skorlama", "Değişim talebi iş akışı"],
+                benefit: "Ekipte adalet algısını yükseltir. Yönetici, 4 saatlik planlamayı 4 dakikaya indirir.",
+            },
+            {
+                n: "02", name: "Dozimetre Takibi", tag: "Her okumada içgörü.",
+                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBkYXRhJTIwZGFzaGJvYXJkJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc4NDcyMjY5N3ww&ixlib=rb-4.1.0&q=85",
+                features: ["Aylık/kümülatif doz analitiği", "Birim / rol bazlı karşılaştırma", "Eşik aşım anlık uyarı", "TAEK raporu tek tıkla"],
+                benefit: "Kağıt dozimetre çıktısı ile dolu klasörler tarih oldu. Denetime iki saatte hazır.",
+            },
+            {
+                n: "03", name: "İzin Yönetimi", tag: "Onay akışı, bakiye, netlik.",
+                img: "https://images.pexels.com/photos/27141316/pexels-photo-27141316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                features: ["Yıllık/mazeret/sağlık izinleri", "Hiyerarşik onay akışı", "Fiili hizmet ile senkron bakiye", "Takım takvimi görselleştirme"],
+                benefit: "'İzin çakışması' söylenti olmaktan çıkar. Ekibin nerede olduğu tek ekranda.",
+            },
+            {
+                n: "04", name: "Fiili Hizmet", tag: "Yıpranma payı — sıfır elle hesap.",
+                img: "https://images.pexels.com/photos/9404662/pexels-photo-9404662.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                features: ["Otomatik gün hesaplama", "Kurum/yıl bazlı geçmiş", "SGK uyumlu çıktı", "İzin & nöbet ile birleşik"],
+                benefit: "Emeklilik başvurusu evrakı için haftalarca uğraş yok. Rapor tek düğme.",
+            },
+            {
+                n: "05", name: "Sağlık Muayeneleri", tag: "Periyodikler kaçmaz.",
+                img: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB0ZWNoJTIwb2ZmaWNlJTIwdGVhbXxlbnwwfHx8fDE3ODQ3MjI2OTd8MA&ixlib=rb-4.1.0&q=85",
+                features: ["Muayene takvimi", "Otomatik hatırlatıcılar", "Sonuç arşivi (KVKK korumalı)", "Yıllık uyum panosu"],
+                benefit: "Denetimlerde 'sağlık muayenesi kayıp' bulgusu geçmişte kalır.",
+            },
+            {
+                n: "06", name: "Olay Bildirimi", tag: "TAEK'e sıfır kayıp.",
+                img: "https://images.unsplash.com/photo-1563089145-599997674d42?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG5lb24lMjBnbG93JTIwZGFya3xlbnwwfHx8fDE3ODQ3MjI2OTd8MA&ixlib=rb-4.1.0&q=85",
+                features: ["Olay tespit iş akışı", "Süre bazlı hatırlatma", "Delil zinciri (ek dosya, imza)", "TAEK bildirim şablonu"],
+                benefit: "Kaçırılan bildirim = ciddi ceza. RADPYS'te sıfır olay unutulmaz.",
+            },
+        ];
+
+        const list = document.getElementById("modules-list");
+        list.innerHTML = MODULE_DETAILS.map((m, i) => `
+      <div class="reveal grid lg:grid-cols-12 gap-10 lg:gap-16 items-center ${i % 2 === 1 ? "lg:[direction:rtl]" : ""}">
+        <div class="lg:col-span-7 relative" style="direction:ltr">
+          <div class="absolute -inset-6 pointer-events-none" style="background:radial-gradient(circle at 30% 20%, rgba(34,211,238,0.28), transparent 70%); filter:blur(30px)"></div>
+          <div class="relative rounded-2xl overflow-hidden border border-white/10 glass">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/5" style="background:rgba(0,0,0,0.3)">
+              <div class="flex gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-400/60"></span><span class="w-2 h-2 rounded-full bg-amber-400/60"></span><span class="w-2 h-2 rounded-full bg-emerald-400/60"></span></div>
+              <span class="font-mono text-[10px] tracking-[0.22em] text-slate-400 uppercase">radpys / ${m.name.toLowerCase()}</span>
+              <span class="text-neon-teal">▶</span>
+            </div>
+            <div class="relative bg-black/40" style="aspect-ratio:16/10">
+              <img src="${m.img}" alt="${m.name}" loading="lazy" style="width:100%; height:100%; object-fit:cover; opacity:0.7; mix-blend-mode:luminosity" />
+              <div class="absolute inset-0" style="background:linear-gradient(45deg, rgba(20,184,166,0.1), transparent, rgba(139,92,246,0.2))"></div>
+              <div class="absolute inset-0 grid place-items-center">
+                <div class="glass rounded-full p-4">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+                </div>
+              </div>
+              <span class="absolute left-4 bottom-4 font-mono text-[10px] uppercase tracking-[0.24em] text-slate-300/80">Video demo yakında</span>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-5" style="direction:ltr">
+          <div class="flex items-center gap-3">
+            <span class="chapter-number" style="font-size:3.75rem; line-height:1">${m.n}</span>
+          </div>
+          <h2 class="mt-5 font-display text-3xl md:text-4xl tracking-tight">${m.name}</h2>
+          <p class="mt-2 text-lg text-neon-cyan">${m.tag}</p>
+          <ul class="mt-6 space-y-2.5">
+            ${m.features.map(f => `<li class="flex gap-3 text-slate-300"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;flex-shrink:0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>${f}</span></li>`).join("")}
+          </ul>
+          <div class="mt-6 p-4 border-l-2 rounded-r-lg" style="border-color:rgba(20,184,166,0.6); background:rgba(20,184,166,0.05)">
+            <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-neon-teal block mb-1">Fayda</span>
+            <p class="text-sm text-slate-300 leading-relaxed">${m.benefit}</p>
+          </div>
+        </div>
+      </div>
+    `).join("");
+    </script>
+</body>
+
+</html>
