@@ -1,0 +1,7 @@
+{
+  "version": "3.5.5",
+  "latest_demo_version": "3.5.5",
+  "release_date": "2026-07-23",
+  "download_url": "https://cem-kara.github.io/RADPYS_V3_WEB/downloads/RADPYS_V3_Setup.exe",
+  "changelog": "Gösterge Paneli (Dashboard) modern grafik ve KPI kartları ile yenilendi. Dozimetre limit durumu gauge, nöbet doluluk heatmap takvimi ve olay/DÖF donut grafikleri eklendi."
+}
