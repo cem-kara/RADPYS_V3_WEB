@@ -32,7 +32,7 @@ const TESTIMONIALS = [
     },
     {
         quote:
-            "KVKK uyumu için ayrı süreç kurmak zorunda kalmadık. RADPYS ile yerleşik geldi. TAEK bildirimlerini artık kimse elle yapmıyor.",
+            "KVKK uyumu için ayrı süreç kurmak zorunda kalmadık. RADPYS ile yerleşik geldi. NDK bildirimlerini artık kimse elle yapmıyor.",
         author: "Uzm. S. Yılmaz",
         role: "Radyasyondan Sorumlu Uzman",
         org: "Beyaz Diş Hastaneleri",
@@ -51,7 +51,7 @@ const BLOG_POSTS = [
             "Kişisel Verilerin Korunması Kanunu (KVKK), sağlık verilerini özel nitelikli kişisel veri olarak sınıflandırır.",
             "RADPYS V3, tüm dozimetri ve sağlık muayenesi verilerini AES-256 ile şifreler ve rol bazlı erişim kontrolü sağlar.",
             "Temel prensipler: veri minimizasyonu, amaç sınırlaması, şeffaflık, güvenlik önlemleri.",
-            "Kurumunuzda VERBIS kaydı ve aydınlatma metinleri hazır mı? RADPYS altyapısı bunları otomatikleştirir.",
+            "Kurumunuzda aydınlatma metinleri ve güvenlik politikaları hazır mı? RADPYS altyapısı verilerin güvenli depolanmasını ve yönetimini kolaylaştırır.",
         ],
         category: "Mevzuat",
         cover:
@@ -60,13 +60,13 @@ const BLOG_POSTS = [
         readTime: 6,
     },
     {
-        slug: "taek-bildirimleri-otomasyon-neden-kritik",
-        title: "TAEK Bildirimleri: Otomasyon Neden Kritik?",
+        slug: "ndk-bildirimleri-otomasyon-neden-kritik",
+        title: "NDK Bildirimleri: Otomasyon Neden Kritik?",
         excerpt:
             "Radyasyon kaynaklı olay bildirimlerinin manuel takibi hataya açıktır. Doğru otomasyon nasıl kurulur?",
         content: [
-            "Türkiye Atom Enerjisi Kurumu bildirimleri süreye tabidir.",
-            "RADPYS olay bildirim modülü, olay tespitinden bildirim gönderimine kadar tüm süreci dijitalleştirir. Zaman damgalı loglar ve otomatik hatırlatıcılar ile sıfır kaçırılan bildirim garantisi.",
+            "Nükleer Düzenleme Kurumu (NDK) bildirimleri yasal süreye tabidir.",
+            "RADPYS olay bildirim modülü, 3 adımlı sihirbaz ile olay tespitinden DÖF takibine kadar tüm süreci dijitalleştirir. Zaman damgalı loglar ve OB-YYYY-XXXXX takip numaraları ile sıfır kaçırılan bildirim garantisi.",
         ],
         category: "Radyasyon Güvenliği",
         cover:
@@ -108,11 +108,11 @@ const BLOG_POSTS = [
 
 const MODULES = [
     { icon: "M13 3 6 12h5l-1 9 7-9h-5l1-9Z", name: "Nöbet Planlaması", desc: "Şeffaf algoritma ile adil, kısıt-bilinçli çizelgeler.", tag: "01" },
-    { icon: "M12 2v6M12 16v6M4 12h6M14 12h6M6.34 6.34l4.24 4.24M13.42 13.42l4.24 4.24M6.34 17.66l4.24-4.24M13.42 10.58l4.24-4.24", name: "Dozimetre Takibi", desc: "Kümülatif doz analitiği ve eşik aşım uyarıları.", tag: "02" },
-    { icon: "M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z", name: "İzin Yönetimi", desc: "Onay akışı, bakiye ve fiili hizmet entegrasyonu.", tag: "03" },
-    { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z", name: "Fiili Hizmet", desc: "Yıpranma payı otomasyonu, TAEK ile uyumlu kayıt.", tag: "04" },
-    { icon: "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z", name: "Sağlık Muayeneleri", desc: "Periyodik muayene planı, hatırlatma ve raporlama.", tag: "05" },
-    { icon: "M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z", name: "Olay Bildirimi", desc: "Anlık olay kaydı, TAEK bildirimi ve delil zinciri.", tag: "06" },
+    { icon: "M12 2v6M12 16v6M4 12h6M14 12h6M6.34 6.34l4.24 4.24M13.42 13.42l4.24 4.24M6.34 17.66l4.24-4.24M13.42 10.58l4.24-4.24", name: "Dozimetre Takibi", desc: "Kümülatif doz analitiği ve NDK eşik aşım uyarıları.", tag: "02" },
+    { icon: "M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z", name: "İzin Yönetimi", desc: "Onay akışı, Şua izni ve fiili hizmet entegrasyonu.", tag: "03" },
+    { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z", name: "Fiili Hizmet", desc: "Yıpranma payı otomasyonu, NDK ile uyumlu kayıt.", tag: "04" },
+    { icon: "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z", name: "Sağlık Muayeneleri", desc: "Periyodik/Şua muayene planı, branş takibi ve hatırlatma.", tag: "05" },
+    { icon: "M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z", name: "Olay Bildirimi", desc: "3 adımlı olay kaydı, NDK bildirimi ve DÖF takibi.", tag: "06" },
 ];
 
 window.RADPYS = { STATS, TESTIMONIALS, BLOG_POSTS, MODULES };
