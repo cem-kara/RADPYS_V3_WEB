@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="RADPYS V3 sürüm notları. Yeni özellikler, iyileştirmeler ve düzeltmeler kronolojik olarak." />
+    <title>Sürüm Notları — RADPYS V3</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+        href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=manrope@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind.config.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <style>
+        .changelog {
+            position: relative;
+        }
+
+        .changelog::before {
+            content: "";
+            position: absolute;
+            left: 0.55rem;
+            top: 0.5rem;
+            bottom: 0.5rem;
+            width: 1px;
+            background: linear-gradient(180deg,
+                    rgba(20, 184, 166, 0.55) 0%,
+                    rgba(34, 211, 238, 0.35) 40%,
+                    rgba(139, 92, 246, 0.3) 80%,
+                    transparent 100%);
+        }
+
+        .cl-item {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .cl-item::before {
+            content: "";
+            position: absolute;
+            left: 0.25rem;
+            top: 0.5rem;
+            width: 0.7rem;
+            height: 0.7rem;
+            border-radius: 9999px;
+            background: #14b8a6;
+            box-shadow: 0 0 16px rgba(20, 184, 166, 0.8);
+            border: 2px solid #0a0f1e;
+        }
+
+        .cl-item.latest::before {
+            animation: pulse-dot 2.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                box-shadow: 0 0 12px rgba(20, 184, 166, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 22px rgba(34, 211, 238, 0.9);
+                background: #22d3ee;
+            }
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.18rem 0.6rem;
+            border-radius: 9999px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid;
+        }
+
+        .tag-new {
+            color: #5eead4;
+            border-color: rgba(20, 184, 166, 0.4);
+            background: rgba(20, 184, 166, 0.08);
+        }
+
+        .tag-improved {
+            color: #67e8f9;
+            border-color: rgba(34, 211, 238, 0.4);
+            background: rgba(34, 211, 238, 0.08);
+        }
+
+        .tag-fixed {
+            color: #a78bfa;
+            border-color: rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.08);
+        }
+
+        .tag-breaking {
+            color: #fca5a5;
+            border-color: rgba(248, 113, 113, 0.4);
+            background: rgba(248, 113, 113, 0.08);
+        }
+
+        .change-list li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="site-nav"></div>
+
+    <main>
+        <!-- HERO -->
+        <section class="relative pt-40 pb-12 overflow-hidden">
+            <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px">
+            </div>
+            <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px">
+            </div>
+            <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
+            <div class="relative container-narrow">
+                <span class="section-label">Sürüm Notları</span>
+                <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
+                    <span class="reveal-mask d1"><span>Her sürüm bir</span></span>
+                    <span class="reveal-mask d2"><span>adım daha ileriye.</span></span>
+                </h1>
+                <p class="reveal mt-6 max-w-2xl text-slate-300 text-lg">
+                    RADPYS'in geçmiş sürümlerindeki yenilikler, iyileştirmeler ve düzeltmeler. Kronolojik.
+                </p>
+                <div class="reveal mt-8 flex flex-wrap gap-2">
+                    <span class="tag tag-new">Yeni</span>
+                    <span class="tag tag-improved">Geliştirme</span>
+                    <span class="tag tag-fixed">Düzeltme</span>
+                    <span class="tag tag-breaking">Kırıcı</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="relative py-16">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="changelog" id="cl-list"></div>
+
+                <div class="mt-10 rounded-2xl border border-white/10 p-8 text-center"
+                    style="background:linear-gradient(135deg, rgba(20,184,166,0.06), rgba(139,92,246,0.04))">
+                    <h3 class="font-display text-2xl">Yeni sürümlerden haberdar olmak ister misiniz?</h3>
+                    <p class="mt-3 text-slate-300">Ayda bir kez, sadece yeni sürüm çıktığında yazıyoruz.</p>
+                    <a href="iletisim.html" class="btn btn-primary mt-6">Bültenime Ekle →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="assets/js/layout.js"></script>
+    <script>
+        /* Changelog verisi — yeni sürüm eklemek için buraya bir obje ekleyin */
+        const RELEASES = [
+            {
+                version: "3.2.1",
+                date: "12 Aralık 2025",
+                title: "Nöbet motoru & KVKK asistanı",
+                changes: [
+                    { type: "new", text: "KVKK VERBIS Asistanı — kurumunuzun envanterini tek tıkla oluşturuyor" },
+                    { type: "new", text: "Nöbet motoruna 'değişim isteği' iş akışı eklendi" },
+                    { type: "improved", text: "Dozimetre içe aktarma %60 daha hızlı — 10.000 satır artık 3 saniyede" },
+                    { type: "fixed", text: "İzin bakiyesi bazı fiili hizmet çakışmalarında yanlış hesaplanıyordu" },
+                ],
+            },
+            {
+                version: "3.2.0",
+                date: "18 Kasım 2025",
+                title: "Yeni Kullanıcı Arayüzü",
+                changes: [
+                    { type: "new", text: "Karanlık tema varsayılan oldu — göze daha yumuşak" },
+                    { type: "new", text: "Komut paleti (Ctrl+K) ile 200+ eylemi klavyeden çalıştırın" },
+                    { type: "improved", text: "Ana panel yükleme süresi 1.8s → 0.6s" },
+                    { type: "improved", text: "Klavye kısayolları listesi belgelere eklendi" },
+                ],
+            },
+            {
+                version: "3.1.4",
+                date: "3 Kasım 2025",
+                title: "Yamalar & küçük iyileştirmeler",
+                changes: [
+                    { type: "fixed", text: "Bazı Windows kurulumlarında yedekleme klasörü izin hatası" },
+                    { type: "fixed", text: "Olay bildirimi PDF çıktısında Türkçe karakterler bozuluyordu" },
+                    { type: "improved", text: "Sağlık muayene hatırlatıcılarına haftalık özet e-postası eklendi" },
+                ],
+            },
+            {
+                version: "3.1.0",
+                date: "9 Ekim 2025",
+                title: "TAEK Bildirim Otomasyonu",
+                changes: [
+                    { type: "new", text: "Olay bildirimleri artık TAEK için doğrudan XML/PDF üretiyor" },
+                    { type: "new", text: "Delil zinciri için her bildirime SHA-256 hash imzası" },
+                    { type: "improved", text: "Fiili hizmet raporu SGK'nın son formatına uyarlandı" },
+                    { type: "breaking", text: "Eski TAEK raporu (v2.4) desteği kaldırıldı. Yeni format zorunlu." },
+                ],
+            },
+            {
+                version: "3.0.2",
+                date: "12 Eylül 2025",
+                title: "Stabilite",
+                changes: [
+                    { type: "fixed", text: "Çok kullanıcılı ortamda nadir yaşanan senkron hatası giderildi" },
+                    { type: "fixed", text: "'Ayarlar' sayfası yavaş açılıyordu — %75 hızlandırıldı" },
+                ],
+            },
+            {
+                version: "3.0.0",
+                date: "1 Eylül 2025",
+                title: "RADPYS V3 — Yeniden Doğuş",
+                changes: [
+                    { type: "new", text: "Sıfırdan yeniden yazılmış PySide6 tabanlı arayüz" },
+                    { type: "new", text: "6 modül: Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık, Olay Bildirimi" },
+                    { type: "new", text: "Local-first SQLite mimarisi + AES-256 şifreleme" },
+                    { type: "new", text: "Rol bazlı erişim (Yönetici, Bölüm Sorumlusu, Çalışan, Denetçi)" },
+                    { type: "breaking", text: "V2'den geçiş için tek yönlü migration script'i gerekiyor — dokümanlara bakın" },
+                ],
+            },
+        ];
+
+        const TYPE_LABEL = { new: "Yeni", improved: "Geliştirme", fixed: "Düzeltme", breaking: "Kırıcı" };
+
+        document.getElementById("cl-list").innerHTML = RELEASES.map((r, i) => `
+      <div class="cl-item ${i === 0 ? "latest" : ""} reveal">
+        <div class="flex flex-wrap items-baseline gap-3">
+          <span class="font-display text-3xl md:text-4xl tracking-tight">v${r.version}</span>
+          ${i === 0 ? `<span class="tag tag-new">Son sürüm</span>` : ""}
+          <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">${r.date}</span>
+        </div>
+        <div class="mt-1 font-display text-lg text-neon-cyan">${r.title}</div>
+        <ul class="change-list mt-5 space-y-2">
+          ${r.changes.map(c => `
+            <li class="flex gap-3">
+              <span class="tag tag-${c.type}" style="min-width:5.5rem; text-align:center; flex-shrink:0">${TYPE_LABEL[c.type]}</span>
+              <span class="text-slate-300 leading-relaxed">${c.text}</span>
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+    `).join("");
+    </script>
+</body>
+
+</html>

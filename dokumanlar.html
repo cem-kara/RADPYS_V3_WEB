@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="RADPYS V3 dokümantasyonu — kurulum, ilk adımlar, modül rehberleri ve sık sorulan sorular." />
+    <title>Dokümanlar — RADPYS V3</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+        href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=manrope@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind.config.js"></script>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <style>
+        /* Docs-specific */
+        .docs-side a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-left: 2px solid transparent;
+            color: #94a3b8;
+            font-size: 0.88rem;
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .docs-side a:hover {
+            color: #fff;
+            border-color: rgba(20, 184, 166, 0.4);
+        }
+
+        .docs-side a.is-active {
+            color: #fff;
+            border-color: #14b8a6;
+            background: rgba(20, 184, 166, 0.06);
+        }
+
+        .docs-side .group-label {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: #14b8a6;
+            padding: 0.5rem 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .prose-doc h2 {
+            font-family: "Clash Display", sans-serif;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            margin: 3rem 0 1rem;
+            scroll-margin-top: 6rem;
+        }
+
+        .prose-doc h3 {
+            font-family: "Clash Display", sans-serif;
+            font-size: 1.35rem;
+            margin: 2rem 0 0.75rem;
+            color: #f8fafc;
+            scroll-margin-top: 6rem;
+        }
+
+        .prose-doc p {
+            color: #cbd5e1;
+            line-height: 1.75;
+            margin: 0 0 1.1rem;
+        }
+
+        .prose-doc ul {
+            color: #cbd5e1;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.1rem;
+        }
+
+        .prose-doc li {
+            margin-bottom: 0.35rem;
+        }
+
+        .prose-doc code {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.85em;
+            background: rgba(20, 184, 166, 0.1);
+            color: #5eead4;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            border: 1px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .prose-doc pre {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            padding: 1.1rem 1.25rem;
+            overflow-x: auto;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.82rem;
+            line-height: 1.65;
+            color: #cbd5e1;
+            margin: 1.25rem 0;
+        }
+
+        .prose-doc pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .prose-doc blockquote {
+            border-left: 2px solid #14b8a6;
+            background: rgba(20, 184, 166, 0.06);
+            padding: 0.85rem 1.15rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1.25rem 0;
+            color: #e2e8f0;
+        }
+
+        .prose-doc blockquote p {
+            margin: 0;
+        }
+
+        .prose-doc a {
+            color: #67e8f9;
+            border-bottom: 1px dashed rgba(103, 232, 249, 0.4);
+        }
+
+        .prose-doc a:hover {
+            border-bottom-color: #67e8f9;
+        }
+
+        .kbd {
+            display: inline-block;
+            padding: 0.1rem 0.5rem;
+            border-radius: 0.35rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.78rem;
+            color: #f1f5f9;
+        }
+
+        @media (min-width: 1024px) {
+            .docs-side-wrap {
+                position: sticky;
+                top: 6rem;
+                align-self: start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="site-nav"></div>
+
+    <main>
+        <!-- HERO -->
+        <section class="relative pt-40 pb-12 overflow-hidden">
+            <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px">
+            </div>
+            <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px">
+            </div>
+            <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
+            <div class="relative container-narrow">
+                <span class="section-label">Dokümanlar</span>
+                <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
+                    <span class="reveal-mask d1"><span>Kurulumdan denetime</span></span>
+                    <span class="reveal-mask d2"><span>tek rehber.</span></span>
+                </h1>
+                <p class="reveal mt-6 max-w-2xl text-slate-300 text-lg">
+                    RADPYS V3'ü kurmak, ekibinizi eklemek, modülleri yapılandırmak ve KVKK/TAEK uyumluluğunu sağlamak
+                    için ihtiyacınız olan her şey.
+                </p>
+            </div>
+        </section>
+
+        <!-- DOCS BODY -->
+        <section class="relative py-8">
+            <div class="container-narrow grid lg:grid-cols-[240px,1fr] gap-10">
+                <!-- Sidebar -->
+                <aside class="docs-side-wrap">
+                    <nav class="docs-side" id="docs-nav">
+                        <span class="group-label">Başlarken</span>
+                        <a href="#kurulum">Kurulum</a>
+                        <a href="#ilk-adimlar">İlk Adımlar</a>
+                        <a href="#kullanici-ekleme">Kullanıcı Ekleme</a>
+
+                        <span class="group-label">Modüller</span>
+                        <a href="#nobet">Nöbet Planlaması</a>
+                        <a href="#dozimetre">Dozimetre</a>
+                        <a href="#izin">İzin Yönetimi</a>
+                        <a href="#fiili-hizmet">Fiili Hizmet</a>
+                        <a href="#saglik">Sağlık Muayeneleri</a>
+                        <a href="#olay">Olay Bildirimi</a>
+
+                        <span class="group-label">Yönetim</span>
+                        <a href="#yedekleme">Yedekleme & Geri Yükleme</a>
+                        <a href="#kvkk">KVKK Uyumluluğu</a>
+                        <a href="#taek">TAEK Bildirimleri</a>
+
+                        <span class="group-label">Kısayollar</span>
+                        <a href="#kisayollar">Klavye Kısayolları</a>
+                        <a href="#sss">Sık Sorulan Sorular</a>
+
+                        <span class="group-label">İlgili</span>
+                        <a href="changelog.html" style="color:#67e8f9">Sürüm Notları →</a>
+                        <a href="iletisim.html">Destek talep et →</a>
+                    </nav>
+                </aside>
+
+                <!-- Content -->
+                <article class="prose-doc" id="docs-content">
+                    <div
+                        class="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">
+                        <span>Sürüm 3.2.1</span><span>·</span><span>Son güncelleme: Aralık 2025</span>
+                    </div>
+
+                    <h2 id="kurulum">1. Kurulum</h2>
+                    <p>RADPYS V3, Windows 10/11 ve macOS 12+ üzerinde çalışır. Kurulum yaklaşık 5 dakika sürer.</p>
+                    <h3>Gereksinimler</h3>
+                    <ul>
+                        <li>Windows 10 (1809+) veya macOS 12+ / Ubuntu 22.04+</li>
+                        <li>4 GB RAM (önerilen 8 GB)</li>
+                        <li>500 MB boş disk alanı</li>
+                        <li>İnternet bağlantısı (yalnızca lisans doğrulama için)</li>
+                    </ul>
+                    <h3>Adımlar</h3>
+                    <ol style="color:#cbd5e1; padding-left:1.2rem; line-height:1.8">
+                        <li>İndirilen <code>RADPYS-Setup-3.2.1.exe</code> dosyasına çift tıklayın.</li>
+                        <li>Yönetici izni verin ve kurulum sihirbazını takip edin.</li>
+                        <li>İlk açılışta lisans anahtarınızı girin (e-posta ile iletilir).</li>
+                        <li>Kurum bilgilerinizi doldurun ve <span class="kbd">Kaydet</span> tuşuna basın.</li>
+                    </ol>
+                    <blockquote>
+                        <p><strong>İpucu:</strong> Enterprise plan kullanıyorsanız yerel MSI paketi ile toplu kurulum
+                            yapabilirsiniz. Detay için destek ekibiyle iletişime geçin.</p>
+                    </blockquote>
+
+                    <h2 id="ilk-adimlar">2. İlk Adımlar</h2>
+                    <p>Kurulumdan sonra üç şey yapmanız gerekir: kurumu tanımlayın, birimleri girin, kullanıcıları davet
+                        edin.</p>
+                    <h3>Kurumu Tanımlama</h3>
+                    <p>Sol menüden <code>Ayarlar → Kurum</code> yolunu takip edin. Vergi numaranız, VERBIS ID'niz ve ana
+                        ofis adresinizi girin. Bu bilgiler tüm resmi bildirimlerde kullanılır.</p>
+                    <h3>Birimler ve Departmanlar</h3>
+                    <p>Hiyerarşiyi olabildiğince ayrıntılı kurmak, sonraki raporları çok kolaylaştırır. Örnek:</p>
+                    <pre><code>Ana Ofis
+├── Radyoloji
+│   ├── MRI Bölümü
+│   ├── BT Bölümü
+│   └── Anjiyografi
+├── Nükleer Tıp
+└── Onkoloji</code></pre>
+
+                    <h2 id="kullanici-ekleme">3. Kullanıcı Ekleme</h2>
+                    <p><code>Kullanıcılar → Yeni</code> ekranından toplu ya da tekli davet yapabilirsiniz.</p>
+                    <h3>Rolleri Anlamak</h3>
+                    <ul>
+                        <li><strong>Yönetici</strong> — Tüm modülleri okuyabilir/yazabilir, kullanıcı yönetir.</li>
+                        <li><strong>Bölüm Sorumlusu</strong> — Kendi birim(ler)ini yönetir, rapor üretir.</li>
+                        <li><strong>Çalışan</strong> — Kendi verilerini görür, izin talep eder, dozimetre okur.</li>
+                        <li><strong>Denetçi</strong> — Salt okunur erişim, kayıtları imzalayabilir.</li>
+                    </ul>
+
+                    <h2 id="nobet">4. Nöbet Planlaması</h2>
+                    <p>Nöbet motorunu ilk kez çalıştırmadan önce üç veri seti gerekir:</p>
+                    <ol style="color:#cbd5e1; padding-left:1.2rem; line-height:1.8">
+                        <li>Çalışan listesi (rol, birim, tam zamanlı/kısmi zamanlı bilgisiyle)</li>
+                        <li>Kısıtlar (izin, hamilelik, fiili hizmet, ekipman kısıtı)</li>
+                        <li>Talepler (opsiyonel — çalışan tercihleri)</li>
+                    </ol>
+                    <h3>Otomatik Çizelge Oluşturma</h3>
+                    <p><code>Nöbet → Yeni Çizelge</code> ekranında ay ve birim seçin, <span class="kbd">Otomatik
+                            Üret</span> butonuna basın. Algoritma bir kısıt karnesi çıkarır — kırmızı ile işaretli
+                        çakışmalar varsa manuel düzeltmek zorunda kalırsınız.</p>
+                    <blockquote>
+                        <p><strong>Not:</strong> Şeffaflık için her karar bir "neden" satırıyla loglanır: <em>"K. Yılmaz
+                                seçildi çünkü son 30 günde en az nöbet aldı"</em>.</p>
+                    </blockquote>
+
+                    <h2 id="dozimetre">5. Dozimetre</h2>
+                    <p>Aylık okuma dosyanızı (CSV veya XLSX) <code>Dozimetre → İçe Aktar</code> ile yüklersiniz.
+                        Kolonlar otomatik eşleşir; eşleşmeyenler için elle harita çizersiniz. Bir defa yapılan bu eşleme
+                        sonraki yüklemelerde hatırlanır.</p>
+                    <h3>Eşik Uyarıları</h3>
+                    <p>Varsayılan eşikler ICRP 103 önerilerine göre ayarlıdır. Kurumunuza özel değerleri
+                        <code>Ayarlar → Radyasyon Eşikleri</code> altından değiştirebilirsiniz.</p>
+
+                    <h2 id="izin">6. İzin Yönetimi</h2>
+                    <p>Yıllık, mazeret, sağlık ve doğum izinleri desteklenir. Onay hiyerarşisi
+                        <code>Ayarlar → Onay Akışları</code> altından tanımlanır. Ortalama akış: <em>çalışan → bölüm
+                            sorumlusu → İK</em>.</p>
+
+                    <h2 id="fiili-hizmet">7. Fiili Hizmet</h2>
+                    <p>Yıpranma payı gün sayısı; iş yerinde geçen radyasyonlu gün + izinsiz geçen doğum izni + fiili
+                        hizmet sözleşmesindeki kalemler bir araya getirilerek her ay otomatik hesaplanır.</p>
+
+                    <h2 id="saglik">8. Sağlık Muayeneleri</h2>
+                    <p>Yıllık ve iki yıllık periyodikler otomatik olarak takvime düşer. Hatırlatıcılar 30, 14 ve 3 gün
+                        kala e-posta ile iletilir. Sonuçlar KVKK korumalı arşivde saklanır — yalnızca yetkili
+                        kullanıcılar erişebilir.</p>
+
+                    <h2 id="olay">9. Olay Bildirimi</h2>
+                    <p>Bir olay olduğunda <code>Olay → Yeni Bildirim</code> yolunu izleyin. Sistem, olay tipi
+                        seçildikten sonra TAEK için gereken form alanlarını otomatik açar. Bildirim gönderildiği anda
+                        zaman damgalı bir hash oluşturulur — delil zinciri için.</p>
+
+                    <h2 id="yedekleme">10. Yedekleme & Geri Yükleme</h2>
+                    <p>RADPYS otomatik olarak her gece <code>~/RadpysBackups/</code> dizinine yerel yedek alır.
+                        Enterprise planlarda bulut yedeği eklenebilir.</p>
+                    <h3>Geri Yükleme</h3>
+                    <p><code>Ayarlar → Yedekleme → Geri Yükle</code>. <strong>Uyarı:</strong> Geri yükleme mevcut
+                        veritabanını tamamen değiştirir. Önce mevcut veriyi ayrıca yedekleyin.</p>
+
+                    <h2 id="kvkk">11. KVKK Uyumluluğu</h2>
+                    <p>RADPYS V3, KVKK açısından ihtiyaç duyduğunuz iki temel çıktıyı üretir:</p>
+                    <ul>
+                        <li><strong>Aydınlatma Metni</strong> — Kurumunuza özel şablon, çalışan onboarding sırasında
+                            imzalatılır.</li>
+                        <li><strong>VERBIS Envanteri</strong> — Sistemin işlediği tüm veri kategorileri otomatik
+                            listelenir.</li>
+                    </ul>
+
+                    <h2 id="taek">12. TAEK Bildirimleri</h2>
+                    <p>Olay bildirimleri, periyodik sağlık raporları ve yıllık kolektif doz raporu TAEK formatında çıktı
+                        verir. Modüller → Olay → Rapor menüsünden PDF veya XML olarak indirebilirsiniz.</p>
+
+                    <h2 id="kisayollar">13. Klavye Kısayolları</h2>
+                    <ul>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">K</span> — Hızlı arama</li>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">N</span> — Yeni kayıt (aktif modüle göre)
+                        </li>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">D</span>
+                            — Dozimetre paneline atla</li>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">N</span>
+                            — Nöbet çizelgesine atla</li>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">,</span> — Ayarları aç</li>
+                        <li><span class="kbd">Esc</span> — Modal / diyalog kapat</li>
+                    </ul>
+
+                    <h2 id="sss">14. Sık Sorulan Sorular</h2>
+                    <div class="faq mt-4">
+                        <details>
+                            <summary>Verilerimi buluta yükler misiniz?</summary>
+                            <p>Hayır. Varsayılan kurulumda tüm veriler yerel makinede kalır. Enterprise plan opsiyonel
+                                bulut senkronu sunar — bu da Türkiye'deki KVKK uyumlu sunucularda saklanır.</p>
+                        </details>
+                        <details>
+                            <summary>Birden fazla kurum tek lisansta yönetilebilir mi?</summary>
+                            <p>Enterprise planında evet — çoklu kurum modu ile aynı arayüzden birden çok kurumu
+                                yönetebilirsiniz.</p>
+                        </details>
+                        <details>
+                            <summary>Şifremi unuttum, ne yapmalıyım?</summary>
+                            <p>Yönetici hesabıyla giriş yapan bir kullanıcı sizin şifrenizi sıfırlayabilir. Yönetici de
+                                yoksa <a href="iletisim.html">destek ekibimize</a> yazın.</p>
+                        </details>
+                        <details>
+                            <summary>Sistem hangi dilleri destekliyor?</summary>
+                            <p>Şu an yalnızca Türkçe. İngilizce arayüz 2026 Q2 için planlanmıştır.</p>
+                        </details>
+                    </div>
+
+                    <div class="mt-12 rounded-2xl border border-white/10 p-8"
+                        style="background:linear-gradient(135deg, rgba(20,184,166,0.08), rgba(139,92,246,0.05))">
+                        <h3 style="margin-top:0">Aradığınızı bulamadınız mı?</h3>
+                        <p>Ekibimiz size 1 iş günü içinde geri döner.</p>
+                        <a href="iletisim.html" class="btn btn-primary mt-4">Destek Talep Et →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="assets/js/layout.js"></script>
+    <script>
+        // Active section on scroll
+        (function () {
+            const links = Array.from(document.querySelectorAll("#docs-nav a[href^='#']"));
+            const targets = links
+                .map((a) => ({ a, el: document.querySelector(a.getAttribute("href")) }))
+                .filter((x) => x.el);
+
+            function onScroll() {
+                const y = window.scrollY + 120;
+                let active = targets[0];
+                for (const t of targets) {
+                    if (t.el.offsetTop <= y) active = t;
+                }
+                links.forEach((l) => l.classList.remove("is-active"));
+                if (active) active.a.classList.add("is-active");
+            }
+            window.addEventListener("scroll", onScroll, { passive: true });
+            onScroll();
+
+            // Smooth in-page scroll
+            links.forEach((a) => {
+                a.addEventListener("click", (e) => {
+                    const href = a.getAttribute("href");
+                    if (href && href.startsWith("#")) {
+                        const el = document.querySelector(href);
+                        if (el) {
+                            e.preventDefault();
+                            window.scrollTo({ top: el.offsetTop - 90, behavior: "smooth" });
+                            history.replaceState(null, "", href);
+                        }
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

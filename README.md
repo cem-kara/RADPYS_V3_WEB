@@ -11,6 +11,8 @@ static-site/
 ├── fiyatlandirma.html      → Fiyatlandırma + SSS
 ├── referanslar.html        → Referanslar
 ├── kaynaklar.html          → Blog listesi & detayı (?slug=... ile detay)
+├── dokumanlar.html         → Dokümantasyon (14 bölüm, sticky sidebar, aktif başlık)
+├── changelog.html          → Sürüm notları (timeline, etiketli değişiklikler)
 ├── hakkimizda.html         → Hakkımızda
 ├── iletisim.html           → Demo talep formu (mailto: ile çalışır)
 ├── .nojekyll               → GitHub Pages Jekyll dönüşümünü kapatır
@@ -55,6 +57,8 @@ Sonra tarayıcıda `http://localhost:8000` açın.
 - **Menü linki değiştirmek:** `assets/js/layout.js` dosyasının en üstündeki `NAV_LINKS` dizisi. Bir yerden değişince tüm sayfalarda değişir.
 - **Renkler:** `assets/css/tokens.css` — dosyanın başındaki `:root` değişkenleri.
 - **Fiyatlandırma tablosu / SSS:** `fiyatlandirma.html` dosyasının içindeki `TIERS`, `ROWS`, `FAQ` dizileri.
+- **Dokümantasyon:** `dokumanlar.html` dosyasında `<article class="prose-doc">` içindeki bölümler. Yeni bölüm eklemek için `<h2 id="...">` başlığı + sidebar'a `<a href="#...">` linki ekleyin — aktif başlık otomatik takip edilir.
+- **Yeni sürüm eklemek (changelog):** `changelog.html` içindeki `RELEASES` dizisinin en başına yeni obje ekleyin. `type` değerleri: `new`, `improved`, `fixed`, `breaking`. İlk sürüm otomatik "Son sürüm" etiketi alır.
 
 ## Demo Talep Formu
 

@@ -9,26 +9,26 @@
    ========================================================================== */
 
 (function () {
-    const NAV_LINKS = [
-        { href: "moduller.html", label: "Modüller" },
-        { href: "fiyatlandirma.html", label: "Fiyatlandırma" },
-        { href: "referans.html", label: "Referanslar" },
-        { href: "kaynaklar.html", label: "Kaynaklar" },
-        { href: "hakkinda.html", label: "Hakkımızda" },
-        { href: "iletisim.html", label: "İletişim" },
-    ];
+  const NAV_LINKS = [
+    { href: "moduller.html", label: "Modüller" },
+    { href: "fiyatlandirma.html", label: "Fiyatlandırma" },
+    { href: "referanslar.html", label: "Referanslar" },
+    { href: "dokumanlar.html", label: "Dokümanlar" },
+    { href: "kaynaklar.html", label: "Kaynaklar" },
+    { href: "hakkimizda.html", label: "Hakkımızda" },
+    { href: "iletisim.html", label: "İletişim" },
+  ];
 
-    const currentPath = location.pathname.split("/").pop() || "index.html";
+  const currentPath = location.pathname.split("/").pop() || "index.html";
 
-    function navMarkup() {
-        const links = NAV_LINKS.map(
-            (l) =>
-                `<a href="${l.href}" class="nav-link text-sm text-slate-300 hover:text-white transition-colors ${
-                    currentPath === l.href ? "active text-white" : ""
-                }">${l.label}</a>`
-        ).join("");
+  function navMarkup() {
+    const links = NAV_LINKS.map(
+      (l) =>
+        `<a href="${l.href}" class="nav-link text-sm text-slate-300 hover:text-white transition-colors ${currentPath === l.href ? "active text-white" : ""
+        }">${l.label}</a>`
+    ).join("");
 
-        return `
+    return `
         <nav id="topnav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
           <div class="container-narrow h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2 group">
@@ -60,10 +60,10 @@
           </div>
         </nav>
       `;
-    }
+  }
 
-    function footerMarkup() {
-        return `
+  function footerMarkup() {
+    return `
         <footer class="relative mt-24 border-t border-white/5" style="background:#070b16">
           <div class="container-narrow py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
             <div class="col-span-2">
@@ -83,13 +83,15 @@
               <ul class="mt-4 space-y-2 text-sm text-slate-300">
                 <li><a href="moduller.html" class="hover:text-white">Modüller</a></li>
                 <li><a href="fiyatlandirma.html" class="hover:text-white">Fiyatlandırma</a></li>
-                <li><a href="referans.html" class="hover:text-white">Referanslar</a></li>
+                <li><a href="referanslar.html" class="hover:text-white">Referanslar</a></li>
               </ul>
             </div>
             <div>
               <h4 class="text-xs uppercase tracking-[0.2em] text-neon-teal font-mono">Şirket</h4>
               <ul class="mt-4 space-y-2 text-sm text-slate-300">
-                <li><a href="hakkinda.html" class="hover:text-white">Hakkımızda</a></li>
+                <li><a href="hakkimizda.html" class="hover:text-white">Hakkımızda</a></li>
+                <li><a href="dokumanlar.html" class="hover:text-white">Dokümanlar</a></li>
+                <li><a href="changelog.html" class="hover:text-white">Sürüm Notları</a></li>
                 <li><a href="kaynaklar.html" class="hover:text-white">Kaynaklar</a></li>
                 <li><a href="iletisim.html" class="hover:text-white">İletişim</a></li>
               </ul>
@@ -98,83 +100,83 @@
           <div style="height:1px; width:100%; background:linear-gradient(90deg,transparent,rgba(20,184,166,0.4),transparent)"></div>
         </footer>
       `;
-    }
+  }
 
-    // Toast host + helper
-    function ensureToastHost() {
-        if (!document.getElementById("toast-host")) {
-            const h = document.createElement("div");
-            h.id = "toast-host";
-            document.body.appendChild(h);
-        }
+  // Toast host + helper
+  function ensureToastHost() {
+    if (!document.getElementById("toast-host")) {
+      const h = document.createElement("div");
+      h.id = "toast-host";
+      document.body.appendChild(h);
     }
-    window.showToast = function (msg, type = "success") {
-        ensureToastHost();
-        const el = document.createElement("div");
-        el.className = "toast " + type;
-        el.textContent = msg;
-        document.getElementById("toast-host").appendChild(el);
-        setTimeout(() => (el.style.opacity = "0"), 3200);
-        setTimeout(() => el.remove(), 3800);
+  }
+  window.showToast = function (msg, type = "success") {
+    ensureToastHost();
+    const el = document.createElement("div");
+    el.className = "toast " + type;
+    el.textContent = msg;
+    document.getElementById("toast-host").appendChild(el);
+    setTimeout(() => (el.style.opacity = "0"), 3200);
+    setTimeout(() => el.remove(), 3800);
+  };
+
+  // Boot
+  function boot() {
+    const navHost = document.getElementById("site-nav");
+    const footHost = document.getElementById("site-footer");
+    if (navHost) navHost.outerHTML = navMarkup();
+    if (footHost) footHost.outerHTML = footerMarkup();
+
+    // Scrolled state
+    const topnav = document.getElementById("topnav");
+    const applyScroll = () => {
+      if (!topnav) return;
+      if (window.scrollY > 12) {
+        topnav.style.background = "rgba(10,15,30,0.85)";
+        topnav.style.backdropFilter = "blur(18px)";
+        topnav.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
+      } else {
+        topnav.style.background = "transparent";
+        topnav.style.backdropFilter = "none";
+        topnav.style.borderBottom = "1px solid transparent";
+      }
     };
+    applyScroll();
+    window.addEventListener("scroll", applyScroll, { passive: true });
 
-    // Boot
-    function boot() {
-        const navHost = document.getElementById("site-nav");
-        const footHost = document.getElementById("site-footer");
-        if (navHost) navHost.outerHTML = navMarkup();
-        if (footHost) footHost.outerHTML = footerMarkup();
+    // Mobile menu toggle
+    const toggle = document.getElementById("mobile-toggle");
+    const menu = document.getElementById("mobile-menu");
+    if (toggle && menu) {
+      toggle.addEventListener("click", () => {
+        const isOpen = menu.style.maxHeight && menu.style.maxHeight !== "0px";
+        menu.style.maxHeight = isOpen ? "0px" : menu.scrollHeight + "px";
+      });
+    }
 
-        // Scrolled state
-        const topnav = document.getElementById("topnav");
-        const applyScroll = () => {
-            if (!topnav) return;
-            if (window.scrollY > 12) {
-                topnav.style.background = "rgba(10,15,30,0.85)";
-                topnav.style.backdropFilter = "blur(18px)";
-                topnav.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
-            } else {
-                topnav.style.background = "transparent";
-                topnav.style.backdropFilter = "none";
-                topnav.style.borderBottom = "1px solid transparent";
+    // Reveal on scroll
+    const els = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-visible");
+              io.unobserve(e.target);
             }
-        };
-        applyScroll();
-        window.addEventListener("scroll", applyScroll, { passive: true });
-
-        // Mobile menu toggle
-        const toggle = document.getElementById("mobile-toggle");
-        const menu = document.getElementById("mobile-menu");
-        if (toggle && menu) {
-            toggle.addEventListener("click", () => {
-                const isOpen = menu.style.maxHeight && menu.style.maxHeight !== "0px";
-                menu.style.maxHeight = isOpen ? "0px" : menu.scrollHeight + "px";
-            });
-        }
-
-        // Reveal on scroll
-        const els = document.querySelectorAll(".reveal");
-        if ("IntersectionObserver" in window) {
-            const io = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((e) => {
-                        if (e.isIntersecting) {
-                            e.target.classList.add("is-visible");
-                            io.unobserve(e.target);
-                        }
-                    });
-                },
-                { threshold: 0.12, rootMargin: "0px 0px -80px 0px" }
-            );
-            els.forEach((el) => io.observe(el));
-        } else {
-            els.forEach((el) => el.classList.add("is-visible"));
-        }
-    }
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", boot);
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -80px 0px" }
+      );
+      els.forEach((el) => io.observe(el));
     } else {
-        boot();
+      els.forEach((el) => el.classList.add("is-visible"));
     }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
 })();
