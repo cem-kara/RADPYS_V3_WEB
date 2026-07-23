@@ -12,9 +12,9 @@
     const NAV_LINKS = [
         { href: "moduller.html", label: "Modüller" },
         { href: "fiyatlandirma.html", label: "Fiyatlandırma" },
-        { href: "referanslar.html", label: "Referanslar" },
+        { href: "referans.html", label: "Referanslar" },
         { href: "kaynaklar.html", label: "Kaynaklar" },
-        { href: "hakkimizda.html", label: "Hakkımızda" },
+        { href: "hakkinda.html", label: "Hakkımızda" },
         { href: "iletisim.html", label: "İletişim" },
     ];
 
@@ -83,13 +83,13 @@
               <ul class="mt-4 space-y-2 text-sm text-slate-300">
                 <li><a href="moduller.html" class="hover:text-white">Modüller</a></li>
                 <li><a href="fiyatlandirma.html" class="hover:text-white">Fiyatlandırma</a></li>
-                <li><a href="referanslar.html" class="hover:text-white">Referanslar</a></li>
+                <li><a href="referans.html" class="hover:text-white">Referanslar</a></li>
               </ul>
             </div>
             <div>
               <h4 class="text-xs uppercase tracking-[0.2em] text-neon-teal font-mono">Şirket</h4>
               <ul class="mt-4 space-y-2 text-sm text-slate-300">
-                <li><a href="hakkimizda.html" class="hover:text-white">Hakkımızda</a></li>
+                <li><a href="hakkinda.html" class="hover:text-white">Hakkımızda</a></li>
                 <li><a href="kaynaklar.html" class="hover:text-white">Kaynaklar</a></li>
                 <li><a href="iletisim.html" class="hover:text-white">İletişim</a></li>
               </ul>
