@@ -2,96 +2,94 @@
 <html lang="tr">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-        content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi. Altı modül, sıfır elektronik tablo." />
-    <title>Modüller — RADPYS V3</title>
-    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-    <link
-        href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=manrope@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap"
-        rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="assets/js/tailwind.config.js"></script>
-    <link rel="stylesheet" href="assets/css/tokens.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi. Altı modül, sıfır elektronik tablo." />
+  <title>Modüller — RADPYS V3</title>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link
+    href="https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=manrope@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tailwind.config.js"></script>
+  <link rel="stylesheet" href="assets/css/tokens.css" />
 </head>
 
 <body>
-    <div id="site-nav"></div>
+  <div id="site-nav"></div>
 
-    <main>
-        <section class="relative pt-40 pb-16 overflow-hidden">
-            <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px">
-            </div>
-            <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px">
-            </div>
-            <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
-            <div class="relative container-narrow">
-                <span class="section-label">Modüller</span>
-                <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
-                    <span class="reveal-mask d1"><span>Altı modül, sıfır</span></span>
-                    <span class="reveal-mask d2"><span>elektronik tablo.</span></span>
-                </h1>
-                <p class="reveal mt-8 max-w-2xl text-slate-300 text-lg">Her modül bağımsız çalışır — hepsi birlikte ise
-                    tek bir gerçek kaynak oluşturur.</p>
-            </div>
-        </section>
+  <main>
+    <section class="relative pt-40 pb-16 overflow-hidden">
+      <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px"></div>
+      <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px"></div>
+      <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
+      <div class="relative container-narrow">
+        <span class="section-label">Modüller</span>
+        <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
+          <span class="reveal-mask d1"><span>Altı modül, sıfır</span></span>
+          <span class="reveal-mask d2"><span>elektronik tablo.</span></span>
+        </h1>
+        <p class="reveal mt-8 max-w-2xl text-slate-300 text-lg">Her modül bağımsız çalışır — hepsi birlikte ise tek bir
+          gerçek kaynak oluşturur.</p>
+      </div>
+    </section>
 
-        <section class="relative py-16 md:py-24">
-            <div class="container-narrow space-y-32" id="modules-list"></div>
-        </section>
+    <section class="relative py-16 md:py-24">
+      <div class="container-narrow space-y-32" id="modules-list"></div>
+    </section>
 
-        <section class="relative py-24 text-center">
-            <a href="iletisim.html" class="btn btn-primary">Modülleri Canlı Görün — Demo Talep Et →</a>
-        </section>
-    </main>
+    <section class="relative py-24 text-center">
+      <a href="iletisim.html" class="btn btn-primary">Modülleri Canlı Görün — Demo Talep Et →</a>
+    </section>
+  </main>
 
-    <div id="site-footer"></div>
+  <div id="site-footer"></div>
 
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/layout.js"></script>
-    <script>
-        const MODULE_DETAILS = [
-            {
-                n: "01", name: "Nöbet Planlaması", tag: "Adil, şeffaf, kısıt-bilinçli.",
-                img: "https://images.pexels.com/photos/6804068/pexels-photo-6804068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-                features: ["Otomatik çizelge algoritması", "Kısıt yönetimi (dinlenme saati, gebelik, mazeret)", "Devir ve değişim onay akışı", "Taslak yedekleme ve geri yükleme"],
-                benefit: "Ekipte adalet algısını yükseltir. Yönetici, saatler süren planlamayı dakikalar içinde tamamlar.",
-            },
-            {
-                n: "02", name: "Dozimetre Takibi", tag: "Her okumada içgörü.",
-                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBkYXRhJTIwZGFzaGJvYXJkJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc4NDcyMjY5N3ww&ixlib=rb-4.1.0&q=85",
-                features: ["Aylık/kümülatif doz analitiği", "Derin & yüzeysel doz ölçümleri", "NDK yasal sınır ve eşik uyarıları", "Dış firmadan Excel içe aktarım"],
-                benefit: "Kağıt dozimetre çıktısı ile dolu klasörler tarih oldu. Denetime dakikalar içinde hazır.",
-            },
-            {
-                n: "03", name: "İzin Yönetimi", tag: "Onay akışı, Şua izni, netlik.",
-                img: "https://images.pexels.com/photos/27141316/pexels-photo-27141316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-                features: ["Yıllık, mazeret ve Şua izinleri", "Toplu hesaplama ve devir aktarımı", "Evrensel onay sistemi entegrasyonu", "Fiili hizmet ile senkron bakiye"],
-                benefit: "'İzin çakışması' ve Şua izni hesaplama hataları son bulur. Ekibin durumu tek ekranda.",
-            },
-            {
-                n: "04", name: "Fiili Hizmet", tag: "Yıpranma payı — sıfır elle hesap.",
-                img: "https://images.pexels.com/photos/9404662/pexels-photo-9404662.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-                features: ["Riskli birim çalışma süreleri", "Yıpranma payı (FHZ) otomasyonu", "NDK uyumlu kayıt ve kurum bildirim çıktısı", "Toplu onaylama ve taslak uyarısı"],
-                benefit: "Fiili hizmet süresini ve Şua izin gün sayısını hesaplar. Rapor tek düğme.",
-            },
-            {
-                n: "05", name: "Sağlık Muayeneleri", tag: "Periyodikler ve Şua muayeneleri.",
-                img: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB0ZWNoJTIwb2ZmaWNlJTIwdGVhbXxlbnwwfHx8fDE3ODQ3MjI2OTd8MA&ixlib=rb-4.1.0&q=85",
-                features: ["İşe Giriş, Periyodik, Şua muayeneleri", "Göz, Dahiliye, Dermatoloji branş takibi", "Gelecek muayene tarihi oto-hesabı", "Klinik not koruması & KVKK arşiv"],
-                benefit: "Denetimlerde 'sağlık muayenesi eksik' bulgusu tamamen ortadan kalkar.",
-            },
-            {
-                n: "06", name: "Olay Bildirimi", tag: "NDK'ya sıfır kayıp.",
-                img: "https://images.unsplash.com/photo-1563089145-599997674d42?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG5lb24lMjBnbG93JTIwZGFya3xlbnwwfHx8fDE3ODQ3MjI2OTd8MA&ixlib=rb-4.1.0&q=85",
-                features: ["3 adımlı bildirim sihirbazı", "OB-YYYY-XXXXX otomatik takip kodu", "DÖF (Düzeltici Önleyici Faaliyet) yönetimi", "NDK bildirim şablonu & audit log"],
-                benefit: "Kaçırılan bildirim ve DÖF takipsizliği riski sıfırlanır. Tüm olaylar kayıt altında.",
-            },
-        ];
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script>
+    const MODULE_DETAILS = [
+      {
+        n: "01", name: "Nöbet Planlaması", tag: "Adil, şeffaf, kısıt-bilinçli.",
+        img: "https://images.pexels.com/photos/6804068/pexels-photo-6804068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        features: ["Otomatik çizelge üretimi", "Kısıt tanımlama (izin, hamilelik, fiili hizmet)", "Şeffaf skorlama", "Değişim talebi iş akışı"],
+        benefit: "Ekipte adalet algısını yükseltir. Yönetici, 4 saatlik planlamayı 4 dakikaya indirir.",
+      },
+      {
+        n: "02", name: "Dozimetre Takibi", tag: "Her okumada içgörü.",
+        img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBkYXRhJTIwZGFzaGJvYXJkJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc4NDcyMjY5N3ww&ixlib=rb-4.1.0&q=85",
+        features: ["Aylık/kümülatif doz analitiği", "Birim / rol bazlı karşılaştırma", "Eşik aşım anlık uyarı", "TAEK raporu tek tıkla"],
+        benefit: "Kağıt dozimetre çıktısı ile dolu klasörler tarih oldu. Denetime iki saatte hazır.",
+      },
+      {
+        n: "03", name: "İzin Yönetimi", tag: "Onay akışı, bakiye, netlik.",
+        img: "https://images.pexels.com/photos/27141316/pexels-photo-27141316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        features: ["Yıllık/mazeret/sağlık izinleri", "Hiyerarşik onay akışı", "Fiili hizmet ile senkron bakiye", "Takım takvimi görselleştirme"],
+        benefit: "'İzin çakışması' söylenti olmaktan çıkar. Ekibin nerede olduğu tek ekranda.",
+      },
+      {
+        n: "04", name: "Fiili Hizmet", tag: "Yıpranma payı — sıfır elle hesap.",
+        img: "https://images.pexels.com/photos/9404662/pexels-photo-9404662.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        features: ["Otomatik gün hesaplama", "Kurum/yıl bazlı geçmiş", "SGK uyumlu çıktı", "İzin & nöbet ile birleşik"],
+        benefit: "Emeklilik başvurusu evrakı için haftalarca uğraş yok. Rapor tek düğme.",
+      },
+      {
+        n: "05", name: "Sağlık Muayeneleri", tag: "Periyodikler kaçmaz.",
+        img: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB0ZWNoJTIwb2ZmaWNlJTIwdGVhbXxlbnwwfHx8fDE3ODQ3MjI2OTd8MA&ixlib=rb-4.1.0&q=85",
+        features: ["Muayene takvimi", "Otomatik hatırlatıcılar", "Sonuç arşivi (KVKK korumalı)", "Yıllık uyum panosu"],
+        benefit: "Denetimlerde 'sağlık muayenesi kayıp' bulgusu geçmişte kalır.",
+      },
+      {
+        n: "06", name: "Olay Bildirimi", tag: "TAEK'e sıfır kayıp.",
+        img: "https://images.unsplash.com/photo-1563089145-599997674d42?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG5lb24lMjBnbG93JTIwZGFya3xlbnwwfHx8fDE3ODQ3MjI2OTd8MA&ixlib=rb-4.1.0&q=85",
+        features: ["Olay tespit iş akışı", "Süre bazlı hatırlatma", "Delil zinciri (ek dosya, imza)", "TAEK bildirim şablonu"],
+        benefit: "Kaçırılan bildirim = ciddi ceza. RADPYS'te sıfır olay unutulmaz.",
+      },
+    ];
 
-        const list = document.getElementById("modules-list");
-        list.innerHTML = MODULE_DETAILS.map((m, i) => `
+    const list = document.getElementById("modules-list");
+    list.innerHTML = MODULE_DETAILS.map((m, i) => `
       <div class="reveal grid lg:grid-cols-12 gap-10 lg:gap-16 items-center ${i % 2 === 1 ? "lg:[direction:rtl]" : ""}">
         <div class="lg:col-span-7 relative" style="direction:ltr">
           <div class="absolute -inset-6 pointer-events-none" style="background:radial-gradient(circle at 30% 20%, rgba(34,211,238,0.28), transparent 70%); filter:blur(30px)"></div>
@@ -129,7 +127,7 @@
         </div>
       </div>
     `).join("");
-    </script>
+  </script>
 </body>
 
 </html>

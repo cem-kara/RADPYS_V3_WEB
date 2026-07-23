@@ -77,8 +77,8 @@
     <script>
         const TIERS = [
             { id: "starter", name: "Başlangıç", price: "₺4.900", period: "aylık", desc: "Küçük görüntüleme merkezleri ve klinikler için.", features: ["25 çalışana kadar", "3 çekirdek modül", "Dozimetre + Nöbet + İzin", "E-posta destek", "AES-256 şifreleme"], cta: "Başla" },
-            { id: "corporate", name: "Kurumsal", price: "₺12.500", period: "aylık", desc: "Hastane ve orta ölçekli kurumlar için — en çok tercih edilen.", features: ["150 çalışana kadar", "Tüm 6 modül", "Öncelikli destek + Slack", "Aylık rapor sunumu"], cta: "Talep Et", highlight: true },
-            { id: "enterprise", name: "Enterprise", price: "Teklif Al", period: "", desc: "Zincir hastaneler ve devlet grupları için özel dağıtım.", features: ["Sınırsız çalışan", "Özel entegrasyonlar (SGK)", "Adanmış müşteri başarı yöneticisi", "SLA garantisi", "Yıllık güvenlik denetimi"], cta: "İletişime Geç" },
+            { id: "corporate", name: "Kurumsal", price: "₺12.500", period: "aylık", desc: "Hastane ve orta ölçekli kurumlar için — en çok tercih edilen.", features: ["150 çalışana kadar", "Tüm 6 modül", "TAEK bildirim otomasyonu", "Öncelikli destek + Slack", "KVKK VERBIS asistanı", "Aylık rapor sunumu"], cta: "Talep Et", highlight: true },
+            { id: "enterprise", name: "Enterprise", price: "Teklif Al", period: "", desc: "Zincir hastaneler ve devlet grupları için özel dağıtım.", features: ["Sınırsız çalışan", "Özel entegrasyonlar (HBYS, SGK)", "Yerinde (on-prem) kurulum", "Adanmış müşteri başarı yöneticisi", "SLA garantisi", "Yıllık güvenlik denetimi"], cta: "İletişime Geç" },
         ];
 
         document.getElementById("tiers").innerHTML = TIERS.map(t => `
@@ -100,7 +100,8 @@
         const ROWS = [
             ["Nöbet Planlaması", 1, 1, 1], ["Dozimetre Takibi", 1, 1, 1], ["İzin Yönetimi", 1, 1, 1],
             ["Fiili Hizmet", 0, 1, 1], ["Sağlık Muayeneleri", 0, 1, 1], ["Olay Bildirimi", 0, 1, 1],
-            ["7/24 Adanmış Destek", 0, 0, 1],
+            ["TAEK Bildirim Otomasyonu", 0, 1, 1], ["KVKK VERBIS Asistanı", 0, 1, 1],
+            ["HBYS Entegrasyonu", 0, 0, 1], ["Yerinde (on-prem) Kurulum", 0, 0, 1], ["7/24 Adanmış Destek", 0, 0, 1],
         ];
         const cell = (v) => v
             ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
@@ -121,8 +122,8 @@
 
         const FAQ = [
             { q: "Fiyatlar KDV dahil mi?", a: "Hayır, fiyatlar KDV hariç aylık bedellerdir. Yıllık ödemede %15 indirim uygulanır." },
-            { q: "Verilerimiz nerede saklanıyor?", a: "Verileriniz tamamen yerel olarak kendi bilgisayarınızda veya kendi kurum içi sunucularınızda AES-256 ile şifrelenerek saklanır. Dışarıdaki hiçbir bulut sunucusuna gönderilmez." },
-            { q: "Mevcut sistemimizden geçiş yapabilir miyiz?", a: "Evet. Excel ve CSV raporlarından toplu içe aktarma yapıyoruz. Geçiş desteği ilk 30 gün ücretsizdir." },
+            { q: "Verilerimiz nerede saklanıyor?", a: "Türkiye'de yerli sunucular üzerinde AES-256 ile şifrelenerek saklanır. Enterprise planda kurum içi (on-prem) dağıtım da sunulur." },
+            { q: "Mevcut sistemimizden geçiş yapabilir miyiz?", a: "Evet. Excel, CSV, HBYS raporlarından toplu içe aktarma yapıyoruz. Geçiş desteği ilk 30 gün ücretsizdir." },
             { q: "Kaç kullanıcıya kadar eklenebilir?", a: "Başlangıç 25, Kurumsal 150 çalışan kapsar. Sınır aşımında Enterprise'a geçilir." },
             { q: "Deneme sürümü var mı?", a: "14 günlük ücretsiz deneme sunuyoruz. Kredi kartı gerekmez." },
         ];

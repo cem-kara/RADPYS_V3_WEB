@@ -27,12 +27,14 @@ static-site/
 ## GitHub Pages'e Nasıl Yüklerim?
 
 ### Yöntem 1: Ayrı Repo (Önerilen)
+
 1. GitHub'da yeni bir repo oluşturun (ör. `radpys-web`)
 2. Bu `static-site/` klasörünün **içeriğini** repo'nun köküne kopyalayın (yani `index.html` repo kökünde olmalı)
 3. Repo → **Settings → Pages → Source: `main` branch, root**
 4. Birkaç dakika içinde `https://<kullanici>.github.io/<repo-adi>/` adresinde yayında olur
 
 ### Yöntem 2: Mevcut Repo İçinde
+
 1. `static-site/` klasörünü olduğu gibi push edin
 2. Settings → Pages → Source: `main`, folder: `/static-site`
 3. Yayında olur
