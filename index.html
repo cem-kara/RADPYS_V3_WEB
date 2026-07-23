@@ -278,7 +278,7 @@
             document.getElementById("stats-grid").innerHTML = items
                 .map(
                     (s) => `
-        <div class="reveal border-t border-white/10 pt-6">
+        <div class="reveal is-visible border-t border-white/10 pt-6">
           <div class="font-display text-5xl md:text-6xl text-glow-teal">${STATS[s.k]}${s.suf}</div>
           <div class="mt-2 font-mono text-[11px] uppercase tracking-[0.28em] text-slate-500">${s.label}</div>
         </div>`
@@ -289,7 +289,7 @@
             document.getElementById("testimonials-grid").innerHTML = TESTIMONIALS.slice(0, 3)
                 .map(
                     (t) => `
-        <div class="reveal card p-7 h-full flex flex-col">
+        <div class="reveal is-visible card p-7 h-full flex flex-col">
           <p class="font-display text-lg leading-snug text-white/90">"${t.quote}"</p>
           <div class="mt-auto pt-6 flex items-center gap-3">
             <img src="${t.avatar}" alt="${t.author}" class="w-10 h-10 rounded-full object-cover ring-1 ring-white/20" loading="lazy" />
