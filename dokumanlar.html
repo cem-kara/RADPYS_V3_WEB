@@ -170,7 +170,7 @@
                     <span class="reveal-mask d2"><span>tek rehber.</span></span>
                 </h1>
                 <p class="reveal mt-6 max-w-2xl text-slate-300 text-lg">
-                    RADPYS V3'ü kurmak, ekibinizi eklemek, modülleri yapılandırmak ve KVKK/TAEK uyumluluğunu sağlamak
+                    RADPYS V3'ü kurmak, ekibinizi eklemek, modülleri yapılandırmak ve KVKK/NDK uyumluluğunu sağlamak
                     için ihtiyacınız olan her şey.
                 </p>
             </div>
@@ -183,7 +183,7 @@
                 <aside class="docs-side-wrap">
                     <nav class="docs-side" id="docs-nav">
                         <span class="group-label">Başlarken</span>
-                        <a href="#kurulum">Kurulum</a>
+                        <a href="#kurulum">Kurulum & Giriş</a>
                         <a href="#ilk-adimlar">İlk Adımlar</a>
                         <a href="#kullanici-ekleme">Kullanıcı Ekleme</a>
 
@@ -198,7 +198,9 @@
                         <span class="group-label">Yönetim</span>
                         <a href="#yedekleme">Yedekleme & Geri Yükleme</a>
                         <a href="#kvkk">KVKK Uyumluluğu</a>
-                        <a href="#taek">TAEK Bildirimleri</a>
+                        <a href="#ndk-bildirimleri">NDK Bildirimleri</a>
+                        <a href="#onay-sistemi">Evrensel Onay Sistemi</a>
+                        <a href="#bildirim-sistemi">Merkezi Bildirim Sistemi</a>
 
                         <span class="group-label">Kısayollar</span>
                         <a href="#kisayollar">Klavye Kısayolları</a>
@@ -217,149 +219,201 @@
                         <span>Sürüm 3.2.1</span><span>·</span><span>Son güncelleme: Aralık 2025</span>
                     </div>
 
-                    <h2 id="kurulum">1. Kurulum</h2>
-                    <p>RADPYS V3, Windows 10/11 ve macOS 12+ üzerinde çalışır. Kurulum yaklaşık 5 dakika sürer.</p>
+                    <h2 id="kurulum">1. Kurulum & Giriş</h2>
+                    <p>RADPYS V3; Windows 10 (Sürüm 1809 ve üzeri) ve Windo ws 11 (64-bit) işletim sistemlerini
+                        destekleyen, tüm verileri yerel veritabanında saklayan (local-first) bir masaüstü uygulamasıdır.
+                        İnternet bağlantısı sadece lisans doğrulama aşamasında gereklidir.</p>
                     <h3>Gereksinimler</h3>
                     <ul>
-                        <li>Windows 10 (1809+) veya macOS 12+ / Ubuntu 22.04+</li>
-                        <li>4 GB RAM (önerilen 8 GB)</li>
-                        <li>500 MB boş disk alanı</li>
-                        <li>İnternet bağlantısı (yalnızca lisans doğrulama için)</li>
+                        <li>Windows 10 (Sürüm 1809 ve üzeri) veya Windows 11 (64-bit)</li>
+                        <li>4 GB RAM (8 GB önerilen)</li>
+                        <li>En az 500 MB boş disk alanı</li>
                     </ul>
-                    <h3>Adımlar</h3>
+                    <h3>Kurulum Adımları</h3>
                     <ol style="color:#cbd5e1; padding-left:1.2rem; line-height:1.8">
-                        <li>İndirilen <code>RADPYS-Setup-3.2.1.exe</code> dosyasına çift tıklayın.</li>
+                        <li>İndirilen <code>RADPYS-Setup.exe</code> dosyasına çift tıklayın.</li>
                         <li>Yönetici izni verin ve kurulum sihirbazını takip edin.</li>
-                        <li>İlk açılışta lisans anahtarınızı girin (e-posta ile iletilir).</li>
+                        <li>İlk açılışta lisans anahtarınızı girin.</li>
                         <li>Kurum bilgilerinizi doldurun ve <span class="kbd">Kaydet</span> tuşuna basın.</li>
                     </ol>
                     <blockquote>
-                        <p><strong>İpucu:</strong> Enterprise plan kullanıyorsanız yerel MSI paketi ile toplu kurulum
-                            yapabilirsiniz. Detay için destek ekibiyle iletişime geçin.</p>
+                        <p><strong>İpucu:</strong> Gerekmesi durumunda yerel MSI paketi ile toplu kurulum
+                            yapabilirsiniz. Destek ekibimizle iletişime geçin.</p>
+                    </blockquote>
+                    <h3>İlk Giriş ve Oturum Yönetimi</h3>
+                    <p>Uygulamayı açtığınızda geçici şifrenizle oturum açmanız istenir. İlk girişte şifre kurallarına
+                        uygun yeni bir şifre belirlenmesi zorunludur. Güvenlik gerekçesiyle 5 kez hatalı şifre
+                        girildiğinde hesap geçici olarak kilitlenir. "Beni Hatırla" seçeneğiyle sonraki girişlerinizi
+                        hızlandırabilirsiniz.</p>
+                    <blockquote>
+                        <p><strong>Gösterge Paneli (Dashboard):</strong> Oturum açtığınızda sizi karşılayan Genel Bakış,
+                            Nöbet Analizi (aylık nöbet doluluk takvimi ve bekleyen devirler), Dozimetre Analizi
+                            (maksimum doz seviyesi), Olay & DÖF Analizi ve Eğitim Analiz panelleriyle tüm kurumu tek
+                            ekranda izleyebilirsiniz.</p>
                     </blockquote>
 
-                    <h2 id="ilk-adimlar">2. İlk Adımlar</h2>
-                    <p>Kurulumdan sonra üç şey yapmanız gerekir: kurumu tanımlayın, birimleri girin, kullanıcıları davet
-                        edin.</p>
-                    <h3>Kurumu Tanımlama</h3>
-                    <p>Sol menüden <code>Ayarlar → Kurum</code> yolunu takip edin. Vergi numaranız, VERBIS ID'niz ve ana
-                        ofis adresinizi girin. Bu bilgiler tüm resmi bildirimlerde kullanılır.</p>
-                    <h3>Birimler ve Departmanlar</h3>
-                    <p>Hiyerarşiyi olabildiğince ayrıntılı kurmak, sonraki raporları çok kolaylaştırır. Örnek:</p>
-                    <pre><code>Ana Ofis
-├── Radyoloji
-│   ├── MRI Bölümü
-│   ├── BT Bölümü
-│   └── Anjiyografi
-├── Nükleer Tıp
-└── Onkoloji</code></pre>
+                    <h2 id="ilk-adimlar">2. İlk Adımlar (Kurum Ayarları)</h2>
+                    <p>Kurulum sonrasında yapılması gereken öncelikli adımlar:</p>
+                    <h3>Kurum ve Birim Yapılandırması</h3>
+                    <p>Sol menüden <code>Ayarlar → Kurum</code> sayfasına giderek vergi numarası ve kurum
+                        adresinizi girin. Bu bilgiler resmi NDK ve KVKK bildirim formlarında otomatik olarak
+                        kullanılacaktır. Hiyerarşiyi (MRI, BT, Departmanlar) olabildiğince detaylı tanımlamanız
+                        raporlama kalitesi için çok önemlidir.</p>
 
-                    <h2 id="kullanici-ekleme">3. Kullanıcı Ekleme</h2>
-                    <p><code>Kullanıcılar → Yeni</code> ekranından toplu ya da tekli davet yapabilirsiniz.</p>
-                    <h3>Rolleri Anlamak</h3>
+                    <h2 id="kullanici-ekleme">3. Kullanıcı Ekleme & Rol Yetki Yönetimi</h2>
+                    <p>Yöneticiler <code>Kullanıcılar → Yeni Ekle</code> ekranından personelle ilişkili hesaplar
+                        oluşturabilir. Personelin işten ayrılış işlemi yapıldığında bağlı kullanıcı hesabı da otomatik
+                        olarak pasif duruma çekilir.</p>
+                    <h3>Rol Kapsamı (Görüş Sınırı)</h3>
+                    <p>Rollere üç farklı kapsam atanabilir: <strong>Sadece Kendisi</strong> (yalnızca kendi kayıtlarını
+                        görür), <strong>Kendi Departmanı</strong> (kendi birimindeki personellerin verilerini görür)
+                        veya <strong>Tümü</strong> (tüm kurumu görür).</p>
+                    <h3>Rol Yetkileri Karşılaştırma Ekranı</h3>
+                    <p>Gelişmiş Rol Yetki panelinde Okuma, Yazma, Güncelleme, Silme ve Özel Buton yetkileri (Nöbet devir
+                        talebi, plan onaylama vb.) matris üzerinden yönetilir. <code>Karşılaştır</code> butonuyla iki
+                        farklı rolün yetki ve kapsamları kırmızı-yeşil karşılaştırma matrisinde taslak halinde analiz
+                        edilebilir.</p>
+
+                    <h2 id="nobet">4. Nöbet Planlaması & Ayarları</h2>
+                    <p>Nöbet algoritması; aylık maksimum nöbet sınırı, dinlenme süreleri, kıdem yaş/yıl muafiyet
+                        eşikleri, gebelik/emzirme kısıtları ve personel isteklerini değerlendirerek dengeli çizelgeler
+                        üretir.</p>
+                    <h3>Plan Onay ve Devir Kuralları</h3>
                     <ul>
-                        <li><strong>Yönetici</strong> — Tüm modülleri okuyabilir/yazabilir, kullanıcı yönetir.</li>
-                        <li><strong>Bölüm Sorumlusu</strong> — Kendi birim(ler)ini yönetir, rapor üretir.</li>
-                        <li><strong>Çalışan</strong> — Kendi verilerini görür, izin talep eder, dozimetre okur.</li>
-                        <li><strong>Denetçi</strong> — Salt okunur erişim, kayıtları imzalayabilir.</li>
+                        <li><strong>Plan Onayı:</strong> Taslak planlar onaylanıp yayına alındıktan sonra salt okunur
+                            kalır. Yayındaki planı taslağa çekme yetkisi sadece yetkilendirilmiş rollere özeldir. Onay
+                            sırasında açıklama notu girilmesi zorunlu kılınabilir.</li>
+                        <li><strong>Nöbet Devir Talebi:</strong> Personeller nöbetlerini devrederken gerekçe belirtmek
+                            zorundadır. Devredilen bir nöbet kaydı üzerinde tekrar bir devir talebi oluşturulamaz.
+                            Yönetici onayladığında çizelge otomatik güncellenir.</li>
                     </ul>
 
-                    <h2 id="nobet">4. Nöbet Planlaması</h2>
-                    <p>Nöbet motorunu ilk kez çalıştırmadan önce üç veri seti gerekir:</p>
-                    <ol style="color:#cbd5e1; padding-left:1.2rem; line-height:1.8">
-                        <li>Çalışan listesi (rol, birim, tam zamanlı/kısmi zamanlı bilgisiyle)</li>
-                        <li>Kısıtlar (izin, hamilelik, fiili hizmet, ekipman kısıtı)</li>
-                        <li>Talepler (opsiyonel — çalışan tercihleri)</li>
-                    </ol>
-                    <h3>Otomatik Çizelge Oluşturma</h3>
-                    <p><code>Nöbet → Yeni Çizelge</code> ekranında ay ve birim seçin, <span class="kbd">Otomatik
-                            Üret</span> butonuna basın. Algoritma bir kısıt karnesi çıkarır — kırmızı ile işaretli
-                        çakışmalar varsa manuel düzeltmek zorunda kalırsınız.</p>
-                    <blockquote>
-                        <p><strong>Not:</strong> Şeffaflık için her karar bir "neden" satırıyla loglanır: <em>"K. Yılmaz
-                                seçildi çünkü son 30 günde en az nöbet aldı"</em>.</p>
-                    </blockquote>
+                    <h2 id="dozimetre">5. Dozimetre Ölçümleri</h2>
+                    <p>Radyasyona maruz kalan personellerin aylık derin ve yüzeysel doz ölçümleri Dozimetre Listesi
+                        ekranından takip edilir. Ölçüm firmalarından gelen Excel/CSV sonuçları "İçe Aktar" sihirbazıyla
+                        hızlıca toplu olarak yüklenebilir. Eşik değer aşımlarında sistem yöneticilere erken uyarı paneli
+                        gösterir.</p>
 
-                    <h2 id="dozimetre">5. Dozimetre</h2>
-                    <p>Aylık okuma dosyanızı (CSV veya XLSX) <code>Dozimetre → İçe Aktar</code> ile yüklersiniz.
-                        Kolonlar otomatik eşleşir; eşleşmeyenler için elle harita çizersiniz. Bir defa yapılan bu eşleme
-                        sonraki yüklemelerde hatırlanır.</p>
-                    <h3>Eşik Uyarıları</h3>
-                    <p>Varsayılan eşikler ICRP 103 önerilerine göre ayarlıdır. Kurumunuza özel değerleri
-                        <code>Ayarlar → Radyasyon Eşikleri</code> altından değiştirebilirsiniz.</p>
+                    <h2 id="izin">6. İzin Yönetimi & Şua İzinleri</h2>
+                    <p>Yıllık, mazeret, sağlık ve Şua izinleri hiyerarşik onay akışıyla yönetilir. İzinlerin
+                        silinebilmesi için mutlaka "Beklemede" durumunda olmaları gerekir. İzin Hakediş ekranından kıdem
+                        yılına göre otomatik hakediş hesaplama (Toplu Hesaplama) ve bakiye aktarımı (Devir) işlemleri
+                        yönetilir.</p>
 
-                    <h2 id="izin">6. İzin Yönetimi</h2>
-                    <p>Yıllık, mazeret, sağlık ve doğum izinleri desteklenir. Onay hiyerarşisi
-                        <code>Ayarlar → Onay Akışları</code> altından tanımlanır. Ortalama akış: <em>çalışan → bölüm
-                            sorumlusu → İK</em>.</p>
-
-                    <h2 id="fiili-hizmet">7. Fiili Hizmet</h2>
-                    <p>Yıpranma payı gün sayısı; iş yerinde geçen radyasyonlu gün + izinsiz geçen doğum izni + fiili
-                        hizmet sözleşmesindeki kalemler bir araya getirilerek her ay otomatik hesaplanır.</p>
+                    <h2 id="fiili-hizmet">7. Fiili Hizmet Süresi (FHZ)</h2>
+                    <p>Riskli çalışma günleri ve yıpranma payları her ay otomatik hesaplanarak yasal SGK formatına
+                        dönüştürülür.</p>
+                    <h3>Görev Dağılım Paneli Kolaylıkları</h3>
+                    <ul>
+                        <li><strong>Dönem Navigasyonu:</strong> Aylar arasında tek tıkla geçiş yapabilir, tüm sekmeleri
+                            otomatik senkronize edebilirsiniz.</li>
+                        <li><strong>Sadece Değişenleri Göster Filtresi:</strong> Manuel müdahale edilmiş (turuncu
+                            renkli) personelleri filtreler.</li>
+                        <li><strong>Proaktif Taslak Uyarısı:</strong> Onay bekleyen taslak kayıtlar olduğunda sayfa
+                            üstünde sarı renkli uyarı bandı açılır ve tek tıkla <strong>Toplu Onayla</strong> yapmanıza
+                            izin verir. 500 satır aşımında performans uyarısı gösterilir.</li>
+                    </ul>
 
                     <h2 id="saglik">8. Sağlık Muayeneleri</h2>
-                    <p>Yıllık ve iki yıllık periyodikler otomatik olarak takvime düşer. Hatırlatıcılar 30, 14 ve 3 gün
-                        kala e-posta ile iletilir. Sonuçlar KVKK korumalı arşivde saklanır — yalnızca yetkili
-                        kullanıcılar erişebilir.</p>
-
-                    <h2 id="olay">9. Olay Bildirimi</h2>
-                    <p>Bir olay olduğunda <code>Olay → Yeni Bildirim</code> yolunu izleyin. Sistem, olay tipi
-                        seçildikten sonra TAEK için gereken form alanlarını otomatik açar. Bildirim gönderildiği anda
-                        zaman damgalı bir hash oluşturulur — delil zinciri için.</p>
-
-                    <h2 id="yedekleme">10. Yedekleme & Geri Yükleme</h2>
-                    <p>RADPYS otomatik olarak her gece <code>~/RadpysBackups/</code> dizinine yerel yedek alır.
-                        Enterprise planlarda bulut yedeği eklenebilir.</p>
-                    <h3>Geri Yükleme</h3>
-                    <p><code>Ayarlar → Yedekleme → Geri Yükle</code>. <strong>Uyarı:</strong> Geri yükleme mevcut
-                        veritabanını tamamen değiştirir. Önce mevcut veriyi ayrıca yedekleyin.</p>
-
-                    <h2 id="kvkk">11. KVKK Uyumluluğu</h2>
-                    <p>RADPYS V3, KVKK açısından ihtiyaç duyduğunuz iki temel çıktıyı üretir:</p>
+                    <p>İşe Giriş, Periyodik, Radyasyon ve Şua muayene kayıtları yasal arşivi oluşturur.</p>
+                    <h3>Veri Emniyeti & Tarih Hesaplama</h3>
                     <ul>
-                        <li><strong>Aydınlatma Metni</strong> — Kurumunuza özel şablon, çalışan onboarding sırasında
-                            imzalatılır.</li>
-                        <li><strong>VERBIS Envanteri</strong> — Sistemin işlediği tüm veri kategorileri otomatik
-                            listelenir.</li>
+                        <li><strong>Not Koruması & Branş Kolaylığı:</strong> Kayıtlı klinik notlar kilitlidir. Göz branş
+                            sonucu seçildiğinde, boş olan Dahiliye ve Dermatoloji branşları otomatik doldurulur. Kayıt
+                            için en az bir branş sonucu doldurulmalıdır. Belgeler varsayılan işletim sistemi
+                            (Windows/macOS/Linux) uygulamalarıyla açılır.</li>
+                        <li><strong>Gelecek Muayene Tarihi:</strong> Girilen tarihe ve tipe göre randevu takvimi
+                            otomatik hesaplanır (Şua muayenesi için 6 ay, Periyodik/Radyasyon için 12 ay).</li>
                     </ul>
 
-                    <h2 id="taek">12. TAEK Bildirimleri</h2>
-                    <p>Olay bildirimleri, periyodik sağlık raporları ve yıllık kolektif doz raporu TAEK formatında çıktı
-                        verir. Modüller → Olay → Rapor menüsünden PDF veya XML olarak indirebilirsiniz.</p>
+                    <h2 id="olay">9. Olay Bildirimi & DÖF Yönetimi</h2>
+                    <p>Bir olay yaşandığında çalışanlar 3 aşamalı sihirbazla (Temel Bilgiler, Kategori Sınıflandırması,
+                        Açıklamalar) hızlıca bildirim yapabilirler. Kimliğini gizlemek isteyenler "Anonim" seçeneğini
+                        kullanabilir. Bildirim sonrasında <code>OB-YYYY-XXXXX</code> benzersiz takip numarası üretilir.
+                    </p>
+                    <h3>Yönetici Paneli ve DÖF Faaliyetleri</h3>
+                    <p>Yöneticiler olay durumunu değiştirebilir, sorumlu atayabilir ve olay kapatılırken zorunlu kapanış
+                        notu girerler. Olay detay kartından Düzeltici Önleyici Faaliyetler (DÖF) başlatılarak aksiyon
+                        hedef tarihi ve sorumlusu takip edilir.</p>
 
-                    <h2 id="kisayollar">13. Klavye Kısayolları</h2>
+                    <h2 id="yedekleme">10. Yedekleme & Geri Yükleme</h2>
+                    <p>RADPYS her gece otomatik olarak <code>~/RadpysBackups/</code> dizinine yerel veritabanı yedeği
+                        alır. Geri yükleme mevcut verilerin üzerine yazdığı için işlem öncesi güncel yedek alınması
+                        mecburidir. Ayrıca ek bir ücretle satın alınabilen **Opsiyonel Bulut Yedekleme** hizmetiyle
+                        verileriniz Türkiye'deki KVKK uyumlu sunucularda senkronize edilebilir.</p>
+
+                    <h2 id="kvkk">11. KVKK Uyumluluğu</h2>
+                    <p>Sağlık verileri özel nitelikli kişisel veri olduğundan AES-256 ile şifreli depolanır. Sistem
+                        üzerinden personele imzalatılacak aydınlatma metinleri ve KVKK envanter dökümleri otomatik
+                        üretilir. Tüm kullanıcı erişimleri denetim günlüklerinde (audit log) saklanır.</p>
+
+                    <h2 id="ndk-bildirimleri">12. NDK Bildirimleri</h2>
+                    <p>Olay bildirimleri, periyodik sağlık raporları ve yıllık kolektif doz raporları, yasal olarak
+                        NDK'ya sunulmak üzere standart PDF veya XML formatında dışa aktarılabilir. Dışa aktarma
+                        sihirbazı, şablonlardaki sütunların sırası değişse bile veriyi doğru başlık altına yazan
+                        <strong>Akıllı Konum Eşleme</strong> teknolojisini kullanır.
+                    </p>
+
+                    <h2 id="onay-sistemi">13. Evrensel Onay Sistemi</h2>
+                    <p>Yetkisi kısıtlı veya onay gerektiren rollerdeki kullanıcıların yaptığı ekleme, düzenleme ve silme
+                        işlemleri doğrudan veritabanına yazılmaz, onay kuyruğuna alınır. Yöneticiler bekleyen talepleri
+                        merkezi panelden onaylar.</p>
+                    <h3>Özellikler</h3>
                     <ul>
-                        <li><span class="kbd">Ctrl</span> + <span class="kbd">K</span> — Hızlı arama</li>
-                        <li><span class="kbd">Ctrl</span> + <span class="kbd">N</span> — Yeni kayıt (aktif modüle göre)
-                        </li>
+                        <li><strong>Kategoriler:</strong> İzinler, Nöbet Devirleri, Nöbet İstekleri, Nöbet Planları ve
+                            Veri Değişiklikleri (Personel, Muayene, Eğitim, Kalite).</li>
+                        <li><strong>Karşılaştırma Matrisi:</strong> Talepler incelenirken eski değer (kırmızı) ve teklif
+                            edilen yeni değer (yeşil) yan yana Türkçe etiketlerle listelenir.</li>
+                        <li><strong>Kuyruk İstisnası:</strong> Yasal bütünlük gereği Dozimetre ve Fiili Hizmet
+                            modüllerinde onay kuyruğu kullanılmaz; yetkili roller doğrudan veri yazabilir.</li>
+                    </ul>
+
+                    <h2 id="bildirim-sistemi">14. Merkezi Bildirim & Durum Çubuğu</h2>
+                    <p>Ekranın sağ alt köşesinde canlı Türkçe saat ve bildirim zil simgesi bulunur. Zil simgesine
+                        tıklandığında yukarı kayan Bildirim Çekmecesi açılır. Okunmamış bildirimler türe özel renkli
+                        ikonlarla listelenir. Bildirime tıklandığında çekmece kapanır ve kullanıcıyı doğrudan ilgili
+                        aksiyona (örn. nöbet devri onay penceresi) yönlendirir.</p>
+
+                    <h2 id="kisayollar">15. Klavye Kısayolları</h2>
+                    <ul>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">K</span> — Hızlı komut paleti arama</li>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">N</span> — Yeni kayıt oluştur</li>
                         <li><span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">D</span>
                             — Dozimetre paneline atla</li>
                         <li><span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">N</span>
                             — Nöbet çizelgesine atla</li>
-                        <li><span class="kbd">Ctrl</span> + <span class="kbd">,</span> — Ayarları aç</li>
+                        <li><span class="kbd">Ctrl</span> + <span class="kbd">,</span> — Program ayarlarını aç</li>
                         <li><span class="kbd">Esc</span> — Modal / diyalog kapat</li>
                     </ul>
 
-                    <h2 id="sss">14. Sık Sorulan Sorular</h2>
+                    <h2 id="sss">16. Sık Sorulan Sorular & Lisans</h2>
                     <div class="faq mt-4">
                         <details>
-                            <summary>Verilerimi buluta yükler misiniz?</summary>
-                            <p>Hayır. Varsayılan kurulumda tüm veriler yerel makinede kalır. Enterprise plan opsiyonel
-                                bulut senkronu sunar — bu da Türkiye'deki KVKK uyumlu sunucularda saklanır.</p>
+                            <summary>Demo sürüm kısıtlamaları nelerdir?</summary>
+                            <p>Demo modunda uygulama 30 gün deneme süresiyle, en fazla 15 aktif personel ve 3 nöbet
+                                planıyla sınırlandırılmıştır. Excel içe aktarımında da bu limitler denetlenir. Kritik
+                                yama güncellemeleri demo modunda da otomatik olarak sunulmaya devam eder.</p>
                         </details>
                         <details>
-                            <summary>Birden fazla kurum tek lisansta yönetilebilir mi?</summary>
-                            <p>Enterprise planında evet — çoklu kurum modu ile aynı arayüzden birden çok kurumu
-                                yönetebilirsiniz.</p>
+                            <summary>Uygulamayı nasıl aktifleştiririm?</summary>
+                            <p>Hakkında penceresindeki <strong>Lisans ve Aktivasyon</strong> alanından bilgisayarınıza
+                                özel <strong>Cihaz Kimliğini</strong> kopyalayıp yazılım sağlayıcısına (Cem Kara)
+                                iletin. Size üretilen Lisans Anahtarını aynı ekrana girerek programı Tam Sürüm olarak
+                                kullanabilirsiniz.</p>
                         </details>
                         <details>
-                            <summary>Şifremi unuttum, ne yapmalıyım?</summary>
-                            <p>Yönetici hesabıyla giriş yapan bir kullanıcı sizin şifrenizi sıfırlayabilir. Yönetici de
-                                yoksa <a href="iletisim.html">destek ekibimize</a> yazın.</p>
+                            <summary>Teknik hata durumlarında destek nasıl alınır?</summary>
+                            <p>Beklenmedik program çöküşlerinde özel hata penceresi açılır. Hakkında sayfasından
+                                <strong>Destek Paketi (Log) Oluştur</strong> butonuyla KVKK uyumlu teknik kayıt
+                                loglarını zip formatında masaüstünüze çıkarıp <code>radpys.iletisim@gmail.com</code>
+                                adresine gönderebilirsiniz.
+                            </p>
                         </details>
                         <details>
-                            <summary>Sistem hangi dilleri destekliyor?</summary>
-                            <p>Şu an yalnızca Türkçe. İngilizce arayüz 2026 Q2 için planlanmıştır.</p>
+                            <summary>Verilerim bulutta mı saklanıyor?</summary>
+                            <p>Varsayılan kurulumda tüm verileriniz tamamen yerel olarak kendi bilgisayarınızda veya
+                                kendi yerel sunucunuzda şifreli olarak saklanır. Dışarıye veri gönderilmez. Opsiyonel
+                                bulut yedekleme hizmetini satın alarak ek güvence sağlayabilirsiniz.</p>
                         </details>
                     </div>
 
