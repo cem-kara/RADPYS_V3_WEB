@@ -100,13 +100,14 @@
                 name: "Başlangıç Paketi",
                 capacity: "Maks. 5 Personel",
                 desc: "Küçük klinik ve görüntüleme merkezleri için ideal başlangıç çözümü.",
+                shopierUrl: "https://www.shopier.com/RADPYS/49366089",
                 features: [
                     "Maks. 5 Personel Kapasitesi",
                     "Tüm 6 Modül Eksiksiz Dahil (SKS 6.1 Uyumlu)",
                     "AES-256 Yerel Veritabanı Şifreleme",
                     "E-posta ve Standart Uzak Masaüstü Desteği"
                 ],
-                cta: "Başla",
+                cta: "Satın Al",
                 highlight: false,
                 prices: {
                     1: { total: "1.500 ₺", monthly: "1.500 ₺", note: null },
@@ -120,13 +121,14 @@
                 name: "Standart Paket",
                 capacity: "Maks. 15 Personel",
                 desc: "Orta ölçekli sağlık ve görüntüleme merkezleri için en çok tercih edilen paket.",
+                shopierUrl: "https://www.shopier.com/RADPYS/49366028",
                 features: [
                     "Maks. 15 Personel Kapasitesi",
                     "Tüm 6 Modül Eksiksiz Dahil (SKS 6.1 Uyumlu)",
                     "AES-256 Yerel Veritabanı Şifreleme",
                     "Öncelikli Uzak Masaüstü ve Telefon Desteği"
                 ],
-                cta: "Hemen Başla",
+                cta: "Hemen Satın Al",
                 highlight: true,
                 prices: {
                     1: { total: "3.500 ₺", monthly: "3.500 ₺", note: null },
@@ -140,13 +142,14 @@
                 name: "Pro Paket",
                 capacity: "Sınırsız Personel",
                 desc: "Büyük hastaneler ve geniş radyoloji departmanları için tam kapsamlı kurumsal çözüm.",
+                shopierUrl: "https://www.shopier.com/RADPYS/49366367",
                 features: [
                     "Sınırsız Personel Kapasitesi",
                     "Tüm 6 Modül Eksiksiz Dahil (SKS 6.1 Uyumlu)",
                     "AES-256 Yerel Veritabanı Şifreleme",
                     "7/24 VIP Uzak Masaüstü ve Özel Kurulum Desteği"
                 ],
-                cta: "Başla",
+                cta: "Satın Al",
                 highlight: false,
                 prices: {
                     1: { total: "7.000 ₺", monthly: "7.000 ₺", note: null },
@@ -195,7 +198,7 @@
             ${t.features.map(f => `<li class="flex gap-3 text-sm text-slate-300"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px; flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>${f}</li>`).join("")}
           </ul>
         </div>
-        <div class="mt-10"><a href="iletisim.html" class="btn ${t.highlight ? "btn-primary" : "btn-outline"}" style="width:100%; justify-content:center">${t.cta}</a></div>
+        <div class="mt-10"><a href="${t.shopierUrl}" target="_blank" rel="noopener noreferrer" class="btn ${t.highlight ? "btn-primary" : "btn-outline"}" style="width:100%; justify-content:center">${t.cta}</a></div>
       </div>
     `;
             }).join("");
