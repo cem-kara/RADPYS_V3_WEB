@@ -31,14 +31,9 @@
     return `
         <nav id="topnav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
           <div class="container-narrow h-16 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-2 group">
-              <div class="relative w-8 h-8">
-                <div class="absolute inset-0 rounded-md" style="background:linear-gradient(135deg,#5eead4,#67e8f9,#a78bfa)"></div>
-                <div class="absolute inset-[3px] rounded-[4px] grid place-items-center" style="background:#0a0f1e">
-                  <span class="font-display text-[11px] font-bold">R3</span>
-                </div>
-              </div>
-              <span class="font-display text-lg">RADPYS<span class="text-neon-teal">.</span></span>
+            <a href="index.html" class="flex items-center gap-2.5 group">
+              <img src="images/logo.PNG" alt="RADPYS Logo" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" />
+              <span class="font-display text-lg font-bold tracking-wide">RADPYS<span class="text-neon-teal">.</span></span>
             </a>
 
             <div class="hidden lg:flex items-center gap-1">${links}</div>
@@ -67,11 +62,9 @@
         <footer class="relative mt-24 border-t border-white/5" style="background:#070b16">
           <div class="container-narrow py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
             <div class="col-span-2">
-              <a href="index.html" class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-md grid place-items-center" style="background:linear-gradient(135deg,#5eead4,#67e8f9,#a78bfa)">
-                  <span class="font-display text-[11px] font-bold" style="color:#0a0f1e">R3</span>
-                </div>
-                <span class="font-display text-lg">RADPYS<span class="text-neon-teal">.</span></span>
+              <a href="index.html" class="flex items-center gap-2.5 group">
+                <img src="images/logo.PNG" alt="RADPYS Logo" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" />
+                <span class="font-display text-lg font-bold tracking-wide">RADPYS<span class="text-neon-teal">.</span></span>
               </a>
               <p class="mt-4 text-sm text-slate-400 max-w-md leading-relaxed">
                 Radyasyon çalışanları yönetim sistemi. Nöbet, dozimetre, izin ve olay bildirimi süreçlerini KVKK uyumlu tek platformda toplar.
