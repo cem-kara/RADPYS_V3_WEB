@@ -138,8 +138,8 @@
 
     <script src="assets/js/layout.js"></script>
     <script>
-        // Google Apps Script Web App URL Buraya Girilecek
-        const GOOGLE_SCRIPT_URL = "AKfycbyZqr30B2-7LR8TerL6G71biIAAUHuye333Pd5gFut56PvvxquLWg7Tq-3q6Sb0mm0H";
+        // Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZqr30B2-7LR8TerL6G71biIAAUHuye333Pd5gFut56PvvxquLWg7Tq-3q6Sb0mm0H/exec";
 
         document.getElementById("demo-form").addEventListener("submit", function (e) {
             e.preventDefault();
@@ -148,7 +148,7 @@
             const formData = new FormData(this);
 
             // Script URL henüz girilmediyse mailto'yu çalıştır
-            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "AKfycbyZqr30B2-7LR8TerL6G71biIAAUHuye333Pd5gFut56PvvxquLWg7Tq-3q6Sb0mm0H") {
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_SCRIPT_URL_HERE")) {
                 const body = [
                     "Ad Soyad: " + (formData.get("name") || "-"),
                     "Kurum: " + (formData.get("organization") || "-"),
