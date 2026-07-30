@@ -64,7 +64,7 @@ Sonra tarayıcıda `http://localhost:8000` açın.
 
 ## Demo Talep Formu
 
-Form gönderildiğinde, kullanıcının e-posta uygulaması bilgiler önceden doldurulmuş şekilde `mailto:hello@radpys.com` ile açılır. Gerçek bir backend'e gönderim isterseniz, `iletisim.html` sonundaki submit handler'ı [Formspree](https://formspree.io) veya [Getform](https://getform.io) gibi ücretsiz form servisleriyle değiştirebilirsiniz — kod içinde tek satırlık değişiklik yeterli.
+Form gönderildiğinde, kullanıcının e-posta uygulaması bilgiler önceden doldurulmuş şekilde `mailto:radpys.iletisim@gmail.com` ile açılır. Gerçek bir backend'e gönderim isterseniz, `iletisim.html` sonundaki submit handler'ı [Formspree](https://formspree.io) veya [Getform](https://getform.io) gibi ücretsiz form servisleriyle değiştirebilirsiniz — kod içinde tek satırlık değişiklik yeterli.
 
 ## Neler Kullanılıyor?
 
