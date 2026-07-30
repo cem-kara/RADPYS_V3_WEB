@@ -80,8 +80,8 @@
                         </div>
                         <button type="submit" class="btn btn-primary mt-8"
                             style="width:100%; justify-content:center">Talebi Gönder →</button>
-                        <p class="mt-4 text-xs text-slate-500">Form gönderildiğinde e-posta uygulamanız açılır ve talep
-                            bize iletilmek üzere hazırlanır.</p>
+                        <p class="mt-4 text-xs text-slate-500">Talebiniz güvenli şekilde Google E-Tablonuza kaydedilecek
+                            ve bize iletilecektir.</p>
                     </form>
                 </div>
 
@@ -102,7 +102,8 @@
                                     <path
                                         d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                     <polyline points="22,6 12,13 2,6" />
-                                </svg> <a href="mailto:radpys.iletisim@gmail.com" class="hover:text-white">radpys.iletisim@gmail.com</a>
+                                </svg> <a href="mailto:radpys.iletisim@gmail.com"
+                                    class="hover:text-white">radpys.iletisim@gmail.com</a>
                             </div>
                             <div style="display:flex; gap:0.75rem"><svg width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round"
@@ -137,27 +138,55 @@
 
     <script src="assets/js/layout.js"></script>
     <script>
-        // Static form → open mail client with prefilled subject/body
+        // Google Apps Script Web App URL Buraya Girilecek
+        const GOOGLE_SCRIPT_URL = "AKfycbyZqr30B2-7LR8TerL6G71biIAAUHuye333Pd5gFut56PvvxquLWg7Tq-3q6Sb0mm0H";
+
         document.getElementById("demo-form").addEventListener("submit", function (e) {
             e.preventDefault();
-            const f = new FormData(this);
-            const body = [
-                "Ad Soyad: " + (f.get("name") || "-"),
-                "Kurum: " + (f.get("organization") || "-"),
-                "Rol: " + (f.get("role") || "-"),
-                "E-posta: " + (f.get("email") || "-"),
-                "Telefon: " + (f.get("phone") || "-"),
-                "",
-                "Mesaj:",
-                f.get("message") || "-",
-            ].join("\n");
-            const subject = "[RADPYS Demo Talebi] " + (f.get("organization") || "Yeni talep");
-            const url = "mailto:radpys.iletisim@gmail.com" +
-                "?subject=" + encodeURIComponent(subject) +
-                "&body=" + encodeURIComponent(body);
-            window.location.href = url;
-            showToast("E-posta uygulamanız açılıyor. Gönderi tamamlanınca size döneceğiz.");
-            this.reset();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            const formData = new FormData(this);
+
+            // Script URL henüz girilmediyse mailto'yu çalıştır
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "AKfycbyZqr30B2-7LR8TerL6G71biIAAUHuye333Pd5gFut56PvvxquLWg7Tq-3q6Sb0mm0H") {
+                const body = [
+                    "Ad Soyad: " + (formData.get("name") || "-"),
+                    "Kurum: " + (formData.get("organization") || "-"),
+                    "Rol: " + (formData.get("role") || "-"),
+                    "E-posta: " + (formData.get("email") || "-"),
+                    "Telefon: " + (formData.get("phone") || "-"),
+                    "",
+                    "Mesaj:",
+                    formData.get("message") || "-",
+                ].join("\n");
+                const subject = "[RADPYS Demo Talebi] " + (formData.get("organization") || "Yeni talep");
+                const url = "mailto:radpys.iletisim@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                window.location.href = url;
+                showToast("E-posta uygulamanız açılıyor. Gönderi tamamlanınca size döneceğiz.");
+                this.reset();
+                return;
+            }
+
+            // Google Apps Script ile sessiz gönderim
+            btn.disabled = true;
+            btn.innerText = "Gönderiliyor...";
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                body: formData
+            })
+                .then(() => {
+                    showToast("Talebiniz başarıyla alındı! En kısa sürede sizinle iletişime geçeceğiz.");
+                    this.reset();
+                })
+                .catch(() => {
+                    showToast("E-posta uygulamanız açılıyor...");
+                    window.location.href = "mailto:radpys.iletisim@gmail.com";
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
         });
     </script>
     <style>
