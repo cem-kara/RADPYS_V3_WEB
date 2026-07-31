@@ -39,7 +39,7 @@
             <div class="hidden lg:flex items-center gap-1">${links}</div>
 
             <div class="hidden lg:flex items-center gap-3">
-              <a href="https://github.com/cem-kara/RADPYS_V3/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Demo İndir</a>
+              <a href="https://github.com/cem-kara/RADPYS_Release/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Demo İndir</a>
             </div>
 
             <button id="mobile-toggle" class="lg:hidden p-2" aria-label="Menü">
@@ -50,7 +50,7 @@
           <div id="mobile-menu" class="lg:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 border-t border-white/5 bg-[#0a0f1e]/95 backdrop-blur-xl">
             <div class="px-6 py-5 flex flex-col gap-2">
               ${NAV_LINKS.map((l) => `<a href="${l.href}" class="py-2 text-slate-300 text-sm">${l.label}</a>`).join("")}
-              <a href="https://github.com/cem-kara/RADPYS_V3/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-outline mt-3 justify-center">Demo İndir</a>
+              <a href="https://github.com/cem-kara/RADPYS_Release/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-outline mt-3 justify-center">Demo İndir</a>
             </div>
           </div>
         </nav>
