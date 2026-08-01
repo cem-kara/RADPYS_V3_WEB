@@ -1,0 +1,10 @@
+# Media & large files
+*.mp4
+*.zip
+*.exe
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
