@@ -32,11 +32,11 @@
         <nav id="topnav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
           <div class="container-narrow h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2.5 group">
-              <img src="images/logo.PNG" alt="RADPYS Logo" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" />
+              <img src="images/logo.webp" data-radpys-logo alt="RADPYS Logo" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" width="32" height="32" />
               <span class="font-display text-lg font-bold tracking-wide">RADPYS<span class="text-neon-teal">.</span></span>
             </a>
 
-            <div class="hidden lg:flex items-center gap-1">${links}</div>
+            <div class="hidden lg:flex items-center gap-6">${links}</div>
 
             <div class="hidden lg:flex items-center gap-3">
               <a href="https://download.radpys.com.tr/releases/RADPYS_Setup_latest.exe" class="btn btn-outline">Demo İndir</a>
@@ -63,7 +63,7 @@
           <div class="container-narrow py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
             <div class="col-span-2">
               <a href="index.html" class="flex items-center gap-2.5 group">
-                <img src="images/logo.PNG" alt="RADPYS Logo" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" />
+                <img src="images/logo.webp" data-radpys-logo alt="RADPYS Logo" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" width="32" height="32" />
                 <span class="font-display text-lg font-bold tracking-wide">RADPYS<span class="text-neon-teal">.</span></span>
               </a>
               <p class="mt-4 text-sm text-slate-400 max-w-md leading-relaxed">
@@ -177,6 +177,36 @@
     }
 
     initReveals();
+
+    // Optimize logo client-side to 128x128 WebP data URL
+    (function optimizeLogoImages() {
+      const cached = sessionStorage.getItem("radpys_logo_128");
+      if (cached) {
+        document.querySelectorAll("img[data-radpys-logo]").forEach((img) => {
+          img.src = cached;
+        });
+        return;
+      }
+      const rawImg = new Image();
+      rawImg.crossOrigin = "anonymous";
+      rawImg.onload = function () {
+        const cvs = document.createElement("canvas");
+        cvs.width = 128;
+        cvs.height = 128;
+        const ctx = cvs.getContext("2d");
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(rawImg, 0, 0, 128, 128);
+        try {
+          const webpData = cvs.toDataURL("image/webp", 0.88);
+          sessionStorage.setItem("radpys_logo_128", webpData);
+          document.querySelectorAll("img[data-radpys-logo]").forEach((img) => {
+            img.src = webpData;
+          });
+        } catch (e) {}
+      };
+      rawImg.src = "images/logo.webp";
+    })();
 
     if ("MutationObserver" in window) {
       const mutObserver = new MutationObserver(() => {

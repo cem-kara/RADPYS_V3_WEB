@@ -1,0 +1,7 @@
+# RADPYS - Radyasyon Çalışanları Yönetim Sistemi
+
+RADPYS; hastane ve radyoloji departmanları için SKS 6.1 ve NDK uyumlu doz takibi, otomatik nöbet planlama ve kalite yönetim platformudur.
+
+- [Ana Sayfa](https://radpys.com.tr)
+- [Modüller](https://radpys.com.tr/moduller.html)
+- [Kullanım Kılavuzu](https://radpys.com.tr/Kullanim_Kilavuzu.md)
