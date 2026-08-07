@@ -8,26 +8,41 @@
 
 ## İçindekiler
 
+### I. GENEL BİLGİLER VE KURULUM
+
 1. Kurulum & Giriş
 2. Sisteme Giriş (Login Ekranı)
-3. Kullanıcı Modülü
-4. Personel Modülü
-5. İzin Modülü
-6. Fiili Hizmet Modülü
-7. Sağlık Muayene Modülü
-8. Dozimetre Modülü
-9. Tanımlamalar (Lookup) Modülü
-10. Raporlar Modülü
-11. Nöbet Modülü (Planlama ve Ayarlar)
-12. Radyasyon Güvenliği ve Olay Bildirim / DÖF Modülü
-13. Onay Bekleyen Görevler Paneli (Evrensel Onay Sistemi)
-14. Merkezi Bildirim ve Durum Çubuğu Sistemi
-15. Program Ayarları
-16. Veritabanı Modülü
-17. Toplu İçe Aktarma (Import) İşlemleri
-18. Lisans ve Aktivasyon Sistemi (Demo Sürüm)
-19. Sık Karşılaşılan Durumlar ve İpuçları
-20. Update Log
+3. Lisans ve Aktivasyon Sistemi (Demo Sürüm)
+
+### II. TEMEL OPERASYONEL MODÜLLER
+
+1. Kullanıcı Modülü
+2. Personel Modülü
+3. İzin Modülü
+4. Fiili Hizmet Modülü
+5. Sağlık Muayene Modülü
+6. Dozimetre Modülü
+7. Nöbet Modülü (Planlama ve Ayarlar)
+8. Radyasyon Güvenliği ve Olay Bildirim / DÖF Modülü
+
+### III. KURUMSAL YÖNETİM VE RAPORLAMA
+
+ 1. Onay Bekleyen Görevler Paneli (Evrensel Onay Sistemi)
+ 2. Raporlar Modülü
+ 3. Tanımlamalar (Lookup) Modülü
+ 4. Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü (web_portal)
+
+### IV. SİSTEM YÖNETİMİ VE VERİ İŞLEMLERİ
+
+ 1. Merkezi Bildirim ve Durum Çubuğu Sistemi
+ 2. Program Ayarları
+ 3. Veritabanı Modülü
+ 4. Toplu İçe Aktarma (Import) İşlemleri
+
+### V. DESTEK
+
+ 1. Sık Karşılaşılan Durumlar ve İpuçları
+ 2. Güncelleme Geçmişi (Update Log)
 
 ---
 
@@ -40,12 +55,17 @@ RADPYS V3, Windows 10 (Sürüm 1809 ve üzeri) ve Windows 11 (64-bit) işletim s
 - **İşletim Sistemi:** Windows 10 (Sürüm 1809 ve üzeri) veya Windows 11 (64-bit)
 - **Bellek (RAM):** 4 GB (8 GB önerilen)
 - **Disk Alanı:** En az 500 MB boş alan
+- **Gerekli Çalışma Zamanı Bağımlılıkları:**
+  - **Python 3.10+** (Masaüstü Ana Uygulaması için)
+  - **Node.js LTS v18.0.0+** (İsteğe bağlı Çoklu Kullanıcı Web Portalı `web_portal` servisi için gereklidir; <https://nodejs.org>)
 
 ### 1.2 Genel Bakış
 
 RADPYS V3, radyasyonla çalışan sağlık personelinin operasyonel süreçlerini yönetmek amacıyla geliştirilmiş bir masaüstü uygulamasıdır. Bu kılavuz, RADPYS V3 üzerinde yer alan tüm modüllerin nasıl kullanılacağını adım adım açıklamak amacıyla hazırlanmıştır. Uygulama; kullanıcı ve yetki yönetimi, personel özlük bilgileri, izin takibi, fiili hizmet süresi zammı, sağlık muayeneleri ve dozimetre ölçümleri gibi birbiriyle ilişkili birçok modülden oluşmaktadır.
 
 Kılavuzdaki bölümler, uygulamadaki menü sıralamasını takip etmektedir. Her bölümde ilgili ekranın ne işe yaradığı, hangi alanların doldurulması gerektiği ve adım adım nasıl işlem yapılacağı anlatılmaktadır.
+
+> **Önemli Not (Yasal Mevzuata Uygunluk ve Veri Doğrulama Sorumluluğu):** RADPYS V3; nöbet planlaması, çalışma süreleri, emzirme/gebelik muafiyetleri ve fiili hizmet hesaplamaları gibi tüm operasyonel süreçlerde yürürlükteki yasal mevzuat kısıtlarını ve kurumsal kuralları esas alarak çalışacak şekilde geliştirilmiştir. Sistem hesaplamaları ve kuralları mevzuata %100 uygun yürütmekle birlikte, uygulamanın temel amacı kurum içi iş akışlarını dijitalleştirmektir. Uygulama tarafından üretilen veriler, çizelgeler ve raporlar doğrudan resmi kurumlar (SGK, NDK, Sağlık Bakanlığı vb.) nezdinde (örneğin emeklilik veya resmi hak ediş süreçlerinde) doğrudan referans teşkil etmez; bu bilgilerin resmi işlemlerde kullanılmadan önce kurum yöneticileri tarafından doğrulanması esastır.
 
 **Kullanıcı tipleri:** Uygulamadaki ekranlar ve butonlar, oturum açan kullanıcının rolüne tanımlı yetkilere göre değişiklik gösterebilir. Bu kılavuzda anlatılan tüm işlemler, ilgili yetkiye sahip bir kullanıcı tarafından gerçekleştirilebilir. Bir ekranı veya butonu göremiyorsanız, sistem yöneticinizden ilgili yetkinin rolünüze tanımlanmasını talep edebilirsiniz.
 
@@ -54,9 +74,33 @@ Kılavuzdaki bölümler, uygulamadaki menü sıralamasını takip etmektedir. He
 ### 1.3 Temel Özellikler
 
 - **Masaüstü uygulaması:** RADPYS V3, bilgisayarınıza kurularak çalıştırılan bir masaüstü uygulamasıdır; internet tarayıcısı gerektirmez.
-- **Yerel veri saklama:** Tüm veriler, uygulamayla birlikte çalışan yerel bir veritabanı dosyasında saklanır. Bu yapı, Veritabanı Modülü altındaki yedekleme ve geri yükleme işlemlerinin temelini oluşturur (bkz. Bölüm 16).
+- **Yerel veri saklama:** Tüm veriler, uygulamayla birlikte çalışan yerel bir veritabanı dosyasında saklanır. Bu yapı, Veritabanı Modülü altındaki yedekleme ve geri yükleme işlemlerinin temelini oluşturur (bkz. Bölüm 18).
 
 > **Not:** Bu kılavuzdaki "ekran" ve "menü" ifadeleri, web tarayıcısı değil RADPYS V3 masaüstü uygulamasının kendi pencere ve sekmelerini ifade etmektedir.
+
+### 1.4 Windows Güvenlik & SmartScreen Uyarısını Geçme
+
+RADPYS V3 kurulum paketini (`RADPYS_Setup_latest.exe`) indirip çalıştırdığınızda veya uygulamayı ilk kez başlattığınızda Windows Defender SmartScreen tarafından bir güvenlik uyarısı verilebilir.
+
+#### Uyarının Sebebi ve Güvenlik Garantisi
+
+- **Neden Uyarı Çıkar?** Windows SmartScreen, henüz dijital imza (Code Signing Certificate) tanımlanmamış veya yeni yayınlanan `.exe` dosyalarını koruma amaçlı olarak varsayılan biçimde durdurur ve *"Windows kişisel bilgisayarınızı korudu"* uyarısını gösterir.
+- **Güvenlik Durumu:** RADPYS V3 uygulaması tamamen güvenlidir. Herhangi bir zararlı kod içermez. Tüm verileriniz bilgisayarınızda **AES-256 SQLCipher** ile şifrelenmiş yerel veritabanında saklanır.
+
+#### Adım Adım Kurulum İzni Verme
+
+1. Ekranda beliren mavi renkli **"Windows kişisel bilgisayarınızı korudu"** (*Windows protected your PC*) penceresindeki **"Daha fazla bilgi"** (*More info*) bağlantısına tıklayın.
+2. Açılan pencerenin alt kısmında beliren **"Yine de çalıştır"** (*Run anyway*) butonuna tıklayın.
+3. Inno Setup Kurulum Sihirbazı açılacak ve RADPYS V3 bilgisayarınıza güvenle kurulacaktır.
+
+#### Windows Defender / Antivirüs Karantina ve İzin Verme
+
+Eğer antivirüs yazılımı (Windows Defender, Kaspersky, ESET vb.) dosyayı engellerse:
+
+1. Windows Başlat menüsünden **Windows Güvenliği** uygulamasını açın.
+2. **Virüs ve tehdit koruması** > **Koruma geçmişi** sekmesine tıklayın.
+3. Engellenen `RADPYS_Setup_latest.exe` veya `RADPYS.exe` kaydını seçin.
+4. **Eylemler** menüsünden **"Cihazda İzin Ver"** veya **"Karantinadan Çıkar"** seçeneğini belirleyin.
 
 ---
 
@@ -108,11 +152,46 @@ Oturum açtığınızda sizi karşılayan ana ekrandır. Sol dikey navigasyon me
 
 ---
 
-## 3. Kullanıcı Modülü
+## 3. Lisans ve Aktivasyon Sistemi (Demo Sürüm)
+
+Uygulamanın lisanssız veya deneme sürümü olarak çalıştırılması durumunda bazı kısıtlamalar devreye girer. Lisans durumunu yönetmek ve tam sürüme geçiş yapmak için sağ üst köşede bulunan **Hakkında** butonuna tıklayarak ilgili ekrana ulaşabilirsiniz.
+
+### 3.1 Demo Sürüm Kısıtlamaları
+
+Uygulama demo modundayken aşağıdaki sınırlar geçerlidir:
+
+- **Deneme Süresi:** İlk kurulum tarihinden itibaren **15 gün** ile sınırlıdır. Süre dolduğunda uygulama açılışta uyarı verir.
+- **Personel Limiti:** Sistemde en fazla **6 aktif personel** kaydı barındırılabilir. Yeni personel eklenmesi veya pasif personellerin aktif hale getirilmesi bu sınırın aşılması durumunda engellenir.
+- **Nöbet Planı Limiti:** Sistemde en fazla **3 nöbet planı** oluşturulabilir.
+- **Toplu İçe Aktarma Kısıtı:** Excel veya CSV üzerinden yapılan toplu personel ve nöbet içe aktarımlarında da 6 personel ve 3 nöbet planı limiti denetlenmektedir.
+- **Güncelleme Limiti (Yama Desteği):** Demo/Deneme sürümünde yeni ticari özellikler içeren ana güncellemeler alınamaz. Ancak programın kararlılığını korumak ve olası kritik hatalardan etkilenmemeniz için kritik hata düzeltme ve yama güncellemeleri demo modunda da otomatik olarak sunulur ve yüklenebilir.
+
+### 3.2 Uygulamayı Aktifleştirme (Tam Sürüme Geçiş)
+
+Uygulamayı satın aldığınızda, programı kalıcı veya süreli olarak tam sürüme (PRO / P20 / P5) yükseltmek için aşağıdaki adımları izleyin:
+
+1. **Cihaz Kimliğini Kopyalayın:** Hakkında penceresindeki **Lisans ve Aktivasyon** kartının altında yazan benzersiz **Cihaz Kimliği** (örn. `RP-XXXX-XXXX-XXXX-XXXX`) bilgisinin yanındaki **Kopyala** butonuna tıklayarak panoya alın.
+2. **Yazılımcıya Gönderin:** Kopyaladığınız Cihaz Kimliğini yazılım sağlayıcınıza (Cem Kara) iletin.
+3. **Lisans Anahtarını Girin:** Yazılımcının cihaz kimliğinize ve paketinize özel ürettiği Kriptografik **Ed25519 Lisans Anahtarını** (örn. `LK-AS-PRO-PERM-XXXX...`) Hakkında penceresindeki lisans giriş alanına yapıştırın.
+4. **Aktifleştirin:** **Lisansı Aktifleştir** butonuna tıklayın. Sistem Ed25519 açık anahtarıyla dijital imzayı ve cihaz kimliği eşleşmesini doğrular. Başarılı uyarısını aldıktan sonra uygulamayı kapatıp yeniden başlatın. Program artık kısıtlamasız **Tam Sürüm** olarak çalışacaktır.
+
+> **Güvenlik Notu:** Kurulum sonrasında varsayılan çalışma modu Demo Modu olarak sabitlenmiştir. Veritabanı manipülasyonu veya ortam değişkenleri vasıtasıyla lisanssız olarak Tam Sürüm'e erişilmesi engellenmiştir.
+
+### 3.3 Geri Bildirim ve Hata Raporlama
+
+Uygulama çalışırken beklenmedik teknik bir çökme hatasıyla karşılaşırsa:
+
+1. **Çökme Bildirim Ekranı:** Program sessizce kapanmaz; karşınıza teknik hata bilgilerini içeren özel bir hata penceresi gelir.
+2. **Hata Kopyalama/E-posta:** Bu penceredeki **"Hata Detayını Kopyala"** butonu ile hatayı panoya alabilir veya **"E-Posta Gönder"** butonu ile varsayılan e-posta programınızı (Outlook vb.) açarak hatayı otomatik hazırlanmış şablonla `radpys.iletisim@gmail.com` adresine gönderebilirsiniz.
+3. **Destek Paketi Oluşturma:** Uygulama içindeyken (çökme olmasa dahi karşılaştığınız sorunlarda) sağ üst köşedeki **Hakkında** butonuna tıklayarak Hakkında ekranını açın. En alttaki **"Destek Paketi (Log) Oluştur"** butonuna basarak, uygulamanın ürettiği tüm KVKK uyumlu kayıt dosyalarını (kişisel veri içermez) masaüstünüze `radpys_destek_log.zip` olarak kaydedebilirsiniz. Bu paketi hata bildirim e-postanıza ekleyerek bize iletmeniz sorunların hızlıca çözülmesini sağlayacaktır.
+
+---
+
+## 4. Kullanıcı Modülü
 
 Kullanıcı Modülü; sistem kullanıcılarının, rollerin, yetkilerin ve rol-yetki eşleştirmelerinin yönetildiği bölümdür. Bu modül genellikle sistem yöneticileri tarafından kullanılır.
 
-### 3.1 Kullanıcı Listesi
+### 4.1 Kullanıcı Listesi
 
 ![Kullanıcı listesi](images/kullanici.png)
 
@@ -135,7 +214,7 @@ Kullanıcı Modülü; sistem kullanıcılarının, rollerin, yetkilerin ve rol-y
 
 **Kullanıcı İçe Aktarma:** Toplu kullanıcı oluşturma işlemi, genellikle Personel İçe Aktarma işlemiyle birlikte dolaylı olarak gerçekleşir; personel içe aktarılırken ilgili kullanıcı hesapları da otomatik oluşturulabilir.
 
-### 3.2 Roller
+### 4.2 Roller
 
 Bu ekrandan sistemde kullanılacak rolleri (örn. Yönetici, Personel, İnsan Kaynakları vb.) tanımlayabilirsiniz.
 
@@ -160,7 +239,7 @@ Bir rolü sildiğinizde rol pasif duruma alınır.
 
 > **Not:** Pasif edilen bir roldeki kullanıcılar otomatik olarak hiyerarşide bir alt role atanır; bu nedenle bir rolü pasife almadan önce, o roldeki kullanıcıların hangi role aktarılacağını göz önünde bulundurun.
 
-### 3.3 Yetkiler
+### 4.3 Yetkiler
 
 Yetkiler ekranında, sistemdeki işlem bazlı erişim haklarını (örn. "Personel Ekleyebilir", "İzin Onaylayabilir" gibi) tanımlayabilir ve yönetebilirsiniz.
 
@@ -173,7 +252,7 @@ Yetkiler ekranında, sistemdeki işlem bazlı erişim haklarını (örn. "Person
 
 **Yetki Silme:** Silme işlemi yetkiyi kalıcı olarak kaldırmaz, pasif duruma alır.
 
-### 3.4 Rol Yetkileri
+### 4.4 Rol Yetkileri
 
 Bu ekran, her bir role hangi modül ve eylem yetkilerinin tanımlı olduğunu belirlediğiniz ana yetkilendirme panelidir. Yetki matrisi ekranı iki sekmeden oluşur:
 
@@ -212,7 +291,7 @@ Bu ekran, her bir role hangi modül ve eylem yetkilerinin tanımlı olduğunu be
 
 > **Not:** Yeni bir kurulumda rol-yetki eşleştirmeleri sistemle birlikte önceden tanımlanmış olarak gelir; bu nedenle kurulum sonrasında temel rollerin yetkilerini ayrıca tanımlamanıza genellikle gerek kalmaz.
 
-### 3.5 Kullanıcı Şifre Değiştirme
+### 4.5 Kullanıcı Şifre Değiştirme
 
 Kendi şifrenizi değiştirmek için profil menüsünden şifre değiştirme ekranına ulaşabilirsiniz.
 
@@ -225,11 +304,11 @@ Kendi şifrenizi değiştirmek için profil menüsünden şifre değiştirme ekr
 
 ---
 
-## 4. Personel Modülü
+## 5. Personel Modülü
 
 Personel Modülü, kurumdaki tüm personelin özlük bilgilerinin, iletişim bilgilerinin, eğitimlerinin, belgelerinin ve işten ayrılış süreçlerinin yönetildiği ana modüldür.
 
-### 4.1 Personel Ekleme
+### 5.1 Personel Ekleme
 
 ![Personel ekleme ekranı](images/personel_ekle.png)
 
@@ -242,7 +321,7 @@ Personel Modülü, kurumdaki tüm personelin özlük bilgilerinin, iletişim bil
 
 > **Not:** Yüklenen profil fotoğrafı, sistem tarafından her personele özel ayrı bir klasörde otomatik olarak düzenli bir şekilde saklanır; bu yapı sayesinde her personelin dosyaları kendi kimlik numarasına ait klasörde tutulur.
 
-#### 4.1.1 Yakın İletişim Bilgileri
+#### 5.1.1 Yakın İletişim Bilgileri
 
 Personel kaydı içerisindeki bu sekmeden personelin iletişim bilgileri ve personelin acil durumlarda ulaşılabilecek yakınlarının iletişim bilgilerini yönetebilirsiniz.
 
@@ -250,7 +329,7 @@ Personel kaydı içerisindeki bu sekmeden personelin iletişim bilgileri ve pers
 2. Yeni bir kayıt eklemek için "Yeni Ekle" butonunu kullanın; ad-soyad, yakınlık derecesi ve telefon bilgisini girin.
 3. Mevcut bir kaydı güncellemek için Düzenle simgesine, kaldırmak için Sil simgesine, görüntülemek için Detay simgesine tıklayın.
 
-#### 4.1.2 Eğitim Bilgileri
+#### 5.1.2 Eğitim Bilgileri
 
 Personelin eğitim geçmişini (okul, bölüm, mezuniyet yılı, sertifikalar vb.) bu sekmeden kayıt altına alabilirsiniz.
 
@@ -258,7 +337,7 @@ Personelin eğitim geçmişini (okul, bölüm, mezuniyet yılı, sertifikalar vb
 2. "Yeni Ekle" ile bir eğitim kaydı oluşturun.
 3. Gerektiğinde mevcut kayıtları Düzenle, Sil veya Detay simgeleriyle yönetin.
 
-#### 4.1.3 Personel Belgeleri
+#### 5.1.3 Personel Belgeleri
 
 Personele ait diploma, sözleşme, kimlik fotokopisi gibi belgelerin dijital olarak saklandığı sekmedir.
 
@@ -268,17 +347,17 @@ Personele ait diploma, sözleşme, kimlik fotokopisi gibi belgelerin dijital ola
 
 > **Not:** Yüklenen dosyaların orijinal adları sadece sistemde kayıt edilir; arayüzde dosyalar sistem tarafından standart ve düzenli bir isimlendirmeyle gösterilir.
 
-### 4.2 Personel Detay / Düzenleme
+### 5.2 Personel Detay / Düzenleme
 
 Personel listesindeki Detay simgesine tıklayarak bir personelin tüm bilgilerini görüntüleyebilir, Düzenle simgesiyle bilgilerini güncelleyebilirsiniz.
 
-### 4.3 Personel Silme (Ayrılış İşlemi)
+### 5.3 Personel Silme (Ayrılış İşlemi)
 
-Bir personelin kaydı, hangi sebeple olursa olsun (istifa, emeklilik, nakil, vb.) "Personel Sil" işlemiyle değil, bir İşten Ayrılış süreciyle sonlandırılır. Bu işlem personelin kaydını silmez, durumunu değiştirir.
+Bir personelin kaydı, hangi sebeple olursa olsun (istifa, nakil, vb.) "Personel Sil" işlemiyle değil, bir İşten Ayrılış süreciyle sonlandırılır. Bu işlem personelin kaydını silmez, durumunu değiştirir.
 
 1. Personel listesinde ilgili personelin satırındaki Sil (Ayrılış) simgesine tıklayın.
 2. Açılan İşten Ayrılış formunda Ayrılış Tarihini seçin.
-3. Ayrılış Sebebini (istifa, emeklilik, nakil, sözleşme feshi vb.) seçin.
+3. Ayrılış Sebebini (istifa, nakil, sözleşme feshi vb.) seçin.
 4. Gerekirse Ayrılış Notu alanına ek açıklama girin.
 5. Formu onaylayarak kaydedin.
 
@@ -290,7 +369,7 @@ Form onaylandığında sistem otomatik olarak şu işlemleri gerçekleştirir:
 
 > **Not:** Bu işlem geri alınabilir değildir; ayrılış kaydı oluşturmadan önce bilgilerin doğruluğundan emin olun.
 
-### 4.4 Excel'e Aktarma ve İçe Aktarma
+### 5.4 Excel'e Aktarma ve İçe Aktarma
 
 **Personel Excel Aktar:** Personel Listesi ekranındaki "Excel'e Aktar" butonuyla tüm personel listesini Excel dosyası olarak indirebilirsiniz. Ayrıca her personel için ayrı ayrı "Personel Bilgi Formu" yazdırma seçeneği bulunmaktadır; bu form, personelin özlük bilgilerinin özetlendiği bir çıktı dokümanıdır.
 
@@ -302,7 +381,7 @@ Form onaylandığında sistem otomatik olarak şu işlemleri gerçekleştirir:
 4. Doldurduğunuz dosyayı seçip yükleyin.
 5. Sistem dosyayı işleyerek personel kayıtlarını ve ilişkili kullanıcı hesaplarını oluşturur; hatalı satırlar için bir hata raporu sunar.
 
-### 4.5 Personel Profil Sayfası
+### 5.5 Personel Profil Sayfası
 
 Personel Profil Sayfası, personelin kendi bilgilerine erişebildiği veya yetkili kullanıcıların bir personelin bilgilerini tek bir ekrandan görüntüleyebildiği özet sayfadır.
 
@@ -313,18 +392,18 @@ Personel Profil Sayfası, personelin kendi bilgilerine erişebildiği veya yetki
 
 > **Not:** Profil sayfasında bir sekmeden diğerine geçiş yaptığınızda, herhangi bir değişiklik yapmadığınız sürece "kaydedilmemiş değişiklik" uyarısı görüntülenmez; bu uyarı yalnızca gerçek bir veri değişikliği yapıldığında ortaya çıkar.
 
-### 4.6 Personel Modülü ile İlgili Genel Notlar
+### 5.6 Personel Modülü ile İlgili Genel Notlar
 
 - Dosya ekleme ekranlarında, dosya yükleme butonunun yanında ilgili belgeyi düzenleme ve silme seçenekleri de bulunur.
 - Yüklenen dosyaların orijinal adları yalnızca sistemde saklanır; arayüzde dosyalar standart bir adlandırma kuralıyla görüntülenir.
 
 ---
 
-## 5. İzin Modülü
+## 6. İzin Modülü
 
 İzin Modülü, personelin izin taleplerinin oluşturulduğu, izin hakedişlerinin hesaplandığı ve radyasyonla çalışan personele tanınan Şua (sağlık) izinlerinin takip edildiği modüldür.
 
-### 5.1 İzin İşlemleri
+### 6.1 İzin İşlemleri
 
 **İzin Ekleme:** Yeni bir izin talebi oluşturmak için aşağıdaki adımları izleyin.
 
@@ -343,7 +422,7 @@ Personel Profil Sayfası, personelin kendi bilgilerine erişebildiği veya yetki
 
 **Excel'e Aktar / İçe Aktar:** İzin Listesi ekranındaki butonlarla izin kayıtlarını Excel olarak dışa aktarabilir veya toplu izin kaydı için şablon kullanarak içe aktarabilirsiniz.
 
-### 5.2 İzin Hakediş
+### 6.2 İzin Hakediş
 
 Bu ekran, her personelin yıllık izin bakiyesinin (hakedişinin) hesaplandığı ve takip edildiği bölümdür.
 
@@ -353,7 +432,7 @@ Bu ekran, her personelin yıllık izin bakiyesinin (hakedişinin) hesaplandığ�
 
 > **Not:** İzin Hakediş kayıtları silinemez; bu kayıtlar geçmişe dönük izin bakiyesi bütünlüğünün korunması için kalıcıdır.
 
-#### 5.2.1 Toplu Hesaplama
+#### 6.2.1 Toplu Hesaplama
 
 "Toplu Hesaplama" butonu, tüm personelin (veya seçilen bir grubun) izin hakedişini tek seferde otomatik olarak hesaplayıp oluşturmanızı sağlar. Bu işlem genellikle yeni bir takvim yılına geçişte veya personelin kıdem yılı değiştiğinde kullanılır.
 
@@ -361,7 +440,7 @@ Bu ekran, her personelin yıllık izin bakiyesinin (hakedişinin) hesaplandığ�
 2. Hesaplamanın yapılacağı dönemi/yılı seçin.
 3. İşlemi onaylayın; sistem ilgili personel için hakediş kayıtlarını otomatik oluşturur veya günceller.
 
-#### 5.2.2 Devir (Bakiye Aktarma)
+#### 6.2.2 Devir (Bakiye Aktarma)
 
 Devir işlemi, bir personelin kullanılmayan izin bakiyesinin bir sonraki döneme aktarılmasını sağlar.
 
@@ -369,32 +448,32 @@ Devir işlemi, bir personelin kullanılmayan izin bakiyesinin bir sonraki dönem
 2. Devrin yapılacağı kaynak ve hedef dönemi seçin.
 3. İşlemi onaylayarak devredilen bakiyenin yeni döneme yansıtılmasını sağlayın.
 
-### 5.3 Şua (Sağlık) İzin Hakedişleri
+### 6.3 Şua (Sağlık) İzin Hakedişleri
 
 Radyasyonla çalışan personele mevzuat kapsamında tanınan ek sağlık izninin (Şua izni) hakediş takibi bu ekrandan yapılır. İşleyiş mantığı standart izin hakedişiyle benzerdir; farkı, hakedişin radyasyon çalışanı statüsüne ve çalışılan süreye göre hesaplanmasıdır.
 
 1. İzin Modülü > Şua İzin Hakedişleri ekranına gidin.
 2. Radyasyon çalışanı statüsündeki personelin hakediş kayıtlarını görüntüleyin, gerekirse Ekle/Düzenle/Detay işlemlerini gerçekleştirin.
 
-### 5.4 İzin Modülü ile İlgili Genel Notlar
+### 6.4 İzin Modülü ile İlgili Genel Notlar
 
 - Dosya ekleme ekranlarında, dosya yükleme butonunun yanında belgeyi düzenleme ve silme seçenekleri de bulunmaktadır.
 - İzinle ilgili yüklenen belgeler, sistem tarafından düzenli bir klasör yapısında saklanır.
 
 ---
 
-## 6. Fiili Hizmet Modülü
+## 7. Fiili Hizmet Modülü
 
-Fiili Hizmet Modülü, riskli/radyasyonlu ortamlarda fiilen çalışılan sürelerin kayıt altına alındığı ve bu sürelere bağlı hakedişlerin (fiili hizmet süresi zammı) hesaplandığı modüldür. Bu kayıtlar, ilgili mevzuat kapsamında personelin emeklilik hesaplamalarında değerlendirilen ek hizmet sürelerinin belgelenmesi amacıyla tutulur.
+Fiili Hizmet Modülü, riskli/radyasyonlu ortamlarda fiilen çalışılan sürelerin kayıt altına alındığı ve bu sürelere bağlı hakedişlerin (fiili hizmet süresi zammı) hesaplandığı modüldür. Yürürlükteki yasal mevzuata uygun hesaplama yapılmakla birlikte, bu kayıtlar kurum içi iş akışını dijitalleştirmek amacıyla tutulur ve resmi kurumlar nezdindeki işlemlerde (emeklilik vb.) kurum tarafından doğrulanması esastır.
 
-### 6.1 Fiili Hizmet Kayıtları
+### 7.1 Fiili Hizmet Kayıtları
 
 1. Fiili Hizmet Modülü > Fiili Hizmet Listesi ekranına gidin.
 2. Yeni bir kayıt eklemek için "Yeni Ekle" butonuna tıklayın; personeli, çalışma birimini/biriminin risk durumunu ve ilgili tarih aralığını girin.
 3. Mevcut bir kaydı güncellemek için Düzenle, kaldırmak için Sil, görüntülemek için Detay simgesini kullanın.
 4. Kayıtları Excel olarak dışa aktarmak veya toplu kayıt için şablon kullanarak içe aktarmak üzere ilgili butonları kullanın.
 
-### 6.2 Fiili Hizmet Hak Ediş
+### 7.2 Fiili Hizmet Hak Ediş
 
 Bu ekran, fiili hizmet kayıtlarına bağlı olarak personelin hakettiği ek hizmet süresinin hesaplandığı ve listelendiği bölümdür.
 
@@ -403,7 +482,7 @@ Bu ekran, fiili hizmet kayıtlarına bağlı olarak personelin hakettiği ek hiz
 3. Mevcut kayıtları Düzenle, Sil veya Detay simgeleriyle yönetin.
 4. Excel'e Aktar / İçe Aktar butonlarıyla toplu işlem yapabilirsiniz.
 
-### 6.3 Görev Dağılımı ve Hesaplama Ekranı Kolaylıkları
+### 7.3 Görev Dağılımı ve Hesaplama Ekranı Kolaylıkları
 
 Ekranda çalışmayı kolaylaştıran aşağıdaki özellikler bulunmaktadır:
 
@@ -413,18 +492,18 @@ Ekranda çalışmayı kolaylaştıran aşağıdaki özellikler bulunmaktadır:
 - **Toplu Onaylama Yeteneği:** "Toplu Onayla" butonu sayesinde dönemdeki tüm taslak ve kaydedilmemiş varsayılan atamaları tek tıkla onaylayabilirsiniz.
 - **Kayıt Sınırı Uyarıları:** Bir dönemde hesaplanan veri adedi 500 satırı aştığında, performansı korumak adına durum çubuğunda ve bilgi etiketinde otomatik sayfalama/sınırlandırma uyarısı gösterilir.
 
-### 6.4 Fiili Hizmet Modülü ile İlgili Genel Notlar
+### 7.4 Fiili Hizmet Modülü ile İlgili Genel Notlar
 
 - Dosya ekleme ekranlarında, yükleme butonunun yanında belgeyi düzenleme ve silme seçenekleri de bulunmaktadır.
 - Diğer modüllerle tutarlılık sağlamak için düzenleme ve detay butonlarının her listede bulunmasına özen gösterilmiştir.
 
 ---
 
-## 7. Sağlık Muayene Modülü
+## 8. Sağlık Muayene Modülü
 
 Bu modül, personelin işe giriş, periyodik, radyasyon ve şua sağlık muayenelerinin kayıt altına alınmasını ve takip edilmesini sağlar.
 
-### 7.1 Sağlık Muayene Kayıtları
+### 8.1 Sağlık Muayene Kayıtları
 
 1. Sağlık Muayene Modülü > Sağlık Muayene Listesi ekranına gidin.
 2. Yeni bir muayene kaydı eklemek için "Yeni Ekle" butonuna tıklayın.
@@ -440,7 +519,7 @@ Bu modül, personelin işe giriş, periyodik, radyasyon ve şua sağlık muayene
 
 **Excel'e Aktar / İçe Aktar:** Liste ekranındaki ilgili butonlarla muayene kayıtlarını dışa aktarabilir veya toplu olarak içe aktarabilirsiniz.
 
-### 7.2 Veri Emniyeti ve Kullanım İpuçları
+### 8.2 Veri Emniyeti ve Kullanım İpuçları
 
 - **Klinik Notlar Koruması:** Muayene kayıtlarını güncellerken veya detayını açtığınızda kayıtlı olan klinik notların silinmesi engellenmiştir. Otomatik not doldurma aracı sadece notlar alanı tamamen boşken çalışır ve branş sonuçlarına göre otomatik bir taslak oluşturur.
 - **Toplu Branş Sonucu Doldurma:** Form üzerinde Göz (Genel) sonucunu seçtiğinizde, eğer alt branşlar (Dahiliye ve Dermatoloji) henüz seçilmemiş ("Seçiniz..." veya "Belirsiz" durumunda) ise, sistem bu branşları otomatik olarak Göz sonucuyla doldurarak giriş hızını artırır.
@@ -448,7 +527,7 @@ Bu modül, personelin işe giriş, periyodik, radyasyon ve şua sağlık muayene
 - **Kaydetme Onay Adımı:** Personel detay sayfasındaki sağlık sekmesinden muayene kaydederken veya güncellerken kazara veri kayıplarını ve hatalı kayıtları önlemek amacıyla sistem size bir onay penceresi sunar.
 - **Belge Görüntüleme:** Muayene belgelerini görüntülemek için "Aç" butonuna bastığınızda, sistem işletim sistemi fark etmeksizin (Windows, macOS, Linux) dosyayı bilgisayarınızdaki varsayılan uygulamayla açar.
 
-### 7.3 Gelecek Muayene Tarihinin Otomatik Hesaplanması
+### 8.3 Gelecek Muayene Tarihinin Otomatik Hesaplanması
 
 Sistem, girilen muayene tarihine ve muayene türüne göre bir sonraki muayene tarihini otomatik olarak hesaplar. Bu hesaplama, tanımlı periyot tablosuna göre dinamik olarak yapılır:
 
@@ -458,18 +537,18 @@ Sistem, girilen muayene tarihine ve muayene türüne göre bir sonraki muayene t
 
 > **Not:** Personel için planlanan muayene randevuları, mümkün olduğunca personelin çalışma düzenini aksatmayacak şekilde planlanmalıdır.
 
-### 7.4 Sağlık Muayene Modülü ile İlgili Genel Notlar
+### 8.4 Sağlık Muayene Modülü ile İlgili Genel Notlar
 
 - Dosya ekleme alanında, yüklenen belgeyi görüntülemek için "Aç", kaldırmak için "Temizle" butonları bulunur.
 - "Temizle" butonuna bastığınızda belge kalıcı olarak silinir; bu işlem geri alınamaz, dikkatli kullanın.
 
 ---
 
-## 8. Dozimetre Modülü
+## 9. Dozimetre Modülü
 
 Dozimetre Modülü, radyasyona maruz kalan personelin dozimetre ölçüm sonuçlarının kayıt altına alındığı ve dış ölçüm firmalarından gelen sonuçların sisteme işlendiği modüldür.
 
-### 8.1 Dozimetre Ölçüm Kayıtları
+### 9.1 Dozimetre Ölçüm Kayıtları
 
 1. Dozimetre Modülü > Dozimetre Listesi ekranına gidin.
 2. Yeni bir ölçüm kaydı eklemek için "Yeni Ekle" butonuna tıklayın.
@@ -479,7 +558,7 @@ Dozimetre Modülü, radyasyona maruz kalan personelin dozimetre ölçüm sonuçl
 **Düzenleme, Silme, Detay:** İlgili satırdaki simgeler aracılığıyla kayıtları güncelleyebilir, kaldırabilir veya detaylarını görüntüleyebilirsiniz.
 **Excel'e Aktar:** Ölçüm listesini Excel dosyası olarak dışa aktarabilirsiniz.
 
-### 8.2 Dış Firmadan Gelen Sonuçların İçe Aktarılması
+### 9.2 Dış Firmadan Gelen Sonuçların İçe Aktarılması
 
 Dozimetre ölçüm firmasından gelen sonuç dosyası, içe aktarma özelliği kullanılarak doğrudan sisteme işlenebilir.
 
@@ -487,139 +566,41 @@ Dozimetre ölçüm firmasından gelen sonuç dosyası, içe aktarma özelliği k
 2. Ölçüm firmasından gelen sonuç dosyasını (ilgili şablon formatında) seçin.
 3. Dosyayı yükleyin; sistem dosyayı okuyarak ölçüm sonuçlarını ilgili personel kayıtlarıyla eşleştirip kaydeder.
 
-### 8.3 Dozimetre Modülü ile İlgili Genel Notlar
+### 9.3 Dozimetre Modülü ile İlgili Genel Notlar
 
 - Dosya ekleme ekranında, yükleme butonunun yanında belgeyi düzenleme ve silme seçenekleri de bulunmalıdır.
 - Diğer modüllerle tutarlı olması için düzenleme ve detay butonlarının listede yer almasına özen gösterilmiştir.
 
 ---
 
-## 9. Tanımlamalar (Lookup) Modülü
-
-Bu modül, sistemin genelinde kullanılan temel referans verilerinin (departman, unvan, izin türü, tatil günleri vb.) tanımlandığı bölümdür. Buradaki tanımlar, diğer modüllerdeki seçim listelerinde kullanılır.
-
-### 9.1 Departmanlar
-
-1. Tanımlamalar > Departman Listesi ekranına gidin.
-2. Yeni departman eklemek için "Yeni Ekle" butonuna tıklayın; departman adını girin ve varsa bağlı olduğu üst departmanı seçin.
-3. Mevcut bir departmanı güncellemek için Düzenle simgesini kullanın.
-4. Departman listesini Excel olarak dışa aktarmak veya toplu tanımlama için içe aktarmak üzere ilgili butonları kullanın.
-
-**Silme:** Bir departmanı sildiğinizde departman pasif duruma alınır.
-
-> **Not:** Departman hiyerarşisi (üst departman - alt departman ilişkisi) tanımlanırken "Üst Departman" alanının doğru seçildiğinden emin olun; hiyerarşik yapı, organizasyon şeması ve raporlamada doğrudan etkilidir.
-
-### 9.2 Unvanlar
-
-Personele atanabilecek görev unvanlarının tanımlandığı ekrandır. Ekleme, düzenleme, silme (pasife alma), detay görüntüleme, Excel'e aktarma ve içe aktarma işlemleri Departmanlar ekranıyla aynı mantıkla çalışır.
-
-### 9.3 İzin Türleri
-
-İzin Modülünde kullanılacak izin türlerinin (yıllık izin, mazeret izni, şua izni, ücretsiz izin vb.) tanımlandığı ekrandır. Ekleme, düzenleme, silme (pasife alma), detay, Excel'e aktarma ve içe aktarma işlemleri aynı mantıkla çalışır.
-
-### 9.4 Tatil Günleri
-
-Resmi tatil ve bayram günlerinin tanımlandığı ekrandır. Buradaki tanımlar, izin gün sayısı hesaplamalarında resmi tatillerin hariç tutulması için kullanılır.
-
-1. Tanımlamalar > Tatil Günleri Listesi ekranına gidin.
-2. Yeni bir tatil günü eklemek için "Yeni Ekle" butonuna tıklayın; tarihi ve tatilin adını girin.
-3. Mevcut bir kaydı Düzenle veya Sil simgeleriyle yönetin.
-4. Toplu tanımlama için İçe Aktar özelliğini kullanabilirsiniz.
-
-### 9.5 Nöbet Türleri
-
-Nöbet türü tanımlamaları, ayrı bir liste ekranı yerine Nöbet Ayarları sayfası üzerinden yönetilmektedir. Nöbet türlerini tanımlamak veya güncellemek için Nöbet Ayarları ekranını kullanmanız yeterlidir.
-
-### 9.6 Rapor Şablonları
-
-Rapor Şablonları ekranı, kurumların resmi evrak ve yazışma çıktılarını kendi taslaklarına (Word dosyaları) göre düzenleyebilmesini sağlar.
-
-- **Metin Yer Tutucuları:** Şablonlar içerisindeki metin yer tutucuları (örn. `{{BASLIK_1}}`, `{{BASLIK_2}}`) kolayca tanımlanabilir ve dışa aktarma sırasında ilgili verilerle otomatik olarak doldurulur.
-- **Güvenli Belge Üretimi:** Word dosyaları güncellenirken belgenin biçimi korunur; özel karakterlerden kaynaklanabilecek dosya bozulmaları engellenir.
-- **Dinamik Logo Yerleşimi:** Kurum logoları (`{{LOGO_1}}`, `{{LOGO_2}}`), resim yer tutucuları üzerinden başlık veya gövde paragraflarına otomatik ölçeklenerek yerleştirilir.
-
----
-
-## 10. Raporlar Modülü
-
-Raporlar Modülü, sistem üzerinde gerçekleştirilen işlemlerin (kayıt ekleme, düzenleme, silme, giriş/çıkış vb.) işlem kaydı bilgilerini görüntülemenizi sağlar.
-
-1. Sol menüden Raporlar Modülü ekranına gidin.
-2. Tarih aralığı, kullanıcı veya modül bazında filtreleme yaparak ilgili işlem kayıtlarını görüntüleyin.
-3. Gerekirse kayıtları listeleyip inceleyin.
-
-### 10.1 Birleşik Dışa Aktarma Sistemi
-
-Sistemdeki veri listelerinin (Personel, Kullanıcı, İzin vb.) dışa aktarılması tek bir modern birleşik dışa aktarma çatısı altında toplanmıştır.
-
-- **Desteklenen Formatlar:** Excel, Word, CSV ve PDF formatları desteklenmektedir.
-- **Rapor Tasarımı ve Stiller:** Excel çıktılarında kurumsal başlıklar, logolar, otomatik sütun genişlikleri ve kalın başlık satırları kullanılır. PDF çıktılarında ise Türkçe karakter setlerine uygun, sayfa numaralandırmalı ve otomatik yatay/dikey sayfa yönlendirmeli raporlar üretilir.
-- **Dinamik Şablon ve Konum Eşleme (Excel):** Rapor şablonlarında sütunların sırasını değiştirebilir, bazı sütunları silebilir veya yeni başlıklar ekleyebilirsiniz. Akıllı konum eşleme özelliği, başlık satırını okuyup veriyi her zaman doğru başlığın altına yazar. Böylece şablonları istediğiniz gibi özelleştirebilirsiniz.
-- **Örnek Şablonlar ve Word Entegrasyonu:** Tüm rapor tipleri için kurumsal marka ve logo yer tutucularını barındıran temiz Word şablonları oluşturulmuştur. Dışa aktarma yapıldığında bu şablonlar kullanılarak profesyonel belgeler üretilir.
-- **Kullanım:** İlgili liste ekranlarındaki "Dışa Aktar" butonuna tıkladığınızda açılan dosya kaydetme penceresinden istediğiniz formatı seçerek dosyayı kaydedebilirsiniz.
-
-### 10.2 Uzmanlık Raporları ve Genişletilmiş Alanlar
-
-Personel listesi dışa aktarma sihirbazında (Standart Personel Listesi dışında) 5 farklı uzmanlık raporu bulunmaktadır:
-
-1. **Sağlık Muayene Raporu:** Personelin temel kimlik ve departman bilgilerinin yanında branş bazlı Göz, Dahiliye, Dermatoloji muayene tarihlerini ve onay/imza durumlarını içerir.
-2. **Dozimetre Ölçüm Raporu:** Personelin derin/yüzeysel doz ölçümleri, kümülatif dozları, limit aşımı ve laboratuvar rapor no/tarih verilerini listeler.
-3. **İzin Bakiye Raporu:** Yıllık ve Şua izinleri için hakedilen, kullanılan, devredilen, dondurulan ve kalan gün kırılımlarını listeler.
-4. **Eğitim Durum Raporu:** Personelin eğitim türü, mezuniyet yılı ve onay durumunu listeler.
-5. **Kimlik ve İletişim Bilgileri Raporu:** Personelin doğum tarihi/yeri, cinsiyeti, medeni hali, anne/baba adı, telefon/e-posta adresleri, il/ilçe bilgileri, işten çıkış tarihi/nedeni, nöbet ve fazla mesai durumlarını listeleyen kapsamlı bir kişisel veri dökümüdür.
-
-### 10.3 Ek Bilgi Alanları (Opsiyonel Sütunlar)
-
-Şablon Ayarları sayfasından etkinleştirilebilen opsiyonel alanların yanında, sistemden dinamik olarak birleştirilmiş bilgi sunan ek sütunlar da mevcuttur:
-
-- **Eğitim Dökümü:** Personelin onaylı eğitim geçmişini listeler.
-- **İzin Bakiyesi:** Yıllık ve Şua izin özetini verir.
-- **Son Dozimetre Ölçümü:** En son kaydedilen dozimetre sonuçlarını özetler.
-- **Dozimetre Atama Durumu:** Aktif atamaları gösterir.
-- **Dozimetre Atama Detayı:** Dozimetre cihazlarının seri no, cihaz türü ve aktif atama tarihlerini listeler.
-- **Son Sağlık Muayenesi:** En son muayene tarihini verir.
-- **Aktif Çalışma Kısıtları:** Personelin aktif çalışma kısıtlarını gösterir.
-- **Çalışma Kısıtı Detayı:** Kısıt tipi, gerekçe, günlük/aylık saat azaltım miktarları ve geçerlilik tarihlerini tek bir hücrede birleştirir.
-- **Aylık Nöbet Özeti:** Ay içerisindeki toplam nöbet ve çalışma saatini verir.
-- **Kayıtlı Belgeler:** Personel özlük dosyasına yüklenmiş tüm belgelerin türlerini ve veriliş tarihlerini listeler.
-- **Son İzin Kaydı:** Personelin talep ettiği en son iznin türü, tarihleri ve onay durumunu listeler.
-
----
-
-## 11. Nöbet Modülü (Planlama ve Ayarlar)
+## 10. Nöbet Modülü (Planlama ve Ayarlar)
 
 Nöbet Modülü, kurum personelinin nöbet çizelgelerinin planlandığı, otomatik planlama algoritmasının kısıtlarının ve ağırlıklarının belirlendiği, personel özel durumlarının (gebelik, emzirme vb.) yönetildiği ve birim bazlı nöbet türlerinin tanımlandığı kapsamlı bir yönetim alanıdır.
 
-### 11.1 Nöbet Ayarları Sayfası
+### 10.1 Nöbet Ayarları Sayfası
 
-Nöbet Ayarları ekranına sol menüdeki **Nöbet Modülü > Nöbet Ayarları** adımlarını takip ederek ulaşabilirsiniz. Bu sayfa kendi içinde 4 ana sekmeden oluşmaktadır:
+Nöbet Ayarları ekranına sol menüdeki **Nöbet Modülü > Nöbet Ayarları** adımlarını takip ederek ulaşabilirsiniz. Bu sayfa kendi içinde 5 ana sekmeden oluşmaktadır:
 
-#### 11.1.1 Temel Ayarlar
+#### 10.1.1 Temel Ayarlar
 
 Bu sekme, tüm planlama sürecini, onay mekanizmasını ve nöbet devir şartlarını belirleyen genel parametrelerin yönetildiği alandır.
 
 **Temel Parametreler ve Limitler:**
 
-1. **Aylık Maksimum Nöbet:** Personelin bir ay içerisinde alabileceği maksimum nöbet sayısı veya fiili çalışma saati sınırı.
-2. **Ardışık Maksimum Nöbet Günü:** Personelin üst üste en fazla kaç gün nöbetçi olabileceği (örn. en fazla 2 gün).
-3. **Nöbet Sonrası Minimum Dinlenme (Saat):** Nöbeti biten bir personelin bir sonraki nöbetine kadar dinlenmesi gereken zorunlu süre (örn. 24 saat).
-4. **Günlük Maksimum Nöbet Saati:** 24 saatlik bir zaman diliminde personelin en fazla çalışabileceği süre (örn. 24 saat).
-5. **Hafta Sonu / Bayram Maksimum Nöbeti:** Personelin bir ay içinde alabileceği maksimum hafta sonu ve resmi tatil nöbet sayıları. Bu alandaki *Ayda max hafta sonu nöbeti* kısıtı tamamen genel bir limit olup, herhangi bir birime özel bir istisna içermeksizin tüm kurum genelinde uygulanır.
-6. **Muafiyet Yaş Sınırı:** Bu yaş ve üzerindeki personeller otomatik nöbet listesine dahil edilmez.
-7. **Muafiyet Kıdem Yılı:** Bu hizmet yılı ve üzerindeki personeller otomatik nöbet listesinden muaf tutulur.
-8. **Kıdem Eşik Yılı:** Kıdem yılı bu değerden az olan personeller dengeli dağılımda öncelikli olarak değerlendirilir.
-9. **Personel İstek Maksimum Saat:** Personelin nöbet taleplerinde isteyebileceği maksimum fazla mesai saati (en fazla 60 saat).
+1. **Ardışık Maksimum Nöbet Günü:** Personelin üst üste en fazla kaç gün nöbetçi olabileceği (örn. en fazla 2 gün).
+2. **Nöbet Sonrası Minimum Dinlenme (Saat):** Nöbeti biten bir personelin bir sonraki nöbetine kadar dinlenmesi gereken zorunlu süre (örn. 24 saat).
+3. **Günlük Maksimum Nöbet Saati:** 24 saatlik bir zaman diliminde personelin en fazla çalışabileceği süre (örn. 24 saat).
+4. **Hafta Sonu / Bayram Maksimum Nöbeti:** Personelin bir ay içinde alabileceği maksimum hafta sonu ve resmi tatil nöbet sayıları. Bu alandaki *Ayda max hafta sonu nöbeti* kısıtı tamamen genel bir limit olup, herhangi bir birime özel bir istisna içermeksizin tüm kurum genelinde uygulanır.
+5. **Muafiyet Yaş Sınırı:** Bu yaş ve üzerindeki personeller otomatik nöbet listesine dahil edilmez.
+6. **Muafiyet Kıdem Yılı:** Bu hizmet yılı ve üzerindeki personeller otomatik nöbet listesinden muaf tutulur.
+7. **Kıdem Eşik Yılı:** Kıdem yılı bu değerden az olan personeller dengeli dağılımda öncelikli olarak değerlendirilir.
+8. **Personel İstek Maksimum Saat:** Personelin nöbet taleplerinde isteyebileceği maksimum fazla mesai saati (en fazla 60 saat).
 
 **Opsiyonlar (Planlama Ayarları):**
 
-- **Yumuşak Kısıtlarda Manuel Değişikliğe İzin Ver:** Aktif edildiğinde, yöneticiler sistem tarafından oluşturulan çizelgedeki esnek kuralları manuel olarak düzenleyebilir ve kuralları esnetebilir.
-- **Satır Bazlı İhlal Rozetlerini Göster:** Çizelge üzerinde kısıt ihlali (ardışık gün sınırı aşımı vb.) yapan personellerin yanlarında görsel uyarı simgelerinin gösterilmesini sağlar.
 - **Önce Hafta İçi / Normal Günleri Doldur:** Otomatik planlayıcının hafta sonu ve tatil slotlarından önce normal hafta içi çalışma günlerini doldurmasını hedefler; böylece hafta sonu nöbet atamaları son aşamaya bırakılarak daha dengeli planlanır.
-- **Departmanlar Arası Geçici Atama Açık:** Personelin kendi ana departmanı dışındaki diğer birimlerde de nöbetçi olarak görevlendirilebilmesine izin verir.
-- **Kayıtta Aylık Özeti Otomatik Yenile:** Çizelgede manuel veya otomatik bir değişiklik yapılıp kaydedildiğinde aylık nöbet istatistiklerinin anlık olarak güncellenmesini sağlar.
-- **Personel İzinli İsteği Olsa da İstisna Nöbet Yazımı Açık:** Personel izinli veya nöbet tutmak istemediğini belirtmiş olsa dahi, yöneticinin zorunlu durumlarda onay ve kota dahilinde istisnai nöbet yazabilmesini sağlar.
-- **İstisna İçin Yönetici Onayı Zorunlu:** İstisnai nöbet yazımında yönetici onay sürecini zorunlu kılar.
-- **Aylık Maksimum İzinli-İstek İstisna Sayısı:** Bir personelin ayda en fazla kaç defa izinli/isteksiz olduğu günlere istisnai nöbet yazılabileceğini belirler.
+- **Hafta Sonunu Tatil Say:** Otomatik planlama ve tatil gün hesaplamalarında hafta sonu günlerinin de tatil günü gibi (holiday priority) değerlendirilmesini sağlar.
+- **Departmanlar Arası Geçici Atama Açık:** Personelin kendi ana departmanı dışındaki diğer birimlerde de nöbetçi olarak geçici görevlendirilebilmesine izin verir.
 
 **Plan Onay Kuralları:**
 
@@ -635,7 +616,7 @@ Bu sekme, tüm planlama sürecini, onay mekanizmasını ve nöbet devir şartlar
 - **Devir Sınırlamaları (Sert Kısıt):** Durumu 'Devir' olan bir nöbet kaydı üzerinde tekrar bir devir talebi oluşturulamaz.
 - **Devredilen Nöbetlerin Düzenlenmesini Engelle:** Bu ayar etkinleştirildiğinde, durumu 'Devir' (devir işlemi tamamlanmış) olan nöbetlerin manuel olarak düzenlenmesi veya silinmesi engellenir. Ayar kapatıldığında, yetkili yöneticiler devredilmiş nöbetleri de serbestçe düzenleyebilirler.
 
-#### 11.1.2 Vardiya Kısıtları (Birim & Sınıf Bazlı)
+#### 10.1.2 Vardiya Kısıtları (Birim & Sınıf Bazlı)
 
 Vardiya Kısıtları (Birim & Sınıf Bazlı) (eski adıyla Yasal Kısıtlar) ekranı, otomatik nöbet planlama algoritmasının çizelgeyi oluştururken riayet edeceği yasal limitlerin ve kurumsal kuralların merkezi olarak tanımlandığı alandır.
 
@@ -655,22 +636,46 @@ Vardiya Kısıtları (Birim & Sınıf Bazlı) (eski adıyla Yasal Kısıtlar) ek
   2. **Birim veya Hizmet Sınıfı Özel Kuralı:** Eşleşen bir birim kuralı veya hizmet sınıfı kuralı varsa o değer geçerli olur.
   3. **Genel/Kurumsal Kural:** Eğer özel bir kural yoksa, Tüm Birimler / Tüm Hizmet Sınıfları için tanımlanmış genel başlangıç değerleri devreye girer.
 
-#### 11.1.3 Personel Özel Durumları (Kısıtlar)
+  > [!NOTE]
+  > **Global Varsayılanlar vs. Özel İstisnalar (Kısıt Hiyerarşisi):**
+  > Temel Ayarlar sekmesindeki genel kurallar tüm kurum için **global varsayılan (fallback)** limitlerdir. Eğer belirli bir birim ya da personel unvanı (hizmet sınıfı) için bu kuralları esnetmek ya da daraltmak isterseniz, **Vardiya Kısıtları (Birim & Sınıf Bazlı)** sekmesinden özel kurallar tanımlayabilirsiniz. Vardiya kısıtlarındaki özel tanımlamalar, Temel Ayarlar'daki genel limitleri tamamen ezer.
+  >
+  > Bu hiyerarşik yapıda çalışan ve birbiriyle eşleşen 5 temel kısıt şunlardır:
 
-Her personelin kendine özgü çalışma kısıtlamalarının (sağlık durumları, yasal haklar vb.) tanımlandığı alandır.
+  | Kısıt Adı | Temel Ayarlar (Global Varsayılan) | Vardiya Kısıtları (Özel İstisna / Override) | Açıklama |
+  | :--- | :--- | :--- | :--- |
+  | **Ardışık Maksimum Nöbet** | *Ardışık Maksimum Nöbet Günü* (Örn: 2 gün) | *Maksimum Art Arda Nöbet Günü* | Personelin arka arkaya en fazla kaç gün nöbete yazılabileceğini belirler. |
+  | **Minimum Dinlenme Süresi** | *Nöbet Sonrası Minimum Dinlenme (Saat)* (Örn: 24 saat) | *Nöbet Sonrası Dinlenme Saati* | Nöbeti biten bir personelin bir sonraki nöbete kadar geçmesi gereken asgari dinlenme süresidir. |
+  | **Hafta Sonu Nöbet Limiti** | *Ayda max hafta sonu nöbeti* (Örn: 4 nöbet) | *Hafta Sonu Nöbet Dengesi / Limiti* | Personelin bir ay içerisinde en fazla kaç hafta sonu nöbeti alabileceğini kısıtlar. |
+  | **Bayram Nöbet Limiti** | *Ayda max bayram nöbeti* (Örn: 2 nöbet) | *Bayram Nöbet Dengesi / Limiti* | Resmi tatil günlerinde personelin alabileceği maksimum nöbet sayısıdır. |
+  | **Gece Nöbeti Boşluğu** | Temel ayarlarda sabittir (Varsayılan: **48 saat**) | *Gece Nöbetleri Arası Minimum Boşluk* | Arka arkaya iki gece nöbeti/vardiyası yazılacaksa, bu iki gece nöbeti arasında geçmesi gereken minimum süredir. |
 
-1. **Gebelik ve Emzirme Kısıtı:** Gebelik veya emzirme durumundaki personel sisteme kaydedildiğinde, otomatik planlayıcı bu personellere gece nöbeti yazılmasını engeller.
-2. **Fazla Mesai Muafiyeti (Mesai Dışı):** Nöbet istekleri ekranından bu ekrana taşınmıştır. Aktifleştirildiğinde, seçili personelin nöbet dışındaki normal çalışma saatlerini aşan fazla mesailerden muaf tutulmasını sağlar.
-3. **Çalışma Saati Azaltımı:** Personel için tanımlanan aylık standart çalışma saati azaltımı (örn. sağlık raporu nedeniyle 40 saat eksik çalışması gerekenler).
-4. **Kişiye Özel Maksimum Fazla Mesai:** Personelin ayda en fazla yapabileceği fazla mesai saati sınırı.
+#### 10.1.3 Personel Özel Durumları (Kısıtlar)
 
-#### 11.1.4 Birim Ayarları ve Kısıtlamalar (Birim Genel Kuralları ve Çalışma Şeması)
+Her personelin kendine özgü çalışma kısıtlamalarının (sağlık durumları, yasal haklar, yasal muafiyetler vb.) tanımlandığı alandır.
+
+1. **Yasal Emzirme İzni Otomasyonu:** "Yasal Emzirme İzni" (`emzirme`) kısıtı oluşturulduğunda sistem otomatik olarak 3 aşamalı (toplam 24 aylık) kısıt kaydını tek işlemle açar:
+   - *İlk 6 Ay:* Günlük 3 saat mesai saati indirimi uygulanır.
+   - *İkinci 6 Ay:* Günlük 1.5 saat mesai saati indirimi uygulanır.
+   - *2. Yıl (12-24. aylar):* Günlük azaltım uygulanmaz (0 saat), ancak kısıt tipi `emzirme` olarak kaldığı için gece nöbeti/gece vardiyası yasağı 2 yıl boyunca eksiksiz uygulanmaya devam eder.
+   - Arayüzde emzirme seçildiğinde Tarih Aralığı otomatik olarak kilitlenir ve bitiş tarihi 2 yıl sonrasına otomatik ayarlanır.
+2. **Gebelik / Hamilelik Muafiyeti:** Hamileliğin 24. haftasından doğuma kadar olan süreçte personelin gece nöbetlerine/vardiyalarına yazılmasını yasal olarak engeller. Seçim yapıldığında Tarih Aralığı zorunlu kılınır ve varsayılan bitiş tarihi 4 ay sonrasına ayarlanır.
+3. **Sendika Temsilciliği / Muafiyeti:** Sendika kısıtı seçildiğinde Tarih Aralığı otomatik olarak **1 yıllık** süreye kilitlenir. Personelin hizmet sınıfına (`hizmet_tipi`) göre süre indirimleri otomatik tanımlanır:
+   - *Kamu Görevlisi (Memur):* Haftada 4 saat.
+   - *Destek Personeli / İşçi:* Haftada 2 saat.
+   Aylık nöbet planlamasında ilgili aydaki Pazartesi günleri sayılarak (hafta bazlı) `haftalık saat * hafta sayısı` kadar aylık hedef saat düşürülür.
+4. **Fazla Mesai Muafiyeti (Mesai Dışı):** Aktifleştirildiğinde, seçili personelin normal çalışma saatlerini aşan fazla mesailerden muaf tutulmasını sağlar.
+5. **Çalışma Saati Azaltımı:** Personel için tanımlanan aylık standart çalışma saati azaltımı.
+6. **Kişiye Özel Maksimum Fazla Mesai:** Personelin ayda en fazla yapabileceği fazla mesai saati sınırı. Bu ayar yalnızca `"Aylık Mesai Tamamlama"` (`mesai_tamamlama`) ve `"Diğer Özel Durumlar"` (`diger`) kısıt tiplerinde görünür ve etkindir. Gebelik, emzirme ve sendika gibi kısıtlarda bu sınır ekarte edilerek personelin normal fazla mesai limitlerine müdahale edilmez.
+
+#### 10.1.4 Birim Ayarları ve Kısıtlamalar (Birim Genel Kuralları ve Çalışma Şeması)
 
 Birimlerin çalışma modellerinin, aktiflik takvimlerinin ve günlük personel ihtiyaçlarının belirlendiği alandır. Mükerrer kısıt girişlerinin önlenmesi amacıyla ardışık gün limiti, dinlenme süresi gibi sayısal sınırlar bu sekmeden tamamen kaldırılmış ve **Vardiya Kısıtları (Birim & Sınıf Bazlı)** sekmesine devredilmiştir.
 
 **A. Birim Genel Kuralları (Takvim Kuralları):**
 
 Birim Kuralları sekmesinde, seçili birimin takvim ve çalışma izinleri onay kutularıyla yönetilir:
+
 - **Hafta Sonu Çalışması Aktif:** İlgili birimde hafta sonu günlerinde nöbet yazılıp yazılamayacağını belirler. Örneğin 08-15 mesai yapan polikliniklerde bu kutucuk kapatılarak hafta sonu nöbet yazımı engellenir; acil servis gibi 7/24 çalışan birimlerde ise aktif tutulur.
 - **Bayram Çalışması Aktif:** Birimde resmi tatillerde ve bayramlarda nöbet tutulup tutulmayacağını belirler.
 - **24 Saat Tutulabilir:** Birimdeki 12 saatlik vardiyaların (Gündüz ve Gece) birbirini takip edecek şekilde tek bir 24 saatlik nöbet bloğu olarak atanıp atanamayacağını belirler.
@@ -691,21 +696,19 @@ Birim Kuralları sekmesinde, seçili birimin takvim ve çalışma izinleri onay 
   - Bitiş Saati değiştirildiğinde, Süre otomatik olarak hesaplanır (geceyi aşan/ertesi güne sarkan nöbet saat farkı da dahil edilerek).
 - **Günlük Slot İhtiyaçları:** Hangi nöbet türünde, haftanın hangi günlerinde kaç personelin nöbetçi olması gerektiği buradan yapılandırılır. Otomatik planlayıcı bu ihtiyaçları karşılayacak şekilde çalışır.
 
-#### 11.1.5 Birim Personel İstekleri (Mazeret ve Talepler)
+#### 10.1.5 Birim Personel İstekleri (Mazeret ve Talepler)
 
 Personellerin nöbet günlerine dair taleplerinin, izinlerinin ve mazeretlerinin birim yöneticileri tarafından yönetildiği sekmedir.
 
 - **Talep Türleri:**
   - *Nöbet Yazılmasın (Mazeret):* Personelin o tarihlerde nöbet tutamayacağını belirtir (örn. kişisel mazeret). Nöbet planlayıcı, planlamanın ilk aşamasında bu mazereti kesinlikle korur. Eğer kadro yetersiz kalırsa ve daha esnek bir aşamada esnetme gerekirse; düşük öncelikli (1-3) mazeretler esnetilebilirken, yüksek öncelikli (4-5: Çok Yüksek ve Kritik) mazeretler asla ihlal edilmez.
   - *Nöbet Yazılsın (İstek):* Personelin özellikle nöbetçi olmak istediği günleri belirtir. Planlayıcı aday seçimi yaparken, bu talebe sahip olan kişileri öncelik seviyelerine (1-5) göre en üst sıraya yerleştirerek öncelikle atar.
-  - *Eğitim:* Personelin eğitimde olduğu ve nöbet tutamayacağı günleri işaretler.
-  - *Nöbet Muafiyeti:* Personelin belirli bir süre boyunca nöbet listelerinden tamamen muaf tutulmasını sağlar.
-  - *Maksimum Fazla Mesai Sınırı:* Personel bazında standart limitlerin dışında özel bir fazla mesai üst sınırı belirlenmesini sağlar (örn. sağlık sebebiyle ayda en fazla 20 saat mesai yapabilecekler).
-- **Onay Süreci:** Girilen istek ve mazeret talepleri doğrudan **Onaylandı** durumunda kaydedilir.
-- **Tarih Kısıtı Kontrolü:** "Nöbet Yazılmasın" ve "Nöbet Yazılsın" taleplerinde başlangıç/bitiş tarihleri girmek zorunludur. Fazla Mesai ve Eğitim gibi süreğen kayıtlarda tarih aralık alanları otomatik olarak gizlenir.
+  - *Eğitim Kısıtı (Ders Programı):* Personelin lisansüstü/harici eğitim programı sebebiyle haftanın belirli ders günlerinde (örn. Salı, Perşembe) nöbet tutamayacağını belirtir. Sömestr tarihleri ve haftalık ders günleri tek tıkla seçilir. Dönem ortasında ders programı değiştiğinde **Ders Programını Revize Et** butonu ile geçmiş kayıtlar dondurulup yeni kural başlatılabilir.
+  - *Fazla Mesai Talebi (Aylık Üst Sınır):* Personel bazında standart limitlerin dışında özel bir fazla mesai üst sınırı belirlenmesini sağlar (örn. ayda en fazla 20 saat mesai yapabilecekler).
+- **Onay Süreci ve Otomatik Tarih Derleme:** Girilen istek ve mazeret talepleri doğrudan **Onaylandı** durumunda kaydedilir. Formda başlangıç tarihi seçildiğinde Yıl ve Ay bilgisi tarihten otomatik türetilir.
 - **Planlama Sihirbazı Hızlı Talep Ekleme:** Plan oluşturma sihirbazı önizleme adımında, koordinatör ekranından çıkmadan hızlıca mazeret veya fazla mesai limiti tanımlayabilmek için **Hızlı Talep Ekle** butonunu kullanabilir. Buradan girilen talepler otomatik olarak **Onaylandı** durumunda doğrudan ilgili döneme kaydedilir.
 
-### 11.2 Nöbet Plan Listesi ve Yeni Plan Oluşturma
+### 10.2 Nöbet Plan Listesi ve Yeni Plan Oluşturma
 
 Nöbet Plan Listesi ekranına sol menüdeki **Nöbet Modülü > Nöbet Plan Listesi** adımlarını takip ederek ulaşabilirsiniz. Bu ekran, oluşturulmuş tüm nöbet planlarını (Taslak, Yayında ve Arşiv durumundakileri) listeler.
 
@@ -723,7 +726,7 @@ Nöbet Plan Listesi ekranına sol menüdeki **Nöbet Modülü > Nöbet Plan List
 
   *Önemli:* "Yayında" durumundaki planlar doğrudan silinemez veya normal kullanıcılar tarafından durumları değiştirilemez. Sadece yetkili yönetici kullanıcılar bu planları "Arşiv" durumuna taşıyabilir ya da "Taslak" moduna geri çekebilir.
 
-### 11.3 Nöbet Çizelgesi ve Otomatik Planlama (Çizelge Detay Sayfası)
+### 10.3 Nöbet Çizelgesi ve Otomatik Planlama (Çizelge Detay Sayfası)
 
 Bir planın satırındaki "Detay" veya "Çizelgeyi Düzenle" butonuna tıklandığında, ilgili aya ait günlük nöbet matrisi (çizelge tablosu) açılır.
 
@@ -747,7 +750,7 @@ Bir planın satırındaki "Detay" veya "Çizelgeyi Düzenle" butonuna tıklandı
   - Açılan pencerede sistem, o gün için uygun olan personelleri ve eğer varsa kısıt ihlallerini (örn. ardışık gün nöbet ihlali, dinlenme saati ihlali vb.) kırmızı uyarı rozetleriyle birlikte listeler.
   - Yönetici, kısıt ihlali uyarısına rağmen (opsiyonlarda buna izin veriliyorsa) onaylayarak manuel atamayı gerçekleştirebilir.
 
-### 11.4 Nöbet Onaylama ve Yayınlama Süreci
+### 10.4 Nöbet Onaylama ve Yayınlama Süreci
 
 Otomatik oluşturulan ve manuel olarak düzenlenen nöbet listesinin personele duyurulabilmesi için onaylanıp yayınlanması gerekir.
 
@@ -757,26 +760,42 @@ Otomatik oluşturulan ve manuel olarak düzenlenen nöbet listesinin personele d
 4. *Önemli Kural:* "Yayında" durumuna getirilen nöbet planları üzerinde yöneticiler dahil doğrudan ekleme, silme veya personel değiştirme işlemleri yapılamaz. Çizelge salt okunur hale gelir. Bu aşamadan sonra sadece **Nöbet Devir** süreçleri işletilebilir.
 5. Yetkili kullanıcılar gerekirse planı tekrar düzenlemek için **"Taslağa Geri Çek"** seçeneğini kullanabilir. Bu işlem yetki sınırlandırmasına tabidir ve normal personel kullanıcıları tarafından gerçekleştirilemez.
 
-### 11.5 Nöbet Devir ve Değişim Talepleri (Nöbet Devir Sistemi)
+### 10.5 Nöbet Devir ve Değişim Talepleri (Nöbet Devir Sistemi & 2 Aşamalı Onay Mimarisi)
 
-Yayınlanmış bir nöbet planında görevli olan personeller, nöbetlerini başka bir personele devretmek için sistem üzerinden talep oluşturabilirler.
+Yayınlanmış bir nöbet planında görevli olan personeller, nöbetlerini başka bir personele devretmek veya karşılıklı takas etmek için sistem (Masaüstü veya Web Portalı) üzerinden talep oluşturabilirler. Nöbet devir ve takas işlemleri, veri güvenliği ve personel rızasını garanti altına almak amacıyla **2 Aşamalı Onay Sürecinden** (Devralan Personel Ön-Onayı ➔ Yönetici / Admin Onayı) geçirilmektedir.
 
-- **Nöbet Devir Talebi Oluşturma:**
+#### 10.5.1 2 Aşamalı Nöbet Devir İş Akışı ve Durum Yaşam Döngüsü
 
-  1. Çizelge detay veya İnceleme ekranında devredilmek istenen nöbet hücresine tıklayın ve **"Devir Talebi Oluştur"** butonuna basın. Bu buton, sadece nöbetin asıl sahibi olan personel veya sistemdeki yetkili **Yönetici** ve **Admin** rolleri için aktiftir. Başkasına ait nöbetler için devir talebi oluşturulamaz.
-  2. Açılan pencerede nöbeti devralacak **Hedef Personel**'i seçin.
-  3. Devir nedeni alanına gerekçeyi yazın (Temel ayarlarda zorunlu tutulmuşsa boş bırakılamaz).
-  4. "Talebi Gönder" butonuna basın. Talep durumu "Beklemede" olarak sisteme işlenir.
+1. **Talep Oluşturma (1. Aşama - İletim):**
+   - Çizelge detay ekranında veya Web Portalında devredilmek istenen nöbet seçilerek **"Devir Talebi Oluştur"** butonuna basılır.
+   - Nöbeti devralacak **Hedef Personel** seçilir ve devir gerekçesi girilerek talep gönderilir.
+   - Talep ilk oluşturulduğunda sistemdeki durumu **`Devralan Onayı Bekliyor`** olur.
 
-- **Taleplerin Onaylanması ve Çizelgenin Güncellenmesi:**
+2. **Devralan Personel Ön-Onayı (2. Aşama - Personel B Kabul / Red):**
+   - Nöbeti devralacak personele (Personel B) web portalında ve masaüstü bildirim alanında anlık bildirim zili/kartı düşer.
+   - Personel B, bildirim üzerinden **[✅ Kabul Et]** veya **[❌ Reddet]** butonlarıyla talebe yanıt verir.
+   - **Personel B Redderse:** Talep durumu **`Devralan Tarafından Reddedildi`** olarak güncellenir ve süreç sonlanır.
+   - **Personel B Kabul Ederse:** Talep durumu **`Admin Onayı Bekliyor`** aşamasına geçer. Devreden personele (Personel A) otomatik bilgilendirme bildirimi gönderilir (*"Mehmet Demir, 15.08.2026 tarihli nöbet devir talebinizi kabul etti. İşlem yönetici onayına gönderildi."*).
 
-  - Nöbet Ayarları > Birim Personel İstekleri (veya ilgili onay paneli) üzerinden yöneticiler bekleyen devir taleplerini görüntüler.
-  - Yönetici talebi **"Onayla"** butonuyla onaylarsa, devredilen nöbet çizelgede otomatik olarak yeni personelin üzerine geçirilir. Reddedilirse nöbet eski sahibinde kalır.
-  - *Yönetici/Admin İstisnası:* Acil durumlarda, sistem yöneticisi tarafından yapılan onaylama işlemlerinde çok adımlı hiyerarşik onay akışları (personel → birim sorumlusu → yönetici) atlanarak devir işlemi tek adımda doğrudan tamamlanabilir.
+3. **Devreden Personelin Talebi İptal Etme Hakkı:**
+   - Talebi oluşturan Personel A, nöbeti devralacak Personel B henüz yanıt vermeden (kabul/red butonuna basmadan) önce talebini **[❌ Talebi İptal Et]** butonu ile iptal edebilir.
+   - Bu durumda talep durumu **`Devreden Tarafından İptal Edildi`** olarak güncellenir ve süreç durdurulur.
 
-  *Sert Kısıt:* Durumu 'Devir' olan (devir işlemi tamamlanmış) bir nöbet kaydı tekrar başka birine devredilemez veya üzerinde herhangi bir değişiklik yapılamaz.
+4. **Yönetici / Admin Nihai Onayı:**
+   - Devralan personelin ön-onayından geçen (`Admin Onayı Bekliyor`) talepler Masaüstü RADPYS V3 **Onay Bekleyen Görevler Paneli**'ne aktarılır.
+   - Yönetici talebi onayladığında, devredilen nöbet çizelge üzerinde otomatik olarak yeni personelin üzerine geçirilir.
 
-### 11.6 Nöbet Fazla Mesai Borç / Alacak Devri
+5. **İntranet / İzinli Personel Kilitlenmesini Önleme (Yönetici Şifahi Onay Bypass Seçeneği):**
+   - Nöbeti devralacak personel izinli, vardiya dışında veya kurum içi intranete erişemediği durumlarda portal üzerinden [Kabul Et] butonuna basamayabilir.
+   - Sürecin tıkanmasını önlemek için Masaüstü RADPYS V3 Yönetici Paneli üzerinde `Devralan Onayı Bekliyor` durumundaki talepler için yöneticilere özel 📞 **"Devralan Sözlü/Telefon İzni İle Onayla"** (Yönetici Şifahi Onayı) seçeneği sunulur.
+   - Yönetici bu seçeneği kullandığında sistem denetim izine *"Sözlü Onay İle Yönetici Tarafından Tamamlandı (Onaylayan Admin: [Kullanıcı Adı])"* notunu düşer ve devir işlemini devralanın web onayını beklemeden doğrudan tamamlar.
+
+#### 10.5.2 Sert Kısıtlar ve Güvenlik Kuralları
+
+- *Yayındaki Plan Şartı:* Nöbet devir talepleri yalnızca onaylanıp "Yayında" durumuna getirilmiş nöbet planları üzerinde yapılabilir.
+- *Devredilen Nöbetin Tekrar Devredilememesi (Sert Kısıt):* Durumu **'Devir'** olan (devir işlemi tamamlanmış) bir nöbet kaydı tekrar başka birine devredilemez veya üzerinde herhangi bir CRUD işlemi/değişiklik yapılamaz.
+
+### 10.6 Nöbet Fazla Mesai Borç / Alacak Devri
 
 Nöbet Fazla Mesai Borç / Alacak Devri ekranına **Nöbet Modülü > Fazla Mesai Borç / Alacak Devri** sekmesinden erişebilirsiniz. Bu ekran, yayınlanmış nöbet çizelgelerine göre personellerin aylık hedef çalışma süreleri ile fiili toplam çalışma süreleri arasındaki farkları hesaplar ve borç/alacak takibini yönetir.
 
@@ -802,11 +821,11 @@ Nöbet Fazla Mesai Borç / Alacak Devri ekranına **Nöbet Modülü > Fazla Mesa
 
 ---
 
-## 12. Radyasyon Güvenliği ve Olay Bildirim / DÖF Modülü
+## 11. Radyasyon Güvenliği ve Olay Bildirim / DÖF Modülü
 
 Bu modül, radyoloji ve nükleer tıp birimlerindeki radyasyon güvenliği ihlallerini, cihaz arızalarını, hasta ve çalışan güvenliği olaylarını bildirmek, incelemek ve düzeltici önleyici faaliyetleri (DÖF) takip etmek amacıyla tasarlanmıştır.
 
-### 12.1 Yeni Olay Bildirimi (Adım Adım Sihirbaz)
+### 11.1 Yeni Olay Bildirimi (Adım Adım Sihirbaz)
 
 Tüm personeller sol menüdeki **Personel > Yeni Olay Bildirimi** butonunu kullanarak 3 aşamalı sihirbaz yardımıyla olay bildirimi oluşturabilirler:
 
@@ -814,7 +833,7 @@ Tüm personeller sol menüdeki **Personel > Yeni Olay Bildirimi** butonunu kulla
 - **Adım 2: Sınıflandırma:** Olay kategorisi (Radyasyon İhlali Çalışan Odaklı, Hasta Odaklı, MR Güvenliği vb.) seçilir. Seçilen kategoriye göre uygun alt detay seçenekleri onay kutuları halinde otomatik yüklenir. Kök neden listesinden olası sebepler işaretlenir.
 - **Adım 3: Açıklamalar:** Detaylı olay tanımı, yapılan acil müdahale ve DÖF önerisi girilir. Form "Olayı Bildir" ile kaydedildiğinde sistem otomatik olarak benzersiz bir takip numarası üretir (örn. `OB-2026-00001`).
 
-### 12.2 Olay Bildirimleri ve DÖF Yönetimi (Yönetici Paneli)
+### 11.2 Olay Bildirimleri ve DÖF Yönetimi (Yönetici Paneli)
 
 Yöneticiler sol menüdeki **Yönetim > Olay & DÖF Yönetimi** ekranı üzerinden bildirilen olayları takip ederler:
 
@@ -825,7 +844,7 @@ Yöneticiler sol menüdeki **Yönetim > Olay & DÖF Yönetimi** ekranı üzerind
 
 ---
 
-## 13. Onay Bekleyen Görevler Paneli (Evrensel Onay Sistemi)
+## 12. Onay Bekleyen Görevler Paneli (Evrensel Onay Sistemi)
 
 RADPYS V3, kurumsal veri güvenliğini, veri doğruluğunu ve denetim izlenebilirliğini en üst düzeyde tutmak amacıyla **Evrensel Onay ve Veri Değişikliği Denetim Sistemi** ile donatılmıştır. Bu sistem; belirli rollere (örn. sıradan kullanıcı, izleyici veya özel tanımlanmış veri giriş personelleri) ait kullanıcıların yaptığı ekleme, düzenleme veya silme işlemlerini doğrudan sisteme yazmak yerine, bir yöneticinin onayına sunulmak üzere geçici bir onay kuyruğuna yönlendirir.
 
@@ -836,12 +855,12 @@ Sistemde iki farklı onay yaklaşımı bulunmaktadır:
 
 Yöneticiler, bekleyen tüm onay taleplerini ana ekranda yer alan **"Onay Bekleyen Görevler"** hızlı erişim butonuyla veya sistem menüsünden açılan merkezi onay panelinden yönetebilirler. Onaylama veya reddetme işlemlerinde işlemi gerçekleştiren yöneticinin kimliği ve rol bilgisi denetim izleri için eksiksiz olarak doğrulanır ve kaydedilir.
 
-### 13.1 Kategori Sekmeleri ve Sayı Rozetleri
+### 12.1 Kategori Sekmeleri ve Sayı Rozetleri
 
 Merkezi onay paneli, bekleyen işleri düzenli bir şekilde yönetmek için 5 farklı kategoriye ayrılmıştır. Her kategorinin yanında bekleyen işlem sayısını canlı olarak gösteren sayı rozetleri yer alır:
 
 1. **İzinler:** Birim amirinin onayını bekleyen standart veya şua izin talepleri.
-2. **Nöbet Devirleri:** Personellerin birbirine devretmek istediği ve birim yöneticisinin onayını bekleyen nöbet değişim talepleri.
+2. **Nöbet Devirleri:** Personellerin birbirine devretmek veya takas etmek istediği talepleri içerir. Devralan personelin ön-onayından geçen (`Admin Onayı Bekliyor`) veya devralan personelin intranete erişemediği durumlar için yöneticinin 📞 **"Devralan Sözlü/Telefon İzni İle Onayla"** (Yönetici Şifahi Onay Bypass) yetkisiyle doğrudan onaylayabileceği (`Devralan Onayı Bekliyor`) tüm devir ve takas talepleri bu sekmede listelenir.
 3. **Nöbet İstekleri:** Personellerin nöbet listeleri için ilettiği ve onay bekleyen mazeret/nöbet istekleri.
 4. **Nöbet Planları:** Birim yöneticileri tarafından hazırlanmış ("Birim Onaylı" durumundaki) ve yayınlanmadan önce yönetici onayı bekleyen nöbet planları.
 5. **Veri Değişiklikleri:** Onay gerektiren kullanıcılar tarafından aşağıdaki alanlarda yapılan ekleme, düzenleme ve silme talepleri:
@@ -851,7 +870,7 @@ Merkezi onay paneli, bekleyen işleri düzenli bir şekilde yönetmek için 5 fa
    - **Kalite Dokümanları Portalı**
    - **Hizmet İçi Eğitim Tanımları**
 
-### 13.2 Karşılaştırmalı Değişiklik İnceleme
+### 12.2 Karşılaştırmalı Değişiklik İnceleme
 
 "Veri Değişiklikleri" sekmesinde yer alan bir talebin üzerine tıklayıp **"Değişiklikleri İncele"** butonuna basıldığında modern bir karşılaştırma ekranı açılır:
 
@@ -859,7 +878,7 @@ Merkezi onay paneli, bekleyen işleri düzenli bir şekilde yönetmek için 5 fa
 - **Anlaşılır Alan Etiketleri:** Eğitim ve Kalite modüllerinin de onay sistemine entegre edilmesiyle, karşılaştırma ekranındaki tüm alanlar kullanıcı dostu Türkçe etiketlerle gösterilir (örn. Eğitim Adı, Eğitim Seviyesi, Süre, Sınav Geçme Puanı, Doküman Kodu/Adı, Revizyon Numarası, Yayın/Revizyon Tarihi, Belge Dosya Yolu, Aktiflik Durumu gibi).
 - Yönetici, yapılan değişikliklerin doğruluğunu görsel olarak kolayca teyit ederek **"Onayla"** veya **"Reddet"** butonlarıyla işlemi sonuçlandırır. Onaylanan talepler sisteme anında işlenirken, reddedilen talepler gerekçesiyle birlikte arşive kaldırılır.
 
-### 13.3 Onay Kuyruğu Desteği Olmayan Modüllerin Yetki Yönetimi
+### 12.3 Onay Kuyruğu Desteği Olmayan Modüllerin Yetki Yönetimi
 
 Kurumun radyasyon güvenliği, yasal uyumluluk ve denetim geçmişi açısından kritik önem taşıyan bazı modüllerde, onay bekletme kuyruğu veri bütünlüğünü bozabileceği veya anlık takip gerektirdiği için devre dışı bırakılmıştır. Bu kapsamda yer alan:
 
@@ -872,18 +891,149 @@ Yetkilendirme denetimi, rol bazlı yetki tanımlarına göre gerçekleştirilir.
 
 ---
 
-## 14. Merkezi Bildirim ve Durum Çubuğu Sistemi
+## 13. Raporlar Modülü
+
+Raporlar Modülü, sistem üzerinde gerçekleştirilen işlemlerin (kayıt ekleme, düzenleme, silme, giriş/çıkış vb.) işlem kaydı bilgilerini görüntülemenizi sağlar.
+
+1. Sol menüden Raporlar Modülü ekranına gidin.
+2. Tarih aralığı, kullanıcı veya modül bazında filtreleme yaparak ilgili işlem kayıtlarını görüntüleyin.
+3. Gerekirse kayıtları listeleyip inceleyin.
+
+### 13.1 Birleşik Dışa Aktarma Sistemi
+
+Sistemdeki veri listelerinin (Personel, Kullanıcı, İzin vb.) dışa aktarılması tek bir modern birleşik dışa aktarma çatısı altında toplanmıştır.
+
+- **Desteklenen Formatlar:** Excel, Word, CSV ve PDF formatları desteklenmektedir.
+- **Rapor Tasarımı ve Stiller:** Excel çıktılarında kurumsal başlıklar, logolar, otomatik sütun genişlikleri ve kalın başlık satırları kullanılır. PDF çıktılarında ise Türkçe karakter setlerine uygun, sayfa numaralandırmalı ve otomatik yatay/dikey sayfa yönlendirmeli raporlar üretilir.
+- **Dinamik Şablon ve Konum Eşleme (Excel):** Rapor şablonlarında sütunların sırasını değiştirebilir, bazı sütunları silebilir veya yeni başlıklar ekleyebilirsiniz. Akıllı konum eşleme özelliği, başlık satırını okuyup veriyi her zaman doğru başlığın altına yazar. Böylece şablonları istediğiniz gibi özelleştirebilirsiniz.
+- **Örnek Şablonlar ve Word Entegrasyonu:** Tüm rapor tipleri için kurumsal marka ve logo yer tutucularını barındıran temiz Word şablonları oluşturulmuştur. Dışa aktarma yapıldığında bu şablonlar kullanılarak profesyonel belgeler üretilir.
+- **Kullanım:** İlgili liste ekranlarındaki "Dışa Aktar" butonuna tıkladığınızda açılan dosya kaydetme penceresinden istediğiniz formatı seçerek dosyayı kaydedebilirsiniz.
+
+### 13.2 Uzmanlık Raporları ve Genişletilmiş Alanlar
+
+Personel listesi dışa aktarma sihirbazında (Standart Personel Listesi dışında) 5 farklı uzmanlık raporu bulunmaktadır:
+
+1. **Sağlık Muayene Raporu:** Personelin temel kimlik ve departman bilgilerinin yanında branş bazlı Göz, Dahiliye, Dermatoloji muayene tarihlerini ve onay/imza durumlarını içerir.
+2. **Dozimetre Ölçüm Raporu:** Personelin derin/yüzeysel doz ölçümleri, kümülatif dozları, limit aşımı ve laboratuvar rapor no/tarih verilerini listeler.
+3. **İzin Bakiye Raporu:** Yıllık ve Şua izinleri için hakedilen, kullanılan, devredilen, dondurulan ve kalan gün kırılımlarını listeler.
+4. **Eğitim Durum Raporu:** Personelin eğitim türü, mezuniyet yılı ve onay durumunu listeler.
+5. **Kimlik ve İletişim Bilgileri Raporu:** Personelin doğum tarihi/yeri, cinsiyeti, medeni hali, anne/baba adı, telefon/e-posta adresleri, il/ilçe bilgileri, işten çıkış tarihi/nedeni, nöbet ve fazla mesai durumlarını listeleyen kapsamlı bir kişisel veri dökümüdür.
+
+### 13.3 Ek Bilgi Alanları (Opsiyonel Sütunlar)
+
+Şablon Ayarları sayfasından etkinleştirilebilen opsiyonel alanların yanında, sistemden dinamik olarak birleştirilmiş bilgi sunan ek sütunlar da mevcuttur:
+
+- **Eğitim Dökümü:** Personelin onaylı eğitim geçmişini listeler.
+- **İzin Bakiyesi:** Yıllık ve Şua izin özetini verir.
+- **Son Dozimetre Ölçümü:** En son kaydedilen dozimetre sonuçlarını özetler.
+- **Dozimetre Atama Durumu:** Aktif atamaları gösterir.
+- **Dozimetre Atama Detayı:** Dozimetre cihazlarının seri no, cihaz türü ve aktif atama tarihlerini listeler.
+- **Son Sağlık Muayenesi:** En son muayene tarihini verir.
+- **Aktif Çalışma Kısıtları:** Personelin aktif çalışma kısıtlarını gösterir.
+- **Çalışma Kısıtı Detayı:** Kısıt tipi, gerekçe, günlük/aylık saat azaltım miktarları ve geçerlilik tarihlerini tek bir hücrede birleştirir.
+- **Aylık Nöbet Özeti:** Ay içerisindeki toplam nöbet ve çalışma saatini verir.
+- **Kayıtlı Belgeler:** Personel özlük dosyasına yüklenmiş tüm belgelerin türlerini ve veriliş tarihlerini listeler.
+- **Son İzin Kaydı:** Personelin talep ettiği en son iznin türü, tarihleri ve onay durumunu listeler.
+
+---
+
+## 14. Tanımlamalar (Lookup) Modülü
+
+Bu modül, sistemin genelinde kullanılan temel referans verilerinin (departman, unvan, izin türü, tatil günleri vb.) tanımlandığı bölümdür. Buradaki tanımlar, diğer modüllerdeki seçim listelerinde kullanılır.
+
+### 14.1 Departmanlar
+
+1. Tanımlamalar > Departman Listesi ekranına gidin.
+2. Yeni departman eklemek için "Yeni Ekle" butonuna tıklayın; departman adını girin ve varsa bağlı olduğu üst departmanı seçin.
+3. Mevcut bir departmanı güncellemek için Düzenle simgesini kullanın.
+4. Departman listesini Excel olarak dışa aktarmak veya toplu tanımlama için içe aktarmak üzere ilgili butonları kullanın.
+
+**Silme:** Bir departmanı sildiğinizde departman pasif duruma alınır.
+
+> **Not:** Departman hiyerarşisi (üst departman - alt departman ilişkisi) tanımlanırken "Üst Departman" alanının doğru seçildiğinden emin olun; hiyerarşik yapı, organizasyon şeması ve raporlamada doğrudan etkilidir.
+
+### 14.2 Unvanlar
+
+Personele atanabilecek görev unvanlarının tanımlandığı ekrandır. Ekleme, düzenleme, silme (pasife alma), detay görüntüleme, Excel'e aktarma ve içe aktarma işlemleri Departmanlar ekranıyla aynı mantıkla çalışır.
+
+### 14.3 İzin Türleri
+
+İzin Modülünde kullanılacak izin türlerinin (yıllık izin, mazeret izni, şua izni, ücretsiz izin vb.) tanımlandığı ekrandır. Ekleme, düzenleme, silme (pasife alma), detay, Excel'e aktarma ve içe aktarma işlemleri aynı mantıkla çalışır.
+
+### 14.4 Tatil Günleri
+
+Resmi tatil ve bayram günlerinin tanımlandığı ekrandır. Buradaki tanımlar, izin gün sayısı hesaplamalarında resmi tatillerin hariç tutulması için kullanılır.
+
+1. Tanımlamalar > Tatil Günleri Listesi ekranına gidin.
+2. Yeni bir tatil günü eklemek için "Yeni Ekle" butonuna tıklayın; tarihi ve tatilin adını girin.
+3. Mevcut bir kaydı Düzenle veya Sil simgeleriyle yönetin.
+4. Toplu tanımlama için İçe Aktar özelliğini kullanabilirsiniz.
+
+### 14.5 Nöbet Türleri
+
+Nöbet türü tanımlamaları, ayrı bir liste ekranı yerine Nöbet Ayarları sayfası üzerinden yönetilmektedir. Nöbet türlerini tanımlamak veya güncellemek için Nöbet Ayarları ekranını kullanmanız yeterlidir.
+
+### 14.6 Rapor Şablonları
+
+Rapor Şablonları ekranı, kurumların resmi evrak ve yazışma çıktılarını kendi taslaklarına (Word dosyaları) göre düzenleyebilmesini sağlar.
+
+- **Metin Yer Tutucuları:** Şablonlar içerisindeki metin yer tutucuları (örn. `{{BASLIK_1}}`, `{{BASLIK_2}}`) kolayca tanımlanabilir ve dışa aktarma sırasında ilgili verilerle otomatik olarak doldurulur.
+- **Güvenli Belge Üretimi:** Word dosyaları güncellenirken belgenin biçimi korunur; özel karakterlerden kaynaklanabilecek dosya bozulmaları engellenir.
+- **Dinamik Logo Yerleşimi:** Kurum logoları (`{{LOGO_1}}`, `{{LOGO_2}}`), resim yer tutucuları üzerinden başlık veya gövde paragraflarına otomatik ölçeklenerek yerleştirilir.
+
+---
+
+## 15. Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü (`web_portal`)
+
+RADPYS V3.6.0 ile birlikte gelen Çoklu Kullanıcı Web Portalı (`web_portal`), masaüstü uygulamasından bağımsız olarak kurum içi yerel ağda (LAN / Wi-Fi) çalışabilen, Express.js + React (Vite / TailwindCSS) tabanlı bağımsız bir veri toplama ve senkronizasyon portalıdır.
+
+### 15.1 Öne Çıkan Özellikler ve Avantajlar
+
+- **Eşzamanlı Kilit Koruması (Zero File Lock):** Şirket içi ağ klasörlerinde yaşanan paylaşımlı Excel dosyalarının kilitlenmesi ("File Locked") ve veri üzerine yazma hatalarını tamamen ortadan kaldırır. Tüm girdiler sunucu belleğinde ve ilişkisel veri havuzunda sıraya alınarak kaydedilir.
+- **Yerel Ağ ve Mobil Cihaz Erişimi:** Ağdaki tüm bilgisayar ve mobil cihazların (tablet/telefon) web tarayıcılarından (`http://<sunucu-ip>:3000`) erişilebilir.
+- **Otomatik SQLite Çift Yönlü Senkronizasyonu (`WebSyncService`):** RADPYS V3 masaüstü uygulaması başlatıldığında ve arka planda her 15 dakikada bir `data_store.json` dosyasını tarayarak web üzerinden girilen nöbet devirlerini ve olay bildirimlerini otomatik olarak ana SQLite veritabanına (`radpys.db`) işler.
+- **Canlı Birim ve Personel Önbellekleme:** Masaüstü uygulamasında yapılan personel veya birim değişiklikleri anında web portalının `lookups.json` önbelleğine yansıtılır.
+
+### 15.2 Modül 10 Nöbet Devir Talebi Formu (`ShiftChangeForm.tsx`)
+
+- RADPYS V3 Modül 10 nöbet kurallarıyla tam entegre çalışır (`/api/nobet/devir`).
+- **Çoklu Birim Yayındaki Planlar (`schedule.json`):** Masaüstü uygulamasında onaylanan ve "Yayında" durumuna getirilen tüm nöbet birimlerine (Acil Radyoloji, MR, BT vb.) ait nöbet planları otomatik olarak web portalının `schedule.json` verisine ihraç edilir.
+- **Veren ve Alan Personel İçin Yayındaki Nöbet Seçimi:** Nöbet devir formunda devreden personelin yanı sıra **alan personel için de** o birimde yayındaki nöbet satırları dinamik dropdown (`📋 Yayında Plandan`) ile seçilebilir (`selectedAlanCizelgeId`, `alanScheduleEntries`).
+- **Esnek Vardiya Değişimi:** Aynı gün farklı vardiya (örn: Gündüz ↔ Gece) takaslarına izin verilir; doğrulama ve hata durumları ekrandaki kırmızı uyarı bandında kullanıcıya gösterilir.
+
+### 15.3 Kalite & Olay Bildirimi DÖF Paneli (`IncidentReportForm.tsx`)
+
+- Radyasyon güvenliği ihlalleri, cihaz arızaları ve ramak kala olayları için 3 adımlı sihirbaz bildirim formu (`/api/olay/bildirim`).
+- **Dinamik Veritabanı (`olay_lookup`) İlişkisi:** Veritabanındaki 6 ana kategori, 41 alt detay ve 7 kök neden tanımı canlı olarak web portalına aktarılır. Kullanıcı üst kategoriyi seçtiğinde ilgili alt detay seçenekleri ve kök nedenler `olay_lookup` veritabanından dinamik olarak süzülür.
+- **Null-Safe Render Koruması:** Web bileşeninde `Array.isArray()` ve eksiksiz state yapısı kurularak form geçişlerinde oluşabilecek beyaz ekran (crash) durumları tamamen engellenmiştir.
+- **Engellemesiz Kesintisiz Bildirim:** İdari veya özel birim seçiminde doğrudan eşleşen personel olmasa dahi form bildirim yapılmasını kilitlemez; otomatik olarak genel personel listesini açarak kalite bildiriminin kesintisiz tamamlanmasını sağlar.
+
+### 15.4 Portalı Başlatma, Sistem Tepsisi ve Masaüstü Kısayolu
+
+- **Grafik Başlatıcı (GUI Launcher):** `web_portal/RADPYS_Portal_Launcher.exe` (veya `exe/user_launcher/RADPYS_Portal_Launcher.exe`) grafik başlatıcısına çift tıklayarak portala yön verebilirsiniz.
+- **Tek Tıkla Başlatma/Durdurma:** GUI arayüzündeki **▶ Başlat** ve **⏹ Durdur** butonları ile Node.js sunucusunu terminal ekranı görmeden yönetebilirsiniz.
+- **Sistem Tepsisinde Çalıştırma:** **🗕 Tepsiye Gönder** butonu veya pencere kapatma onayında *"Tepsiye Gönder"* seçilerek portal arka planda sessizce çalıştırılır.
+- **Otomatik Başlatma:** Launcher arayüzündeki `☑ Windows Açılışında Otomatik Çalıştır (Sessiz / Tepside)` seçeneği işaretlendiğinde bilgisayar her açıldığında portal otomatik ve sessiz başlatılır.
+- **RADPYS V3 Masaüstü Entegrasyonu:** RADPYS V3 durum çubuğundaki **`🔴 Portal Sunucu: Kapalı`** butonuna tıklandığında portal başlatıcısı arka planda otomatik tetiklenir ve sunucu açıldığında buton **`🟢 Portal Sunucu: Aktif`** durumuna geçer.
+
+### 15.5 Node.js Çalışma Zamanı Bağımlılığı ve Otomatik Tespit
+
+- **Node.js LTS (v18.0.0+) Gereksinimi:** Çoklu Kullanıcı Web Portalı sunucusunun Express.js REST API servislerini sunabilmesi ve bağımsız derleme adımlarını (`npm install` & `npm run build`) yürütebilmesi için bilgisayarda **Node.js LTS (v18.0.0 veya üzeri)** yüklü olmalıdır.
+- **Otomatik Yol ve Dizin Tespiti:** Grafik Başlatıcı (`portal_launcher.py` / `RADPYS_Portal_Launcher.exe`), `C:\Program Files\nodejs\node.exe`, `C:\Program Files (x86)\nodejs\node.exe` ve sistem `PATH` değişkenlerini otomatik tarayarak Node.js ortamını kendiliğinden algılar.
+- **Eksik Node.js Uyarı Uyarısı:** Eğer sisteminizde Node.js yüklü değilse, başlatıcı açılışta bilgilendirici bir uyarı penceresi çıkararak sizi [https://nodejs.org](https://nodejs.org) resmi indirme adresine yönlendirir. Node.js kurulduktan sonra portal başka hiçbir ayara gerek kalmadan çalışacaktır.
+
+## 16. Merkezi Bildirim ve Durum Çubuğu Sistemi
 
 RADPYS V3, kurumsal süreçlerde (izin talepleri, nöbet planlamaları, eğitim atamaları ve olay bildirimleri vb.) anlık bilgi akışını sağlamak amacıyla **Merkezi Bildirim ve Durum Çubuğu Sistemi** ile donatılmıştır.
 
-### 14.1 Durum Çubuğu Yerleşimi ve Canlı Saat
+### 16.1 Durum Çubuğu Yerleşimi ve Canlı Saat
 
 Uygulamanın ana ekranının sağ alt köşesinde yer alan bu alan, kullanıcıya hem canlı durum takibi hem de hızlı bildirim kontrolü sunar:
 
 - **Canlı Tarih ve Saat:** Türkçe biçimlendirilmiş güncel saat ve tarih bilgisi saniyede bir güncellenerek durum çubuğunun sağ tarafında gösterilir (örn. `8 Temmuz Çarşamba 21:56:32`).
 - **Dinamik Zil Simgesi:** Okunmamış bir bildirim olduğunda zil simgesi aktif mavi renge bürünür ve üzerine gelindiğinde okunmamış bildirim sayısını gösterir. Tüm bildirimler okundu yapıldığında veya silindiğinde simge standart gri rengine geri döner.
 
-### 14.2 Aşağıdan Yukarı Kayan Bildirim Çekmecesi
+### 16.2 Aşağıdan Yukarı Kayan Bildirim Çekmecesi
 
 Zil simgesine tıklandığında, durum çubuğunun hemen üzerinde çerçevesiz, modern ve yarı saydam gölgelendirmeli bir **Bildirim Çekmecesi** açılır:
 
@@ -900,7 +1050,7 @@ Zil simgesine tıklandığında, durum çubuğunun hemen üzerinde çerçevesiz,
 
 ---
 
-## 15. Program Ayarları
+## 17. Program Ayarları
 
 Program Ayarları ekranı, sistemin genel davranışına ilişkin ayarların (örn. genel parametreler, bildirim ayarları vb.) yönetildiği bölümdür. Bu ekrana genellikle sistem yöneticisi yetkisine sahip kullanıcılar erişebilir.
 
@@ -908,13 +1058,13 @@ Program Ayarları ekranı, sistemin genel davranışına ilişkin ayarların (ö
 
 ---
 
-## 16. Veritabanı Modülü
+## 18. Veritabanı Modülü
 
 Veritabanı Modülü, sistemin veritabanı düzeyinde yönetildiği, genellikle sadece sistem yöneticisi yetkisine sahip kullanıcıların erişebildiği kritik bir bölümdür.
 
 > **Not:** RADPYS V3, verilerini yerel bir veritabanı dosyasında saklar. Bu nedenle aşağıdaki yedekleme/geri yükleme işlemleri, bilgisayarınızdaki bu veritabanı dosyası üzerinde çalışır; yedek dosyasını harici bir ortamda (örn. başka bir disk veya bulut depolama) saklamanız veri kaybı risklerine karşı önerilir.
 
-### 16.1 Veritabanı Yedekleme
+### 18.1 Veritabanı Yedekleme
 
 Sistemdeki tüm verilerin bir yedek dosyası olarak alınmasını sağlar.
 
@@ -922,7 +1072,7 @@ Sistemdeki tüm verilerin bir yedek dosyası olarak alınmasını sağlar.
 2. "Yedek Al" butonuna tıklayın.
 3. İşlem tamamlandığında oluşturulan yedek dosyasını indirin veya güvenli bir konumda saklanmasını sağlayın.
 
-### 16.2 Veritabanı Yedekten Geri Yükleme
+### 18.2 Veritabanı Yedekten Geri Yükleme
 
 Önceden alınmış bir yedek dosyasının sisteme geri yüklenmesini sağlar.
 
@@ -932,17 +1082,17 @@ Sistemdeki tüm verilerin bir yedek dosyası olarak alınmasını sağlar.
 
 > **Not:** Geri yükleme işlemi, sistemdeki mevcut verilerin üzerine yazar ve geri alınamaz. Bu işlemi yapmadan önce güncel bir yedek aldığınızdan kesinlikle emin olun.
 
-### 16.3 Veritabanı Temizleme
+### 18.3 Veritabanı Temizleme
 
 Gereksiz, eski veya geçici verilerin sistemden temizlenmesini sağlayan bakım işlemidir. Bu işlemi gerçekleştirmeden önce mutlaka bir yedek alınması önerilir.
 
-### 16.4 Veritabanı Bakımı
+### 18.4 Veritabanı Bakımı
 
 Veritabanının performansını korumak amacıyla yapılan bakım işlemlerini (örn. düzenleme, hızlandırma) kapsar.
 
 ---
 
-## 17. Toplu İçe Aktarma (Import) İşlemleri
+## 19. Toplu İçe Aktarma (Import) İşlemleri
 
 Sistem, birçok modül için toplu veri yükleme (içe aktarma) özelliği sunar. Genel kullanım adımları tüm toplu içe aktarma ekranlarında benzerdir:
 
@@ -968,7 +1118,7 @@ Sistemde aşağıdaki toplu içe aktarma ekranları bulunmaktadır:
 - **Toplu Sağlık Muayene İçe Aktarma (Aktif):** Personelin periyodik sağlık kontrollerini ve radyolojik sonuçlarını Excel şablonuyla toplu yüklemek için kullanılır.
 - **Toplu Nöbet İçe Aktarma (Aktif):** Birim bazlı veya genel nöbet listelerini toplu olarak içe aktararak nöbet çizelgelerine hızlıca yansıtır.
 
-### 17.1 Güvenlik ve Yetkilendirme Kısıtı
+### 19.1 Güvenlik ve Yetkilendirme Kısıtı
 
 Toplu içe aktarım işlemleri sisteme büyük miktarda kayıt eklediği veya güncellediği için onay kuyruğuna alınmaya uygun değildir. Veri bütünlüğünü ve güvenliğini korumak amacıyla:
 
@@ -977,42 +1127,17 @@ Toplu içe aktarım işlemleri sisteme büyük miktarda kayıt eklediği veya g�
 
 > **Önemli Güvenlik Notu:** Şablonlardaki sütun başlıklarını ve veri formatlarını değiştirmeden kullanmanız, içe aktarma işleminin hatasız tamamlanması için önemlidir.
 
----
+### 19.2 Toplu İşlem Performansı ve Kilit Önleme Mimarisi
 
-## 18. Lisans ve Aktivasyon Sistemi (Demo Sürüm)
+Toplu içe aktarım (import) mekanizması v3.8.0 güncellemeleriyle yüksek performanslı ve kilitlenmeye karşı korumalı bir mimariye kavuşturulmuştur:
 
-Uygulamanın lisanssız veya deneme sürümü olarak çalıştırılması durumunda bazı kısıtlamalar devreye girer. Lisans durumunu yönetmek ve tam sürüme geçiş yapmak için sağ üst köşede bulunan **Hakkında** butonuna tıklayarak ilgili ekrana ulaşabilirsiniz.
-
-### 18.1 Demo Sürüm Kısıtlamaları
-
-Uygulama demo modundayken aşağıdaki sınırlar geçerlidir:
-
-- **Deneme Süresi:** İlk kurulum tarihinden itibaren **30 gün** ile sınırlıdır. Süre dolduğunda uygulama açılışta uyarı verir ve kendini kapatır.
-- **Personel Limiti:** Sistemde en fazla **15 aktif personel** kaydı barındırılabilir. Yeni personel eklenmesi veya pasif personellerin aktif hale getirilmesi bu sınırın aşılması durumunda engellenir.
-- **Nöbet Planı Limiti:** Sistemde en fazla **3 nöbet planı** oluşturulabilir.
-- **Toplu İçe Aktarma Kısıtı:** Excel veya CSV üzerinden yapılan toplu personel ve nöbet içe aktarımlarında da 15 personel ve 3 nöbet planı limiti tam olarak denetlenmektedir.
-- **Güncelleme Limiti (Yama Desteği):** Demo/Deneme sürümünde yeni ticari özellikler içeren ana güncellemeler alınamaz. Ancak programın kararlılığını korumak ve olası kritik hatalardan etkilenmemeniz için kritik hata düzeltme ve yama güncellemeleri demo modunda da otomatik olarak sunulur ve yüklenebilir.
-
-### 18.2 Uygulamayı Aktifleştirme (Tam Sürüme Geçiş)
-
-Uygulamayı satın aldığınızda, programı kalıcı olarak tam sürüme yükseltmek için aşağıdaki adımları izleyin:
-
-1. **Cihaz Kimliğini Kopyalayın:** Hakkında penceresindeki **Lisans ve Aktivasyon** kartının altında yazan benzersiz **Cihaz Kimliği** (örn. `RP-XXXX-XXXX-XXXX-XXXX`) bilgisinin yanındaki **Kopyala** butonuna tıklayarak panoya alın.
-2. **Yazılımcıya Gönderin:** Kopyaladığınız Cihaz Kimliğini yazılım sağlayıcınıza (Cem Kara) iletin.
-3. **Lisans Anahtarını Girin:** Yazılımcının size bu bilgisayara özel ürettiği **Lisans Anahtarını** (örn. `LK-XXXX-XXXX-XXXX-XXXX`) Hakkında penceresindeki lisans giriş alanına yapıştırın.
-4. **Aktifleştirin:** **Lisansı Aktifleştir** butonuna tıklayın. Başarılı uyarısını aldıktan sonra uygulamayı kapatıp yeniden başlatın. Program artık kısıtlamasız **Tam Sürüm** olarak çalışacaktır.
-
-### 18.3 Geri Bildirim ve Hata Raporlama
-
-Uygulama çalışırken beklenmedik teknik bir çökme hatasıyla karşılaşırsa:
-
-1. **Çökme Bildirim Ekranı:** Program sessizce kapanmaz; karşınıza teknik hata bilgilerini içeren özel bir hata penceresi gelir.
-2. **Hata Kopyalama/E-posta:** Bu penceredeki **"Hata Detayını Kopyala"** butonu ile hatayı panoya alabilir veya **"E-Posta Gönder"** butonu ile varsayılan e-posta programınızı (Outlook vb.) açarak hatayı otomatik hazırlanmış şablonla `radpys.iletisim@gmail.com` adresine gönderebilirsiniz.
-3. **Destek Paketi Oluşturma:** Uygulama içindeyken (çökme olmasa dahi karşılaştığınız sorunlarda) sağ üst köşedeki **Hakkında** butonuna tıklayarak Hakkında ekranını açın. En alttaki **"Destek Paketi (Log) Oluştur"** butonuna basarak, uygulamanın ürettiği tüm KVKK uyumlu kayıt dosyalarını (kişisel veri içermez) masaüstünüze `radpys_destek_log.zip` olarak kaydedebilirsiniz. Bu paketi hata bildirim e-postanıza ekleyerek bize iletmeniz sorunların hızlıca çözülmesini sağlayacaktır.
+- **Paketli İşlem (Batch Transactions - 50'şerli Satır):** Yüzlerce satırlık aktarımlar tek tek yazılmak yerine 50'şerli paketler halinde veritabanına taahhüt edilir (`COMMIT`). Bu sayede SQLCipher diske yazma maliyeti azalır ve aktarım süreleri ciddi oranda hızlanır.
+- **Özyinelemeli Kilit (`threading.RLock`):** Veritabanı kilidi özyinelemeli kilit yapısıyla yönetildiği için işlem açıkken aynı thread üzerinden iç içe çağrılan servis sorgularının sistemi sonsuz beklemeye (self-deadlock / yanıt vermiyor durumu) sokması engellenmiştir.
+- **Canlı İlerleme Çubuğu (`processEvents`):** İçe aktarma esnasında kullanıcı arayüzünün donmaması için paket aralarında `QCoreApplication.processEvents()` çağrılarak ilerleme çubuğu %0 ➔ %100 arası canlı ve takılmasız güncellenir.
 
 ---
 
-## 19. Sık Karşılaşılan Durumlar ve İpuçları
+## 20. Sık Karşılaşılan Durumlar ve İpuçları
 
 - Şifrenizi unuttuysanız, "Şifremi Unuttum" bağlantısı sizi sistem yöneticinize yönlendirir; şifre sıfırlama işlemi yönetici tarafından yapılır.
 - Bir ekranı veya butonu göremiyorsanız, bu genellikle rolünüze tanımlı yetkilerle ilgilidir; sistem yöneticinizden ilgili yetkiyi talep edebilirsiniz.
@@ -1024,8 +1149,4 @@ Uygulama çalışırken beklenmedik teknik bir çökme hatasıyla karşılaşır
 - Yetki veya rolünüz "onay gerektiren" gruptaysa, onay kuyruğu desteği bulunmayan Dozimetre ve Fiili Hizmet modüllerinde doğrudan veri yazabilir veya değiştirebilirsiniz (tabii ki ilgili modüllerde rolünüze ait yazma/güncelleme/silme yetkileri tanımlanmışsa). Bu modüllerde yapılan işlemler onay kuyruğuna alınmadan doğrudan sisteme işlenir.
 - Sistemin isteğe bağlı alan zenginleştirme işlemleri, olası hataların uygulamayı çökertmesini önlemek için koruma altına alınmıştır.
 
-## 20. Update Log
 
-Sistem genelinde yapılan tüm güncellemeleri, sürüm notlarını ve hata giderimlerini detaylı olarak incelemek için:
-
-- **[Güncelleme Raporunu Aç (CHANGELOG.md)](../CHANGELOG.md)**

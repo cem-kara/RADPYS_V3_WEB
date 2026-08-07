@@ -273,7 +273,7 @@
             });
 
             // Marquee
-            const MQ = ["KVKK Uyumlu", "NDK Rapor Şablonları", "AES-256 Şifreleme", "PySide6 Native", "SQLite Local-First", "Rol Bazlı Erişim", "Yıpranma Payı", "Dozimetre Analitiği"];
+            const MQ = ["KVKK Uyumlu", "Rapor Şablonları", "AES-256 Şifreleme", "PySide6 Native", "SQLite Local-First", "Rol Bazlı Erişim", "Sağlık (Şua) İzni", "Dozimetre Analitiği"];
             const mqHtml = MQ.map((m) => `<span style="display:inline-flex; align-items:center; gap:1.25rem"><span>${m}</span><span style="width:6px;height:6px;border-radius:9999px;background:#14b8a6;box-shadow:0 0 12px #14b8a6"></span></span>`).join("");
             document.getElementById("marquee-a").innerHTML = mqHtml;
             document.getElementById("marquee-b").innerHTML = mqHtml;
@@ -282,8 +282,8 @@
             const MANIFESTO = [
                 { n: "01", t: "Kağıt işine son.", b: "Excel çizelgeleri, imzalı dozimetre çıktıları ve email zincirlerinin sonu. Her kayıt zaman damgalı, denetlenebilir, dijital." },
                 { n: "02", t: "Şeffaflık, güven yaratır.", b: "Nöbet algoritması açık kurallarla çalışır. Ekip neden orada olduğunu görür — 'amirin insafı' değil, prensip." },
-                { n: "03", t: "Güvenlik önce gelir.", b: "AES-256 şifreleme, KVKK uyumu, rol bazlı erişim. Sağlık verileri korumalı, denetim dostu, sızıntıya kapalı." },
-                { n: "04", t: "Zamanı geri kazan.", b: "Denetime iki gün değil, iki saat. Aylık rapora yedi saat değil, yedi dakika. Ölçtük, ekiplerimiz onayladı." },
+                { n: "03", t: "Güvenlik önce gelir.", b: "AES-256 şifreleme, KVKK uyumu, rol bazlı erişim. Verileri korumalı, denetim dostu, sızıntıya kapalı." },
+                { n: "04", t: "Zamanı geri kazan.", b: "Toplantılara iki gün değil, iki saat. Aylık rapora yedi saat değil, yedi dakika. Ölçtük, ekiplerimiz onayladı." },
             ];
             document.getElementById("manifesto").innerHTML = MANIFESTO.map(
                 (m) => `
