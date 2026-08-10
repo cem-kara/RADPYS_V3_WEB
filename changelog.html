@@ -166,6 +166,17 @@
         /* Changelog verisi — yeni sürüm eklemek için buraya bir obje ekleyin */
         const RELEASES = [
             {
+                version: "3.8.6.2",
+                date: "10 Ağustos 2026",
+                title: "PySide6 Regresyon & Arayüz Test Düzeltmeleri, Lookup Normalizasyonu ve Zamanlayıcı Korumaları",
+                changes: [
+                    { type: "fixed", text: "PySide6 QAction içe aktarımı QtGui.QAction olarak standartlaştırıldı" },
+                    { type: "improved", text: "Excel aktarımında Türkçe karakterli departman/unvan isimlerinin ASCII (BASHEMSIRELIK) dönüşümlü tam eşleşmesi sağlandı" },
+                    { type: "improved", text: "Headless CI/CD test koşumlarında pytest-qt eksikliğine karşı fallback qtbot fixture'ı tanımlandı" },
+                    { type: "fixed", text: "Diyalog ve form pencerelerinde C++ nesne yaşam döngüsü ve asenkron QTimer.singleShot çökme emniyetleri eklendi" },
+                ],
+            },
+            {
                 version: "3.2.1",
                 date: "12 Aralık 2025",
                 title: "Nöbet motoru",

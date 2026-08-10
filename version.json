@@ -1,7 +1,7 @@
 {
-  "version": "3.5.5",
-  "latest_demo_version": "3.5.5",
-  "release_date": "2026-07-23",
+  "version": "3.8.6.2",
+  "latest_demo_version": "3.8.6.2",
+  "release_date": "2026-08-10",
   "download_url": "https://download.radpys.com.tr/releases/RADPYS_Setup_latest.exe",
-  "changelog": "Gösterge Paneli (Dashboard) modern grafik ve KPI kartları ile yenilendi. Dozimetre limit durumu gauge, nöbet doluluk heatmap takvimi ve olay/DÖF donut grafikleri eklendi."
+  "changelog": "PySide6 QAction import düzeltmesi, Türkçe karakterli departman lookup ASCII normalizasyonu, headless CI qtbot fixture uyumu ve Qt nesne yaşam döngüsü async QTimer güvenlik güncellemeleri yapıldı."
 }

@@ -171,7 +171,7 @@ Uygulama demo modundayken aşağıdaki sınırlar geçerlidir:
 Uygulamayı satın aldığınızda, programı kalıcı veya süreli olarak tam sürüme (PRO / P20 / P5) yükseltmek için aşağıdaki adımları izleyin:
 
 1. **Cihaz Kimliğini Kopyalayın:** Hakkında penceresindeki **Lisans ve Aktivasyon** kartının altında yazan benzersiz **Cihaz Kimliği** (örn. `RP-XXXX-XXXX-XXXX-XXXX`) bilgisinin yanındaki **Kopyala** butonuna tıklayarak panoya alın.
-2. **Yazılımcıya Gönderin:** Kopyaladığınız Cihaz Kimliğini yazılım sağlayıcınıza (Cem Kara) iletin.
+2. **Yazılımcıya Gönderin:** Kopyaladığınız Cihaz Kimliğini yazılım sağlayıcınıza (radpys.iletisim@gmail.com) iletin.
 3. **Lisans Anahtarını Girin:** Yazılımcının cihaz kimliğinize ve paketinize özel ürettiği Kriptografik **Ed25519 Lisans Anahtarını** (örn. `LK-AS-PRO-PERM-XXXX...`) Hakkında penceresindeki lisans giriş alanına yapıştırın.
 4. **Aktifleştirin:** **Lisansı Aktifleştir** butonuna tıklayın. Sistem Ed25519 açık anahtarıyla dijital imzayı ve cihaz kimliği eşleşmesini doğrular. Başarılı uyarısını aldıktan sonra uygulamayı kapatıp yeniden başlatın. Program artık kısıtlamasız **Tam Sürüm** olarak çalışacaktır.
 
