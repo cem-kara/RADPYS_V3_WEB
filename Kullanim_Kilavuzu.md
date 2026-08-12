@@ -1,1152 +1,2141 @@
-# RADPYS V3 — Kullanım Kılavuzu
-
-*Radyasyonla Çalışan Sağlık Personeli Operasyonel Süreç Yönetim Uygulaması*
-
-*Haziran 2026*
+# RADPYS V3 — Güncel Operasyonel Kullanım Kılavuzu
 
 ---
 
-## İçindekiler
+## 📑 İçindekiler
 
 ### I. GENEL BİLGİLER VE KURULUM
+* 1. [RADPYS V3 Kurulumu ve Windows Güvenlik İzinleri Nasıl Verilir?](#bolum-1)
+* 2. [Sisteme Giriş, Şifre Değiştirme ve Kullanıcı Yetkileri Nasıl Yönetilir?](#bolum-2)
 
-1. Kurulum & Giriş
-2. Sisteme Giriş (Login Ekranı)
-3. Lisans ve Aktivasyon Sistemi (Demo Sürüm)
-
-### II. TEMEL OPERASYONEL MODÜLLER
-
-1. Kullanıcı Modülü
-2. Personel Modülü
-3. İzin Modülü
-4. Fiili Hizmet Modülü
-5. Sağlık Muayene Modülü
-6. Dozimetre Modülü
-7. Nöbet Modülü (Planlama ve Ayarlar)
-8. Radyasyon Güvenliği ve Olay Bildirim / DÖF Modülü
+### II. OPERASYONEL MODÜLLER VE GÜNLÜK İŞLEMLER
+* 3. [Personel Modülü Kullanımı ve Radyasyon Çalışanı Sınıflandırması](#bolum-3)
+* 4. [İzin Takip & Fiili Hizmet (Şua İzni) Takip Modülü Kullanımı](#bolum-4)
+* 5. [Dozimetre Takip, Doz Trendi ve Birim Risk Analiz Modülü Kullanımı](#bolum-5)
+* 6. [Nöbet Modülü Yönetimi ve Nöbet Ayarları (Kısıtlar, Kurallar ve Algoritma Parametreleri)](#bolum-6)
+* 7. [Radyasyon Güvenliği, Olay Bildirim ve DÖF (Düzeltici Önleyici Faaliyet) Modülü](#bolum-7)
 
 ### III. KURUMSAL YÖNETİM VE RAPORLAMA
-
- 1. Onay Bekleyen Görevler Paneli (Evrensel Onay Sistemi)
- 2. Raporlar Modülü
- 3. Tanımlamalar (Lookup) Modülü
- 4. Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü (web_portal)
+* 8. [Onay Bekleyen Görevler Paneli (Evrensel Onay ve Veri Değişiklik Denetim Sistemi)](#bolum-8)
+* 9. [Raporlar Modülü (Rapor Merkezi, Kurumsal Matbu ve Dinamik Raporlar)](#bolum-9)
+* 10. [Tanımlamalar (Lookup / Sabit Veriler) Modülü](#bolum-10)
+* 11. [Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü](#bolum-11)
 
 ### IV. SİSTEM YÖNETİMİ VE VERİ İŞLEMLERİ
+* 12. [Merkezi Bildirim ve Durum Çubuğu Sistemi](#bolum-12)
+* 13. [Program Ayarları & Temalar (Karanlık/Aydınlık Görünüm Yönetimi)](#bolum-13)
+* 14. [Veritabanı Modülü & SQLCipher Şifreli Yedekleme ve Geri Yükleme](#bolum-14)
+* 15. [Toplu İçe Aktarma (Excel / CSV Import) Sihirbazları](#bolum-15)
 
- 1. Merkezi Bildirim ve Durum Çubuğu Sistemi
- 2. Program Ayarları
- 3. Veritabanı Modülü
- 4. Toplu İçe Aktarma (Import) İşlemleri
-
-### V. DESTEK
-
- 1. Sık Karşılaşılan Durumlar ve İpuçları
- 2. Güncelleme Geçmişi (Update Log)
+### V. DESTEK VE SORUN GİDERME
+* 16. [Sık Karşılaşılan Durumlar, İpuçları ve Sorun Giderme (Troubleshooting / SSS)](#bolum-16)
+* 17. [Sürüm Notları ve Güncelleme Geçmişi (Update Log)](#bolum-17)
 
 ---
 
-## 1. Kurulum & Giriş
+# I. GENEL BİLGİLER VE KURULUM
 
-RADPYS V3, Windows 10 (Sürüm 1809 ve üzeri) ve Windows 11 (64-bit) işletim sistemlerini destekleyen, tüm verileri yerel veritabanında saklayan (local-first) bir masaüstü uygulamasıdır. İnternet bağlantısı sadece lisans doğrulama aşamasında gereklidir.
+<a id="bolum-1"></a>
+## 1. RADPYS V3 Kurulumu ve Windows Güvenlik İzinleri Nasıl Verilir?
 
-### 1.1 Sistem Gereksinimleri
+### 💡 İşlemin Amacı ve Ön Koşullar
 
-- **İşletim Sistemi:** Windows 10 (Sürüm 1809 ve üzeri) veya Windows 11 (64-bit)
-- **Bellek (RAM):** 4 GB (8 GB önerilen)
-- **Disk Alanı:** En az 500 MB boş alan
-- **Gerekli Çalışma Zamanı Bağımlılıkları:**
-  - **Python 3.10+** (Masaüstü Ana Uygulaması için)
-  - **Node.js LTS v18.0.0+** (İsteğe bağlı Çoklu Kullanıcı Web Portalı `web_portal` servisi için gereklidir; <https://nodejs.org>)
+RADPYS V3; Windows 10 (Sürüm 1809 ve üzeri) ve Windows 11 (64-bit) işletim sistemlerinde çalışan, tüm verilerinizi **AES-256 SQLCipher** ile bilgisayarınızda yerel olarak şifreleyen bir masaüstü uygulamasıdır. İnternet erişimi sadece lisans doğrulama aşamasında gereklidir. (Görsel mimari şema için bkz: Sistem ve Güvenlik Mimarisi Şeması (`diagrams/radpys_sistem_mimarisi.html`))
 
-### 1.2 Genel Bakış
+Yeni bir kuruluma başlamadan önce bilgisayarınızın aşağıdaki sistem ve çalışma zamanı gereksinimlerini karşıladığından emin olun.
 
-RADPYS V3, radyasyonla çalışan sağlık personelinin operasyonel süreçlerini yönetmek amacıyla geliştirilmiş bir masaüstü uygulamasıdır. Bu kılavuz, RADPYS V3 üzerinde yer alan tüm modüllerin nasıl kullanılacağını adım adım açıklamak amacıyla hazırlanmıştır. Uygulama; kullanıcı ve yetki yönetimi, personel özlük bilgileri, izin takibi, fiili hizmet süresi zammı, sağlık muayeneleri ve dozimetre ölçümleri gibi birbiriyle ilişkili birçok modülden oluşmaktadır.
+### 📋 Sistem ve Çalışma Zamanı Gereksinimleri
 
-Kılavuzdaki bölümler, uygulamadaki menü sıralamasını takip etmektedir. Her bölümde ilgili ekranın ne işe yaradığı, hangi alanların doldurulması gerektiği ve adım adım nasıl işlem yapılacağı anlatılmaktadır.
-
-> **Önemli Not (Yasal Mevzuata Uygunluk ve Veri Doğrulama Sorumluluğu):** RADPYS V3; nöbet planlaması, çalışma süreleri, emzirme/gebelik muafiyetleri ve fiili hizmet hesaplamaları gibi tüm operasyonel süreçlerde yürürlükteki yasal mevzuat kısıtlarını ve kurumsal kuralları esas alarak çalışacak şekilde geliştirilmiştir. Sistem hesaplamaları ve kuralları mevzuata %100 uygun yürütmekle birlikte, uygulamanın temel amacı kurum içi iş akışlarını dijitalleştirmektir. Uygulama tarafından üretilen veriler, çizelgeler ve raporlar doğrudan resmi kurumlar (SGK, NDK, Sağlık Bakanlığı vb.) nezdinde (örneğin emeklilik veya resmi hak ediş süreçlerinde) doğrudan referans teşkil etmez; bu bilgilerin resmi işlemlerde kullanılmadan önce kurum yöneticileri tarafından doğrulanması esastır.
-
-**Kullanıcı tipleri:** Uygulamadaki ekranlar ve butonlar, oturum açan kullanıcının rolüne tanımlı yetkilere göre değişiklik gösterebilir. Bu kılavuzda anlatılan tüm işlemler, ilgili yetkiye sahip bir kullanıcı tarafından gerçekleştirilebilir. Bir ekranı veya butonu göremiyorsanız, sistem yöneticinizden ilgili yetkinin rolünüze tanımlanmasını talep edebilirsiniz.
-
-> **Not:** Roller ve yetkilerin tam olarak neye karşılık geldiğini öğrenmek için 3.4 Rol Yetkileri bölümüne bakabilirsiniz.
-
-### 1.3 Temel Özellikler
-
-- **Masaüstü uygulaması:** RADPYS V3, bilgisayarınıza kurularak çalıştırılan bir masaüstü uygulamasıdır; internet tarayıcısı gerektirmez.
-- **Yerel veri saklama:** Tüm veriler, uygulamayla birlikte çalışan yerel bir veritabanı dosyasında saklanır. Bu yapı, Veritabanı Modülü altındaki yedekleme ve geri yükleme işlemlerinin temelini oluşturur (bkz. Bölüm 18).
-
-> **Not:** Bu kılavuzdaki "ekran" ve "menü" ifadeleri, web tarayıcısı değil RADPYS V3 masaüstü uygulamasının kendi pencere ve sekmelerini ifade etmektedir.
-
-### 1.4 Windows Güvenlik & SmartScreen Uyarısını Geçme
-
-RADPYS V3 kurulum paketini (`RADPYS_Setup_latest.exe`) indirip çalıştırdığınızda veya uygulamayı ilk kez başlattığınızda Windows Defender SmartScreen tarafından bir güvenlik uyarısı verilebilir.
-
-#### Uyarının Sebebi ve Güvenlik Garantisi
-
-- **Neden Uyarı Çıkar?** Windows SmartScreen, henüz dijital imza (Code Signing Certificate) tanımlanmamış veya yeni yayınlanan `.exe` dosyalarını koruma amaçlı olarak varsayılan biçimde durdurur ve *"Windows kişisel bilgisayarınızı korudu"* uyarısını gösterir.
-- **Güvenlik Durumu:** RADPYS V3 uygulaması tamamen güvenlidir. Herhangi bir zararlı kod içermez. Tüm verileriniz bilgisayarınızda **AES-256 SQLCipher** ile şifrelenmiş yerel veritabanında saklanır.
-
-#### Adım Adım Kurulum İzni Verme
-
-1. Ekranda beliren mavi renkli **"Windows kişisel bilgisayarınızı korudu"** (*Windows protected your PC*) penceresindeki **"Daha fazla bilgi"** (*More info*) bağlantısına tıklayın.
-2. Açılan pencerenin alt kısmında beliren **"Yine de çalıştır"** (*Run anyway*) butonuna tıklayın.
-3. Inno Setup Kurulum Sihirbazı açılacak ve RADPYS V3 bilgisayarınıza güvenle kurulacaktır.
-
-#### Windows Defender / Antivirüs Karantina ve İzin Verme
-
-Eğer antivirüs yazılımı (Windows Defender, Kaspersky, ESET vb.) dosyayı engellerse:
-
-1. Windows Başlat menüsünden **Windows Güvenliği** uygulamasını açın.
-2. **Virüs ve tehdit koruması** > **Koruma geçmişi** sekmesine tıklayın.
-3. Engellenen `RADPYS_Setup_latest.exe` veya `RADPYS.exe` kaydını seçin.
-4. **Eylemler** menüsünden **"Cihazda İzin Ver"** veya **"Karantinadan Çıkar"** seçeneğini belirleyin.
+* **İşletim Sistemi:** Windows 10 (Sürüm 1809 ve üzeri) veya Windows 11 (64-bit)
+* **Bellek (RAM):** En az 4 GB (8 GB önerilen)
+* **Disk Alanı:** En az 500 MB boş disk alanı
+* **Gerekli Çalışma Zamanı Bağımlılıkları:**
+  * **Masaüstü Ana Uygulaması:** Python 3.10+ / PySide6 (Masaüstü kurulum paketiyle otomatik gelir).
+  * **Web Portalı & REST API Servisi (İsteğe Bağlı):** **Node.js LTS v18.0.0+** (Çoklu kullanıcı Web Portalı `web_portal` modülü ve REST API senkronizasyonu kullanılacaksa `nodejs.org` adresinden indirilip kurulmalıdır).
 
 ---
 
-## 2. Sisteme Giriş (Login Ekranı)
+### 🐾 Adım Adım Kurulum İş Akışı
 
-Sisteme giriş ekranı, uygulamayı açtığınızda karşınıza gelen ilk ekrandır.
-
-![Sisteme giriş ekranı](images/login.png)
-
-### 2.1 Oturum Açma
-
-1. RADPYS V3 masaüstü uygulamasını bilgisayarınızdaki kısayoldan veya yükleme dizininden başlatın.
-2. Kullanıcı Adı alanına size tanımlanan kullanıcı adını girin.
-3. Şifre alanına şifrenizi girin.
-4. Bir sonraki girişlerde kullanıcı adınızın otomatik hatırlanmasını isterseniz "Beni Hatırla" kutucuğunu işaretleyin.
-5. "Giriş Yap" butonuna tıklayın.
-
-### 2.2 Şifremi Unuttum
-
-"Şifremi Unuttum" bağlantısına tıkladığınızda, sistem şifrenizi sıfırlamak için açılan pencerede e-posta, kullanıcı adı ve yeni şifrenizi girmeniz gerekmektedir. Bu bilgilerle sistem şifrenizi sıfırlayabilirsiniz. Eğer bu ekran gelmez ise, sistem yöneticinizle iletişime geçmeniz gerekmektedir.
-
-![Şifremi unuttum ekranı](images/sifre_unut.png)
-
-### 2.3 İlk Girişte Şifre Değiştirme
-
-Sisteme ilk kez giriş yaptığınızda veya sistem yöneticiniz şifrenizi sıfırladığında, sistem giriş sonrasında otomatik olarak şifre değiştirme ekranını açar. Bu ekranda:
-
-1. Mevcut (geçici) şifrenizi girin.
-2. Belirlenen şifre kurallarına (minimum uzunluk, harf/rakam/özel karakter kullanımı gibi) uygun yeni bir şifre oluşturun.
-3. Yeni şifrenizi tekrar girerek onaylayın ve kaydedin.
-
-Şifre kuralları sağlanmadan kayıt işlemi tamamlanmaz; ekranda hangi kuralın karşılanmadığı belirtilir.
-
-![Şifremi unuttum ekranı](images/sifre_unut.png)
-
-### 2.4 Hatalı Giriş Kısıtlaması
-
-Güvenlik amacıyla, art arda beş kez hatalı şifre girilmesi durumunda hesabınız geçici olarak kilitlenir. Hesabınızın kilitlendiğini gösteren bir uyarı mesajı görürseniz, hesabınızın tekrar açılması için sistem yöneticinizle iletişime geçmeniz gerekir.
-
-### 2.5 Gösterge Paneli Merkezi (Dashboard)
-
-Oturum açtığınızda sizi karşılayan ana ekrandır. Sol dikey navigasyon menüsü üzerinden sistemin farklı modüllerine ait özet analiz panelleri arasında geçiş yapabilirsiniz:
-
-- **Genel Bakış:** Sistem genel durumunu, aktif çalışan sayısını, bekleyen izin taleplerini, yaklaşan/geciken periyodik sağlık muayenelerini gösterir. Ayrıca **"Birim Bazlı Personel Dağılımı"** çubuk grafiği, personelin rollerini gösteren **"Ünvan Dağılımı"** halka grafiği ve modüller arası çapraz kontrollerle beslenen **"Dikkat Gerekiyor"** (kritik uyarı listesi) alanı yer alır. Çift tıklayarak ilgili modüle hızlıca geçiş yapabilirsiniz.
-- **Nöbet Analizi:** Birimlerin aylık nöbet saati yüklerini, nöbetçi yoğunluk sıralamalarını ve nöbet/fazla mesai trend grafiklerini içerir. Grafiklerden birim nöbet yükü sütununa tıklandığında, doğrudan o birimin nöbet plan listesine yönlendirme yapılır. Ayrıca **"Ay İçi Doluluk Takvimi"** grafiğiyle nöbet doluluk yoğunluğu gün gün izlenebilir. Onay bekleyen nöbet devir talepleri bu panelden satır seçilerek "Seçileni Onayla" veya "Seçileni Reddet" butonlarıyla kolayca yönetilebilir.
-- **Dozimetre Analizi:** Dozimetre ölçümlerine ait en yüksek değerler yarım daire şeklinde bir **"Maksimum Doz Seviyesi"** göstergesiyle gösterilir. Birim risk grafiği, ekrandaki bir seçim listesi yardımıyla **"Çubuk Grafik"** veya **"Risk Dağılımı"** görünümleri arasında dinamik olarak değiştirilebilir.
-- **Olay & DÖF Analizi:** Olay bildirim kategorileri ve şiddet dereceleri yığılmış çubuk grafikte listelenmektedir. Açılan DÖF (Düzeltici Önleyici Faaliyet) oranı ise halka grafikle görselleştirilmiştir.
-- **Eğitim Analizi:** Hizmet içi eğitim tanımları, toplam atamalar ve tamamlanma oranları ile ortalama sınav başarı puanları gibi grafiksel özetleri sunar.
+1. **Kurulum Paketini Başlatın:** İndirdiğiniz `RADPYS_Setup_latest.exe` dosyasını çift tıklayarak çalıştırın.
+2. **Windows SmartScreen Uyarısını Geçin:**
+   * Mavi renkli *"Windows kişisel bilgisayarınızı korudu"* uyarısı çıktığında, penceredeki **"Daha fazla bilgi"** (*More info*) bağlantısına tıklayın.
+   * Alt kısımda beliren **"Yine de çalıştır"** (*Run anyway*) butonuna tıklayın.  
+   *(Not: Bu uyarı, uygulamanın yeni sürümlerinde dijital imza kontrolü nedeniyle varsayılan olarak çıkar; yazılım zararlı kod içermez ve güvenlidir.)*
+3. **Inno Setup Sihirbazını Tamamlayın:** Açılan kurulum sihirbazında yükleme dizinini seçin ve *"Masaüstü kısayolu oluştur"* seçeneğini işaretleyerek **"Kur"** butonuna tıklayın.
 
 ---
 
-## 3. Lisans ve Aktivasyon Sistemi (Demo Sürüm)
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
 
-Uygulamanın lisanssız veya deneme sürümü olarak çalıştırılması durumunda bazı kısıtlamalar devreye girer. Lisans durumunu yönetmek ve tam sürüme geçiş yapmak için sağ üst köşede bulunan **Hakkında** butonuna tıklayarak ilgili ekrana ulaşabilirsiniz.
-
-### 3.1 Demo Sürüm Kısıtlamaları
-
-Uygulama demo modundayken aşağıdaki sınırlar geçerlidir:
-
-- **Deneme Süresi:** İlk kurulum tarihinden itibaren **15 gün** ile sınırlıdır. Süre dolduğunda uygulama açılışta uyarı verir.
-- **Personel Limiti:** Sistemde en fazla **6 aktif personel** kaydı barındırılabilir. Yeni personel eklenmesi veya pasif personellerin aktif hale getirilmesi bu sınırın aşılması durumunda engellenir.
-- **Nöbet Planı Limiti:** Sistemde en fazla **3 nöbet planı** oluşturulabilir.
-- **Toplu İçe Aktarma Kısıtı:** Excel veya CSV üzerinden yapılan toplu personel ve nöbet içe aktarımlarında da 6 personel ve 3 nöbet planı limiti denetlenmektedir.
-- **Güncelleme Limiti (Yama Desteği):** Demo/Deneme sürümünde yeni ticari özellikler içeren ana güncellemeler alınamaz. Ancak programın kararlılığını korumak ve olası kritik hatalardan etkilenmemeniz için kritik hata düzeltme ve yama güncellemeleri demo modunda da otomatik olarak sunulur ve yüklenebilir.
-
-### 3.2 Uygulamayı Aktifleştirme (Tam Sürüme Geçiş)
-
-Uygulamayı satın aldığınızda, programı kalıcı veya süreli olarak tam sürüme (PRO / P20 / P5) yükseltmek için aşağıdaki adımları izleyin:
-
-1. **Cihaz Kimliğini Kopyalayın:** Hakkında penceresindeki **Lisans ve Aktivasyon** kartının altında yazan benzersiz **Cihaz Kimliği** (örn. `RP-XXXX-XXXX-XXXX-XXXX`) bilgisinin yanındaki **Kopyala** butonuna tıklayarak panoya alın.
-2. **Yazılımcıya Gönderin:** Kopyaladığınız Cihaz Kimliğini yazılım sağlayıcınıza (radpys.iletisim@gmail.com) iletin.
-3. **Lisans Anahtarını Girin:** Yazılımcının cihaz kimliğinize ve paketinize özel ürettiği Kriptografik **Ed25519 Lisans Anahtarını** (örn. `LK-AS-PRO-PERM-XXXX...`) Hakkında penceresindeki lisans giriş alanına yapıştırın.
-4. **Aktifleştirin:** **Lisansı Aktifleştir** butonuna tıklayın. Sistem Ed25519 açık anahtarıyla dijital imzayı ve cihaz kimliği eşleşmesini doğrular. Başarılı uyarısını aldıktan sonra uygulamayı kapatıp yeniden başlatın. Program artık kısıtlamasız **Tam Sürüm** olarak çalışacaktır.
-
-> **Güvenlik Notu:** Kurulum sonrasında varsayılan çalışma modu Demo Modu olarak sabitlenmiştir. Veritabanı manipülasyonu veya ortam değişkenleri vasıtasıyla lisanssız olarak Tam Sürüm'e erişilmesi engellenmiştir.
-
-### 3.3 Geri Bildirim ve Hata Raporlama
-
-Uygulama çalışırken beklenmedik teknik bir çökme hatasıyla karşılaşırsa:
-
-1. **Çökme Bildirim Ekranı:** Program sessizce kapanmaz; karşınıza teknik hata bilgilerini içeren özel bir hata penceresi gelir.
-2. **Hata Kopyalama/E-posta:** Bu penceredeki **"Hata Detayını Kopyala"** butonu ile hatayı panoya alabilir veya **"E-Posta Gönder"** butonu ile varsayılan e-posta programınızı (Outlook vb.) açarak hatayı otomatik hazırlanmış şablonla `radpys.iletisim@gmail.com` adresine gönderebilirsiniz.
-3. **Destek Paketi Oluşturma:** Uygulama içindeyken (çökme olmasa dahi karşılaştığınız sorunlarda) sağ üst köşedeki **Hakkında** butonuna tıklayarak Hakkında ekranını açın. En alttaki **"Destek Paketi (Log) Oluştur"** butonuna basarak, uygulamanın ürettiği tüm KVKK uyumlu kayıt dosyalarını (kişisel veri içermez) masaüstünüze `radpys_destek_log.zip` olarak kaydedebilirsiniz. Bu paketi hata bildirim e-postanıza ekleyerek bize iletmeniz sorunların hızlıca çözülmesini sağlayacaktır.
+* **"Windows Defender dosyayı karantinaya aldı / engelledi" ne yapmalıyım?**
+  * Başlat menüsünden **Windows Güvenliği** uygulamasını açın.
+  * **Virüs ve tehdit koruması > Koruma geçmişi** sekmesine gidin.
+  * Engellenen `RADPYS.exe` kaydını seçip **"Cihazda İzin Ver"** butonuna tıklayın.
 
 ---
 
-## 4. Kullanıcı Modülü
+<a id="bolum-2"></a>
+## 2. Sisteme Giriş, Şifre Değiştirme ve Kullanıcı Yönetimi Nasıl Yapılır?
 
-Kullanıcı Modülü; sistem kullanıcılarının, rollerin, yetkilerin ve rol-yetki eşleştirmelerinin yönetildiği bölümdür. Bu modül genellikle sistem yöneticileri tarafından kullanılır.
+### 💡 İşlemin Amacı
 
-### 4.1 Kullanıcı Listesi
-
-![Kullanıcı listesi](images/kullanici.png)
-
-**Listeleme:** Sol menüden Kullanıcı Modülü > Kullanıcı Listesi yolunu izleyerek kayıtlı tüm kullanıcıları görüntüleyebilirsiniz.
-
-**Kullanıcı Ekleme:** "Yeni Ekle" butonuna tıklayın; açılan formda kullanıcı adını, ilişkilendirilecek personeli, rolünü ve gerekli diğer bilgileri girip kaydedin.
-
-1. Kullanıcı Listesi ekranında "Yeni Ekle" butonuna tıklayın.
-2. Kullanıcı adı, ilişkili personel ve rol bilgilerini seçin/girin.
-3. Formu "Kaydet" ile onaylayın.
-4. Kullanıcıya ait geçici şifre, ilk girişte değiştirilmek üzere tanımlanır.
-
-**Kullanıcı Silme (Pasife Alma):** Bir kullanıcı kaydını sildiğinizde, kayıt veritabanından kalıcı olarak silinmez; kullanıcı "Pasif" duruma alınır.
-
-> **Not:** İlgili personelin durumu (örneğin işten ayrılış nedeniyle) pasif olarak değiştirildiğinde, o personele bağlı kullanıcı hesabı da otomatik olarak pasife alınır. Bu işlemi ayrıca manuel yapmanıza gerek yoktur.
-
-**Kullanıcı Detay:** İlgili satırdaki detay simgesine tıklayarak kullanıcının bilgilerini, bağlı olduğu personeli ve rolünü görüntüleyebilirsiniz.
-
-**Excel'e Aktarma:** Liste ekranındaki "Excel'e Aktar" butonuyla kullanıcı listesini Excel dosyası olarak bilgisayarınıza indirebilirsiniz.
-
-**Kullanıcı İçe Aktarma:** Toplu kullanıcı oluşturma işlemi, genellikle Personel İçe Aktarma işlemiyle birlikte dolaylı olarak gerçekleşir; personel içe aktarılırken ilgili kullanıcı hesapları da otomatik oluşturulabilir.
-
-### 4.2 Roller
-
-Bu ekrandan sistemde kullanılacak rolleri (örn. Yönetici, Personel, İnsan Kaynakları vb.) tanımlayabilirsiniz.
-
-![Rol listesi](images/roller.png)
-
-1. Rol Listesi ekranına Kullanıcı Modülü > Roller yolundan ulaşın.
-2. Yeni bir rol tanımlamak için "Yeni Ekle" butonuna tıklayın. Açılan formda rol adı, rolün aktiflik durumu ve **Rol Kapsamı** bilgisini girin.
-3. Mevcut bir rolü düzenlemek için Düzenle simgesini veya incelemek için satırdaki Detay simgesini kullanın.
-4. Rol listesini Excel olarak indirmek için "Excel'e Aktar" butonunu, toplu rol tanımlamak için "İçe Aktar" özelliğini kullanın.
-
-**Rol Kapsamı (Görüş ve Yetki Sınırı):**
-
-Rol oluştururken veya güncellerken seçebileceğiniz üç farklı kapsam seçeneği bulunmaktadır:
-
-- **Sadece Kendisi:** Bu role sahip kullanıcılar, Personel, İzin, Sağlık Muayene, Dozimetre ve Fiili Hizmet sayfalarında yalnızca kendi personel kayıtlarını görebilir ve yönetebilirler (örn. sıradan kullanıcı ve izleyici rolleri).
-- **Kendi Departmanı:** Kullanıcılar sadece bağlı oldukları alt departmandaki çalışanların kayıtlarını görebilir ve yönetebilirler. Bu kontrol, isim benzerliğine değil, personelin bağlı olduğu departman bilgisine göre güvenli bir şekilde yapılır.
-- **Tümü:** Kullanıcılar sistemdeki tüm departman ve personellerin verilerine tam yetkiyle erişebilirler (örn. sistem yöneticisi rolleri).
-
-**Rol Silme (Pasife Alma):**
-
-Bir rolü sildiğinizde rol pasif duruma alınır.
-
-> **Not:** Pasif edilen bir roldeki kullanıcılar otomatik olarak hiyerarşide bir alt role atanır; bu nedenle bir rolü pasife almadan önce, o roldeki kullanıcıların hangi role aktarılacağını göz önünde bulundurun.
-
-### 4.3 Yetkiler
-
-Yetkiler ekranında, sistemdeki işlem bazlı erişim haklarını (örn. "Personel Ekleyebilir", "İzin Onaylayabilir" gibi) tanımlayabilir ve yönetebilirsiniz.
-
-![Yetki listesi](images/modül_yetki.png)
-
-1. Yetki Listesi ekranına Kullanıcı Modülü > Yetkiler yolundan ulaşın.
-2. Yeni bir yetki tanımlamak için "Yeni Ekle" butonunu kullanın.
-3. Bir yetkiyi görüntülemek için Detay simgesine tıklayın.
-4. Excel'e Aktar ve İçe Aktar butonlarıyla toplu işlemler yapabilirsiniz.
-
-**Yetki Silme:** Silme işlemi yetkiyi kalıcı olarak kaldırmaz, pasif duruma alır.
-
-### 4.4 Rol Yetkileri
-
-Bu ekran, her bir role hangi modül ve eylem yetkilerinin tanımlı olduğunu belirlediğiniz ana yetkilendirme panelidir. Yetki matrisi ekranı iki sekmeden oluşur:
-
-- **Modül Yetkileri Sekmesi:** Her bir rol için modüller bazında standart Okuma, Yazma, Güncelleme ve Silme haklarının atandığı tablodur.
-  - **Kapsam (Yetki Alanı) Seçimi:** Her modül satırında, onay kutularının yanı sıra **Miras**, **Kendisi**, **Departman** ve **Tümü** şeklinde yan yana konumlandırılmış bir seçenek grubu yer alır.
-  - **Dinamik Açıklama Sütunu:** Seçilen seçeneğe göre modülün sağ tarafındaki **Açıklama** alanında ilgili kapsam kuralının gerçek Türkçe karşılığı anlık olarak gösterilir (örn. *Sadece Kendisi (kendi kayıtları)* veya *Miras Al (Rolün genel ayarı)*).
-  - **Akıllı Toplu İşlemler:**
-    - **Tümünü Temizle** butonu tüm modüllerdeki yetki onay kutularını kaldırırken kapsam sınırlarını da **Miras** (varsayılan) durumuna geri döndürür.
-    - **Şablon Uygula** ile hazır bir yetki grubu uygulandığında (örn. *Tam Yetki*, *Sadece Okuma*), matrisin kapsamları temiz bir başlangıç için otomatik olarak **Miras** moduna sıfırlanır.
-- **İnce Ayarlı Yetkiler (Butonlar) Sekmesi:** Sayfa içlerindeki kritik operasyonel butonların ve aksiyonların (örn. Nöbet devir talebi, Puantaj dışa aktarma, Excel'den toplu personel yükleme) rol bazında açılıp kapatılabileceği ince ayarlı kontrol tablosudur.
-
-**Rol Yetki Karşılaştırma (Ayrıntılı Karşılaştırma Ekranı):**
-
-Üst paneldeki **"Karşılaştır"** seçim listesinden hedef bir rol seçilip **"Karşılaştır"** butonuna basıldığında, ana ekranı bozmadan yan yana detay sunan modern bir **Rol Karşılaştırma Detay** penceresi açılır. Bu pencerede:
-
-- İki rolün yetkileri ve kapsam detayları (**Okuma, Yazma (Kendi Departmanı)** şeklinde) 3 sütunlu temiz bir matriste karşılaştırılır.
-- Matrisin sol tarafında (Rol A sütunu), o an ekran üzerinde yaptığınız henüz kaydedilmemiş taslak (yerel) değişiklikler de dahil olmak üzere güncel ekran durumu gösterilirken, sağ tarafta (Rol B sütunu) karşılaştırılan rolün veritabanındaki kayıtlı durumu gösterilir. Bu sayede değişikliklerinizi kaydetmeden önce diğer rollerle olan farkını önizleyebilirsiniz.
-- Yetki ve kapsam yönünden farklılık gösteren modül satırları belirgin bir renkle vurgulanarak yöneticilere anlık analiz imkanı tanır.
-- Kapsam değeri belirtilmeyen modüller matriste net bir şekilde **"Miras Al (Rolün Genel Kapsamını Alır)"** olarak etiketlenerek gösterilir.
-
-![Rol yetki karşılaştırma](images/rol_yetki.png)
-
-**İşlem Adımları:**
-
-1. Rol Yetkileri ekranına Kullanıcı Modülü > Rol Yetkileri yolundan ulaşın.
-2. Üst kısımdaki seçim listesinden yetkilerini düzenlemek istediğiniz rolü seçin.
-3. İlgili yetki sekmelerindeki (Modül Yetkileri veya İnce Ayarlı Yetkiler) onay kutularını ve kapsam seçeneklerini düzenleyin.
-4. "Kaydet" butonuna basarak tüm değişiklikleri kaydedin. Değişiklikleri kaydetmeden geri almak isterseniz "Değişiklikleri Geri Al" butonuna tıklayabilirsiniz.
-
-**Varsayılan Özel Eylemler:**
-
-- **Nöbet Devir Talebi:** Nöbet çizelgesinde "Nöbet Devir Talebi" butonunun aktif kalmasını sağlar.
-- **Nöbet Planı Onaylama:** Nöbet plan detay ekranında planın durumunun "Taslak"tan "Onaylandı" veya "Yayında" durumuna getirilmesine izin verir.
-- **Personel Toplu İçe Aktarım:** Personel listesinde Excel'den toplu içe aktarım eylemini yönetir.
-- **Dozimetre Aksiyon Başlatma:** Dozimetre erken uyarı listesinde sağ tık menüsünden yeni aksiyon başlatma haklarını denetler.
-
-> **Not:** Yeni bir kurulumda rol-yetki eşleştirmeleri sistemle birlikte önceden tanımlanmış olarak gelir; bu nedenle kurulum sonrasında temel rollerin yetkilerini ayrıca tanımlamanıza genellikle gerek kalmaz.
-
-### 4.5 Kullanıcı Şifre Değiştirme
-
-Kendi şifrenizi değiştirmek için profil menüsünden şifre değiştirme ekranına ulaşabilirsiniz.
-
-![Şifre değiştirme ekranı](images/sifre_edit.png)
-
-1. Sağ üst köşedeki kullanıcı/profil menüsünü açın.
-2. "Şifre Değiştir" seçeneğine tıklayın.
-3. Mevcut şifrenizi ve belirlediğiniz yeni şifreyi (kurallara uygun şekilde) girin.
-4. "Kaydet" ile onaylayın.
+Sisteme giriş ekranı, kullanıcının rolüne tanımlı yetkiler çerçevesinde uygulamaya erişmesini sağlar. İlk oturum açma, varsayılan admin şifresi, geçici şifre değiştirme ve şifre sıfırlama işlemleri bu ekrandan yönetilir.
 
 ---
 
-## 5. Personel Modülü
+### 🔑 2.1 İlk Kurulumda Varsayılan Yönetici (Admin) Hesabı ve Şifresi Nerededir?
 
-Personel Modülü, kurumdaki tüm personelin özlük bilgilerinin, iletişim bilgilerinin, eğitimlerinin, belgelerinin ve işten ayrılış süreçlerinin yönetildiği ana modüldür.
+RADPYS V3 ilk kez yüklendiğinde ve çalıştırıldığında, veritabanı otomatik olarak tam yetkili bir **`admin`** hesabı oluşturur.
 
-### 5.1 Personel Ekleme
+#### Admin Giriş Bilgilerine Erişim
 
-![Personel ekleme ekranı](images/personel_ekle.png)
+* **Kullanıcı Adı:** `admin`
+* **Geçici Şifre Dosyası:** İlk kurulum anında sistem, veritabanının bulunduğu klasörde (uygulama dizinindeki `data/` klasöründe) **`ilk_admin_bilgileri.txt`** adında bir metin dosyası otomatik oluşturur.
+* **Şifreyi Öğrenme:** `data/ilk_admin_bilgileri.txt` dosyasını Not Defteri ile açarak sistemin otomatik ürettiği tek seferlik geçici `admin` şifresini görebilirsiniz.
 
-1. Sol menüden Personel Modülü > Personel Listesi ekranına gidin.
-2. "Yeni Ekle" butonuna tıklayın.
-3. Açılan formda kimlik, iletişim, departman ve unvan bilgilerini girin.
-4. Cinsiyet alanında "Erkek" veya "Kadın" seçimini yapın; seçiminize göre sistem varsayılan bir avatar görseli atar.
-5. İsterseniz "Profil Resmi Yükle" alanından personelin fotoğrafını yükleyin.
-6. Formu kaydedin.
-
-> **Not:** Yüklenen profil fotoğrafı, sistem tarafından her personele özel ayrı bir klasörde otomatik olarak düzenli bir şekilde saklanır; bu yapı sayesinde her personelin dosyaları kendi kimlik numarasına ait klasörde tutulur.
-
-#### 5.1.1 Yakın İletişim Bilgileri
-
-Personel kaydı içerisindeki bu sekmeden personelin iletişim bilgileri ve personelin acil durumlarda ulaşılabilecek yakınlarının iletişim bilgilerini yönetebilirsiniz.
-
-1. Personel detay ekranında "Yakın İletişim Bilgileri" sekmesine geçin.
-2. Yeni bir kayıt eklemek için "Yeni Ekle" butonunu kullanın; ad-soyad, yakınlık derecesi ve telefon bilgisini girin.
-3. Mevcut bir kaydı güncellemek için Düzenle simgesine, kaldırmak için Sil simgesine, görüntülemek için Detay simgesine tıklayın.
-
-#### 5.1.2 Eğitim Bilgileri
-
-Personelin eğitim geçmişini (okul, bölüm, mezuniyet yılı, sertifikalar vb.) bu sekmeden kayıt altına alabilirsiniz.
-
-1. Personel detay ekranında "Eğitim Bilgileri" sekmesine geçin.
-2. "Yeni Ekle" ile bir eğitim kaydı oluşturun.
-3. Gerektiğinde mevcut kayıtları Düzenle, Sil veya Detay simgeleriyle yönetin.
-
-#### 5.1.3 Personel Belgeleri
-
-Personele ait diploma, sözleşme, kimlik fotokopisi gibi belgelerin dijital olarak saklandığı sekmedir.
-
-1. Personel detay ekranında "Personel Belgeleri" sekmesine geçin.
-2. "Yeni Ekle" butonuyla belge türünü seçip dosyayı sisteme yükleyin.
-3. Her belge satırının yanında bulunan butonlarla belgeyi görüntüleyebilir (Aç), güncelleyebilir (Düzenle) veya kaldırabilirsiniz (Sil).
-
-> **Not:** Yüklenen dosyaların orijinal adları sadece sistemde kayıt edilir; arayüzde dosyalar sistem tarafından standart ve düzenli bir isimlendirmeyle gösterilir.
-
-### 5.2 Personel Detay / Düzenleme
-
-Personel listesindeki Detay simgesine tıklayarak bir personelin tüm bilgilerini görüntüleyebilir, Düzenle simgesiyle bilgilerini güncelleyebilirsiniz.
-
-### 5.3 Personel Silme (Ayrılış İşlemi)
-
-Bir personelin kaydı, hangi sebeple olursa olsun (istifa, nakil, vb.) "Personel Sil" işlemiyle değil, bir İşten Ayrılış süreciyle sonlandırılır. Bu işlem personelin kaydını silmez, durumunu değiştirir.
-
-1. Personel listesinde ilgili personelin satırındaki Sil (Ayrılış) simgesine tıklayın.
-2. Açılan İşten Ayrılış formunda Ayrılış Tarihini seçin.
-3. Ayrılış Sebebini (istifa, nakil, sözleşme feshi vb.) seçin.
-4. Gerekirse Ayrılış Notu alanına ek açıklama girin.
-5. Formu onaylayarak kaydedin.
-
-Form onaylandığında sistem otomatik olarak şu işlemleri gerçekleştirir:
-
-- Personele bağlı kullanıcı hesabının durumu pasif olarak değiştirilir.
-- Personelin üzerinde tanımlı tüm görevler (nöbet, görevlendirme vb.) sonlandırılır ve personel pasif duruma alınır.
-- Personelin tüm kayıtları (özlük bilgileri, belgeler dahil) bir arşiv klasörüne taşınır.
-
-> **Not:** Bu işlem geri alınabilir değildir; ayrılış kaydı oluşturmadan önce bilgilerin doğruluğundan emin olun.
-
-### 5.4 Excel'e Aktarma ve İçe Aktarma
-
-**Personel Excel Aktar:** Personel Listesi ekranındaki "Excel'e Aktar" butonuyla tüm personel listesini Excel dosyası olarak indirebilirsiniz. Ayrıca her personel için ayrı ayrı "Personel Bilgi Formu" yazdırma seçeneği bulunmaktadır; bu form, personelin özlük bilgilerinin özetlendiği bir çıktı dokümanıdır.
-
-**Personel İçe Aktar:** Toplu personel kaydı oluşturmak için kullanılır.
-
-1. Personel Listesi ekranında "İçe Aktar" butonuna tıklayın.
-2. Sistemin sunduğu Excel şablonunu indirin.
-3. Şablondaki sütunları (kimlik no, ad-soyad, departman, unvan, iletişim bilgileri vb.) eksiksiz doldurun.
-4. Doldurduğunuz dosyayı seçip yükleyin.
-5. Sistem dosyayı işleyerek personel kayıtlarını ve ilişkili kullanıcı hesaplarını oluşturur; hatalı satırlar için bir hata raporu sunar.
-
-### 5.5 Personel Profil Sayfası
-
-Personel Profil Sayfası, personelin kendi bilgilerine erişebildiği veya yetkili kullanıcıların bir personelin bilgilerini tek bir ekrandan görüntüleyebildiği özet sayfadır.
-
-- **Detay:** Profil sayfasında personelin tüm sekmelerdeki (iletişim, eğitim, belgeler, izin, sağlık muayene, dozimetre vb.) bilgileri görüntülenir.
-- **Düzenle:** Yetkiniz varsa profil sayfası üzerinden doğrudan düzenleme yapabilirsiniz.
-- **Birim Nöbetleri Sekmesi:** Bu sekme, personelin bağlı olduğu birim ve alt birimlerdeki veya kendisinin nöbetçi olduğu tüm **Yayınlanmış Nöbet Planlarını** listeler. Listeden bir nöbet planına çift tıklandığında, ilgili plana ait tüm aylık nöbet çizelgesi salt okunur olarak yeni bir pencerede açılır. Bu sayede personel, kendi biriminin nöbet listesini kolayca inceleyebilir. Sekmedeki yıl/ay filtreleri kaldırılmış olup, tüm dönemlere ait planlar en güncel olanı üstte yer alacak şekilde listelenir.
-- **Sil, Excel ve İçe Aktar** işlemleri bu sayfa özelinde geliştirme aşamasındadır; bu işlemler için ilgili modülün kendi listesi (örn. Personel Listesi) üzerinden işlem yapmanız önerilir.
-
-> **Not:** Profil sayfasında bir sekmeden diğerine geçiş yaptığınızda, herhangi bir değişiklik yapmadığınız sürece "kaydedilmemiş değişiklik" uyarısı görüntülenmez; bu uyarı yalnızca gerçek bir veri değişikliği yapıldığında ortaya çıkar.
-
-### 5.6 Personel Modülü ile İlgili Genel Notlar
-
-- Dosya ekleme ekranlarında, dosya yükleme butonunun yanında ilgili belgeyi düzenleme ve silme seçenekleri de bulunur.
-- Yüklenen dosyaların orijinal adları yalnızca sistemde saklanır; arayüzde dosyalar standart bir adlandırma kuralıyla görüntülenir.
+> 🔒 **Güvenlik Uyarısı:** `admin` hesabı ile ilk kez giriş yaptığınızda sistem otomatik olarak **Şifre Değiştirme Penceresini** açar. Kendi özel şifrenizi belirledikten sonra, güvenlik amacıyla bilgisayarınızdaki `ilk_admin_bilgileri.txt` dosyasını siliniz.
 
 ---
 
-## 6. İzin Modülü
+### 🐾 2.2 Adım Adım Oturum Açma İş Akışı
 
-İzin Modülü, personelin izin taleplerinin oluşturulduğu, izin hakedişlerinin hesaplandığı ve radyasyonla çalışan personele tanınan Şua (sağlık) izinlerinin takip edildiği modüldür.
-
-### 6.1 İzin İşlemleri
-
-**İzin Ekleme:** Yeni bir izin talebi oluşturmak için aşağıdaki adımları izleyin.
-
-1. İzin Modülü > İzin Listesi ekranına gidin.
-2. "Yeni Ekle" butonuna tıklayın.
-3. Personeli, izin türünü, başlangıç ve bitiş tarihlerini seçin.
-4. Gerekiyorsa açıklama girin ve destekleyici belge ekleyin.
-5. Formu kaydedin; izin talebi "Beklemede" durumunda oluşturulur.
-
-**İzin Düzenleme:** İzin Listesi ekranında ilgili kaydın Düzenle simgesine tıklayarak tarih, tür veya açıklama bilgilerini güncelleyebilirsiniz.
-**İzin Silme:** İzin kaydının silinebilmesi için kaydın "Beklemede" durumunda olması gerekir.
-
-> **Not:** Onaylanmış, Reddedilmiş veya İptal Edilmiş durumdaki izin kayıtları silinemez. Bu kayıtların durumunu değiştirmek için yetkili bir kullanıcının onay/red/iptal sürecini kullanması veya yeni bir izin kaydı oluşturulması gerekir.
-
-**İzin Detay:** İlgili satırdaki Detay simgesi ile izin talebinin tüm bilgilerini ve durum geçmişini görüntüleyebilirsiniz.
-
-**Excel'e Aktar / İçe Aktar:** İzin Listesi ekranındaki butonlarla izin kayıtlarını Excel olarak dışa aktarabilir veya toplu izin kaydı için şablon kullanarak içe aktarabilirsiniz.
-
-### 6.2 İzin Hakediş
-
-Bu ekran, her personelin yıllık izin bakiyesinin (hakedişinin) hesaplandığı ve takip edildiği bölümdür.
-
-1. İzin Modülü > İzin Hakediş ekranına gidin.
-2. Listeden bir personelin mevcut hakediş kaydını görüntüleyebilir, Detay simgesiyle ayrıntılarına bakabilirsiniz.
-3. Yeni bir hakediş kaydı eklemek için "Yeni Ekle" butonunu, mevcut bir kaydı güncellemek için Düzenle simgesini kullanın.
-
-> **Not:** İzin Hakediş kayıtları silinemez; bu kayıtlar geçmişe dönük izin bakiyesi bütünlüğünün korunması için kalıcıdır.
-
-#### 6.2.1 Toplu Hesaplama
-
-"Toplu Hesaplama" butonu, tüm personelin (veya seçilen bir grubun) izin hakedişini tek seferde otomatik olarak hesaplayıp oluşturmanızı sağlar. Bu işlem genellikle yeni bir takvim yılına geçişte veya personelin kıdem yılı değiştiğinde kullanılır.
-
-1. İzin Hakediş ekranında "Toplu Hesaplama" butonuna tıklayın.
-2. Hesaplamanın yapılacağı dönemi/yılı seçin.
-3. İşlemi onaylayın; sistem ilgili personel için hakediş kayıtlarını otomatik oluşturur veya günceller.
-
-#### 6.2.2 Devir (Bakiye Aktarma)
-
-Devir işlemi, bir personelin kullanılmayan izin bakiyesinin bir sonraki döneme aktarılmasını sağlar.
-
-1. İzin Hakediş ekranında "Devir Aktar" (veya "Devir") butonuna tıklayın.
-2. Devrin yapılacağı kaynak ve hedef dönemi seçin.
-3. İşlemi onaylayarak devredilen bakiyenin yeni döneme yansıtılmasını sağlayın.
-
-### 6.3 Şua (Sağlık) İzin Hakedişleri
-
-Radyasyonla çalışan personele mevzuat kapsamında tanınan ek sağlık izninin (Şua izni) hakediş takibi bu ekrandan yapılır. İşleyiş mantığı standart izin hakedişiyle benzerdir; farkı, hakedişin radyasyon çalışanı statüsüne ve çalışılan süreye göre hesaplanmasıdır.
-
-1. İzin Modülü > Şua İzin Hakedişleri ekranına gidin.
-2. Radyasyon çalışanı statüsündeki personelin hakediş kayıtlarını görüntüleyin, gerekirse Ekle/Düzenle/Detay işlemlerini gerçekleştirin.
-
-### 6.4 İzin Modülü ile İlgili Genel Notlar
-
-- Dosya ekleme ekranlarında, dosya yükleme butonunun yanında belgeyi düzenleme ve silme seçenekleri de bulunmaktadır.
-- İzinle ilgili yüklenen belgeler, sistem tarafından düzenli bir klasör yapısında saklanır.
+1. Masaüstündeki **RADPYS V3** kısayoluna çift tıklayarak uygulamayı açın. Ekran başlığı `RADPYS - Giriş` (Demo modunda ise `RADPYS - Giriş [DEMO SÜRÜMÜ]`) olarak açılacaktır.
+2. **Kullanıcı Adı** alanına sistem yöneticinizin tanımladığı kullanıcı adını girin.
+3. **Şifre** alanına şifrenizi girin. *(Girdiğiniz karakterleri kontrol etmek için **"Şifreyi Göster"** kutucuğunu işaretleyebilirsiniz.)*
+4. Her girişte kullanıcı adını tekrar yazmamak için **"Beni Hatırla"** kutucuğunu işaretleyin.
+5. **"Giriş Yap"** butonuna basarak sisteme giriş yapın.
 
 ---
 
-## 7. Fiili Hizmet Modülü
+### 🐾 Adım Adım İlk Girişte Şifre Değiştirme İş Akışı
 
-Fiili Hizmet Modülü, riskli/radyasyonlu ortamlarda fiilen çalışılan sürelerin kayıt altına alındığı ve bu sürelere bağlı hakedişlerin (fiili hizmet süresi zammı) hesaplandığı modüldür. Yürürlükteki yasal mevzuata uygun hesaplama yapılmakla birlikte, bu kayıtlar kurum içi iş akışını dijitalleştirmek amacıyla tutulur ve resmi kurumlar nezdindeki işlemlerde (emeklilik vb.) kurum tarafından doğrulanması esastır.
+Sistem yöneticiniz tarafından yeni hesap oluşturulduğunda veya geçici şifre tanımlandığında, ilk girişte otomatik olarak **Şifre Değiştirme Penceresi** açılır:
 
-### 7.1 Fiili Hizmet Kayıtları
-
-1. Fiili Hizmet Modülü > Fiili Hizmet Listesi ekranına gidin.
-2. Yeni bir kayıt eklemek için "Yeni Ekle" butonuna tıklayın; personeli, çalışma birimini/biriminin risk durumunu ve ilgili tarih aralığını girin.
-3. Mevcut bir kaydı güncellemek için Düzenle, kaldırmak için Sil, görüntülemek için Detay simgesini kullanın.
-4. Kayıtları Excel olarak dışa aktarmak veya toplu kayıt için şablon kullanarak içe aktarmak üzere ilgili butonları kullanın.
-
-### 7.2 Fiili Hizmet Hak Ediş
-
-Bu ekran, fiili hizmet kayıtlarına bağlı olarak personelin hakettiği ek hizmet süresinin hesaplandığı ve listelendiği bölümdür.
-
-1. Fiili Hizmet Modülü > Fiili Hizmet Hak Ediş ekranına gidin.
-2. Yeni bir hakediş kaydı oluşturmak için "Yeni Ekle" butonunu kullanın.
-3. Mevcut kayıtları Düzenle, Sil veya Detay simgeleriyle yönetin.
-4. Excel'e Aktar / İçe Aktar butonlarıyla toplu işlem yapabilirsiniz.
-
-### 7.3 Görev Dağılımı ve Hesaplama Ekranı Kolaylıkları
-
-Ekranda çalışmayı kolaylaştıran aşağıdaki özellikler bulunmaktadır:
-
-- **Hızlı Dönem Navigasyonu:** Dönem filtrelerinin yanında yer alan yönlendirme oklarıyla aylar arasında hızlıca geçiş yapabilirsiniz. Dönem geçişi yapıldığında diğer tüm sekmelerin (Hesaplama, Puantaj vb.) dönem filtreleri otomatik olarak senkronize edilir.
-- **Sadece Değişenleri Göster Filtresi:** Dağılım tablosundaki "Sadece Değişenleri Göster" onay kutusu işaretlendiğinde, sistem otomatik görev atamasından sapan ve manuel olarak müdahale edilmiş (turuncu renkli vurgulanan) personelleri filtreler.
-- **Proaktif Taslak Uyarısı:** Dönemde onay bekleyen taslak kayıtlar olduğunda, sayfa üstünde sarı renkli bir uyarı bandı belirir ve onaylanmamış taslak kayıtlar bulunduğunu, hesaplama yapmadan önce toplu onaylama yapılması gerektiğini belirtir.
-- **Toplu Onaylama Yeteneği:** "Toplu Onayla" butonu sayesinde dönemdeki tüm taslak ve kaydedilmemiş varsayılan atamaları tek tıkla onaylayabilirsiniz.
-- **Kayıt Sınırı Uyarıları:** Bir dönemde hesaplanan veri adedi 500 satırı aştığında, performansı korumak adına durum çubuğunda ve bilgi etiketinde otomatik sayfalama/sınırlandırma uyarısı gösterilir.
-
-### 7.4 Fiili Hizmet Modülü ile İlgili Genel Notlar
-
-- Dosya ekleme ekranlarında, yükleme butonunun yanında belgeyi düzenleme ve silme seçenekleri de bulunmaktadır.
-- Diğer modüllerle tutarlılık sağlamak için düzenleme ve detay butonlarının her listede bulunmasına özen gösterilmiştir.
+1. **Mevcut Şifre** alanına size verilen geçici şifreyi girin.
+2. **Yeni Şifre** alanına yeni şifrenizi girin. *(Şifreniz en az 6 karakter uzunluğunda olmalı, harf ve rakam içermelidir).*
+3. **Yeni Şifre (Tekrar)** alanına şifrenizi doğrulama amacıyla tekrar girin.
+4. **"Şifreyi Güncelle ve Giriş Yap"** butonuna tıklayarak işlemi tamamlayın.
 
 ---
 
-## 8. Sağlık Muayene Modülü
+### 🐾 Adım Adım Unutulan Şifreyi Sıfırlama İş Akışı
 
-Bu modül, personelin işe giriş, periyodik, radyasyon ve şua sağlık muayenelerinin kayıt altına alınmasını ve takip edilmesini sağlar.
-
-### 8.1 Sağlık Muayene Kayıtları
-
-1. Sağlık Muayene Modülü > Sağlık Muayene Listesi ekranına gidin.
-2. Yeni bir muayene kaydı eklemek için "Yeni Ekle" butonuna tıklayın.
-3. Personeli, muayene türünü (İşe Giriş, Periyodik, Radyasyon, Şua vb.) ve muayene tarihini seçin.
-4. Varsa muayene raporunu/belgesini dosya alanından yükleyin.
-5. Formu kaydedin.
-
-**Düzenleme ve Detay:** İlgili satırdaki Düzenle ve Detay simgeleriyle muayene bilgilerini güncelleyebilir veya görüntüleyebilirsiniz.
-
-**Silme (Aktif/Pasif):** Bir muayene kaydını sildiğinizde kayıt kalıcı olarak silinmez, pasif duruma alınır.
-
-**Geçmiş Arama:** Muayene Listesindeki "Geçmiş" butonunu veya tablodaki satıra sağ tıklayarak açılan "Personel Muayene Geçmişi" seçeneğini kullanarak, seçili personelin geçmişe dönük tüm sağlık muayenelerini kronolojik bir liste halinde görüntüleyebilirsiniz.
-
-**Excel'e Aktar / İçe Aktar:** Liste ekranındaki ilgili butonlarla muayene kayıtlarını dışa aktarabilir veya toplu olarak içe aktarabilirsiniz.
-
-### 8.2 Veri Emniyeti ve Kullanım İpuçları
-
-- **Klinik Notlar Koruması:** Muayene kayıtlarını güncellerken veya detayını açtığınızda kayıtlı olan klinik notların silinmesi engellenmiştir. Otomatik not doldurma aracı sadece notlar alanı tamamen boşken çalışır ve branş sonuçlarına göre otomatik bir taslak oluşturur.
-- **Toplu Branş Sonucu Doldurma:** Form üzerinde Göz (Genel) sonucunu seçtiğinizde, eğer alt branşlar (Dahiliye ve Dermatoloji) henüz seçilmemiş ("Seçiniz..." veya "Belirsiz" durumunda) ise, sistem bu branşları otomatik olarak Göz sonucuyla doldurarak giriş hızını artırır.
-- **Zorunlu Alanlar ve Doğrulama:** Sağlık muayenesinin kaydedilebilmesi için en az bir branş sonucunun seçilmesi zorunludur. Tüm branşlar "Seçiniz..." bırakılarak kayıt yapılamaz. Seçilmeyen ("Seçiniz...") branşlar sistemde güvenli bir şekilde boş (tanımsız) olarak kaydedilir.
-- **Kaydetme Onay Adımı:** Personel detay sayfasındaki sağlık sekmesinden muayene kaydederken veya güncellerken kazara veri kayıplarını ve hatalı kayıtları önlemek amacıyla sistem size bir onay penceresi sunar.
-- **Belge Görüntüleme:** Muayene belgelerini görüntülemek için "Aç" butonuna bastığınızda, sistem işletim sistemi fark etmeksizin (Windows, macOS, Linux) dosyayı bilgisayarınızdaki varsayılan uygulamayla açar.
-
-### 8.3 Gelecek Muayene Tarihinin Otomatik Hesaplanması
-
-Sistem, girilen muayene tarihine ve muayene türüne göre bir sonraki muayene tarihini otomatik olarak hesaplar. Bu hesaplama, tanımlı periyot tablosuna göre dinamik olarak yapılır:
-
-- Şua muayeneleri için periyot: 6 ay
-- Periyodik / Radyasyon muayeneleri için periyot: 12 ay
-- İşe Giriş muayenesi: tek seferlik olup, tekrar tarihi hesaplanmaz
-
-> **Not:** Personel için planlanan muayene randevuları, mümkün olduğunca personelin çalışma düzenini aksatmayacak şekilde planlanmalıdır.
-
-### 8.4 Sağlık Muayene Modülü ile İlgili Genel Notlar
-
-- Dosya ekleme alanında, yüklenen belgeyi görüntülemek için "Aç", kaldırmak için "Temizle" butonları bulunur.
-- "Temizle" butonuna bastığınızda belge kalıcı olarak silinir; bu işlem geri alınamaz, dikkatli kullanın.
+1. Giriş ekranındaki **"Şifremi Unuttum"** butonuna tıklayın.
+2. Açılan pencerede sistemde kayıtlı **E-Posta Adresinizi** ve **Kullanıcı Adınızı** girin.
+3. Yeni oluşturmak istediğiniz şifreyi iki kez girerek **"Şifremi Sıfırla"** butonuna basın.  
+*(Not: E-posta veya kullanıcı adı sistemdeki kayıtla eşleşmezse uyarı alırsınız. Bu durumda sistem yöneticinizle iletişime geçmeniz gerekir.)*
 
 ---
 
-## 9. Dozimetre Modülü
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
 
-Dozimetre Modülü, radyasyona maruz kalan personelin dozimetre ölçüm sonuçlarının kayıt altına alındığı ve dış ölçüm firmalarından gelen sonuçların sisteme işlendiği modüldür.
-
-### 9.1 Dozimetre Ölçüm Kayıtları
-
-1. Dozimetre Modülü > Dozimetre Listesi ekranına gidin.
-2. Yeni bir ölçüm kaydı eklemek için "Yeni Ekle" butonuna tıklayın.
-3. Personeli, ölçüm dönemini ve ölçüm değerini girin.
-4. Formu kaydedin.
-
-**Düzenleme, Silme, Detay:** İlgili satırdaki simgeler aracılığıyla kayıtları güncelleyebilir, kaldırabilir veya detaylarını görüntüleyebilirsiniz.
-**Excel'e Aktar:** Ölçüm listesini Excel dosyası olarak dışa aktarabilirsiniz.
-
-### 9.2 Dış Firmadan Gelen Sonuçların İçe Aktarılması
-
-Dozimetre ölçüm firmasından gelen sonuç dosyası, içe aktarma özelliği kullanılarak doğrudan sisteme işlenebilir.
-
-1. Dozimetre Listesi ekranında "İçe Aktar" butonuna tıklayın.
-2. Ölçüm firmasından gelen sonuç dosyasını (ilgili şablon formatında) seçin.
-3. Dosyayı yükleyin; sistem dosyayı okuyarak ölçüm sonuçlarını ilgili personel kayıtlarıyla eşleştirip kaydeder.
-
-### 9.3 Dozimetre Modülü ile İlgili Genel Notlar
-
-- Dosya ekleme ekranında, yükleme butonunun yanında belgeyi düzenleme ve silme seçenekleri de bulunmalıdır.
-- Diğer modüllerle tutarlı olması için düzenleme ve detay butonlarının listede yer almasına özen gösterilmiştir.
+* **"Eksik Bilgi: Kullanıcı adı ve şifre zorunludur" Uyarısı:**
+  * Kullanıcı adı veya şifre alanı boş bırakılmıştır. Giriş yapmadan önce her iki alanı da doldurun.
+* **"Giriş Başarısız: Kullanıcı adı veya şifre hatalı" Uyarısı:**
+  * Şifrenizi veya kullanıcı adınızı kontrol edin. Klavyenizde *Caps Lock* (Büyük Harf) tuşunun açık olup olmadığını doğrulayın.
+* **"Hesabınız Geçici Olarak Kilitlendi" Uyarısı:**
+  * Güvenlik nedeniyle **5 kez üst üste hatalı şifre** girildiğinde hesap kilitlenir. Sistem yöneticinize başvurarak kilidin kaldırılmasını talep edin.
 
 ---
 
-## 10. Nöbet Modülü (Planlama ve Ayarlar)
+### 🐾 1.3 Demo Sürümden Tam Sürüme (Lisans Aktivasyonu) Geçiş
 
-Nöbet Modülü, kurum personelinin nöbet çizelgelerinin planlandığı, otomatik planlama algoritmasının kısıtlarının ve ağırlıklarının belirlendiği, personel özel durumlarının (gebelik, emzirme vb.) yönetildiği ve birim bazlı nöbet türlerinin tanımlandığı kapsamlı bir yönetim alanıdır.
+### 💡 İşlemin Amacı ve Ön Koşullar
 
-### 10.1 Nöbet Ayarları Sayfası
-
-Nöbet Ayarları ekranına sol menüdeki **Nöbet Modülü > Nöbet Ayarları** adımlarını takip ederek ulaşabilirsiniz. Bu sayfa kendi içinde 5 ana sekmeden oluşmaktadır:
-
-#### 10.1.1 Temel Ayarlar
-
-Bu sekme, tüm planlama sürecini, onay mekanizmasını ve nöbet devir şartlarını belirleyen genel parametrelerin yönetildiği alandır.
-
-**Temel Parametreler ve Limitler:**
-
-1. **Ardışık Maksimum Nöbet Günü:** Personelin üst üste en fazla kaç gün nöbetçi olabileceği (örn. en fazla 2 gün).
-2. **Nöbet Sonrası Minimum Dinlenme (Saat):** Nöbeti biten bir personelin bir sonraki nöbetine kadar dinlenmesi gereken zorunlu süre (örn. 24 saat).
-3. **Günlük Maksimum Nöbet Saati:** 24 saatlik bir zaman diliminde personelin en fazla çalışabileceği süre (örn. 24 saat).
-4. **Hafta Sonu / Bayram Maksimum Nöbeti:** Personelin bir ay içinde alabileceği maksimum hafta sonu ve resmi tatil nöbet sayıları. Bu alandaki *Ayda max hafta sonu nöbeti* kısıtı tamamen genel bir limit olup, herhangi bir birime özel bir istisna içermeksizin tüm kurum genelinde uygulanır.
-5. **Muafiyet Yaş Sınırı:** Bu yaş ve üzerindeki personeller otomatik nöbet listesine dahil edilmez.
-6. **Muafiyet Kıdem Yılı:** Bu hizmet yılı ve üzerindeki personeller otomatik nöbet listesinden muaf tutulur.
-7. **Kıdem Eşik Yılı:** Kıdem yılı bu değerden az olan personeller dengeli dağılımda öncelikli olarak değerlendirilir.
-8. **Personel İstek Maksimum Saat:** Personelin nöbet taleplerinde isteyebileceği maksimum fazla mesai saati (en fazla 60 saat).
-
-**Opsiyonlar (Planlama Ayarları):**
-
-- **Önce Hafta İçi / Normal Günleri Doldur:** Otomatik planlayıcının hafta sonu ve tatil slotlarından önce normal hafta içi çalışma günlerini doldurmasını hedefler; böylece hafta sonu nöbet atamaları son aşamaya bırakılarak daha dengeli planlanır.
-- **Hafta Sonunu Tatil Say:** Otomatik planlama ve tatil gün hesaplamalarında hafta sonu günlerinin de tatil günü gibi (holiday priority) değerlendirilmesini sağlar.
-- **Departmanlar Arası Geçici Atama Açık:** Personelin kendi ana departmanı dışındaki diğer birimlerde de nöbetçi olarak geçici görevlendirilebilmesine izin verir.
-
-**Plan Onay Kuralları:**
-
-- **Onay Notu Zorunlu:** Plan onaylanıp "Yayında" durumuna getirilirken yöneticinin açıklama veya onay notu girmesini zorunlu kılar.
-- **Yayından Taslağa Dönüş:** Onaylanıp yayınlanmış bir planın, sadece yetkili rol grubu (örn. Sistem Yöneticisi) tarafından tekrar düzenlenebilir "Taslak" moduna geri çekilebilmesini sağlar.
-- **Yayındaki Plan Salt Okunur:** Onaylanıp yayınlanmış planlar üzerinde doğrudan ekleme, düzenleme veya silme işlemlerini engeller. Plan salt okunur kalır; sadece devir işlemleri yapılabilir.
-
-**Devir Kuralları:**
-
-- **Devir Nedeni Zorunlu:** Personelin nöbet devir talebi oluştururken gerekçe veya neden belirtmesini zorunlu kılar.
-- **Onayda Otomatik Çizelge Güncelle:** Yönetici devir talebini onayladığında çizelge üzerindeki personeli otomatik olarak yeni personel ile günceller.
-- **Bekleyen Maksimum Devir Talebi:** Sistemde aynı anda birikebilecek maksimum açık/bekleyen devir talebi limitini belirler.
-- **Devir Sınırlamaları (Sert Kısıt):** Durumu 'Devir' olan bir nöbet kaydı üzerinde tekrar bir devir talebi oluşturulamaz.
-- **Devredilen Nöbetlerin Düzenlenmesini Engelle:** Bu ayar etkinleştirildiğinde, durumu 'Devir' (devir işlemi tamamlanmış) olan nöbetlerin manuel olarak düzenlenmesi veya silinmesi engellenir. Ayar kapatıldığında, yetkili yöneticiler devredilmiş nöbetleri de serbestçe düzenleyebilirler.
-
-#### 10.1.2 Vardiya Kısıtları (Birim & Sınıf Bazlı)
-
-Vardiya Kısıtları (Birim & Sınıf Bazlı) (eski adıyla Yasal Kısıtlar) ekranı, otomatik nöbet planlama algoritmasının çizelgeyi oluştururken riayet edeceği yasal limitlerin ve kurumsal kuralların merkezi olarak tanımlandığı alandır.
-
-- **Varsayılan Kısıt Türleri:**
-  - *Nöbet Sonrası Dinlenme Saati:* Nöbeti biten bir personelin bir sonraki nöbetine kadar dinlenmesi gereken zorunlu asgari dinlenme süresi (zorunlu bir kısıttır; varsayılan değer 24 saattir).
-  - *Maksimum Art Arda Nöbet Günü:* Personelin üst üste en fazla kaç gün nöbetçi olabileceği (varsayılan değer 2 gündür).
-  - *Gece Nöbetleri Arası Minimum Boşluk:* İki gece nöbeti arasında geçmesi gereken minimum dinlenme süresi (varsayılan değer 48 saattir).
-  - *Hafta Sonu Nöbet Dengesi / Limiti:* Personelin bir ay içerisinde alabileceği maksimum hafta sonu nöbet limiti (varsayılan değer 4 nöbettir).
-  - *Bayram Nöbet Dengesi / Limiti:* Personelin bayram günlerinde alabileceği maksimum nöbet limiti (varsayılan değer 2 tatil nöbetidir).
-
-- **Kısıt Çözümleme Öncelik Sırası:**
-  Nöbet planlamasında ve ayarlar ekranında kısıtlar şu 3 seviyeli sıraya göre önceliklendirilir:
-  **Birim Kuralları > Vardiya Kısıtları (Birim & Sınıf Bazlı) > Temel Ayarlar**
-
-  Sistem, kuralları belirlerken şu sırayı izler:
-  1. **Birim & Hizmet Sınıfı Özel Kuralı:** Eğer kısıtlar tablosunda ilgili birim ve hizmet sınıfı eşleşmesi için özel bir kural girilmişse, bu kural uygulanır.
-  2. **Birim veya Hizmet Sınıfı Özel Kuralı:** Eşleşen bir birim kuralı veya hizmet sınıfı kuralı varsa o değer geçerli olur.
-  3. **Genel/Kurumsal Kural:** Eğer özel bir kural yoksa, Tüm Birimler / Tüm Hizmet Sınıfları için tanımlanmış genel başlangıç değerleri devreye girer.
-
-  > [!NOTE]
-  > **Global Varsayılanlar vs. Özel İstisnalar (Kısıt Hiyerarşisi):**
-  > Temel Ayarlar sekmesindeki genel kurallar tüm kurum için **global varsayılan (fallback)** limitlerdir. Eğer belirli bir birim ya da personel unvanı (hizmet sınıfı) için bu kuralları esnetmek ya da daraltmak isterseniz, **Vardiya Kısıtları (Birim & Sınıf Bazlı)** sekmesinden özel kurallar tanımlayabilirsiniz. Vardiya kısıtlarındaki özel tanımlamalar, Temel Ayarlar'daki genel limitleri tamamen ezer.
-  >
-  > Bu hiyerarşik yapıda çalışan ve birbiriyle eşleşen 5 temel kısıt şunlardır:
-
-  | Kısıt Adı | Temel Ayarlar (Global Varsayılan) | Vardiya Kısıtları (Özel İstisna / Override) | Açıklama |
-  | :--- | :--- | :--- | :--- |
-  | **Ardışık Maksimum Nöbet** | *Ardışık Maksimum Nöbet Günü* (Örn: 2 gün) | *Maksimum Art Arda Nöbet Günü* | Personelin arka arkaya en fazla kaç gün nöbete yazılabileceğini belirler. |
-  | **Minimum Dinlenme Süresi** | *Nöbet Sonrası Minimum Dinlenme (Saat)* (Örn: 24 saat) | *Nöbet Sonrası Dinlenme Saati* | Nöbeti biten bir personelin bir sonraki nöbete kadar geçmesi gereken asgari dinlenme süresidir. |
-  | **Hafta Sonu Nöbet Limiti** | *Ayda max hafta sonu nöbeti* (Örn: 4 nöbet) | *Hafta Sonu Nöbet Dengesi / Limiti* | Personelin bir ay içerisinde en fazla kaç hafta sonu nöbeti alabileceğini kısıtlar. |
-  | **Bayram Nöbet Limiti** | *Ayda max bayram nöbeti* (Örn: 2 nöbet) | *Bayram Nöbet Dengesi / Limiti* | Resmi tatil günlerinde personelin alabileceği maksimum nöbet sayısıdır. |
-  | **Gece Nöbeti Boşluğu** | Temel ayarlarda sabittir (Varsayılan: **48 saat**) | *Gece Nöbetleri Arası Minimum Boşluk* | Arka arkaya iki gece nöbeti/vardiyası yazılacaksa, bu iki gece nöbeti arasında geçmesi gereken minimum süredir. |
-
-#### 10.1.3 Personel Özel Durumları (Kısıtlar)
-
-Her personelin kendine özgü çalışma kısıtlamalarının (sağlık durumları, yasal haklar, yasal muafiyetler vb.) tanımlandığı alandır.
-
-1. **Yasal Emzirme İzni Otomasyonu:** "Yasal Emzirme İzni" (`emzirme`) kısıtı oluşturulduğunda sistem otomatik olarak 3 aşamalı (toplam 24 aylık) kısıt kaydını tek işlemle açar:
-   - *İlk 6 Ay:* Günlük 3 saat mesai saati indirimi uygulanır.
-   - *İkinci 6 Ay:* Günlük 1.5 saat mesai saati indirimi uygulanır.
-   - *2. Yıl (12-24. aylar):* Günlük azaltım uygulanmaz (0 saat), ancak kısıt tipi `emzirme` olarak kaldığı için gece nöbeti/gece vardiyası yasağı 2 yıl boyunca eksiksiz uygulanmaya devam eder.
-   - Arayüzde emzirme seçildiğinde Tarih Aralığı otomatik olarak kilitlenir ve bitiş tarihi 2 yıl sonrasına otomatik ayarlanır.
-2. **Gebelik / Hamilelik Muafiyeti:** Hamileliğin 24. haftasından doğuma kadar olan süreçte personelin gece nöbetlerine/vardiyalarına yazılmasını yasal olarak engeller. Seçim yapıldığında Tarih Aralığı zorunlu kılınır ve varsayılan bitiş tarihi 4 ay sonrasına ayarlanır.
-3. **Sendika Temsilciliği / Muafiyeti:** Sendika kısıtı seçildiğinde Tarih Aralığı otomatik olarak **1 yıllık** süreye kilitlenir. Personelin hizmet sınıfına (`hizmet_tipi`) göre süre indirimleri otomatik tanımlanır:
-   - *Kamu Görevlisi (Memur):* Haftada 4 saat.
-   - *Destek Personeli / İşçi:* Haftada 2 saat.
-   Aylık nöbet planlamasında ilgili aydaki Pazartesi günleri sayılarak (hafta bazlı) `haftalık saat * hafta sayısı` kadar aylık hedef saat düşürülür.
-4. **Fazla Mesai Muafiyeti (Mesai Dışı):** Aktifleştirildiğinde, seçili personelin normal çalışma saatlerini aşan fazla mesailerden muaf tutulmasını sağlar.
-5. **Çalışma Saati Azaltımı:** Personel için tanımlanan aylık standart çalışma saati azaltımı.
-6. **Kişiye Özel Maksimum Fazla Mesai:** Personelin ayda en fazla yapabileceği fazla mesai saati sınırı. Bu ayar yalnızca `"Aylık Mesai Tamamlama"` (`mesai_tamamlama`) ve `"Diğer Özel Durumlar"` (`diger`) kısıt tiplerinde görünür ve etkindir. Gebelik, emzirme ve sendika gibi kısıtlarda bu sınır ekarte edilerek personelin normal fazla mesai limitlerine müdahale edilmez.
-
-#### 10.1.4 Birim Ayarları ve Kısıtlamalar (Birim Genel Kuralları ve Çalışma Şeması)
-
-Birimlerin çalışma modellerinin, aktiflik takvimlerinin ve günlük personel ihtiyaçlarının belirlendiği alandır. Mükerrer kısıt girişlerinin önlenmesi amacıyla ardışık gün limiti, dinlenme süresi gibi sayısal sınırlar bu sekmeden tamamen kaldırılmış ve **Vardiya Kısıtları (Birim & Sınıf Bazlı)** sekmesine devredilmiştir.
-
-**A. Birim Genel Kuralları (Takvim Kuralları):**
-
-Birim Kuralları sekmesinde, seçili birimin takvim ve çalışma izinleri onay kutularıyla yönetilir:
-
-- **Hafta Sonu Çalışması Aktif:** İlgili birimde hafta sonu günlerinde nöbet yazılıp yazılamayacağını belirler. Örneğin 08-15 mesai yapan polikliniklerde bu kutucuk kapatılarak hafta sonu nöbet yazımı engellenir; acil servis gibi 7/24 çalışan birimlerde ise aktif tutulur.
-- **Bayram Çalışması Aktif:** Birimde resmi tatillerde ve bayramlarda nöbet tutulup tutulmayacağını belirler.
-- **24 Saat Tutulabilir:** Birimdeki 12 saatlik vardiyaların (Gündüz ve Gece) birbirini takip edecek şekilde tek bir 24 saatlik nöbet bloğu olarak atanıp atanamayacağını belirler.
-- **Çapraz Görevlendirme:** Personelin kendi ana birimi dışındaki diğer nöbet birimlerine de atanabilmesine izin verir.
-- **Birim Kurallarını Kaydet Butonu:** Yukarıda listelenen takvim kuralları (Hafta Sonu Çalışması Aktif, Bayram Çalışması Aktif, 24 Saat Tutulabilir, Çapraz Görevlendirme) genel "Temel Ayarlar" kaydetme mantığından ayrıştırılmıştır. Bu kurallardaki değişikliklerin kaydedilebilmesi için ilgili alanların hemen altındaki **"Birim Kurallarını Kaydet"** butonuna tıklanmalıdır. Seçili birim "Genel (Birim Bağımsız)" ise bu ayarlar tüm birimler için varsayılan (genel) kural olarak, belirli bir birim seçili ise o birime özel kural olarak kaydedilir. (Not: Hafta sonu nöbet sayı limiti genel bir ayar olduğu için birim kurallarından tamamen çıkarılmıştır.)
-
-**B. Birim Çalışma Şeması (Nöbet Türleri ve Slot Sayıları):**
-
-- **Arama/Filtreleme:** Nöbet ayarlarındaki Birim Kuralları sekmesinde yer alan **Birim Filtresi** kullanılarak, sadece seçilen birime ait nöbet kuralları ve türleri anlık olarak tabloda filtrelenebilir. "Tümü" seçeneği seçilerek tüm birimlerin kurallarına tek ekrandan ulaşılabilir.
-- **Nöbet Türleri:** Birimde aktif olarak tutulan nöbetlerin (24 Saatlik Nöbet, Gece Nöbeti, Normal Mesai vb.) tanımlandığı, başlangıç/bitiş saatleri ve sürelerinin belirtildiği kısımdır.
-- **Gün Kısıtı (Vardiya Gün Kısıtlaması):** Her bir nöbet türünün (vardiyasının) takvimdeki hangi gün tiplerinde aktif olacağını belirler. Sistem, otomatik planlama sırasında bu kuralı sert kısıt olarak uygular. Seçenekler:
-  - *Her Gün:* Nöbet türü hafta içi, hafta sonu, resmi tatil fark etmeksizin her güne yazılabilir (örn. Acil Servis Nöbeti).
-  - *Sadece Hafta İçi:* Nöbet türü yalnızca hafta içi günlerde çalıştırılır. Hafta sonlarında veya resmi/dini bayram tatillerinde planlanmaz (örn. Poliklinik/Rutin Mesai Nöbeti).
-  - *Sadece Hafta Sonu ve Tatil:* Nöbet türü hafta içine yazılmaz, sadece Cumartesi-Pazar günleri ve resmi tatillerde planlanır (örn. Hafta sonu icap nöbeti).
-  *Örn: Hafta sonu planlaması açık olan bir birimde, gündüz nöbeti "Her Gün" ve gece nöbeti "Sadece Hafta İçi" olarak tanımlanırsa; hafta içi hem gündüz hem gece nöbetçileri yazılırken, hafta sonlarında sadece gündüz nöbetçisi yazılır ve gece nöbeti boş geçilir.*
-- **Otomatik Süre/Zaman Hesaplayıcı:** Vardiya ekleme ve güncelleme alanında Başlangıç Saati, Süre (Saat) ve Bitiş Saati kontrolleri birbirine akıllı olarak bağlanmıştır:
-  - Başlangıç veya Süre değiştirildiğinde, Bitiş Saati otomatik olarak hesaplanarak yansıtılır.
-  - Bitiş Saati değiştirildiğinde, Süre otomatik olarak hesaplanır (geceyi aşan/ertesi güne sarkan nöbet saat farkı da dahil edilerek).
-- **Günlük Slot İhtiyaçları:** Hangi nöbet türünde, haftanın hangi günlerinde kaç personelin nöbetçi olması gerektiği buradan yapılandırılır. Otomatik planlayıcı bu ihtiyaçları karşılayacak şekilde çalışır.
-
-#### 10.1.5 Birim Personel İstekleri (Mazeret ve Talepler)
-
-Personellerin nöbet günlerine dair taleplerinin, izinlerinin ve mazeretlerinin birim yöneticileri tarafından yönetildiği sekmedir.
-
-- **Talep Türleri:**
-  - *Nöbet Yazılmasın (Mazeret):* Personelin o tarihlerde nöbet tutamayacağını belirtir (örn. kişisel mazeret). Nöbet planlayıcı, planlamanın ilk aşamasında bu mazereti kesinlikle korur. Eğer kadro yetersiz kalırsa ve daha esnek bir aşamada esnetme gerekirse; düşük öncelikli (1-3) mazeretler esnetilebilirken, yüksek öncelikli (4-5: Çok Yüksek ve Kritik) mazeretler asla ihlal edilmez.
-  - *Nöbet Yazılsın (İstek):* Personelin özellikle nöbetçi olmak istediği günleri belirtir. Planlayıcı aday seçimi yaparken, bu talebe sahip olan kişileri öncelik seviyelerine (1-5) göre en üst sıraya yerleştirerek öncelikle atar.
-  - *Eğitim Kısıtı (Ders Programı):* Personelin lisansüstü/harici eğitim programı sebebiyle haftanın belirli ders günlerinde (örn. Salı, Perşembe) nöbet tutamayacağını belirtir. Sömestr tarihleri ve haftalık ders günleri tek tıkla seçilir. Dönem ortasında ders programı değiştiğinde **Ders Programını Revize Et** butonu ile geçmiş kayıtlar dondurulup yeni kural başlatılabilir.
-  - *Fazla Mesai Talebi (Aylık Üst Sınır):* Personel bazında standart limitlerin dışında özel bir fazla mesai üst sınırı belirlenmesini sağlar (örn. ayda en fazla 20 saat mesai yapabilecekler).
-- **Onay Süreci ve Otomatik Tarih Derleme:** Girilen istek ve mazeret talepleri doğrudan **Onaylandı** durumunda kaydedilir. Formda başlangıç tarihi seçildiğinde Yıl ve Ay bilgisi tarihten otomatik türetilir.
-- **Planlama Sihirbazı Hızlı Talep Ekleme:** Plan oluşturma sihirbazı önizleme adımında, koordinatör ekranından çıkmadan hızlıca mazeret veya fazla mesai limiti tanımlayabilmek için **Hızlı Talep Ekle** butonunu kullanabilir. Buradan girilen talepler otomatik olarak **Onaylandı** durumunda doğrudan ilgili döneme kaydedilir.
-
-### 10.2 Nöbet Plan Listesi ve Yeni Plan Oluşturma
-
-Nöbet Plan Listesi ekranına sol menüdeki **Nöbet Modülü > Nöbet Plan Listesi** adımlarını takip ederek ulaşabilirsiniz. Bu ekran, oluşturulmuş tüm nöbet planlarını (Taslak, Yayında ve Arşiv durumundakileri) listeler.
-
-- **Yeni Plan Ekleme:**
-
-  1. Liste ekranında "Yeni Plan" veya "Plan Ekle" butonuna tıklayın.
-  2. Açılan pencerede Plan Yılı ve Plan Ayı seçin.
-  3. Planın uygulanacağı **Departman / Birim** bilgisini seçin.
-  4. Nöbet tutacak grubun **Hizmet Sınıfı** bilgisini (örn. Teknisyen, Hemşire vb.) seçin (tüm hizmet sınıfları için boş bırakılabilir).
-  5. "Kaydet" butonuna tıklayarak planı "Taslak" durumunda oluşturun.
-
-- **Plan Silme / Arşivleme:**
-
-  - Taslak durumundaki planlar listedeki "Sil" butonuyla silinebilir. Normal personeller için listedeki planı silme ve durum güncelleme işlemleri pasiftir.
-
-  *Önemli:* "Yayında" durumundaki planlar doğrudan silinemez veya normal kullanıcılar tarafından durumları değiştirilemez. Sadece yetkili yönetici kullanıcılar bu planları "Arşiv" durumuna taşıyabilir ya da "Taslak" moduna geri çekebilir.
-
-### 10.3 Nöbet Çizelgesi ve Otomatik Planlama (Çizelge Detay Sayfası)
-
-Bir planın satırındaki "Detay" veya "Çizelgeyi Düzenle" butonuna tıklandığında, ilgili aya ait günlük nöbet matrisi (çizelge tablosu) açılır.
-
-- **Otomatik Nöbet Oluşturma:**
-
-  1. Çizelge ekranının üstündeki **"Otomatik Plan Oluştur"** butonuna tıklayın.
-  2. Sistem, arka planda **Temel Ayarlar**, **Gelişmiş Algoritma Ağırlıkları**, **Personel Özel Durumları** ve **Birim İsteklerini** tarayarak en adil dağılımı hesaplar.
-  3. İşlem sırasında bir ilerleme çubuğu gösterilir. Kullanıcı dilerse işlemi yarıda iptal edebilir.
-  4. Hesaplama bittiğinde oluşturulan çizelge taslak olarak ekrana yansıtılır. "Kaydet" butonu ile çizelge kaydedilir.
-
-  > **Not — Otomatik Nöbet Oluşturma Sırasında Taslak Yedeği ve Geri Yükleme:**
-  > Mevcut taslak/planlı bir nöbet listesi üzerinde tekrar "Otomatik Plan Oluştur" butonuna tıklandığında, eski taslak kayıtlar kalıcı olarak silinmeden önce sistem tarafından otomatik olarak bir yedek dosyasına kaydedilir.
-  >
-  > Yanlışlıkla silinen veya üzerine yazılan taslak çalışmalarınızı geri kurtarmak için çizelge detay ekranındaki **"Yedekten Taslak Yükle"** butonuna tıklayıp ilgili yedek dosyasını seçerek çizelgeyi o yedek anına geri döndürebilirsiniz.
-  >
-  > Disk kirliliğini önlemek amacıyla, nöbet planı **Yayına alındığında**, **Arşivlendiğinde** veya **Silindiğinde**, o plana ait tüm geçmiş taslak yedek dosyaları sistem tarafından otomatik olarak temizlenir.
-
-- **Manuel Düzenleme (Çizelge Hücre İşlemleri):**
-
-  - Çizelge tablosundaki herhangi bir hücreye (personel hücresi) çift tıklayarak veya tıklayarak açılan **Manuel Nöbet Atama** penceresi üzerinden kişileri değiştirebilirsiniz.
-  - Açılan pencerede sistem, o gün için uygun olan personelleri ve eğer varsa kısıt ihlallerini (örn. ardışık gün nöbet ihlali, dinlenme saati ihlali vb.) kırmızı uyarı rozetleriyle birlikte listeler.
-  - Yönetici, kısıt ihlali uyarısına rağmen (opsiyonlarda buna izin veriliyorsa) onaylayarak manuel atamayı gerçekleştirebilir.
-
-### 10.4 Nöbet Onaylama ve Yayınlama Süreci
-
-Otomatik oluşturulan ve manuel olarak düzenlenen nöbet listesinin personele duyurulabilmesi için onaylanıp yayınlanması gerekir.
-
-1. Çizelge detay ekranındaki **"Planı Onayla"** veya **"Yayınla"** butonuna tıklayın.
-2. Temel ayarlarda "Onay Notu Zorunlu" seçeneği aktifse, açılan onay penceresine açıklama notu yazın.
-3. Plan onaylandığında durumu **"Yayında"** olarak güncellenir.
-4. *Önemli Kural:* "Yayında" durumuna getirilen nöbet planları üzerinde yöneticiler dahil doğrudan ekleme, silme veya personel değiştirme işlemleri yapılamaz. Çizelge salt okunur hale gelir. Bu aşamadan sonra sadece **Nöbet Devir** süreçleri işletilebilir.
-5. Yetkili kullanıcılar gerekirse planı tekrar düzenlemek için **"Taslağa Geri Çek"** seçeneğini kullanabilir. Bu işlem yetki sınırlandırmasına tabidir ve normal personel kullanıcıları tarafından gerçekleştirilemez.
-
-### 10.5 Nöbet Devir ve Değişim Talepleri (Nöbet Devir Sistemi & 2 Aşamalı Onay Mimarisi)
-
-Yayınlanmış bir nöbet planında görevli olan personeller, nöbetlerini başka bir personele devretmek veya karşılıklı takas etmek için sistem (Masaüstü veya Web Portalı) üzerinden talep oluşturabilirler. Nöbet devir ve takas işlemleri, veri güvenliği ve personel rızasını garanti altına almak amacıyla **2 Aşamalı Onay Sürecinden** (Devralan Personel Ön-Onayı ➔ Yönetici / Admin Onayı) geçirilmektedir.
-
-#### 10.5.1 2 Aşamalı Nöbet Devir İş Akışı ve Durum Yaşam Döngüsü
-
-1. **Talep Oluşturma (1. Aşama - İletim):**
-   - Çizelge detay ekranında veya Web Portalında devredilmek istenen nöbet seçilerek **"Devir Talebi Oluştur"** butonuna basılır.
-   - Nöbeti devralacak **Hedef Personel** seçilir ve devir gerekçesi girilerek talep gönderilir.
-   - Talep ilk oluşturulduğunda sistemdeki durumu **`Devralan Onayı Bekliyor`** olur.
-
-2. **Devralan Personel Ön-Onayı (2. Aşama - Personel B Kabul / Red):**
-   - Nöbeti devralacak personele (Personel B) web portalında ve masaüstü bildirim alanında anlık bildirim zili/kartı düşer.
-   - Personel B, bildirim üzerinden **[✅ Kabul Et]** veya **[❌ Reddet]** butonlarıyla talebe yanıt verir.
-   - **Personel B Redderse:** Talep durumu **`Devralan Tarafından Reddedildi`** olarak güncellenir ve süreç sonlanır.
-   - **Personel B Kabul Ederse:** Talep durumu **`Admin Onayı Bekliyor`** aşamasına geçer. Devreden personele (Personel A) otomatik bilgilendirme bildirimi gönderilir (*"Mehmet Demir, 15.08.2026 tarihli nöbet devir talebinizi kabul etti. İşlem yönetici onayına gönderildi."*).
-
-3. **Devreden Personelin Talebi İptal Etme Hakkı:**
-   - Talebi oluşturan Personel A, nöbeti devralacak Personel B henüz yanıt vermeden (kabul/red butonuna basmadan) önce talebini **[❌ Talebi İptal Et]** butonu ile iptal edebilir.
-   - Bu durumda talep durumu **`Devreden Tarafından İptal Edildi`** olarak güncellenir ve süreç durdurulur.
-
-4. **Yönetici / Admin Nihai Onayı:**
-   - Devralan personelin ön-onayından geçen (`Admin Onayı Bekliyor`) talepler Masaüstü RADPYS V3 **Onay Bekleyen Görevler Paneli**'ne aktarılır.
-   - Yönetici talebi onayladığında, devredilen nöbet çizelge üzerinde otomatik olarak yeni personelin üzerine geçirilir.
-
-5. **İntranet / İzinli Personel Kilitlenmesini Önleme (Yönetici Şifahi Onay Bypass Seçeneği):**
-   - Nöbeti devralacak personel izinli, vardiya dışında veya kurum içi intranete erişemediği durumlarda portal üzerinden [Kabul Et] butonuna basamayabilir.
-   - Sürecin tıkanmasını önlemek için Masaüstü RADPYS V3 Yönetici Paneli üzerinde `Devralan Onayı Bekliyor` durumundaki talepler için yöneticilere özel 📞 **"Devralan Sözlü/Telefon İzni İle Onayla"** (Yönetici Şifahi Onayı) seçeneği sunulur.
-   - Yönetici bu seçeneği kullandığında sistem denetim izine *"Sözlü Onay İle Yönetici Tarafından Tamamlandı (Onaylayan Admin: [Kullanıcı Adı])"* notunu düşer ve devir işlemini devralanın web onayını beklemeden doğrudan tamamlar.
-
-#### 10.5.2 Sert Kısıtlar ve Güvenlik Kuralları
-
-- *Yayındaki Plan Şartı:* Nöbet devir talepleri yalnızca onaylanıp "Yayında" durumuna getirilmiş nöbet planları üzerinde yapılabilir.
-- *Devredilen Nöbetin Tekrar Devredilememesi (Sert Kısıt):* Durumu **'Devir'** olan (devir işlemi tamamlanmış) bir nöbet kaydı tekrar başka birine devredilemez veya üzerinde herhangi bir CRUD işlemi/değişiklik yapılamaz.
-
-### 10.6 Nöbet Fazla Mesai Borç / Alacak Devri
-
-Nöbet Fazla Mesai Borç / Alacak Devri ekranına **Nöbet Modülü > Fazla Mesai Borç / Alacak Devri** sekmesinden erişebilirsiniz. Bu ekran, yayınlanmış nöbet çizelgelerine göre personellerin aylık hedef çalışma süreleri ile fiili toplam çalışma süreleri arasındaki farkları hesaplar ve borç/alacak takibini yönetir.
-
-- **Borç ve Alacak Durumunun Belirlenmesi:**
-
-  - *Net Fark (Saat) pozitifse:* Kurum personele borçludur, personel alacaklı durumdadır (fazla mesai yapmış).
-  - *Net Fark (Saat) negatifse:* Personel kuruma borçludur, kurum alacaklı durumdadır (eksik çalışma yapmış).
-
-- **İşlem ve Devir Kararları:**
-
-  Yöneticiler, tablonun son sütunundaki seçim kutusunu kullanarak her personel için borç/alacak kararını belirleyebilir:
-
-  - *Beklemede:* Karar henüz verilmemiş, işlem bekleniyor.
-  - *Fazla Mesai Ödendi:* Personelin fazla mesai alacağı nakdi olarak ödenmiş sayılır.
-  - *İzin Kullanıldı:* Alacaklı saatler karşılığında personele izin kullandırılmıştır.
-  - *Sonraki Aydan Düşüldü / Sonraki Aya Devredildi:* Borç veya alacak saati bir sonraki aya devredilir.
-
-    - *Etki:* Devredilen borç saatleri personelin sonraki aydaki hedef süresine eklenir (daha fazla çalışması gerekir). Alacak saatleri ise sonraki aydaki hedef süresinden düşülür veya sonraki ayın nöbet planlama öncelik puanını yükseltir.
-
-- **Değişikliklerin Kaydedilmesi:**
-
-  Kararlar belirlendikten sonra üstteki **"Tüm Kararları Kaydet"** butonu ile kaydedilir. Kayıt sonrasında devreden farklar sonraki ayın nöbet atamalarında otomatik olarak devreye girer.
+Uygulama ilk kurulduğunda kısıtlı **Demo Modu** (15 Gün Deneme Süresi, Maksimum 6 Personel Kaydı, Maksimum 3 Nöbet Planı) ile başlar. Tüm kısıtlamaları kaldırmak ve süresiz tam sürüme geçmek için size özel **Lisans Anahtarı** ile aktivasyon yapılmalıdır.
 
 ---
 
-## 11. Radyasyon Güvenliği ve Olay Bildirim / DÖF Modülü
+### 🐾 Adım Adım Lisans Aktifleştirme İş Akışı
 
-Bu modül, radyoloji ve nükleer tıp birimlerindeki radyasyon güvenliği ihlallerini, cihaz arızalarını, hasta ve çalışan güvenliği olaylarını bildirmek, incelemek ve düzeltici önleyici faaliyetleri (DÖF) takip etmek amacıyla tasarlanmıştır.
-
-### 11.1 Yeni Olay Bildirimi (Adım Adım Sihirbaz)
-
-Tüm personeller sol menüdeki **Personel > Yeni Olay Bildirimi** butonunu kullanarak 3 aşamalı sihirbaz yardımıyla olay bildirimi oluşturabilirler:
-
-- **Adım 1: Temel Bilgiler:** Olayın gerçekleştiği tarih/saat, birim (tanımlı listeden seçilebilir veya serbest metin olarak yazılabilir), bildiren personel (kimliğini gizlemek isteyen çalışanlar "Anonim" seçeneğini işaretleyebilir), etkilenen taraf, olay sonucu (Ramak Kala, Hafif/Orta/Ciddi Zarar) ve geri bildirim tercihleri.
-- **Adım 2: Sınıflandırma:** Olay kategorisi (Radyasyon İhlali Çalışan Odaklı, Hasta Odaklı, MR Güvenliği vb.) seçilir. Seçilen kategoriye göre uygun alt detay seçenekleri onay kutuları halinde otomatik yüklenir. Kök neden listesinden olası sebepler işaretlenir.
-- **Adım 3: Açıklamalar:** Detaylı olay tanımı, yapılan acil müdahale ve DÖF önerisi girilir. Form "Olayı Bildir" ile kaydedildiğinde sistem otomatik olarak benzersiz bir takip numarası üretir (örn. `OB-2026-00001`).
-
-### 11.2 Olay Bildirimleri ve DÖF Yönetimi (Yönetici Paneli)
-
-Yöneticiler sol menüdeki **Yönetim > Olay & DÖF Yönetimi** ekranı üzerinden bildirilen olayları takip ederler:
-
-- **Olay Takip Tablosu ve Detay Kartı:** Bildirilen tüm olaylar tarih sırasına göre listelenir. Seçili olayın tüm detayları, seçilen kök nedenler ve alt detaylar sağ panelde listelenir.
-- **Durum ve Atama İşlemleri:** Olayın durumu (Açık, İncelemede, Kapalı, İptal) güncellenebilir ve sorumlu bir personel atanabilir. Olay kapatılırken "Kapanış Notu" yazılması zorunludur.
-- **Tarihçe:** Olay üzerinde yapılan tüm durum ve alan güncellemeleri otomatik olarak eski/yeni değerleriyle tarihçeye kaydedilir.
-- **DÖF Aksiyonları:** "DÖF Aksiyonları" sekmesinden, olayla ilişkili Düzeltici, Önleyici veya İyileştirici faaliyetler başlatılabilir, sorumlu personel ve hedef tarih atanabilir. Tamamlanan faaliyetler "Tamamlandı" olarak kapatılarak etkinlik değerlendirmesi kaydedilir.
+1. **Hakkında Penceresini Açın:** RADPYS ana ekranının sağ üst köşesinde bulunan **"Hakkında"** butonuna tıklayın.
+2. **Cihaz Kimliğini Kopyalayın:** Açılan karttaki **Lisans ve Aktivasyon** bölümünde yer alan benzersiz **Cihaz Kimliği** (örn. `RP-A1B2-C3D4-E5F6`) bilgisinin yanındaki **"Kopyala"** butonuna tıklayın.
+3. **Lisans Anahtarını Alın:** Kopyaladığınız Cihaz Kimliğini yazılım temsilcinize ileterek size özel üretilen **Lisans Anahtarını** (örn. `LK-AS-PRO-PERM-...`) temin edin.
+4. **Lisans Anahtarını Girin ve Onaylayın:**
+   * Hakkında penceresindeki **Lisans Anahtarı** metin kutusuna anahtarı yapıştırın.
+   * **"Lisansı Aktifleştir"** butonuna tıklayın.
+5. **Uygulamayı Yeniden Başlatın:** *"Lisans Başarıyla Aktifleştirildi"* mesajını aldıktan sonra uygulamayı kapatıp yeniden açın. Başlık çubuğundaki `[DEMO SÜRÜMÜ]` ibaresi kalkacak ve tüm kısıtlamalar açılacaktır.
 
 ---
 
-## 12. Onay Bekleyen Görevler Paneli (Evrensel Onay Sistemi)
+### 🐾 1.4 Kurulum Sonrası Hızlı Başlangıç ve İçe Aktarım
 
-RADPYS V3, kurumsal veri güvenliğini, veri doğruluğunu ve denetim izlenebilirliğini en üst düzeyde tutmak amacıyla **Evrensel Onay ve Veri Değişikliği Denetim Sistemi** ile donatılmıştır. Bu sistem; belirli rollere (örn. sıradan kullanıcı, izleyici veya özel tanımlanmış veri giriş personelleri) ait kullanıcıların yaptığı ekleme, düzenleme veya silme işlemlerini doğrudan sisteme yazmak yerine, bir yöneticinin onayına sunulmak üzere geçici bir onay kuyruğuna yönlendirir.
+### 💡 İşlemin Amacı ve Ön Koşullar
 
-Sistemde iki farklı onay yaklaşımı bulunmaktadır:
+RADPYS V3 ilk kurulduğunda veritabanı boş durumdadır. Tüm personeli ve geçmiş kayıtları tek tek elle girmek saatler sürebilir. Uygulama, **Excel/CSV Toplu İçe Aktarma Sihirbazı** ile yüzlerce personel kaydını, nöbet geçmişini ve muayene verilerini saniyeler içinde sisteme aktarmanızı sağlar.
 
-1. **Onay Kuyruğu Destekleyen Modüller:** Bu modüllerde yapılan işlemler reddedilebilir veya onaylanabilir. Onaylanana kadar veriler asıl kayıtlara işlenmez.
-2. **Onay Kuyruğu Desteği Olmayan Modüller (Sert Yetki Engeli):** Bu modüller yasal uyum ve hassas izleme verileri içerdiğinden onay kuyruğu üzerinden onaylanmaya uygun değildir. Bu nedenle onaya tabi rollerin bu modüllerde işlem yapması doğrudan sistem tarafından engellenir.
-
-Yöneticiler, bekleyen tüm onay taleplerini ana ekranda yer alan **"Onay Bekleyen Görevler"** hızlı erişim butonuyla veya sistem menüsünden açılan merkezi onay panelinden yönetebilirler. Onaylama veya reddetme işlemlerinde işlemi gerçekleştiren yöneticinin kimliği ve rol bilgisi denetim izleri için eksiksiz olarak doğrulanır ve kaydedilir.
-
-### 12.1 Kategori Sekmeleri ve Sayı Rozetleri
-
-Merkezi onay paneli, bekleyen işleri düzenli bir şekilde yönetmek için 5 farklı kategoriye ayrılmıştır. Her kategorinin yanında bekleyen işlem sayısını canlı olarak gösteren sayı rozetleri yer alır:
-
-1. **İzinler:** Birim amirinin onayını bekleyen standart veya şua izin talepleri.
-2. **Nöbet Devirleri:** Personellerin birbirine devretmek veya takas etmek istediği talepleri içerir. Devralan personelin ön-onayından geçen (`Admin Onayı Bekliyor`) veya devralan personelin intranete erişemediği durumlar için yöneticinin 📞 **"Devralan Sözlü/Telefon İzni İle Onayla"** (Yönetici Şifahi Onay Bypass) yetkisiyle doğrudan onaylayabileceği (`Devralan Onayı Bekliyor`) tüm devir ve takas talepleri bu sekmede listelenir.
-3. **Nöbet İstekleri:** Personellerin nöbet listeleri için ilettiği ve onay bekleyen mazeret/nöbet istekleri.
-4. **Nöbet Planları:** Birim yöneticileri tarafından hazırlanmış ("Birim Onaylı" durumundaki) ve yayınlanmadan önce yönetici onayı bekleyen nöbet planları.
-5. **Veri Değişiklikleri:** Onay gerektiren kullanıcılar tarafından aşağıdaki alanlarda yapılan ekleme, düzenleme ve silme talepleri:
-   - **Personel Özlük Bilgileri**
-   - **Sağlık Muayeneleri**
-   - **Eğitim Türleri / Tanımlamaları**
-   - **Kalite Dokümanları Portalı**
-   - **Hizmet İçi Eğitim Tanımları**
-
-### 12.2 Karşılaştırmalı Değişiklik İnceleme
-
-"Veri Değişiklikleri" sekmesinde yer alan bir talebin üzerine tıklayıp **"Değişiklikleri İncele"** butonuna basıldığında modern bir karşılaştırma ekranı açılır:
-
-- **Renkli Karşılaştırma Matrisi:** Değiştirilmek istenen kayıt üzerindeki mevcut eski değerler (kırmızı arka planlı) ve kullanıcının teklif ettiği yeni değerler (yeşil arka planlı) yan yana net bir şekilde gösterilir. Ekleme işlemlerinde eski değer sütunu boş, silme işlemlerinde ise yeni değer sütunu boş gösterilir.
-- **Anlaşılır Alan Etiketleri:** Eğitim ve Kalite modüllerinin de onay sistemine entegre edilmesiyle, karşılaştırma ekranındaki tüm alanlar kullanıcı dostu Türkçe etiketlerle gösterilir (örn. Eğitim Adı, Eğitim Seviyesi, Süre, Sınav Geçme Puanı, Doküman Kodu/Adı, Revizyon Numarası, Yayın/Revizyon Tarihi, Belge Dosya Yolu, Aktiflik Durumu gibi).
-- Yönetici, yapılan değişikliklerin doğruluğunu görsel olarak kolayca teyit ederek **"Onayla"** veya **"Reddet"** butonlarıyla işlemi sonuçlandırır. Onaylanan talepler sisteme anında işlenirken, reddedilen talepler gerekçesiyle birlikte arşive kaldırılır.
-
-### 12.3 Onay Kuyruğu Desteği Olmayan Modüllerin Yetki Yönetimi
-
-Kurumun radyasyon güvenliği, yasal uyumluluk ve denetim geçmişi açısından kritik önem taşıyan bazı modüllerde, onay bekletme kuyruğu veri bütünlüğünü bozabileceği veya anlık takip gerektirdiği için devre dışı bırakılmıştır. Bu kapsamda yer alan:
-
-- **Dozimetre Ölçüm Kayıtları ve Takip Aksiyonları**
-- **Fiili Hizmet Süresi ve Dönem Çalışma Hesaplamaları**
-
-modüllerinde yapılan işlemler onay bekletme kuyruğuna tabi tutulmadan doğrudan sisteme yazılır.
-
-Yetkilendirme denetimi, rol bazlı yetki tanımlarına göre gerçekleştirilir. Eğer kullanıcının rolüne bu modüller için yazma, güncelleme veya silme yetkileri tanımlanmışsa, rolü genelde onay gerektiren türden olsa dahi bu modüllerde doğrudan işlem gerçekleştirebilir. Yetki tanımlanmamış roller ise standart yetkisiz işlem uyarısıyla bloke edilir.
+İçe aktarımın sorunsuz tamamlanabilmesi ve veritabanındaki ilişkisel yapının (bağlı birimler, unvanlar, izinler) bozulmaması için **doğru veri yükleme sırası** izlenmelidir.
 
 ---
 
-## 13. Raporlar Modülü
+### 📐 Önerilen Toplu Veri İçe Aktarım Sırası (Import Hiyerarşisi)
 
-Raporlar Modülü, sistem üzerinde gerçekleştirilen işlemlerin (kayıt ekleme, düzenleme, silme, giriş/çıkış vb.) işlem kaydı bilgilerini görüntülemenizi sağlar.
+Veri aktarımının hatalara yol açmaması için işlemler **kesinlikle aşağıdaki sırayla** yapılmalıdır:
 
-1. Sol menüden Raporlar Modülü ekranına gidin.
-2. Tarih aralığı, kullanıcı veya modül bazında filtreleme yaparak ilgili işlem kayıtlarını görüntüleyin.
-3. Gerekirse kayıtları listeleyip inceleyin.
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                 İLK KURULUM VERİ İÇE AKTARIM SIRALAMASI                 │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 1. ADIM: Kurumsal Tanımlamalar (Departmanlar, Unvanlar, İzin Türleri)   │
+│ 2. ADIM: Personel Ana Kayıtları (Özlük, Kimlik, Sicil ve Birim Ataması) │
+│ 3. ADIM: Kullanıcı Hesapları ve Rol Atamaları (Sisteme Giriş Hesapları) │
+│ 4. ADIM: Operasyonel Geçmiş Verileri (İzinler, Dozimetre ve Muayeneler) │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
-### 13.1 Birleşik Dışa Aktarma Sistemi
+#### 1. Adım: Kurumsal Tanımlamalar (Lookup Tabloları)
 
-Sistemdeki veri listelerinin (Personel, Kullanıcı, İzin vb.) dışa aktarılması tek bir modern birleşik dışa aktarma çatısı altında toplanmıştır.
+* **Neden İlk Sırada?** Personel eklenirken personelin hangi birimde (Radyoloji, Nükleer Tıp vb.) ve hangi unvanda (Radyoloji Teknikeri, Uman Dr. vb.) olduğu seçilmelidir. Bu tablolar boş olursa personel atamaları eksik kalır.
+* **Nasıl Yapılır?** Sol menüden *Tanımlamalar (Lookup)* sekmesine gidin. Mevcut departman ve unvan listesini kontrol edin; eksik olanları manuel ekleyin veya Excel ile toplu yükleyin.
 
-- **Desteklenen Formatlar:** Excel, Word, CSV ve PDF formatları desteklenmektedir.
-- **Rapor Tasarımı ve Stiller:** Excel çıktılarında kurumsal başlıklar, logolar, otomatik sütun genişlikleri ve kalın başlık satırları kullanılır. PDF çıktılarında ise Türkçe karakter setlerine uygun, sayfa numaralandırmalı ve otomatik yatay/dikey sayfa yönlendirmeli raporlar üretilir.
-- **Dinamik Şablon ve Konum Eşleme (Excel):** Rapor şablonlarında sütunların sırasını değiştirebilir, bazı sütunları silebilir veya yeni başlıklar ekleyebilirsiniz. Akıllı konum eşleme özelliği, başlık satırını okuyup veriyi her zaman doğru başlığın altına yazar. Böylece şablonları istediğiniz gibi özelleştirebilirsiniz.
-- **Örnek Şablonlar ve Word Entegrasyonu:** Tüm rapor tipleri için kurumsal marka ve logo yer tutucularını barındıran temiz Word şablonları oluşturulmuştur. Dışa aktarma yapıldığında bu şablonlar kullanılarak profesyonel belgeler üretilir.
-- **Kullanım:** İlgili liste ekranlarındaki "Dışa Aktar" butonuna tıkladığınızda açılan dosya kaydetme penceresinden istediğiniz formatı seçerek dosyayı kaydedebilirsiniz.
+#### 2. Adım: Personel Ana Kayıtları (Personel Modülü)
 
-### 13.2 Uzmanlık Raporları ve Genişletilmiş Alanlar
+* **Neden İkinci Sırada?** Nöbetler, dozimetre ölçümleri, izinler ve sağlık muayeneleri doğrudan Personel TC / Sicil Numarasına bağlanır.
+* **Nasıl Yapılır?** *Personel Modülü > Personel Listesi > İçe Aktar* adımıyla hazırladığınız `personel_yukleme_sablonu.xlsx` dosyasını yükleyin.
 
-Personel listesi dışa aktarma sihirbazında (Standart Personel Listesi dışında) 5 farklı uzmanlık raporu bulunmaktadır:
+#### 3. Adım: Kullanıcı Hesapları ve Rol Atamaları (Kullanıcı Modülü)
 
-1. **Sağlık Muayene Raporu:** Personelin temel kimlik ve departman bilgilerinin yanında branş bazlı Göz, Dahiliye, Dermatoloji muayene tarihlerini ve onay/imza durumlarını içerir.
-2. **Dozimetre Ölçüm Raporu:** Personelin derin/yüzeysel doz ölçümleri, kümülatif dozları, limit aşımı ve laboratuvar rapor no/tarih verilerini listeler.
-3. **İzin Bakiye Raporu:** Yıllık ve Şua izinleri için hakedilen, kullanılan, devredilen, dondurulan ve kalan gün kırılımlarını listeler.
-4. **Eğitim Durum Raporu:** Personelin eğitim türü, mezuniyet yılı ve onay durumunu listeler.
-5. **Kimlik ve İletişim Bilgileri Raporu:** Personelin doğum tarihi/yeri, cinsiyeti, medeni hali, anne/baba adı, telefon/e-posta adresleri, il/ilçe bilgileri, işten çıkış tarihi/nedeni, nöbet ve fazla mesai durumlarını listeleyen kapsamlı bir kişisel veri dökümüdür.
+* **Neden Üçüncü Sırada?** Sisteme giriş yapacak personellere (Yönetici, Birim Sorumlusu vb.) kullanıcı hesabı ve şifre tanımlamak için personel kaydının önceden var olması gerekir.
+* **Nasıl Yapılır?** *Kullanıcı Modülü > Kullanıcı Listesi* ekranından personellerle ilişkili kullanıcı hesaplarını oluşturun.
 
-### 13.3 Ek Bilgi Alanları (Opsiyonel Sütunlar)
+#### 4. Adım: Operasyonel Geçmiş Verileri (İzin, Dozimetre, Sağlık)
 
-Şablon Ayarları sayfasından etkinleştirilebilen opsiyonel alanların yanında, sistemden dinamik olarak birleştirilmiş bilgi sunan ek sütunlar da mevcuttur:
-
-- **Eğitim Dökümü:** Personelin onaylı eğitim geçmişini listeler.
-- **İzin Bakiyesi:** Yıllık ve Şua izin özetini verir.
-- **Son Dozimetre Ölçümü:** En son kaydedilen dozimetre sonuçlarını özetler.
-- **Dozimetre Atama Durumu:** Aktif atamaları gösterir.
-- **Dozimetre Atama Detayı:** Dozimetre cihazlarının seri no, cihaz türü ve aktif atama tarihlerini listeler.
-- **Son Sağlık Muayenesi:** En son muayene tarihini verir.
-- **Aktif Çalışma Kısıtları:** Personelin aktif çalışma kısıtlarını gösterir.
-- **Çalışma Kısıtı Detayı:** Kısıt tipi, gerekçe, günlük/aylık saat azaltım miktarları ve geçerlilik tarihlerini tek bir hücrede birleştirir.
-- **Aylık Nöbet Özeti:** Ay içerisindeki toplam nöbet ve çalışma saatini verir.
-- **Kayıtlı Belgeler:** Personel özlük dosyasına yüklenmiş tüm belgelerin türlerini ve veriliş tarihlerini listeler.
-- **Son İzin Kaydı:** Personelin talep ettiği en son iznin türü, tarihleri ve onay durumunu listeler.
+* **Sırasıyla:**
+  * **İzin Geçmişi:** Kullanılan ve devreden şua/yıllık izin bakiyeleri.
+  * **Dozimetre Ölçüm Geçmişi:** Ölçüm firmasından gelen geçmiş dozimetre sonuçları.
+  * **Sağlık Muayene Geçmişi:** Periyodik sağlık muayene kayıtları.
 
 ---
 
-## 14. Tanımlamalar (Lookup) Modülü
+### 🐾 Adım Adım Toplu Personel İçe Aktarma İş Akışı
 
-Bu modül, sistemin genelinde kullanılan temel referans verilerinin (departman, unvan, izin türü, tatil günleri vb.) tanımlandığı bölümdür. Buradaki tanımlar, diğer modüllerdeki seçim listelerinde kullanılır.
-
-### 14.1 Departmanlar
-
-1. Tanımlamalar > Departman Listesi ekranına gidin.
-2. Yeni departman eklemek için "Yeni Ekle" butonuna tıklayın; departman adını girin ve varsa bağlı olduğu üst departmanı seçin.
-3. Mevcut bir departmanı güncellemek için Düzenle simgesini kullanın.
-4. Departman listesini Excel olarak dışa aktarmak veya toplu tanımlama için içe aktarmak üzere ilgili butonları kullanın.
-
-**Silme:** Bir departmanı sildiğinizde departman pasif duruma alınır.
-
-> **Not:** Departman hiyerarşisi (üst departman - alt departman ilişkisi) tanımlanırken "Üst Departman" alanının doğru seçildiğinden emin olun; hiyerarşik yapı, organizasyon şeması ve raporlamada doğrudan etkilidir.
-
-### 14.2 Unvanlar
-
-Personele atanabilecek görev unvanlarının tanımlandığı ekrandır. Ekleme, düzenleme, silme (pasife alma), detay görüntüleme, Excel'e aktarma ve içe aktarma işlemleri Departmanlar ekranıyla aynı mantıkla çalışır.
-
-### 14.3 İzin Türleri
-
-İzin Modülünde kullanılacak izin türlerinin (yıllık izin, mazeret izni, şua izni, ücretsiz izin vb.) tanımlandığı ekrandır. Ekleme, düzenleme, silme (pasife alma), detay, Excel'e aktarma ve içe aktarma işlemleri aynı mantıkla çalışır.
-
-### 14.4 Tatil Günleri
-
-Resmi tatil ve bayram günlerinin tanımlandığı ekrandır. Buradaki tanımlar, izin gün sayısı hesaplamalarında resmi tatillerin hariç tutulması için kullanılır.
-
-1. Tanımlamalar > Tatil Günleri Listesi ekranına gidin.
-2. Yeni bir tatil günü eklemek için "Yeni Ekle" butonuna tıklayın; tarihi ve tatilin adını girin.
-3. Mevcut bir kaydı Düzenle veya Sil simgeleriyle yönetin.
-4. Toplu tanımlama için İçe Aktar özelliğini kullanabilirsiniz.
-
-### 14.5 Nöbet Türleri
-
-Nöbet türü tanımlamaları, ayrı bir liste ekranı yerine Nöbet Ayarları sayfası üzerinden yönetilmektedir. Nöbet türlerini tanımlamak veya güncellemek için Nöbet Ayarları ekranını kullanmanız yeterlidir.
-
-### 14.6 Rapor Şablonları
-
-Rapor Şablonları ekranı, kurumların resmi evrak ve yazışma çıktılarını kendi taslaklarına (Word dosyaları) göre düzenleyebilmesini sağlar.
-
-- **Metin Yer Tutucuları:** Şablonlar içerisindeki metin yer tutucuları (örn. `{{BASLIK_1}}`, `{{BASLIK_2}}`) kolayca tanımlanabilir ve dışa aktarma sırasında ilgili verilerle otomatik olarak doldurulur.
-- **Güvenli Belge Üretimi:** Word dosyaları güncellenirken belgenin biçimi korunur; özel karakterlerden kaynaklanabilecek dosya bozulmaları engellenir.
-- **Dinamik Logo Yerleşimi:** Kurum logoları (`{{LOGO_1}}`, `{{LOGO_2}}`), resim yer tutucuları üzerinden başlık veya gövde paragraflarına otomatik ölçeklenerek yerleştirilir.
+1. **Örnek Şablonu İndirin:**
+   * Sol navigasyon menüsünden **Personel Modülü > Personel Listesi** ekranına gidin.
+   * Ekranın üst kısmındaki **"İçe Aktar"** butonuna tıklayın.
+   * Açılan pencerede **"Örnek Şablon İndir"** butonuna basarak `personel_yukleme_sablonu.xlsx` dosyasını bilgisayarınıza kaydedin.
+2. **Excel Dosyasını Doldurun:**
+   * İndirdiğiniz şablonu Excel ile açın.
+   * **TC Kimlik No (11 hane)** ve **Sicil No** alanlarını eksiksiz doldurun *(Sistem bu verileri çakışmayı önlemek için benzersiz anahtar olarak kullanır)*.
+   * Tarih alanlarını `GG.AA.YYYY` (Örn: `15.06.1990`) formatında girin.
+   * *(Not: Excel'e yazdığınız Departman veya Unvan bilgisi sistemde henüz tanımlı değilse, 1. Adımdaki tanımlamalar esnasında sistem tarafından otomatik oluşturulur).*
+3. **Excel Dosyasını Yükleyin ve Doğrulayın:**
+   * İçe Aktar penceresindeki **"Dosya Seç"** butonuna tıklayarak hazırladığınız Excel dosyasını seçin.
+   * Sistem verileri önizleme tablosunda listeleyecek; eksik veya hatalı alan içeren satırları **kırmızı renkle** vurgulayacaktır.
+4. **Aktarımı Başlatın:**
+   * Hatalı satır yoksa veya düzeltildikten sonra **"Aktarımı Başlat"** butonuna tıklayın.
+   * Aktarım bittiğinde ekranda *"X adet personel başarıyla aktarıldı"* özeti görüntülenecektir.
 
 ---
 
-## 15. Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü (`web_portal`)
+### 🔑 Toplu İçe Aktarım Sonrası Otomatik Oluşturulan Kullanıcı Hesapları ve Geçici Şifreler
 
-RADPYS V3.6.0 ile birlikte gelen Çoklu Kullanıcı Web Portalı (`web_portal`), masaüstü uygulamasından bağımsız olarak kurum içi yerel ağda (LAN / Wi-Fi) çalışabilen, Express.js + React (Vite / TailwindCSS) tabanlı bağımsız bir veri toplama ve senkronizasyon portalıdır.
+Toplu personel içe aktarımı tamamlandığında sistem, her personel için otomatik olarak bir kullanıcı hesabı ve geçici şifre oluşturur.
 
-### 15.1 Öne Çıkan Özellikler ve Avantajlar
+#### 1. Otomatik Kullanıcı Adı ve Geçici Şifre Formatı
 
-- **Eşzamanlı Kilit Koruması (Zero File Lock):** Şirket içi ağ klasörlerinde yaşanan paylaşımlı Excel dosyalarının kilitlenmesi ("File Locked") ve veri üzerine yazma hatalarını tamamen ortadan kaldırır. Tüm girdiler sunucu belleğinde ve ilişkisel veri havuzunda sıraya alınarak kaydedilir.
-- **Yerel Ağ ve Mobil Cihaz Erişimi:** Ağdaki tüm bilgisayar ve mobil cihazların (tablet/telefon) web tarayıcılarından (`http://<sunucu-ip>:3000`) erişilebilir.
-- **Otomatik SQLite Çift Yönlü Senkronizasyonu (`WebSyncService`):** RADPYS V3 masaüstü uygulaması başlatıldığında ve arka planda her 15 dakikada bir `data_store.json` dosyasını tarayarak web üzerinden girilen nöbet devirlerini ve olay bildirimlerini otomatik olarak ana SQLite veritabanına (`radpys.db`) işler.
-- **Canlı Birim ve Personel Önbellekleme:** Masaüstü uygulamasında yapılan personel veya birim değişiklikleri anında web portalının `lookups.json` önbelleğine yansıtılır.
+* **Kullanıcı Adı Formatı:** Personelin Adının ilk harfi + Soyadı (Örn: *Ahmet Yılmaz* -> `AYilmaz`).
+* **Geçici Şifre Formatı:** `KullanıcıAdı123!` (Örn: Kullanıcı adı `AYilmaz` olan personel için geçici şifre: `AYilmaz123!`).
 
-### 15.2 Modül 10 Nöbet Devir Talebi Formu (`ShiftChangeForm.tsx`)
+#### 2. Geçici Şifrelerin Kaydedildiği Yer ve Erişim
 
-- RADPYS V3 Modül 10 nöbet kurallarıyla tam entegre çalışır (`/api/nobet/devir`).
-- **Çoklu Birim Yayındaki Planlar (`schedule.json`):** Masaüstü uygulamasında onaylanan ve "Yayında" durumuna getirilen tüm nöbet birimlerine (Acil Radyoloji, MR, BT vb.) ait nöbet planları otomatik olarak web portalının `schedule.json` verisine ihraç edilir.
-- **Veren ve Alan Personel İçin Yayındaki Nöbet Seçimi:** Nöbet devir formunda devreden personelin yanı sıra **alan personel için de** o birimde yayındaki nöbet satırları dinamik dropdown (`📋 Yayında Plandan`) ile seçilebilir (`selectedAlanCizelgeId`, `alanScheduleEntries`).
-- **Esnek Vardiya Değişimi:** Aynı gün farklı vardiya (örn: Gündüz ↔ Gece) takaslarına izin verilir; doğrulama ve hata durumları ekrandaki kırmızı uyarı bandında kullanıcıya gösterilir.
+Sistem yöneticileri (Admin) oluşturulan toplu kullanıcı hesaplarına ve geçici şifre bilgilerine şu yöntemlerle ulaşabilir:
 
-### 15.3 Kalite & Olay Bildirimi DÖF Paneli (`IncidentReportForm.tsx`)
+* **Kullanıcı Listesi Ekranı:** Sol navigasyon menüsünden **Kullanıcı Modülü > Kullanıcı Listesi** sekmesine giderek tüm personelin otomatik açılan kullanıcı adlarını ve bağlı oldukları personeli görüntüleyebilirsiniz.
+* **Aktarım İletişim Raporu:** İçe aktarım tamamlandığında ekranda çıkan onay penceresinde oluşturulan geçici şifre listesi özetlenir.
 
-- Radyasyon güvenliği ihlalleri, cihaz arızaları ve ramak kala olayları için 3 adımlı sihirbaz bildirim formu (`/api/olay/bildirim`).
-- **Dinamik Veritabanı (`olay_lookup`) İlişkisi:** Veritabanındaki 6 ana kategori, 41 alt detay ve 7 kök neden tanımı canlı olarak web portalına aktarılır. Kullanıcı üst kategoriyi seçtiğinde ilgili alt detay seçenekleri ve kök nedenler `olay_lookup` veritabanından dinamik olarak süzülür.
-- **Null-Safe Render Koruması:** Web bileşeninde `Array.isArray()` ve eksiksiz state yapısı kurularak form geçişlerinde oluşabilecek beyaz ekran (crash) durumları tamamen engellenmiştir.
-- **Engellemesiz Kesintisiz Bildirim:** İdari veya özel birim seçiminde doğrudan eşleşen personel olmasa dahi form bildirim yapılmasını kilitlemez; otomatik olarak genel personel listesini açarak kalite bildiriminin kesintisiz tamamlanmasını sağlar.
+#### 3. İlk Girişte Şifre Değiştirme Zorunluluğu
 
-### 15.4 Portalı Başlatma, Sistem Tepsisi ve Masaüstü Kısayolu
+Güvenlik standartları gereği otomatik oluşturulan tüm kullanıcı hesaplarında ilk giriş zorunluluğu aktiftir:
 
-- **Grafik Başlatıcı (GUI Launcher):** `web_portal/RADPYS_Portal_Launcher.exe` (veya `exe/user_launcher/RADPYS_Portal_Launcher.exe`) grafik başlatıcısına çift tıklayarak portala yön verebilirsiniz.
-- **Tek Tıkla Başlatma/Durdurma:** GUI arayüzündeki **▶ Başlat** ve **⏹ Durdur** butonları ile Node.js sunucusunu terminal ekranı görmeden yönetebilirsiniz.
-- **Sistem Tepsisinde Çalıştırma:** **🗕 Tepsiye Gönder** butonu veya pencere kapatma onayında *"Tepsiye Gönder"* seçilerek portal arka planda sessizce çalıştırılır.
-- **Otomatik Başlatma:** Launcher arayüzündeki `☑ Windows Açılışında Otomatik Çalıştır (Sessiz / Tepside)` seçeneği işaretlendiğinde bilgisayar her açıldığında portal otomatik ve sessiz başlatılır.
-- **RADPYS V3 Masaüstü Entegrasyonu:** RADPYS V3 durum çubuğundaki **`🔴 Portal Sunucu: Kapalı`** butonuna tıklandığında portal başlatıcısı arka planda otomatik tetiklenir ve sunucu açıldığında buton **`🟢 Portal Sunucu: Aktif`** durumuna geçer.
-
-### 15.5 Node.js Çalışma Zamanı Bağımlılığı ve Otomatik Tespit
-
-- **Node.js LTS (v18.0.0+) Gereksinimi:** Çoklu Kullanıcı Web Portalı sunucusunun Express.js REST API servislerini sunabilmesi ve bağımsız derleme adımlarını (`npm install` & `npm run build`) yürütebilmesi için bilgisayarda **Node.js LTS (v18.0.0 veya üzeri)** yüklü olmalıdır.
-- **Otomatik Yol ve Dizin Tespiti:** Grafik Başlatıcı (`portal_launcher.py` / `RADPYS_Portal_Launcher.exe`), `C:\Program Files\nodejs\node.exe`, `C:\Program Files (x86)\nodejs\node.exe` ve sistem `PATH` değişkenlerini otomatik tarayarak Node.js ortamını kendiliğinden algılar.
-- **Eksik Node.js Uyarı Uyarısı:** Eğer sisteminizde Node.js yüklü değilse, başlatıcı açılışta bilgilendirici bir uyarı penceresi çıkararak sizi [https://nodejs.org](https://nodejs.org) resmi indirme adresine yönlendirir. Node.js kurulduktan sonra portal başka hiçbir ayara gerek kalmadan çalışacaktır.
-
-## 16. Merkezi Bildirim ve Durum Çubuğu Sistemi
-
-RADPYS V3, kurumsal süreçlerde (izin talepleri, nöbet planlamaları, eğitim atamaları ve olay bildirimleri vb.) anlık bilgi akışını sağlamak amacıyla **Merkezi Bildirim ve Durum Çubuğu Sistemi** ile donatılmıştır.
-
-### 16.1 Durum Çubuğu Yerleşimi ve Canlı Saat
-
-Uygulamanın ana ekranının sağ alt köşesinde yer alan bu alan, kullanıcıya hem canlı durum takibi hem de hızlı bildirim kontrolü sunar:
-
-- **Canlı Tarih ve Saat:** Türkçe biçimlendirilmiş güncel saat ve tarih bilgisi saniyede bir güncellenerek durum çubuğunun sağ tarafında gösterilir (örn. `8 Temmuz Çarşamba 21:56:32`).
-- **Dinamik Zil Simgesi:** Okunmamış bir bildirim olduğunda zil simgesi aktif mavi renge bürünür ve üzerine gelindiğinde okunmamış bildirim sayısını gösterir. Tüm bildirimler okundu yapıldığında veya silindiğinde simge standart gri rengine geri döner.
-
-### 16.2 Aşağıdan Yukarı Kayan Bildirim Çekmecesi
-
-Zil simgesine tıklandığında, durum çubuğunun hemen üzerinde çerçevesiz, modern ve yarı saydam gölgelendirmeli bir **Bildirim Çekmecesi** açılır:
-
-- **Yukarı Kayma Animasyonu:** Çekmece, zil simgesinin üzerinden yukarıya doğru akıcı bir animasyonla kayarak açılır. Ekran sınırlarına göre sağa veya sola taşmayacak şekilde otomatik hizalanır.
-- **Dışarı Tıklayınca Kapanma:** Arayüzde başka herhangi bir yere veya bir bildirime tıklandığında çekmece kendiliğinden kapanır.
-- **Türe Özel İkonlar:** Bildirim kartlarının sol tarafında, bildirim tipine göre farklı renklerde ikonlar listelenir (İzin talepleri için yeşil, Nöbetler için mavi, Eğitimler için turuncu, Olaylar için kırmızı).
-- **Hızlı Silme (Çarpı Butonu):** Her bildirimin sağında yer alan küçük çarpı butonuyla istenen bildirim listeden hızlıca kaldırılabilir.
-- **Tümünü Temizle:** Üstte yer alan "Tümünü temizle" butonuyla listedeki tüm geçmiş bildirimler tek tıklamayla silinebilir. Eğer hiç bildirim yoksa, çekmece boyutu otomatik olarak küçülerek ortalanmış şık bir zil ikonuyla "Henüz bildiriminiz bulunmuyor" bilgisini gösterir ve temizle butonu gizlenir.
-- **Akıllı Sayfa Yönlendirmesi ve Aksiyonlar:** Bir bildirim kartına tıklandığında:
-  1. Bildirim otomatik olarak okundu işaretlenir ve bildirim çekmecesi kapatılır.
-  2. **Aksiyon Gerektiren Özel Bildirimler:** Eğer bildirim bir "Nöbet Devir Talebi" ile ilgiliyse, ek bir sayfa açmadan doğrudan onay/red penceresi açılır. Kullanıcı bu pencere üzerinden nöbet devrini tek tıkla kabul edebilir veya reddedebilir. Diğer durumlarda (örn. devir tamamlandığında veya onay aşaması değiştiğinde) bildirim doğrudan ilgili nöbet planı listesine yönlendirilir.
-  3. **Dozimetre Uyarıları:** Dozimetre sonuç bildirimleri tıklandığında kullanıcıyı doğrudan dozimetre takip ekranına yönlendirirken, genel sistem bildirimleri herhangi bir yönlendirme yapmadan sadece bilgilendirme amaçlı çalışır.
-  4. **Performans Optimizasyonu:** Uygulamanın durum çubuğundaki okunmamış bildirim adeti (rozet), sistem kaynaklarına yük getirmeyecek şekilde hafif sorgularla arka planda taranarak güncellenmektedir.
+* Personel kendisine verilen geçici şifre ile (`AYilmaz123!`) ilk kez giriş yaptığında, sistem otomatik olarak **"Şifre Değiştirme Penceresini"** açar.
+* Personel kendi kişisel şifresini belirlemeden sisteme giriş yapamaz.
 
 ---
 
-## 17. Program Ayarları
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
 
-Program Ayarları ekranı, sistemin genel davranışına ilişkin ayarların (örn. genel parametreler, bildirim ayarları vb.) yönetildiği bölümdür. Bu ekrana genellikle sistem yöneticisi yetkisine sahip kullanıcılar erişebilir.
-
-> **Not:** Bu ekranın kapsamı kurum ihtiyaçlarına göre genişletilebilir; hangi ayarların aktif olarak kullanılacağı konusunda sistem yöneticinizle görüşmeniz önerilir.
-
----
-
-## 18. Veritabanı Modülü
-
-Veritabanı Modülü, sistemin veritabanı düzeyinde yönetildiği, genellikle sadece sistem yöneticisi yetkisine sahip kullanıcıların erişebildiği kritik bir bölümdür.
-
-> **Not:** RADPYS V3, verilerini yerel bir veritabanı dosyasında saklar. Bu nedenle aşağıdaki yedekleme/geri yükleme işlemleri, bilgisayarınızdaki bu veritabanı dosyası üzerinde çalışır; yedek dosyasını harici bir ortamda (örn. başka bir disk veya bulut depolama) saklamanız veri kaybı risklerine karşı önerilir.
-
-### 18.1 Veritabanı Yedekleme
-
-Sistemdeki tüm verilerin bir yedek dosyası olarak alınmasını sağlar.
-
-1. Veritabanı Modülü > Veritabanı Yedekleme ekranına gidin.
-2. "Yedek Al" butonuna tıklayın.
-3. İşlem tamamlandığında oluşturulan yedek dosyasını indirin veya güvenli bir konumda saklanmasını sağlayın.
-
-### 18.2 Veritabanı Yedekten Geri Yükleme
-
-Önceden alınmış bir yedek dosyasının sisteme geri yüklenmesini sağlar.
-
-1. Veritabanı Modülü > Yedekten Geri Yükleme ekranına gidin.
-2. Geri yüklenecek yedek dosyasını seçin.
-3. İşlemi onaylayın.
-
-> **Not:** Geri yükleme işlemi, sistemdeki mevcut verilerin üzerine yazar ve geri alınamaz. Bu işlemi yapmadan önce güncel bir yedek aldığınızdan kesinlikle emin olun.
-
-### 18.3 Veritabanı Temizleme
-
-Gereksiz, eski veya geçici verilerin sistemden temizlenmesini sağlayan bakım işlemidir. Bu işlemi gerçekleştirmeden önce mutlaka bir yedek alınması önerilir.
-
-### 18.4 Veritabanı Bakımı
-
-Veritabanının performansını korumak amacıyla yapılan bakım işlemlerini (örn. düzenleme, hızlandırma) kapsar.
+* **"Önce Tanımlamaları Yapınız / Departman Bulunamadı" Uyarısı:**
+  * İçe aktarım sırasına uyulmadığında veya Excel'deki departman adı sistemle eşleşmediğinde oluşur. Önce *Tanımlamalar (Lookup)* ekranından ilgili birimi ekleyin.
+* **"Mükerrer Kayıt / TC Kimlik No Zaten Var" Uyarısı:**
+  * Excel'deki bir personelin TC Kimlik No veya Sicil Numarası veritabanında zaten mevcuttur. Sistem mükerrer kaydı engeller. Excel dosyanızdaki TC Kimlik Numaralarını kontrol edin.
+* **"Geçersiz Tarih Formatı" Uyarısı:**
+  * Excel'deki tarih alanları metin olarak veya yanlış formatta girilmiştir. Tarihlerin `GG.AA.YYYY` formatında olduğundan emin olun.
+* **"Demo Sürüm Limiti (Maksimum 6 Personel)" Uyarısı:**
+  * Uygulamanız Demo modundaysa, Excel dosyanızda 100 personel olsa dahi sistem sadece ilk 6 personeli aktarır ve durur. Sınırsız yükleme için Tam Sürüme geçilmelidir.
 
 ---
 
-## 19. Toplu İçe Aktarma (Import) İşlemleri
+# II. TEMEL OPERASYONEL MODÜLLER
 
-Sistem, birçok modül için toplu veri yükleme (içe aktarma) özelliği sunar. Genel kullanım adımları tüm toplu içe aktarma ekranlarında benzerdir:
+## 3. Personel Modülü Yönetimi ve Özlük Dosyası İşlemleri
 
-1. İlgili modülün listesinde "İçe Aktar" veya "Toplu İçe Aktar" butonuna tıklayın.
-2. Sistemin sunduğu Excel şablonunu indirin.
-3. Şablonu, ilgili verilerle (her sütunun istenen formatta) eksiksiz doldurun.
-4. Doldurulmuş dosyayı seçip yükleyin.
-5. Sistem dosyayı işler; başarılı kayıtlar sisteme eklenir, hatalı satırlar için bir hata raporu sunulur.
-6. Hata raporundaki satırları düzelterek gerekirse yeniden yükleme yapın.
+### 💡 İşlemin Amacı ve Ön Koşullar
 
-Sistemde aşağıdaki toplu içe aktarma ekranları bulunmaktadır:
+Personel Modülü; kurumda çalışan radyasyon görevlilerinin ve sağlık personelinin kimlik, özlük, sicil, görev yeri, radyasyon risk grubu (Grup A / Grup B), gebelik/emzirme kısıtları ve eğitim/belge geçmişinin merkezi olarak yönetildiği bölümdür.
 
-- **Toplu Personel İçe Aktarma (Aktif):** Excel şablonundaki kayıtlar, **TC Kimlik Numarası** ve **Sicil Numarası** gibi doğal benzersiz bilgiler üzerinden çakışma kontrolüne tabi tutulur. Böylece Excel'deki kayıtların mevcut veritabanı kayıtlarının üzerine yazması engellenir. Ayrıca Excel dosyasında yazılı olan ancak sistemde henüz tanımlı olmayan Departman ve Unvan bilgileri, içe aktarım esnasında sistem tarafından otomatik olarak oluşturulur.
-- **Toplu İzin İçe Aktarma (Aktif)**
-- **Toplu İzin Hak Ediş İçe Aktarma (Aktif)**
-- **Toplu Dozimetre İçe Aktarma (Aktif - Dozimetre Modülü ekranı üzerinden gerçekleştirilir)**
-- **Toplu Departman İçe Aktarma (Aktif - Merkezi Panel)**
-- **Toplu Unvan İçe Aktarma (Aktif - Merkezi Panel)**
-- **Toplu İzin Türü İçe Aktarma (Aktif - Merkezi Panel)**
-- **Toplu Tatil Günü İçe Aktarma (Aktif - Merkezi Panel)**
-- **Toplu Rol, Yetki ve Rol Yetkisi İçe Aktarma (Aktif - Merkezi Panel)**
-- **Toplu Fiili Hizmet İçe Aktarma (Aktif):** Personellerin fiili hizmet sürelerini ve yıpranma payı haklarını Excel dosyası üzerinden toplu olarak içe aktarmayı ve güncellemeyi sağlar.
-- **Toplu Sağlık Muayene İçe Aktarma (Aktif):** Personelin periyodik sağlık kontrollerini ve radyolojik sonuçlarını Excel şablonuyla toplu yüklemek için kullanılır.
-- **Toplu Nöbet İçe Aktarma (Aktif):** Birim bazlı veya genel nöbet listelerini toplu olarak içe aktararak nöbet çizelgelerine hızlıca yansıtır.
-
-### 19.1 Güvenlik ve Yetkilendirme Kısıtı
-
-Toplu içe aktarım işlemleri sisteme büyük miktarda kayıt eklediği veya güncellediği için onay kuyruğuna alınmaya uygun değildir. Veri bütünlüğünü ve güvenliğini korumak amacıyla:
-
-- **Onay Yetkisi Olmayan Roller Engellenmiştir:** Onay gerektiren rol grubuna ait kullanıcılar (Kullanıcı, İzleyici vb.), herhangi bir modülde yazma yetkileri bulunsa dahi toplu içe aktarım işlemini **başlatamazlar**.
-- **Yalnızca Yöneticiler İthal Edebilir:** Excel'den toplu içe aktarım butonları ve arka plan işlemleri yalnızca onay gerektirmeyen rollere (Admin, Yönetici) açık olarak çalışır. Yetkisiz bir kullanıcı bu işlemi tetiklemeye çalıştığında sistem erişimi reddeder.
-
-> **Önemli Güvenlik Notu:** Şablonlardaki sütun başlıklarını ve veri formatlarını değiştirmeden kullanmanız, içe aktarma işleminin hatasız tamamlanması için önemlidir.
-
-### 19.2 Toplu İşlem Performansı ve Kilit Önleme Mimarisi
-
-Toplu içe aktarım (import) mekanizması v3.8.0 güncellemeleriyle yüksek performanslı ve kilitlenmeye karşı korumalı bir mimariye kavuşturulmuştur:
-
-- **Paketli İşlem (Batch Transactions - 50'şerli Satır):** Yüzlerce satırlık aktarımlar tek tek yazılmak yerine 50'şerli paketler halinde veritabanına taahhüt edilir (`COMMIT`). Bu sayede SQLCipher diske yazma maliyeti azalır ve aktarım süreleri ciddi oranda hızlanır.
-- **Özyinelemeli Kilit (`threading.RLock`):** Veritabanı kilidi özyinelemeli kilit yapısıyla yönetildiği için işlem açıkken aynı thread üzerinden iç içe çağrılan servis sorgularının sistemi sonsuz beklemeye (self-deadlock / yanıt vermiyor durumu) sokması engellenmiştir.
-- **Canlı İlerleme Çubuğu (`processEvents`):** İçe aktarma esnasında kullanıcı arayüzünün donmaması için paket aralarında `QCoreApplication.processEvents()` çağrılarak ilerleme çubuğu %0 ➔ %100 arası canlı ve takılmasız güncellenir.
+Bu modül üzerinden yapılan personel atamaları ve pasife alma işlemleri; **Nöbet Çizelgelerini**, **Dozimetre Risk Analizlerini**, **Fiili Hizmet (Şua İzni) Hak Edişlerini** ve **Sağlık Periyodik Muayenelerini** doğrudan etkiler.
 
 ---
 
-## 20. Sık Karşılaşılan Durumlar ve İpuçları
+### 🐾 3.1 Yeni Personel Özlük Kaydı Nasıl Yapılır?
 
-- Şifrenizi unuttuysanız, "Şifremi Unuttum" bağlantısı sizi sistem yöneticinize yönlendirir; şifre sıfırlama işlemi yönetici tarafından yapılır.
-- Bir ekranı veya butonu göremiyorsanız, bu genellikle rolünüze tanımlı yetkilerle ilgilidir; sistem yöneticinizden ilgili yetkiyi talep edebilirsiniz.
-- Bir kaydı "sildiğinizde" çoğu modülde kayıt kalıcı olarak silinmez, pasif duruma alınır; bu sayede geçmiş veriler korunur.
-- İzin Hakediş kayıtları ve Onaylanmış/Reddedilmiş/İptal Edilmiş izin talepleri silinemez; bu kayıtların değişmesi gerekiyorsa yetkili onay süreçlerini kullanın.
-- Toplu Hesaplama, Devir Aktarma gibi özel butonların ne işe yaradığını anlamak için bu kılavuzun ilgili modül bölümüne başvurun.
-- Dosya yükleme ekranlarında, yüklenen belgeyi açmak (Aç), güncellemek (Düzenle) veya kaldırmak (Sil/Temizle) için ilgili butonların yükleme alanının yanında bulunduğunu unutmayın.
-- Yetki veya rolünüz "onay gerektiren" gruptaysa, Personel veya Sağlık Muayenesi modüllerinde yaptığınız değişiklikler doğrudan yazılmaz, onay kuyruğuna alınır. Yönetici onaylayana kadar değişiklikler askıda kalır.
-- Yetki veya rolünüz "onay gerektiren" gruptaysa, onay kuyruğu desteği bulunmayan Dozimetre ve Fiili Hizmet modüllerinde doğrudan veri yazabilir veya değiştirebilirsiniz (tabii ki ilgili modüllerde rolünüze ait yazma/güncelleme/silme yetkileri tanımlanmışsa). Bu modüllerde yapılan işlemler onay kuyruğuna alınmadan doğrudan sisteme işlenir.
-- Sistemin isteğe bağlı alan zenginleştirme işlemleri, olası hataların uygulamayı çökertmesini önlemek için koruma altına alınmıştır.
+#### 💡 Amaç
+
+Sisteme yeni başlayan bir personelin özlük, kimlik, iletişim, acil durum yakını, görev, eğitim ve belge bilgilerini 5 adımlı sihirbaz (Wizard) üzerinden eksiksiz kaydetmek ve otomatik kullanıcı hesabını oluşturmaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Personel Ekleme Sihirbazını Açın:**
+   * Sol dikey menüden **Personel Modülü > Personel Listesi** sekmesine gidin.
+   * Ekranın sağ üst tarafında yer alan **"Yeni Ekle"** butonuna tıklayın. Açılan pencere 5 adımlı sihirbaz yapısındadır (*Kimlik*, *İletişim*, *Özlük*, *Eğitim*, *Belgeler*).
+2. **1. Adım (Kimlik Bilgileri):**
+   * **TC Kimlik No (11 hane):** Personelin TC Kimlik Numarasını girin. *(Sistem yazarken aynı TC Kimlik No'ya sahip başka bir kaydın varlığını anlık denetler ve mükerrer kaydı engeller).*
+   * **Adı ve Soyadı:** Personelin adını ve soyadını girin.
+   * **Cinsiyet, Doğum Tarihi & Yeri:** Doğum tarihi, doğum yeri, baba adı, ana adı ve medeni halini doldurun.
+   * **İleri** butonuna tıklayarak sonraki adıma geçin.
+3. **2. Adım (İletişim ve Acil Durum Yakın Bilgileri):**
+   * **Kişisel İletişim:** Personelin cep telefonu, e-posta adresi, ikametgah il, ilçe ve açık adres bilgilerini yazın.
+   * **Acil Durum Yakınları:** Aynı sayfa altında yer alan *Acil Durum Yakını* alanından yakınlık derecesini (Eş, Anne, Baba, Çocuk vb.), ad soyad, telefon ve e-posta bilgilerini girerek **"Yakın Ekle"** butonuna tıklayın.
+   * **İleri** butonuna basarak sonraki adıma geçin.
+4. **3. Adım (Özlük ve Kurumsal Görev Ataması):**
+   * **Sicil No:** Personelin kurumsal sicil numarasını girin.
+   * **İşe Başlama Tarihi:** Takvimden işe giriş tarihini seçin.
+   * **Departman / Birim:** Personelin bağlı olduğu birimi (örn: *Radyoloji, Nükleer Tıp, Radyoterapi*) seçin.
+   * **Görev Unvanı:** Personelin kadro unvanını (örn: *Radyoloji Teknikeri, Sağlık Fizikçisi, Uzman Dr.*) seçin.
+   * **Hizmet Tipi ve Görev Yeri:** Çalışma şekli (Vardiyalı, Nöbetçi, Gündüz) ve görev yaptığı odayı/birimi seçin.
+5. **4. Adım (Eğitim Bilgileri):**
+   * Personelin mezun olduğu okul, bölüm, mezuniyet tarihi ve diploma/sertifika bilgilerini girerek eğitim tablosuna ekleyin.
+6. **5. Adım (Belgeler & Kaydı Tamamlama):**
+   * **Özlük Belgeleri:** Personelin kimlik fotokopisi, sertifika veya sözleşme gibi özlük dosyalarını (PDF/Görsel) yükleyin.
+   * Formu kaydetmek için **"Kaydet"** butonuna tıklayın.
+   * Peş peşe birden fazla personel eklemek için **"Kaydet ve Yeni"** butonunu kullanabilirsiniz.
+   * *(Sistem kayıt tamamlandığında personel için otomatik olarak `AYilmaz` kullanıcı adı ve `AYilmaz123!` geçici şifresini oluşturur).*
+
+---
+
+### 🐾 3.2 Personel Listesinde Hızlı Arama, Filtreleme ve Dışa Aktarma Nasıl Yapılır?
+
+#### 💡 Amaç
+
+Yüzlerce personel arasından belirli kriterlere (Birim, Unvan, Durum) uyan kişileri anında bulmak ve listeyi Excel / PDF formatında raporlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Arama Kutusu ile Anlık Arama:** Ekranın üst kısmındaki **Arama** kutusuna personelin Adı, Soyadı, TC Kimlik Numarası veya Sicil Numarasını yazın. Siz yazdıkça tablo 250 milisaniye içinde anlık olarak süzülecektir.
+2. **Birim ve Unvan Filtreleme:** **Departman** veya **Unvan** açılır menülerinden (ComboBox) sadece belirli bir birimde çalışan personeli (örn. *Nükleer Tıp*) listeleyin.
+3. **Durum Filtresi:** **Durum** filtresinden *"Aktif"* veya *"Pasif"* (işten ayrılanlar) seçimi yapın.
+4. **Excel / Dışa Aktarma:** Süzülen liste sonuçlarını bilgisayarınıza kaydetmek için ekranın üstündeki **"Dışa Aktar"** butonuna tıklayın ve kaydetme formatını (Excel/PDF) seçin.
+
+---
+
+### 🐾 3.3 Personel Detay Kartı ve Özlük Dosyası Formu Nasıl Görüntülenir ve Yazdırılır?
+
+#### 💡 Amaç
+
+Bir personelin kümülatif nöbet saatlerini, kalan şua iznini, son dozimetre okumasını ve özlük belgelerini tek ekrandan incelemek ve resmi **Personel Bilgi Formu** çıktısı almaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Detay Kartını Açın:** Personel Listesinde ilgili personelin bulunduğu satıra çift tıklayın veya satır sonundaki **"Detay"** butonuna basın.
+2. **Detay Sekmelerini İnceleyin:**
+   * **Özlük Bilgileri:** Kimlik, sicil ve birim bilgileri.
+   * **Nöbet & İzin Özeti:** Yıllık izin bakiyesi ve toplam çalışma süreleri.
+   * **Dozimetre Geçmişi:** Personele ait geçmiş dönem dozimetre ölçüm değerleri.
+   * **Eğitim & Belgeler:** Personelin aldığı hizmet içi eğitimler ve yüklenen özlük taramaları.
+3. **Personel Bilgi Formu Çıktısı Alın:** Detay ekranının üstündeki **"Personel Bilgi Formu Yazdır"** butonuna basarak personelin tüm özlük özetini kurumsal kapaklı Word/PDF belgesi olarak indirin.
+
+---
+
+### 🐾 3.4 İşten Ayrılan / İzinli Personel Kaydı Nasıl Pasife Alınır (Silme İşlemi)?
+
+#### 💡 Amaç
+
+Kurumdan ayrılan veya tayini çıkan personeli veritabanından kalıcı olarak silmeden **Pasif** duruma alarak geçmiş nöbet ve dozimetre kayıtlarının izlenebilirliğini (Audit Trail) korumaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Personeli Seçin:** Personel Listesi ekranından pasife alınacak personelin satırını seçin.
+2. **Pasife Alın / Sil:** Ekranın alt veya üst barında bulunan **"Sil" / "Pasife Al"** butonuna tıklayın.
+3. **Onay Verin:** Açılan onay penceresinde *"Personel pasife alınacaktır. İşlemi onaylıyor musunuz?"* sorusuna **"Evet"** yanıtını verin.
+4. **Otomatik Sonuç:** Personel pasife alındığında, bu personele bağlı sisteme giriş kullanıcı hesabı da güvenlik amacıyla **otomatik olarak pasife alınır ve kilitlenir**.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Bu TC Kimlik Numarası İle Kayıtlı Başka Bir Personel Var" Uyarısı:**
+  * Girdiğiniz TC Kimlik No sistemde aktiftir veya pasif kayıtlardadır. Personeli tekrar eklemek yerine Pasif Listesinden aktif hale getirin.
+* **"Personel Silinemez: Geçmiş Nöbet Kayıtları Mevcut" Durumu:**
+  * RADPYS veritabanında geçmiş nöbeti, dozimetre sonucu veya izin kaydı olan personel veritabanından kalıcı silinemez; sistem kaydı güvenle **"Pasif"** statüye çeker.
+
+---
+
+
+
+---
+
+### 🐾 3.5 📦 KVKK Madde 11 Kişisel Veri İhraç Paketi İndirme (ZIP)
+
+#### 💡 Amaç
+
+6698 Sayılı KVKK Madde 11 (Veri Sahibinin Hakları ve Kişisel Verilerin Taşınabilirliği) gereğince, seçili personelin sistemde kayıtlı tüm özlük, izin, dozimetre ve sağlık muayene verileri ile şifreli dosya kasasında (`files.db`) saklanan tüm orijinal belgelerini tek tıkla taşınabilir `.zip` paketi olarak bilgisayara indirmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Personel Listesi Ekranına Gelin:**
+   * Sol navigasyon menüsünden **Personel > Personel Listesi** sekmesine tıklayın.
+2. **Personel Satırına Sağ Tıklayın:**
+   * Veri ihraç paketi oluşturulacak personelin satırı üzerinde farenin sağ tuşuna basın.
+3. **KVKK Veri İhraç Paketini Seçin:**
+   * Açılan bağlam menüsünden **`📦 KVKK Veri İhraç Paketi İndir (ZIP)...`** seçeneğine tıklayın.
+4. **Kaydetme Konumunu Belirleyin:**
+   * Dosya iletişim penceresinde ZIP paketinin kaydedileceği klasörü seçin (örn: `kvkk_export_12345678901.zip`).
+5. **Paket İçeriğini İnceleyin:**
+   * Oluşturulan ZIP arşivi açıldığında:
+     * `personel_veri_ozeti.json`: Personelin tüm özlük, izin, dozimetre ve muayene verilerini okunabilir JSON formatında içerir.
+     * `evraklar/`: Personelin sisteme yüklenmiş tüm diplomaları, sağlık raporları ve vesikalık fotoğrafı deşifre edilmiş orijinal formatlarında yer alır.
+
+> [!TIP]
+> **Veri Taşınabilirliği İpucu:** KVKK ihraç paketi personelin kurumdan ayrılması durumunda kişisel verilerinin eksiksiz bir kopyasını kendisine teslim etmek için kullanılabilir.
+
+
+## 4. İzin Takip, Şua İzni ve Fiili Hizmet Takip Modülü ve Şua İzni Hak Ediş İşlemleri
+
+### 💡 İşlemin Amacı ve Ön Koşullar
+
+İzin Modülü; personelin Yıllık İzin, Şua İzni (Sağlık İzni), Mazeret İzni ve Sağlık Raporu kayıtlarının oluşturulduğu, birim içi nöbet planlaması için izin takibinin yapıldığı ve raporlandığı bölümdür.
+
+> ⚠️ **Resmi İzin Kaydı Uyarısı:** RADPYS V3 içerisinde tutulan izin kayıtları ve bakiye hesaplamaları, birim içi operasyonel nöbet çizelgelerinin hazırlanması ve radyasyon güvenliği takibi amacıyla kullanılır. Kurumun resmi idari ve hukuki izin kayıtları **HBYS (Hastane Bilgi Yönetim Sistemi)** veya **PBYS (Personel Bilgi Yönetim Sistemi)** üzerinde tutulmaktadır. Asıl ve resmi olarak bağlayıcı izin verileri kurum içi HBYS/PBYS kayıtlarıdır.
+
+RADPYS V3 sisteminde izin kayıtları veritabanına işlenerek nöbet çakışmaları ve NDK mevzuatına tabi **Şua İzni (30 Gün)** takibi operasyonel olarak yürütülür.
+
+---
+
+### 🐾 4.1 İzin Kaydı Nasıl Oluşturulur ve Kaydedilir?
+
+#### 💡 Amaç
+
+Personel için izin kaydı (Yıllık İzin, Şua İzni, Mazeret vb.) oluşturmak, yerine bakacak vekil personeli tanımlamak ve izin bakiyesini anında güncellemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **İzin Kayıt Ekranını Açın:**
+   * Sol dikey menüden **İzin Modülü > İzin Listesi** sekmesine gidin.
+   * Ekranın üst barında yer alan **"İzin Ekle"** butonuna tıklayın.
+2. **İzin Detaylarını Girin:**
+   * **Personel Seçimi:** İzin kullanacak personeli listeden seçin.
+   * **İzin Türü:** Açılır menüden izin türünü seçin (örn: *Yıllık İzin, Şua İzni, Mazeret İzni, Hastalık/Rapor İzni, Babalık İzni*).
+   * **Başlangıç ve Bitiş Tarihi:** İznin başlayacağı ve biteceği tarihleri takvimden seçin. Sistem net süre gün sayısını otomatik hesaplayacaktır.
+3. **Vekil Personel ve Açıklama Belirleyin:**
+   * **Yerine Bakacak Personel (Vekil):** İzin süresince nöbet veya görevleri devralacak personeli seçin.
+   * **Açıklama / Adres:** İzin süresince bulunacağı adres ve açıklama bilgisini girin.
+4. **Belge Ekleyin (Rapor veya Mazeret Belgesi Varsa):**
+   * Sağlık raporu veya resmi mazeret belgesi durumlarında **"Dosya Seç"** butonuna basarak rapor belgesini (PDF/Görsel) kayda ekleyin.
+5. **Kaydı Tamamlayın:**
+   * **"Kaydet"** butonuna tıklayın. İzin kaydı anında sisteme işlenecek ve personelin kalan izin bakiyesinden otomatik düşülecektir.
+
+---
+
+### 🐾 4.2 Şua İzni (Radyasyon İzni) ve Yıllık İzin Hak Edişleri Nasıl Hesaplanır?
+
+#### 💡 Amaç
+
+Radyasyon görevlilerinin NDK ve Sağlık Bakanlığı mevzuatı gereği hak kazandığı **30 günlük kesintisiz Şua İzni** ile hizmet yılına göre hesaplanan Yıllık İzin bakiyelerini görüntülemek ve toplu hesaplamaktır.
+
+> 📌 **Şua İzni Veri Doğrulama ve Hak Kazanma Esası:** Şua İzni, geriye dönük fiili çalışma karşılığı kazanılan bir haktır *(devreden bir izin bakiyesi değildir)*. Personel önceki yılın çalışmasını tamamladığında ertesi yılda Şua İznini kullanmaya hak kazanır. Hesaplamada kullanılan çalışma süreleri **kurum içi idari işler / özlük biriminden alınan resmi verilerle doğrulanarak** sisteme işlenmelidir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **İzin Hak Ediş Ekranına Gidin:**
+   * Sol menüden **İzin Modülü > İzin Hak Edişleri** sekmesine gidin.
+2. **Yıllık İzin Bakiye Tablosunu İnceleyin:**
+   * Tabloda personellerin *Yıl*, *Hakkedilen Gün* (O yıl kazanılan hak), *Devir Gün* (Geçen yıldan aktarılan bakiye), *Kullanılan Gün* ve net *Kalan Gün* (`[Hakkedilen] + [Devir] - [Kullanılan]`) sütunları yer alır.
+3. **Şua İzni Hak Ediş Yapısını İnceleyin:**
+   * **Hakedilen Şua İzni (Geçmiş Yıl Çalışma Karşılığı):** Önceki yılın fiili çalışması tamamlanarak içinde bulunulan yılda kullanıma açılan resmi Şua İzni hakkıdır (Örn: 30 Gün).
+   * **Hesaplanan Şua İzni (Cari Yıl Birikimi):** Personelin içinde bulunulan yıl içerisinde çalıştığı aylar boyunca biriktirmekte olduğu (ve ertesi yıl kullanıma açılacak) Şua İzni birikimidir.
+   * **Kullanılan Şua İzni:** İçinde bulunulan yılda kullanıma açılan haktan fiilen kullanılan gün sayısıdır.
+   * **Kalan Şua İzni:** `[Hakedilen Şua İzni] - [Kullanılan Şua İzni]` formülüyle hesaplanır.
+4. **Toplu Hak Ediş Hesaplama:**
+   * Ekranın üstündeki **"Toplu Hesapla"** butonuna basarak tüm personelin hizmet süresine göre (0-10 yıl: 20 gün, 10+ yıl: 30 gün) ve radyasyon grubuna göre Şua İzni hak edişlerini güncelleyin.
+5. **Manuel Hak Ediş Düzenleme:**
+   * Belirli bir personelin hak edişini düzeltmek için ilgili satıra çift tıklayın veya **"Düzenle"** butonuna basarak hak ediş gün sayılarını güncelleyip **"Kaydet"** butonuna basın.
+
+---
+
+### 🐾 4.3 Oluşturulan İzin Kaydı Nasıl Düzenlenir veya İptal Edilir / Silinir?
+
+#### 💡 Amaç
+
+Hatalı veya tarihi değişen izin kayıtlarını güncellemek ya da iptal edilen izinleri veritabanından silerek personelin hakkını iade etmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **İzin Listesinden Kaydı Seçin:**
+   * **İzin Modülü > İzin Listesi** ekranına gidin.
+   * Düzenlenecek veya silinecek izin kaydının satırına çift tıklayın veya satırı seçin.
+2. **Kayıt Düzenleme:**
+   * Ekrandaki **"Düzenle"** butonuna tıklayın. İzin tarihlerini veya türünü değiştirip **"Kaydet"** butonuna basarak güncelleyin. Kalan bakiye otomatik yeniden hesaplanır.
+3. **Kaydı İptal Etme / Silme:**
+   * İzni iptal etmek için satırı seçip **"Sil"** butonuna basın. Açılan onay penceresine **"Evet"** yanıtını verin. İzin silindiğinde düşülen gün sayısı personelin kalan bakiyesine **otomatik iade edilir**.
+
+---
+
+### 🐾 4.4 Yıl Sonu Devir İzin Bakiyeleri Yeni Yıla Nasıl Aktarılır?
+
+#### 💡 Amaç
+
+Yıl sonunda personelin kullanmadığı devir izin bakiyelerini yeni çalışma yılına aktarmak veya mevzuat gereği yanma süresi dolan izinleri dondurmaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **İzin Hak Edişleri** ekranına gidin.
+2. Ekranın sağ üst tarafında yer alan **"Devir Aktar"** butonuna tıklayın.
+3. Açılan onay diyalogunda yeni hedef yılı (örn: *2026*) seçin.
+4. Sistem, personellerin kalan izin günlerini yeni yılın *Devir Gün* sütununa aktaracak ve geçmiş yıl bakiyelerini arşivleyecektir.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"İzin Süresi Kalan Bakiye Sayısını Aşıyor" Uyarısı:**
+  * Personelin talep ettiği gün sayısı, kullanabileceği kalan izin bakiyesinden fazladır. İzin tarihlerini kısaltın veya mazeret izni seçeneğini değerlendirin.
+* **"Seçilen Tarih Aralığında Nöbet Kaydı Bulunuyor" Uyarısı:**
+  * Personelin izin kaydı girilen tarihlerde nöbeti bulunmaktadır. Önce Nöbet Modülünden nöbet devri yapılmalı veya nöbet çizelgesi revize edilmelidir.
+* **"Şua İzni Kesintisiz Kullanılmalıdır" Uyarısı:**
+  * Sağlık Bakanlığı ve NDK mevzuatı gereği Şua İzni parçalı kullanılamaz; 30 gün olarak tek seferde planlanmalıdır.
+
+---
+
+### 🐾 4.5 Fiili Hizmet Süresi Zammı (FHZ) Hesaplama Sihirbazı
+
+### 💡 İşlemin Amacı ve Ön Koşullar
+
+Fiili Hizmet Modülü; radyasyonlu ve riskli alanlarda görev yapan personellerin fiili çalışma sürelerini (gün/saat) kayıt altına almak ve yasal **Sağlık (Şua) İzni Gün Hakedişlerini (0-30 Gün)** otomatik hesaplayıp puantaj/hakediş raporlarını oluşturmak amacıyla kullanılır.
+
+> ℹ️ **Önemli Not:** RADPYS V3 bir emeklilik hizmet süresi veya SGK yıpranma payı hesaplama yazılımı **değildir**. Sistem emeklilik kıdem süresi zammı hesaplamaz; yalnızca personelin radyasyonlu alanlardaki fiili çalışma süresine göre yıllık yasal **Sağlık (Şua) İzni Gün Sayısını** hesaplar.
+
+---
+
+#### 🔀 4.5.1 Personel Asıl Birimi ve Nöbet Çizelgesi Arasındaki Hibrit (Hybrid) Hesaplama Mantığı
+
+Radyasyonla çalışan sağlık personelleri kurum içerisinde tek bir alana sabit kalmayabilir; haftanın belirli gün ve gecelerinde farklı birimlerde (örn: Anjiyografi, Skopi, Nükleer Tıp, Tomografi, Acil Radyoloji) nöbet tutarken, nöbet dışı normal mesai günlerinde kendi kadrosunun bağlı olduğu **Asıl Birimlerinde** (örn: Genel Radyoloji) görev yapabilirler.
+
+RADPYS V3, hak kayıplarını ve mükerrer veri girişini önlemek için **Hibrit (Hybrid) Hesaplama Yöntemini** varsayılan akıllı algoritma olarak kullanır.
+
+#### 💡 Hibrit Hesaplama Yöntemi Nasıl Çalışır? (Katmanlı Öncelik Mimarisi)
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                 HİBRİT HESAPLAMA ÖNCELİK HİYERARŞİSİ                    │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 1. ÖNCELİK (Manuel Override): Kullanıcının Girdiği Görevlendirmeler     │
+│    └─ Yetkilinin manuel eklediği geçici birim atamaları en üsttedir.    │
+│ 2. ÖNCELİK (Nöbet Çizelgesi): Yayınlanmış Nöbet Planı Kayıtları         │
+│    └─ Nöbet tutulan günlerde, nöbet tutulan birim ve saati çekilir.     │
+│ 3. ÖNCELİK (Asıl Birim / Tamamlama): Personel Özlük Kartı Birimi        │
+│    └─ Nöbet yazılmayan mesai günleri personelin Asıl Birimiyle dolarlar.│
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+1. **1. Katman — Nöbet Çizelgesi Senkronizasyonu (Nöbetli Günler):**
+   * Sistem, ilgili ay içerisinde yayınlanmış nöbet çizelgesini tarar. Personelin nöbet tuttuğu tarih ve saat aralıklarını (örn: *Acil Skopi Nöbeti - 16 Saat*) tespit eder ve nöbet tutulan birimin radyasyon risk durumuna (Radyasyonlu Alan / Normal Alan) göre ilgili günleri nöbet birimiyle haritalandırır.
+2. **2. Katman — Asıl Birim ile Boşluk Tamamlama (Nöbet Dışı Mesai Günleri):**
+   * Nöbet planında nöbet yazılmayan, personelin boşta kalan diğer normal mesai günleri için personelin kadrosunun bağlı olduğu **Asıl / Varsayılan Birim** (Personel Özlük Kartındaki Alt Departman) ve standart günlük mesai saati (*7.0 saat*) otomatik olarak devreye girer.
+3. **3. Katman — Manuel Müdahale (Geçici Görevlendirme):**
+   * Yetkili kullanıcı belirli bir personel için özel bir tarih aralığında manuel bir görev dağılımı kaydı girdiğinde (örn: *10-15 Mayıs arası Anjiyo Görevi*), bu manuel kayıt hem nöbet hem de varsayılan birim atamalarının üzerine yazarak (override ederek) geçerli olur.
+
+---
+
+### ⚙️ Hesaplama Kaynağı Seçenekleri
+
+Hesaplama ekranındaki **"Hesaplama Kaynağı"** açılır menüsünden kurumunuzun çalışma modeline göre 3 farklı yöntemden biri seçilebilir:
+
+* 🌟 **Hibrit Yöntem (Varsayılan ve Önerilen):** Nöbet çizelgeleri ile personelin asıl birimini ve manuel görevlendirmelerini akıllıca birleştirir.
+* 📋 **Sadece Nöbet Çizelgeleri:** Sadece onaylanıp yayınlanan nöbet planlarındaki nöbet birimlerini ve saatlerini esas alır.
+* ✍️ **Sadece Manuel Görev Dağılımı:** Nöbet planlarına bakılmaksızın yalnızca kullanıcının manuel girdiği görev dağılımlarını ve varsayılan birim kayıtlarını dikkate alır.
+
+---
+
+#### ⚛️ Özel Durum: Dönem İçi Farklı Risk Grubu Nöbetleri (Örn: BT vs. MR Nöbetleri)
+
+Bir personel aynı ay içerisinde hem **Çalışma Koşulu A alanında (BT - Bilgisayarlı Tomografi)** hem de **Çalışma Koşulu B alanında (MR - Manyetik Rezonans)** nöbet tutuyorsa sistem şu yasal ve teknik kuralı uygular:
+
+* **BT (Bilgisayarlı Tomografi - Çalışma Koşulu A):**
+  * İyonlaştırıcı radyasyon içerdiği için BT nöbetinde çalışılan saatler, **Şua İzni** hesabına **tam gün/saat olarak eklenir**.
+* **MR (Manyetik Rezonans - Çalışma Koşulu B):**
+  * MR cihazı manyetik alanla çalıştığı ve iyonlaştırıcı radyasyon içermediği için sistemde Çalışma Koşulu B (Radyasyonsuz) olarak tanımlıdır.
+  * Mevzuat gereği (Çalışma Koşulu B kontrolü), MR nöbetinde tutulan saatler **Şua günü hesabından Otomatik Elenir (Dahil Edilmez)**.
+* **Asıl Görev Yeri Aylık Fiili Çalışma Süresi:**
+  * Personelin asıl birimi (kadro birimi) Genel Radyoloji (Çalışma Koşulu A) ise, MR tutmadığı nöbet dışı normal mesai günleri için 7.0 saatlik radyasyonlu çalışma hakkı hesabına eklenmeye devam eder.
+
+---
+
+#### 🏥 Özel Durum: Asıl Birimi Çalışma Koşulu B Olup Çalışma Koşulu A Alanında Nöbet Tutan Personeller
+
+Personelin kadrosunun bağlı olduğu **Asıl Birim Çalışma Koşulu B** (Örn: *MR Unit, Poliklinik, İdari Büro*) ancak ay içerisinde **Çalışma Koşulu A Biriminde** (Örn: *BT, Anjiyografi, Skopi*) nöbet tutuyorsa sistem şu şekilde çalışır:
+
+1. **Asıl Görev Yeri Aylık Fiili Çalışma Süresi (Çalışma Koşulu B):**
+   * Asıl birimi Çalışma Koşulu B olduğu için nöbet dışındaki asıl görev yeri aylık çalışma günleri **radyasyonlu çalışma saatine DAHİL EDİLMEZ (0 saat eklenir)**.
+2. **Fazla Mesai / Nöbet Günleri (Çalışma Koşulu A):**
+   * Nöbet çizelgesinde BT veya Anjiyo (Çalışma Koşulu A) nöbeti tuttuğu gün ve nöbet saati (örn: *16 veya 48 saat*) **Radyasyonlu Fiili Çalışma Süresi olarak çekilir ve Şua hesabına eklenir**.
+3. **Sonuç:**
+   * Personel haksız yere tüm aydan Şua almaz; **yalnızca fiilen Çalışma Koşulu A alanında tuttuğu fazla mesai / nöbet saatlerinin toplamı oranında** Şua İzni hakedişi kazanır.
+
+---
+
+#### 📐 3-Adımlı İlerleme Sihirbazı (Wizard Workflow)
+
+Fiili Hizmet Modülü ekranı, işlemlerin eksiksiz ve sırasıyla yapılabilmesi için üst kısımda **Adım İlerleme Çubuğu (Step Progress Widget)** ile **"Geri"** ve **"İleri"** navigasyon butonlarını içeren 3 adımlı sihirbaz yapısında tasarlanmıştır:
+
+1. **1. Adım: Görev Dağılımı** (Aylık çalışma ve birim atamaları)
+2. **2. Adım: Fiili Hizmet Hesaplama** (Dönem hakediş ve kilit işlemleri)
+3. **3. Adım: Puantaj Raporu** (Kümülatif raporlama ve dışa aktarım)
+
+---
+
+#### 🐾 Adım 1: Görev Dağılımı ve Çalışma Süreleri Girişi
+
+#### 💡 Amaç
+
+Personelin dönem (ay/yıl) bazında görev yaptığı birimleri, fiili çalışma saatlerini belirlemek, otomatik görev ataması yapmak ve taslak kayıtları toplu onaylamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Görev Dağılımı Sekmesini Açın:**
+   * Sol menüden **Fiili Hizmet Modülü** penceresini açın. Ekran ilk açıldığında üst sihirbaz çubuğunda 1. Adım olan **"Görev Dağılımı"** sekmesi aktif gelecektir.
+2. **Dönem ve Filtre Seçimi Yapın:**
+   * Ekranın üst filtre barından `Yıl` (örn: *2026*), `Dönem Ayı` ve `Hizmet Sınıfı` filtresini seçin.
+   * Dönemler arasında hızlı geçiş yapmak için `◀` *(Önceki Dönem)* ve `▶` *(Sonraki Dönem)* yön ok butonlarını kullanabilirsiniz.
+3. **Otomatik Görev Atama Yapın:**
+   * Tüm personellerin sistemde tanımlı varsayılan birimlerine göre dönem kayıtlarını oluşturmak için **"Otomatik Görev Ata"** butonuna tıklayın.
+4. **Manuel Görev Dağılımı Ekleyin veya Güncelleyin:**
+   * Ekranın sağındaki **"Dağılım Kaydı"** panelinden:
+     * **Personel ve Birim:** Listeden personeli ve görev yaptığı birimi seçin.
+     * **Tarihler:** **Başlangıç** ve **Bitiş** tarihlerini takvimden belirleyin.
+     * **Çalışma Saati:** Günlük çalışma saatini girin *(Varsayılan: 7.0 saat; 0.5 adımlarla değiştirilebilir)*.
+     * **Onay Durumu:** Kaydın onay durumunu seçip **"Kaydet"** butonuna basın.
+   * Yeni bir kayıt girmek için **"Yeni"**, seçili kaydı silmek için **"Sil"** butonunu kullanın.
+5. **Değişen Görev Yerlerini Filtreleyin:**
+   * **"Sadece Değişenler"** onay kutusunu işaretleyerek, personeling varsayılan biriminden farklı bir yerde görev yaptığı (manuel müdahale edilmiş turuncu vurgulu) kayıtları süzebilirsiniz.
+6. **Toplu Onaylama Yapın:**
+   * Dönemdeki tüm taslak görev kayıtlarını tek tıkla onaylı duruma getirmek için **"Toplu Onayla"** butonuna basınız. *(Not: Hesaplama adımına geçmeden önce tüm kayıtların onaylanması gerekmektedir).*
+7. **İkinci Adıma Geçin:**
+   * Ekranın sağ üst barındaki mavi renkli **"İleri"** butonuna basarak 2. Adım olan *Fiili Hizmet Hesaplama* ekranına ilerleyin.
+
+---
+
+#### 🐾 Adım 2: Fiili Hizmet ve Şua Gün Hakediş Hesaplaması
+
+#### 💡 Amaç
+
+Onaylı görev dağılımı verilerini işleyerek personellerin aylık fiili çalışma saatlerini, izin düşümlerini ve net Şua gün hakedişlerini hesaplamak, dönemi kilitlemek ve hakediş belgelerini indirmektir.
+
+#### 🧮 Sağlık (Şua) İzni Hakediş Formülü Spesifikasyonu
+
+🌴 **Şua İzni Gün Hakediş Formülü (Kıstelyevm Esası):**  
+Yıl sonunda hak edilecek 30 günlük yasal Şua İzni, personelin iyonlaştırıcı radyasyonlu alanda (BT, Röntgen, Skopi, Anjiyo) fiilen çalıştığı gün sayısına göre oranlanır:  
+
+* 📐 **Hesaplama Yöntemi:** `(Radyasyonlu Alanda Çalışılan Gün Sayısı ÷ Yıllık Toplam Çalışılan Gün Sayısı) × 30 Gün`  
+* 💡 **Pratik Örnek:** Yıl içinde toplam 200 gün çalışan bir personel, bunun 100 gününü BT/Röntgen alanında geçirmişse `(100 ÷ 200) × 30 = 15 Gün` Şua İzni kazanır.
+
+---
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Hesaplama Kaynağını Belirleyin:**
+   * Ekranın üstündeki **Hesaplama Kaynağı** açılır menüsünden veri kaynağını (*Hibrit Yöntem*, *Görev Dağılımı* veya *Nöbet Çizelgesi*) seçin.
+2. **Hakediş Hesaplamasını Başlatın:**
+   * **"Fiili Hizmet Hesapla"** butonuna tıklayın. Sistem personellerin aylık fiili günlerini, kullanılan izinlerini, FHZ zammını ve net **ŞUA Gün** değerlerini hesaplayıp tabloda listeleyecektir.
+3. **Hesaplamayı Veritabanına Kaydedin:**
+   * **"Kaydet / Güncelle"** butonuna basarak hesaplanan sonuçları sisteme kaydedin.
+4. **Dönemi veya Yılı Kilitleyin:**
+   * Hesaplaması tamamlanan ay için verilerin sonradan değiştirilmesini önlemek amacıyla **"Dönemi Kilitle"** butonuna basın. Yıl sonlarında tüm yıl verilerini dondurmak için **"Yılı Kilitle"** butonunu kullanın.
+5. **Hakediş Raporu Çıktısı Alın:**
+   * Dönem hakediş listesini kurumsal belgelere dönüştürmek için **"Aylık Hakediş PDF"** veya **"Aylık Hakediş Excel"** butonlarına tıklayın.
+6. **Üçüncü Adıma Geçin:**
+   * Sağ üstteki **"İleri"** butonuna basarak 3. Adım olan *Puantaj Raporu* ekranına geçin.
+
+---
+
+#### 🐾 Adım 3: Puantaj ve Kümülatif Hakediş Raporlama
+
+#### 💡 Amaç
+
+Yıllık veya dönemsel bazda personellerin kümülatif çalışma saatlerini, toplam izin günlerini ve kazanılan kümülatif Şua günlerini tek tabloda raporlamak ve Excel formatında indirmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Rapor Parametrelerini Seçin:**
+   * `Rapor Yılı` ve `Dönem` seçimini yapın.
+2. **Raporu Oluşturun:**
+   * **"Raporu Oluştur"** butonuna tıklayın.
+3. **Kümülatif Tabloyu İnceleyin:**
+   * Tabloda *Kimlik No*, *Adı Soyadı*, *Top Gün*, *Top İzin*, *Fiili Saat*, *Kümülatif Saat* ve *Hak Edilen ŞUA* sütunlarını inceleyin.
+4. **Excel İndirin:**
+   * Ekranın üstündeki **"Excel İndir"** butonuna basarak puantaj raporunu bilgisayarınıza indirin.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Seçili dönem kilitli olduğu için işlem yapılamaz" Uyarısı:**
+  * İlgili dönem önceden **"Dönemi Kilitle"** veya **"Yılı Kilitle"** butonuyla dondurulmuştur. Değişiklik yapmak için yetkili kullanıcının dönem kilidini kaldırması gerekir.
+* **"Personel ve görev yeri seçimi zorunludur" Uyarısı:**
+  * Dağılım kaydı girilirken Personel veya Birim alanı seçilmeden *Kaydet* butonuna basılmıştır.
+* **"Dönemde onay bekleyen taslak kayıtlar bulunuyor" Uyarısı:**
+  * Görev dağılımındaki tüm satırlar onaylanmamıştır. Hesaplama öncesinde **"Toplu Onayla"** butonuna basın.
+* **"Kaydedilecek hesaplama satırı yok" Uyarısı:**
+  * Hesaplama yapılmadan *Kaydet / Güncelle* butonuna basılmıştır. Önce **"Fiili Hizmet Hesapla"** butonuna tıklayın.
+
+---
+
+### 🐾 4.6 Periyodik Sağlık Muayeneleri Takibi ve Periyodik Muayene Takibi
+
+### 💡 İşlemin Amacı ve Ön Koşullar
+
+Sağlık Muayene Modülü; NDK (Nükleer Düzenleme Kurumu) ve Sağlık Bakanlığı mevzuatı uyarınca iyonlaştırıcı radyasyonla çalışan personellerin işe giriş, periyodik, şua izni öncesi/sonrası ve kontrol sağlık muayenelerini kayıt altına almak, uzmanlık branş onaylarını (Dahiliye, Dermatoloji, Göz) takip etmek ve periyodik muayene son tarihlerini izlemek amacıyla kullanılır.
+
+> ⚠️ **NDK ve Sağlık Bakanlığı Periyodik Muayene Zorunluluğu:** Radyasyon görevlileri (Çalışma Koşulu A) mevzuat gereği **yılda en az 1 kez (365 günde bir)** periyodik sağlık taramasından (Kan tahlili, Periferik yayma, Göz katarakt muayenesi, Cildiye taraması) geçmek zorundadır. Geciken veya yaklaşan muayeneler sistemde otomatik renk kodlarıyla uyarılır.
+
+---
+
+#### 🐾 4.6.1 Yeni Sağlık Muayene Kaydı Nasıl Oluşturulur? (2-Adımlı Sihirbaz)
+
+#### 💡 Amaç
+
+Personelin yeni bir sağlık muayene kaydını 2 adımlı sihirbaz üzerinden uzmanlık branş onaylarıyla birlikte sisteme kaydetmek ve taranmış muayene formunu yüklemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Sağlık Muayene Ekranını Açın:**
+   * Sol dikey menüden **Sağlık Muayene Modülü > Sağlık Muayene Listesi** sekmesine gidin.
+2. **Ekle Butonuna Basın:**
+   * Ekranın üst toolbar'ında yer alan **"Ekle"** butonuna basarak *Yeni Sağlık Muayenesi* diyalog penceresini açın.
+3. **1. Adım (Temel Muayene Bilgileri ve Personel Seçimi):**
+   * **Hizmet Sınıfı Filtresi:** İsteğe bağlı olarak personelin hizmet sınıfını (*Radyasyon Görevlisi, Asistan Doktor, Akademik Personel vb.*) seçin.
+   * **Personel Seçimi:** `TC / Ad ile Ara` arama kutusuna personelin adını veya TC Kimlik Numarasını yazarak personeli listeden seçin. Seçilen personelin *Departman* ve *Ünvan* bilgisi otomatik ekrana gelecektir.
+   * **Muayene Türü:** Açılır menüden muayene amacını seçin (*İşe Giriş Muayenesi, Periyodik Muayene, Şua İzni Öncesi Muayene, Şua İzni Sonrası Muayene, Kontrol Muayenesi*).
+   * **Muayene Tarihi:** Muayenenin yapıldığı tarihi takvimden seçin.
+   * **Sonraki Muayene Tarihi:** Sistem muayene türüne göre (örn: *Periyodik Muayeneler için 1 yıl sonra*) bir sonraki muayene tarihini otomatik hesaplayarak metin kutusuna dolduracaktır.
+   * **İleri** butonuna basarak 2. Adıma geçin.
+4. **2. Adım (Uzmanlık Branş Muayeneleri ve Karar):**
+   * **Dahiliye (İç Hastalıkları):** Dahiliye uzmanınca muayene yapılmışsa **"İmzalandı"** onay kutusunu işaretleyin, branş sonucunu (*Uygun, Uygun Değil, Koşullu Uygun, Belirsiz*) ve muayene tarihini girin.
+   * **Dermatoloji (Cildiye):** Dermatoloji muayenesi için **"İmzalandı"** kutusunu işaretleyin, sonucunu ve muayene tarihini seçin.
+   * **Göz Hastalıkları (Radyasyon Katarakt Riski):** Göz muayenesi için **"İmzalandı"** kutusunu işaretleyin, branş sonucunu ve tarihini belirleyin.
+   * **Tavsiyeler / Notlar:** Hekim tarafından belirtilen kısıtlamaları veya tavsiyeleri (örn: *Göz katarakt takibi önerilir, 6 ay sonra kontrol*) not alanına yazın.
+   * **Muayene Formu Yükleme:** Islak imzalı taranmış muayene belgesini (PDF veya Görsel) eklemek için **"Seç"** butonuna basarak bilgisayarınızdan dosyayı seçin.
+5. **Kaydı Tamamlayın:**
+   * **"Kaydet"** butonuna basarak muayene kaydını tamamlayın. Kayıt anında tabloya eklenecektir.
+
+---
+
+#### 🐾 4.6.2 Muayene Listesinde Filtreleme, Geçmiş Muayeneler ve Durum Takibi
+
+#### 💡 Amaç
+
+Yaklaşan veya süresi geçen muayeneleri takip etmek, personelin geçmiş tüm tahlil/muayene dökümünü incelemek ve rapor belgesini indirmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Muayene Durumuna Göre Filtreleme:**
+   * Ekranın üstündeki **Muayene Durumu** filtresinden seçim yapın:
+     * **Süresi Geçmiş (Kırmızı Vurgu):** 1 yıllık periyodik muayene süresi dolmuş personeller.
+     * **Yaklaşıyor - 30 Gün (Sarı Vurgu):** Muayene süresinin dolmasına 30 günden az kalan personeller.
+     * **Normal (Yeşil Vurgu):** Muayenesi güncel olan personeller.
+2. **Genel Sonuç ve Muayene Türü Filtreleme:**
+   * **Sonuç** filtresinden *Uygun*, *Uygun Değil* veya *Koşullu Uygun* kayıtlarını süzün.
+   * **Muayene Türü** filtresinden sadece *Periyodik* veya *İşe Giriş* kayıtlarını süzün.
+3. **Personel Geçmiş Muayene Dökümü (Geçmiş Butonu):**
+   * Listeden ilgili personelin satırını seçin ve **"Geçmiş"** butonuna basarak **Geçmiş Muayeneler Penceresini** açın. Bu ekranda personelin geçmiş yıllarda olduğu tüm muayene türleri, muayene tarihleri, yapıldığı yer, hekim adı, sonuçlar ve notlar kronolojik tabloda görüntülenir.
+4. **Muayene Detayı ve Yüklenen Belgeyi Açma (Detay Butonu):**
+   * Satırı seçip **"Detay"** butonuna bastığınızda personelin muayene kartı ve yüklenen ıslak imzalı muayene formu görüntülenecektir.
+5. **Kayıt Silme (Sil Butonu):**
+   * Hatalı muayene kaydını silmek için satırı seçip **"Sil"** butonuna basın ve onay diyalogunda *"Evet"* seçeneğine tıklayın.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Personel Seçimi Zorunludur" Uyarısı:**
+  * Muayene eklenirken personel seçilmeden ileri adıma geçilmeye çalışılmıştır.
+* **"Süresi Geçmiş Muayene" Uyarısı (Kırmızı Satır Vurgusu):**
+  * Personelin son periyodik muayenesinin üzerinden 1 yıl (365 gün) geçmiş ve yeni periyodik muayene kaydı girilmemiştir. Personel ivedilikle periyodik sağlık taramasına sevk edilmelidir.
+* **"Yaklaşan Muayene" Uyarısı (Sarı Satır Vurgusu):**
+  * Personelin periyodik muayene yenileme tarihine 30 günden az kalmıştır.
+* **"Eksik Branş Muayenesi" Durumu:**
+  * Dahiliye, Dermatoloji veya Göz muayenelerinden biri henüz tamamlanmamışsa branş onay durumu *Belirsiz* kalacaktır; tüm branş onayları tamamlandığında Genel Sonuç *Uygun* olarak güncellenmelidir.
+
+---
+
+## 5. Dozimetre Takip, Doz Trendi ve Birim Risk Analiz Modülü ve NDK Radyasyon Risk Takibi
+
+### 💡 İşlemin Amacı ve Ön Koşullar
+
+Dozimetre Modülü; iyonlaştırıcı radyasyonla çalışan personellerin akredite dozimetre ölçüm firmalarından (TAEK / NDK onaylı laboratuvarlar) gelen periyodik kişisel dozimetre ölçüm sonuçlarını (`Hp(10)` Tüm Vücut, `Hp(0.07)` Cilt, `Hp(3)` Göz Merceği, `Ekstremite`) kayıt altına almak, yıllık ve 5 yıllık kümülatif doz limit aşımlarını denetlemek, NDK anomali uyarılarını izlemek ve DÖF (Düzeltici Önleyici Faaliyet) tutanaklarını yönetmek amacıyla kullanılır.
+
+> ⚠️ **NDK Yasal Doz Limitleri ve Uyarı Seviyeleri:** NDK (Nükleer Düzenleme Kurumu) mevzuatına göre radyasyon görevlileri (Çalışma Koşulu A) için yıllık efektif doz limiti **20 mSv/yıl** (ardışık 5 yılın ortalaması 20 mSv/yıl, tek bir yılda en fazla 50 mSv) ile sınırlandırılmıştır. Tek periyot ölçümünde **2.0 mSv** üzerindeki değerler *Sarı Uyarı*, **5.0 mSv** üzerindeki değerler *Kırmızı Anomali / Tehlike* olarak işaretlenir ve otomatik DÖF aksiyon süreci başlatılır.
+
+---
+
+### 🐾 5.1 Dozimetre Ölçüm Takibi ve Manuel Giriş Dozimetre Ölçüm Takibi ve Manuel Ölçüm Girişi
+
+#### 💡 Amaç
+
+Dozimetre ölçüm sonuçlarını dönemsel olarak sorgulamak, yeni ölçüm verisi girmek, ölçümleri düzenlemek ve geçmiş doz trendlerini incelemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Dozimetre Takip Ekranına Gidin:**
+   * Sol dikey menüden **Dozimetre Modülü > Dozimetre Takip** sekmesini açın.
+2. **Dönem ve Birim Filtrelemesi Yapın:**
+   * Üst filtre alanından `Yıl`, `Periyot` (Aylık/2 Aylık), `Birim` ve `Durum` (*Tümü, Uyarı, Tehlike, Normal*) filtelerini seçin ve **"Filtrele"** butonuna tıklayın.
+   * `Ad / TC / ID ara...` arama kutusuna personel adını veya TC Kimlik Numarasını yazarak anlık süzme yapabilirsiniz.
+3. **Yeni Ölçüm Kaydı Ekleyin (Manuel Giriş):**
+   * Ekranın üst kısmında yer alan **"Yeni Ölçüm Ekle"** butonuna basarak **Dozimetre Ölçüm Giriş Formunu** açın.
+   * **Personel Seçimi:** `Personel` açılır menüsünden personeli seçin.
+   * **Ölçüm Dönemi:** `Yıl` ve `Ay` seçimini yapın.
+   * **Tarihler ve Belge Bilgileri:** *Okuma Tarihi*, *Gönderim Tarihi*, *Sonuç Tarihi*, *Dozimetre No*, *Laboratuvar Adı* ve *Rapor No* alanlarını doldurun.
+   * **Doz Değerleri (mSv):** Ölçüm firmasından gelen resmi rapordaki `Hp(10)` (Tüm Vücut / Derin Doz), `Hp(0.07)` (Cilt / Yüzey Dozu), `Hp(3)` (Göz Merceği Dozu) ve `Ekstremite` (Yüzük/Bileklik Dozu) değerlerini 3 ondalıklı hassasiyetle (örn: `0.450` mSv) girin.
+   * **Kaydet** butonuna basarak ölçümü kaydedin.
+4. **Ölçüm Düzenleme ve Silme:**
+   * Tablodaki ölçüm satırını seçerek **"Düzenle"** veya **"Sil"** butonları ile kaydı güncelleyin ya da silin.
+
+---
+
+### 🐾 5.2 Dozimetre Karşılaştırma, Trend ve Birim Risk Analizi Dozimetre Karşılaştırma, Trend ve Birim Risk Analizi
+
+#### 💡 Amaç
+
+İki farklı periyot veya iki farklı yıl arasındaki kişisel doz değişim farklarını, artış oranlarını ve birim bazlı radyasyon risk haritasını grafiksel ve istatistiki olarak analiz etmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Karşılaştırma Sekmesine Geçin:**
+   * Üst sekme çubuğundan **"Dozimetre Karşılaştırma"** sekmesini seçin.
+2. **Dönemsel ve Yıllık Doz Karşılaştırma:**
+   * İki periyot (örn: *2026/01 ile 2026/02*) veya iki yıl (örn: *2025 ile 2026*) seçimini yapın.
+   * Tabloda personellerin iki dönem arasındaki doz farkını (`Delta`), yüzde değişim oranını (`Değişim %`) ve mini sparkline çizgi grafikleriyle doz trendlerini inceleyin.
+3. **Birim Risk Haritası ve Risk Skoru:**
+   * Birim analiz tablosunda her birimin *Personel Sayısı*, *Toplam Ölçüm Adedi*, *Ortalama Hp10 Dozu*, *Maksimum Hp10 Dozu*, *Uyarı/Tehlike Sayısı* ve *Birim Risk Skorunu* (*Kritik, Uyarı, İzle, Normal*) değerlendirin.
+
+---
+
+### 🐾 5.3 NDK Limit Aşımı, Erken Uyarı ve DÖF Aksiyon Yönetimi NDK Limit Aşımı, Erken Uyarı ve DÖF Aksiyon Yönetimi
+
+#### 💡 Amaç
+
+Yıllık 20 mSv limitini geçen veya tek ölçümde 5 mSv anomali eşiğini aşan personeller için otomatik oluşan NDK anomali kayıtlarını incelemek ve DÖF (Düzeltici Önleyici Faaliyet) tutanaklarını yürütmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Aksiyonlar Sekmesine Geçin:**
+   * Üst sekme çubuğundan **"Aksiyonlar & Anomali Bildirimleri"** sekmesine tıklayın.
+2. **Anomali ve Erken Uyarı Kayıtlarını İnceleyin:**
+   * Tabloda NDK limitini aşan veya anomali tespit edilen personellerin gerekçelerini (örn: *Tek okumada 5.8 mSv tehlike dozu tespit edildi*) inceleyin.
+3. **İnceleme / DÖF Başlatın:**
+   * Anomali satırını seçerek **"İnceleme / DÖF Başlat"** butonuna basın.
+   * Açılan DÖF diyalogunda olayın kök nedenini (örn: *Zırhlama eksikliği, Cihaz kalibrasyon hatası, Kurşun önlük takılmaması*) ve alınan idari kararları (örn: *Personel 1 ay radyasyonsuz birime çekildi, Dozimetre tekrar okumaya gönderildi*) girin.
+4. **İnceleme Tutanağı Yazdırın:**
+   * **"İnceleme Tutanağı (PDF)"** butonuna basarak kurumsal NDK bildirim tutanağını bilgisayarınıza indirin ve imzalatın.
+
+---
+
+### 🐾 5.4 Akredite Dozimetre Firması Raporlarını Toplu İçe Aktarma (Excel/PDF Import)
+
+#### 💡 Amaç
+
+Ölçüm firmasından gelen yüzlerce personelin dozimetre rapor dosyasını (Excel / PDF) sürükle-bırak yöntemiyle tek tıkla sisteme aktarmaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **İçe Aktarma Sihirbazını Açın:**
+   * Dozimetre Takip ekranının üst barındaki **"Toplu İçe Aktar (Excel/PDF)"** butonuna basarak **Toplu Dozimetre İçe Aktarım Sihirbazını** açın.
+2. **1. Adım (Dosya Seç):**
+   * Ölçüm firmasından gelen Excel (`.xlsx`) veya PDF rapor dosyasını ekrandaki sürükle-bırak alanına bırakın veya **"Dosya Seç"** butonuyla yükleyin.
+3. **2. Adım (Önizleme & Eşleştirme Kontrolü):**
+   * Sistem dosyadaki personelleri TC Kimlik veya Dozimetre No ile otomatik eşleştirir. Mükerrer kayıtları ve eşleşmeyen personelleri uyarı renkleriyle listeler.
+4. **3. Adım (Kaydet & Raporla):**
+   * **"Aktarımı Başlat"** butonuna basarak verileri kaydedin. İçe aktarım bittiğinde otomatik anomali DÖF kayıtları üretilecektir.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Dozimetre Ölçüm Değeri Yıllık Limiti Aştı" Uyarısı (Kırmızı Satır Vurgusu):**
+  * Personelin yıllık kümülatif dozu 20 mSv sınırını veya tek okumada 5 mSv tehlike eşiğini geçmiştir. Personel derhal radyasyonsuz birime çekilmeli ve DÖF başlatılmalıdır. (Adım adım görsel süreç akışı için bkz: [Dozimetre Anomali ve DÖF İş Akış Şeması (HTML)](../diagrams/dozimetre_dof_akisi.html))
+* **"Mükerrer Ölçüm Kaydı" Uyarısı:**
+  * Aynı personel ve aynı periyot (örn: *2026/03*) için sistemde zaten kayıtlı bir dozimetre ölçümü mevcuttur. Mükerrer kaydı engellemek için var olan kaydı düzenleyin.
+* **"Eşleşmeyen Personel Kaydı (Import)" Uyarısı:**
+  * İçe aktarılan dosyadaki TC Kimlik veya Dozimetre No sistemde bulunamamıştır. Önce Personel Modülünden personeli ekleyin veya Excel'deki TC Kimlik No bilgisini güncelleyin.
+
+---
+
+<a id="bolum-6"></a>
+## 6. Nöbet Modülü Yönetimi ve Nöbet Ayarları (Kısıtlar, Kurallar ve Algoritma Parametreleri)
+
+### 💡 İşlemin Amacı ve Ön Koşullar
+
+Nöbet Modülü; radyoloji ve hastane birimlerinde görev yapan personellerin aylık nöbet çizelgelerinin (vardiyalarının) otomatik ve adil bir şekilde planlanmasını, mevzuat kısıtlarının (gebelik, emzirme, kıdem, yaş, sendika vb.) uygulanmasını, nöbet devir ve mazeret taleplerinin yönetilmesini sağlar.
+
+Nöbet planlama safhasında hata yapılmaması ve otomatik dağıtım motorunun doğru çalışabilmesi için **Nöbet Ayarlarının** eksiksiz ve doğru yapılandırılması gerekmektedir.
+
+> ℹ️ **Nöbet Kısıt Hiyerarşisi ve Öncelik Mimarisi:** RADPYS V3 otomatik nöbet dağıtım motoru (Scheduler), nöbet atamalarını gerçekleştirirken kuralları kesin bir öncelik hiyerarşisine göre denetler. (Ayrıntılı görsel editoryal şema için bkz: [Nöbet Kısıt Hiyerarşisi Şeması (HTML)](../diagrams/nobet_kisit_hiyerarsisi.html))
+
+| Öncelik Katmanı | Öncelik Seviyesi | Kural Kapsamı ve Detayları |
+| --- | --- | --- |
+| 🚨 **1. ÖNCELİK** | **Mutlak Yasal Mevzuat & Sağlık** | Gebelik, Emzirme, Yaş/Kıdem Muafiyetleri, Gece Nöbeti Yasal Sınırları *(Asla İhlal Edilemez)* |
+| 🏥 **2. ÖNCELİK** | **Birim Kuralları & Kapasite** | Asgari / Azami Nöbetçi Sayısı, Departman Hizmet Kesintisizliği Eşikleri |
+| 🔄 **3. ÖNCELİK** | **Vardiya & Rotasyon Kısıtları** | Dinlenme Süreleri, Üst Üste Gece Vardiyası Engeli, Hizmet Sınıfı Kısıtları |
+| 📝 **4. ÖNCELİK** | **Personel Mazeret & Devir** | Yasal İzinler, Önceden Onaylanmış Nöbet Devir Talepleri, Mazeret İstekleri |
+| ⚖️ **5. ÖNCELİK** | **Temel Ayarlar & Adalet Algoritması** | Hafta Sonu / Bayram Adalet Dengesi Katsayıları, Geçmiş Nöbet Puanı Dengesi |
+
+---
+
+### 🐾 6.1 Temel Nöbet Parametreleri
+
+Bu ekrandan sistem genelindeki yaş/kıdem muafiyetleri, adalet dengeleme katsayıları, tavan fazla mesai limitleri ve plan#### 📦 Otomatik Hazır Gelen (Seed) Yasal Kurallar
+
+Sistem ilk kurulduğunda aşağıdaki tüm yasal kurallar veritabanında hazır yüklenir:
+
+1. ⏱️ **Haftalık Standart Memur Mesaisi (Saat):** *(Varsayılan: 40.0 Saat - 657 S.K.)*
+2. ☢️ **Haftalık Radyasyonlu Alan Mesaisi (Saat):** *(Varsayılan: 35.0 Saat - Radyoloji)*
+3. 🤱 **Emzirme İzni (İlk 6 Ay - Günlük):** *(Varsayılan: 3.0 Saat)*
+4. 🤱 **Emzirme İzni (İkinci 6 Ay - Günlük):** *(Varsayılan: 1.5 Saat)*
+5. 🤰 **Gebelik Muafiyeti (Günlük):** *(Varsayılan: 0.0 Saat / Gece Muafiyeti %100)*
+6. 🏛️ **Sendika İzni (Memur - Haftalık):** *(Varsayılan: 4.0 Saat)*
+7. 🛠️ **Sendika İzni (İşçi/Destek - Haftalık):** *(Varsayılan: 2.0 Saat)*
+
+#### 🛡️ Kurumsal Genel Kısıtların Silinmeye Karşı Korunması
+
+* 🔒 **Kurumsal Genel Kısıtlar (Tüm Sınıf / Tüm Birim):** Hizmet sınıfı ve birim alanı boş olan kurumsal temel yasal kısıtlar **SİLİNEMEZ**. Yanlışlıkla silinip mevzuat boşluğu oluşması engellenir. Kullanıcı bu kuralların değerini güncelleyebilir veya pasife alabilir.
+* 🗑️ **Birim veya Hizmet Sınıfı Özel Kısıtları:** Kullanıcının belirli birimler (örn: *Radyoloji*) veya kadrolar için eklediği özel kısıtlar **SERBESTÇE SİLİNEBİLİR**.
+
+#### 🛠️ Sert (Hard) vs. Yumuşak (Soft) Kısıt Mimarisi
+
+* ⛔ **Sert Kısıtlar (Hard Constraints):** Algoritmanın **ASLA ihlal edemeyeceği** mutlak kurallardır. Bir sert kısıt ihlal edilecekse algoritma o personele nöbet yazmaz. *(Örn: Gebelik muafiyeti, Nöbet ertesi 24s zorunlu dinlenme süresi)*.
+* ⚖️ **Yumuşak Kısıtlar (Soft Constraints):** Algoritmanın adaletli dağıtım yapmak için hedeflediği, ancak çaresiz kaldığında esnetebildiği esnek kurallardır. *(Örn: Hafta sonu nöbet adalet dengesi, Bayram nöbet eşitliği)*.
+
+#### 📋 Algoritma Kural Tipleri ("Kural Tipi" Açılır Listesi)
+
+* **Aylık Maksimum Nöbet:** Bir personelin ayda alabileceği maksimum nöbet sayısı.
+* **Üst Üste Nöbet Sınırı:** Peş peşe günlerde tutulabilecek maksimum nöbet sınırı.
+* **Nöbet Ertesi Dinlenme:** Nöbet bittikten sonraki zorunlu dinlenme saati *(Varsayılan: 24.0 saat)*.
+* **Hafta Sonu Limit:** Ayda tutulabilecek maksimum cumartesi/pazar nöbet sayısı.
+* **Bayram Limit:** Resmi ve dini bayram günlerinde tutulabilecek maksimum nöbet sayısı.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Yasal Nöbet Ertesi Dinlenme İhlali" Uyarısı:**
+  * Personel nöbetten çıktıktan sonra en az 24 saat geçmeden tekrar nöbet yazılmaya çalışılmıştır. Sert kısıt nedeniyle engellenir.
+* **"Birim Nöbetçi Sayısı Yetersiz / Slot Doldurulamadı" Uyarısı:**
+  * Birimdeki aktif personel sayısı veya personellerin muafiyetleri (gebelik, kıdem, izin) nedeniyle vardiya için gereken minimum nöbetçi sayısı karşılanamamıştır. Çapraz görevlendirme açılmalı veya geçici personel atanmalıdır.
+* **"Fazla Mesai Tavan Sınırı Aşıldı" Uyarısı:**
+  * Personele yazılan nöbet saati *Temel Ayarlar* veya *Personel Kısıtları* ekranındaki tavan fazla mesai limitini aşmıştır.
+
+---
+
+### 🐾 6.2 Nöbet Planlama ve Otomatik Çizelge Oluşturma Sihirbazı
+
+Aylık nöbet ayarları ve kısıtlar yapılandırıldıktan sonra, aylık nöbet planını oluşturma işlemine geçilir.
+
+#### 1. Yeni Nöbet Planı Açma
+
+1. **Nöbet Planları Ekranını Açın:** Sol menüden **Nöbet Modülü > Nöbet Plan Listesi** sekmesine gidin.
+2. **"Yeni Plan"** butonuna basarak diyalog penceresini açın.
+3. **Zorunlu Alanları Doldurun:**
+   * **Plan Adı:** Anlaşılır bir isim verin (örn: *Haziran 2026 Radyoloji Tekniker Nöbet Planı*).
+   * **Yıl & Ay:** Planın ait olduğu yılı ve ayı seçin.
+   * **Birim & Hizmet Sınıfı:** Nöbet yazılacak birimi ve hizmet kadrosunu seçin.
+   * ⚠️ **Tekil Kombinasyon Kuralı:** Sistem aynı Yıl + Ay + Birim + Hizmet Sınıfı kombinasyonunda 2 aktif plan oluşturulmasına izin vermez.
+4. **"Kaydet"** butonuna basarak plan taslağını oluşturun.
+
+#### 2. 3-Adımlı Otomatik Nöbet Dağıtım Sihirbazı
+
+Plan listeden seçilip **"Planı Aç"** veya **"Otomatik Oluştur"** butonuna basıldığında 3 adımlı dağıtım sihirbazı devreye girer:
+
+* **1. Adım: Ön Kontrol ve Personel Hedef Saat Hesaplama (Temel Ayarlar)**:
+  * Sistem ilgili ayın resmi tatil ve bayramlarını tarayarak net **Fiili Çalışma Gün Sayısını** ve personelin tutması gereken **Aylık Hedef Çalışma Saatini** (İş Günü x 7.0 Saat - İzinler) otomatik hesaplar ekrana basar.
+  * Birimde personel yetersizliği varsa **"Çapraz Görevlendirme"** butonuna basarak diğer birimlerden geçici nöbetçi personel çekebilirsiniz.
+* **2. Adım: Otomatik Dağıtım Motorunun Çalıştırılması (Önizleme & Dağıtım)**:
+  * **"Otomatik Dağıtımı Başlat"** butonuna basıldığında Scheduler (Solver) motoru arka planda çalışır.
+  * Tüm Sert Kısıtlar (Süt izni, gebelik, 24s dinlenme vb.) %100 sıfır hatayla denetlenir.
+  * Yumuşak kısıtlarda adalet puan optimizasyonu yapılarak en dengeli vardiya matrisi oluşturulur.
+* **3. Adım: Nöbet Çizelgesi Önizleme ve Taslağı Kaydetme (Plan Oluştur)**:
+  * Oluşturulan aylık nöbet matrisi önizleme tablosunda gösterilir.
+  * Birim sorumlusu gerekirse hücrelere çift tıklayarak manuel nöbet değişikliği yapabilir.
+  * **"Taslağı Kaydet"** butonuna basılarak çizelge veritabanına kaydedilir.
+
+#### 3. Nöbet Çizelgesi Detay Ekranı ve İşlemleri
+
+Plan oluştuktan sonra çizelge kartı açılır:
+
+* **Manuel Nöbet Ekleme / Düzenleme:** Satır ve gün hücresine tıklayarak **"Yeni Kayıt"** veya **"Kaydı Düzenle"** butonları ile manuel vardiya yazabilirsiniz.
+* **Nöbet Devir Talebi:** Bir personel nöbetini değiştirmek istediğinde ilgili nöbet hücresi seçilip **"Devir Talebi"** butonuna basılır ve devredilecek personel seçilir.
+* **Plan Onay ve Yayınlama Akışı:**
+  * **Taslak:** Üzerinde çalışılan, personellere henüz ilan edilmemiş plan.
+  * **"Planı Onayla":** Plan onaylandığında *Yayınlandı* statüsüne geçer ve personellerin mobil/web ekranlarında ilan edilir.
+* **"Taslağa Dön":** Yayınlanmış planda revizyon gerektiğinde yetkili kullanıcı planı tekrar taslağa çekebilir.
+  * **"Arşivle":** Dönemi biten planlar arşive kaldırılır.
+
+#### 4. Otomatik Dağıtım Motorunun Boş Bıraktığı (Atanamayan) Slotların Doldurulması ve İkame Yönetimi
+
+```mermaid
+graph TD
+    A["🤖 Otomatik Nöbet Dağıtım Motoru (Solver)"] --> B{"Matematiksel Kısıt Çakışması Var mı?"}
+    B -- "Hayır (Başarılı)" --> C["🟢 Tam Kadro Nöbet Çizelgesi Üretildi"]
+    B -- "Evet (Kadro Yetersiz)" --> D["🔴 Boş Slot Uyarısı (Unassigned Shift)"]
+    D --> E1["1. Çapraz Görevlendirme (Geçici Personel Çek)"]
+    D --> E2["2. Kısıt Sertliğini / Mesai Limitlerini Esnet"]
+    D --> E3["3. Hücreye Çift Tıkla Manuel Amir Ataması Yap"]
+    D --> E4["4. Acil Mazeret ve İkame Diyalogunu Kullan"]
+    E1 --> C
+    E2 --> C
+    E3 --> C
+    E4 --> C
+```
+
+
+Otomatik nöbet dağıtım motoru (Scheduler / Solver) çalıştırıldığında; birimdeki personel sayısının yetersiz olması, personellerin yasal muafiyetleri (gebelik, emzirme, 25 yıl kıdem), 24 saatlik nöbet ertesi zorunlu dinlenme kuralı veya yıllık izin/mazeret çakışmaları nedeniyle **matematiksel olarak hiçbir personelin atanamadığı boş slotlar (unassigned shift slots)** oluşabilir. 
+
+Sistem bu boş kalan vardiya hücrelerini nöbet tablosunda 🔴 **"Kadro Yetersiz / Boş Slot"** uyarısıyla belirginleştirir. Bu boş slotları doldurmak için RADPYS V3 üzerinde 4 farklı çözüm ve ikame mekanizması sunulmaktadır:
+
+1. 🔄 **Çapraz Görevlendirme İle Komşu Birimlerden Geçici Personel Çekme:**
+   * Otomatik Dağıtım Sihirbazı 1. Adımında veya Nöbet Çizelgesi ekranında **"Çapraz Görevlendirme"** butonuna basın.
+   * **Birim Filtresi** açılır menüsünden kurumdaki diğer uyumlu birimleri (örn: *MR, Poliklinik Röntgen, Mammografi, Anjiyografi, Nükleer Tıp*) seçin.
+   * Açılan listeden nöbet desteği verebilecek personelleri işaretleyip **"Kaydet"** butonuna basarak bu plana geçici nöbetçi kadrosu olarak dahil edin.
+   * Dağıtım motorunu tekrar çalıştırdığınızda (**"Otomatik Dağıtımı Başlat"**), motor bu geçici personelleri boş slotlara adil şekilde atayacaktır.
+
+2. ⚖️ **Kısıt Sertlik Derecelerini veya Mesai Limitlerini Geçici Esnetme:**
+   * Eğer boş slotlar fazla mesai tavanından kaynaklanıyorsa, **Nöbet Ayarları > Temel Ayarlar** ekranından *Maksimum Fazla Mesai Süresi* limitini (örn: 60 saatten 80 saate) veya *Ayda Max Hafta Sonu Nöbeti* yumuşak kısıtını geçici olarak esnetin.
+   * **Nöbet Ayarları > Yasal Kısıtlar** ekranında ilgili kuralın kural tipini *Sert (Hard)* yerine *Yumuşak (Soft)* kısıta çevirin.
+   * Dağıtım motorunu yeniden çalıştırarak boş slotların otomatik dolmasını sağlayın.
+
+3. ✍️ **Hücre Bazlı Manuel Nöbet Atama / Düzenleme:**
+   * Nöbet çizelgesi ekranında boş kalan kırmızı hücreye çift tıklayın veya **"Yeni Kayıt"** / **"Kaydı Düzenle"** butonlarına basın.
+   * Açılan diyalogdan nöbetçi personeli manuel seçin. Sistem yasal kısıt aşımı varsa (örn: 24s dinlenme ihlali) uyarı basar; ancak amir/yönetici yetkisiyle atamaya onay vererek boş slotu manuel tamamlayabilirsiniz.
+
+4. 🚨 **Acil Mazeret ve İkame Yönetimi:**
+   * Nöbet planı yayınlandıktan sonra aniden gelişen sağlık raporu, mazeret veya acil izin nedeniyle boşalan slotlar için **"Acil Mazeret & İkame"** diyalogunu açın.
+   * Mazeretli personeli ve mazeret türünü seçin. Sistem personelin üzerindeki nöbetleri otomatik boşa çıkarır ve yerine ikame nöbetçi atamanız için öneri listesi sunar.
+
+---
+
+### 🐾 6.3 Radyoloji Nöbet, Çalışma Saati ve Yasal Şua İzni Hesaplama Kuralları
+
+> ℹ️ **Önemli Not:** RADPYS V3 bir maaş/bordro ödeme yazılımı **değildir**. Sistem parasal ücret hesaplamaz; Sağlık Bakanlığı ve NDK mevzuatına uygun olarak personelin **aylık çalışma saatlerini, hedef mesai süresini, nöbet saat yükünü, fazla mesai saatlerini ve yasal Şua izni gün hakedişini** takip eder.
+
+---
+
+#### 📊 1. Temel Çalışma Süreleri ve Birim Saat Katsayıları
+
+* ☢️ **Radyasyonlu Alan Çalışma Süresi (BT, Röntgen, Skopi, Anjiyo):** Haftalık **35 saat** *(günlük 7 saat)* esas alınır.
+* ⏱️ **Standart Memur Çalışma Süresi (MR, USG, Poliklinik):** Haftalık **40 saat** *(günlük 8 saat)* esas alınır.
+* 🔄 **Karma Birim Çalışması Dönüşüm Oranı:** Personel ay içinde hem radyasyonlu (BT/Röntgen) hem normal alanda çalıştığında, BT/Röntgen saatleri standart mesaiye oranlanırken **1,285 katı** (35 saatlik esas) ile dönüştürülür.
+* 🏥 **Riskli/Özellikli Birim Nöbet Yükü:** Riskli birimlerde (Acil, Yoğun Bakım, Ameliyathane) tutulan nöbetler nöbet dengesi ve çizelgede Özellikli Birim Nöbet Saati olarak takip edilir.
+* 🌙 **Gece Vardiyası (20:00 - 08:00):** Gece saatlerinde tutulan nöbetler gece vardiyası kategorisinde adil nöbet dağılım puanına dahil edilir.
+
+---
+
+#### 🛡️ 2. Nöbet ve Vardiya Engelleme Kuralları
+
+* 🤰 **Hamile Personel Koruması:** Hamileliği belgelenen personel iyonlaştırıcı radyasyonlu birimlerde (BT, Röntgen vb.) görevlendirilemez ve gece vardiyasında (20:00 - 08:00) **çalıştırılamaz** *(Sistem otomatik engeller)*.
+* 🤱 **Süt İzni ve Emzirme Koruması:** Yasal süt izni kullanan kadın personel süt izni dönemi boyunca radyasyonlu alanlarda ve gece nöbetinde **çalıştırılamaz** *(Sistem otomatik engeller)*.
+* 👨‍⚕️ **Asistan Doktor Nöbet Sınırı:** Asistan doktorlara peş peşe veya 3 günde bir nöbet yazılamaz; iki nöbet arasında **en az 2 tam gün** dinlenme verilir.
+* 🎖️ **25 Yıl Kıdem Muafiyeti:** Meslekte 25 yılını dolduran personellere sistem otomatik gece nöbeti yazmaz; nöbet yazılması için amir onayı gerekir.
+
+---
+
+#### 🧮 3. Hedef Çalışma Saati ve Fazla Mesai Saati Nasıl Hesaplanır?
+
+Personelin aylık mesaisi gün bazlı değil, **Vardiyadaki Aktif Çalışma Saatleri** üzerinden hesaplanır:
+
+1. **Net Fiili İş Günü:** Ayın toplam gün sayısından hafta sonları (Cumartesi/Pazar), resmi tatiller ve personelin iş gününe denk gelen izinleri düşülerek net çalışma gün sayısı bulunur.
+2. **Aylık Hedef Çalışma Saati:**  
+   `(Net İş Günü × Günlük Standart Mesai Saati) - Yasal İzin İndirimleri - Önceki Aydan Devreden Borç/Alacak`  
+   *(Günlük Standart Mesai: Radyasyon görevlileri için 7,0 saat, normal memurlar için 8,0 saattir. Süt izni, gebelik indirimi ve sendika izinleri doğrudan hedef saatten düşülür).*
+3. **Fazla Mesai Saati Tespiti:**  
+   Personelin ay içinde fiilen tuttuğu nöbet saatleri toplamı, hesaplanan aylık hedef çalışma saatinden fazla ise aradaki saat farkı personelin **Fazla Mesai Çalışma Saati** olarak kaydedilir.
+
+---
+
+#### 🌴 4. Yıllık Şua (Sağlık) İzni Gün Hakedişi Nasıl Hesaplanır?
+
+> ℹ️ **Modül Ayırımı:** Şua izinleri Nöbet Modülünden bağımsız olarak **Fiili Hizmet Modülü** üzerinden hesaplanır ve takip edilir.
+
+Radyasyon görevlilerinin yıl sonunda hak edeceği 30 günlük yasal Şua İzni (sağlık izni), **Fiili Hizmet Modülü** tarafından yıl içinde radyasyonlu birimlerde (BT, Röntgen, Skopi, Anjiyo) fiilen çalışılan gün sayısının yıllık toplam çalışılan gün sayısına oranlanmasıyla (Kıstelyevm esası) otomatik hesaplanır:
+
+* 📐 **Hesaplama Yöntemi:**  
+  `(Radyasyonlu Birimde Çalışılan Gün Sayısı ÷ Yıllık Toplam Çalışılan Gün Sayısı) × 30 Gün`
+* 💡 **Pratik Örnek:** Yıl içinde toplam 220 gün çalışan bir personel, bu sürenin 110 gününü BT/Röntgen biriminde geçirmişse:  
+  `(110 ÷ 220) × 30 = 15 Gün` Şua İzni hak kazanır.
+
+---
+
+#### 🖥️ 5. Arayüzde Hesaplanan Değerlerin Takibi ve Ekran Karşılıkları
+
+Hesaplanan tüm hedef çalışma saatleri, nöbet yükleri ve Şua izinleri kullanıcı arayüzünde ilgili modül ekranlarından takip edilir:
+
+1. 📊 **Nöbet Çizelge Detay & İnceleme Ekranı (`Nöbet Modülü > Nöbet Plan Listesi > Planı Aç / İncele`):**
+   * Çizelgenin altında yer alan **Özet İstatistik Tablosunda** her personel için anlık olarak:
+     * 🟢 **`Hedef Süre (Saat)`:** Hesaplanan net aylık hedef mesai saati.
+     * 🔵 **`Fiili Çalışma (Saat)`:** Ay içinde fiilen yazılan nöbetlerin saat toplamı.
+     * 🟡 **`Fazla Mesai (Saat)`:** Hedef saati aşan net fazla mesai saat yükü.
+     * 📈 **`Nöbet Sayısı`:** Personelin ayda tuttuğu vardiya adedi.
+
+2. 🧙‍♂️ **Otomatik Dağıtım Sihirbazı (`Nöbet Modülü > Otomatik Dağıt`):**
+   * **1. Adım (Temel Ayarlar & Ön Kontrol):** Ayın tatil ve izinleri düşülerek personelin **Aylık Hedef Çalışma Saati** kartı gösterilir.
+
+3. ⚖️ **Borç & Alacak Mutabakat Ekranı (`Nöbet Modülü > Borç & Alacak Yönetimi`):**
+   * Geçmiş aylardan devreden saat borç ve alacakları **`Hedef Süre (Saat)`**, **`Fiili Çalışma (Saat)`** ve **`Fark / Devreden Mesai (Saat)`** sütunlarından takip edilir ve bir sonraki aya devredilir.
+
+4. ☢️ **Şua ve Fiili Hizmet Takip Ekranı (`Fiili Hizmet Modülü > Fiili Hizmet ve Şua Hakediş`):**
+   * Personelin radyasyonlu alanda (BT/Röntgen) çalıştığı gün oranıyla hesaplanan **`Şua İzni Hakediş Gün Sayısı (0-30 Gün)`** sütununda ve yıllık döküm tablosunda takip edilir.
+
+---
+
+### 🐾 6.4 RADPYS V3 Web Portalı Nöbet ve Vardiya Ekranları (Çoklu Kullanıcı ve Mobil Erişim)
+
+#### 💡 Amaç
+
+Kurumdaki tüm çalışanların (tekniker, fizikçi, uzman vb.) masaüstü uygulamasına ihtiyaç duymadan, web tarayıcısı veya mobil cihazlar üzerinden aylık birim nöbet çizelgelerini görüntülemesi, kişisel vardiyalarını takip etmesi, nöbet devir/takas talebi oluşturması ve onay süreçlerini yürütmesidir.
+
+---
+
+#### 🌐 Web Portalı Nöbet Ekranlarının Detaylı İşlevleri
+
+##### 1. 🗓️ Birim Aylık Nöbet Çizelgesi ve Vardiya Takvimi Ekranı
+
+* **Aylık Takvim Matrisi (Çizelge Sekmesi):** Birimdeki tüm personellerin ilgili ay boyunca tutacağı vardiyaları (*Gündüz Vardiyası, Akşam Vardiyası, Gece Vardiyası, 24 Saatlik Nöbet, Acil Çağrı Nöbeti*) renk kodlarıyla takvim üzerinde gösterir.
+* **Sadece Benim Nöbetlerim Filtresi:** Personel tek bir tıkla yalnızca kendisine ait vardiyaları süzerek kişisel çalışma takvimini görüntüleyebilir.
+* **Birim Özet ve Mesai İstatistikleri (Mesai Hesabı Sekmesi):** İlgili birim çalışanlarının anlık *Aylık Hedef Çalışma Saati*, *Fiili Tutulan Nöbet Saati*, *Net Fazla Mesai Saati* ve *Toplam Nöbet Sayısı* kartlarını özet halinde sunar.
+* **Birim İzin ve Mazeret Haritası (İzinler Sekmesi):** Ay içinde birimde kimlerin yıllık izin, Şua izni veya mazeretli olduğunu takvim matrisi üstünde göstererek nöbet planlamasını şeffaflaştırır.
+
+##### 2. 🔄 Nöbet Devir & Takas Talebi Formu Ekranı
+
+* **Devir Talebi Oluşturma:** Nöbet matrisi üzerinden devredilmek istenen vardiya hücresine tıklanarak veya sol menüdeki **"Nöbet Devir Talebi"** formuna gidilerek devir işlemi başlatılır.
+* **Talep Bilgileri:** Devredilecek nöbet tarihi, vardiya türü, nöbeti devralacak hedef personel ve devir mazeret gerekçesi seçilerek onay işlemine gönderilir.
+
+##### 3. 🔔 2 Aşamalı Nöbet Devir Onay Paneli Ekranı
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor PersonelA as Devreden Personel (A)
+    actor PersonelB as Devralan Personel (B)
+    actor Admin as Birim Yöneticisi / Admin
+    
+    PersonelA->>PersonelB: 1. Nöbet Devir Talebi Oluşturur (Web / Masaüstü)
+    Note over PersonelB: 2. Bildirim Paneline Kart Düşer
+    alt Devralan Kabul Eder
+        PersonelB->>Admin: 3. Devralan Ön-Onay Verir (Kabul Et)
+        Note over Admin: 4. Onay Bekleyen Görevler Paneline Düşer
+        alt Yönetici Onaylar
+            Admin->>PersonelA: 5. Yönetici Nihai Onayı Verir
+            Note over PersonelA, PersonelB: 6. Nöbet Çizelgesi Otomatik Güncellenir
+        else Yönetici Reddeder
+            Admin->>PersonelA: Reddetme Gerekçesi İle Bildirim Gönderilir
+        end
+    else Devralan Reddeder
+        PersonelB->>PersonelA: 3. Devir Talebi Reddedildi Bildirimi
+    else Devralan İzinli / Erişilemiyor
+        Admin->>PersonelA: 3b. Yönetici Şifahi (Sözlü) Onay Bypass Kullanır
+    end
+```
+
+
+* **Bana Gelen Talepler (Devralan Personel Ön-Onayı):** Bir çalışma arkadaşı nöbetini size devrettiğinde web paneline ve bildirim alanınıza anlık bilgilendirme kartı düşer. Kart üzerindeki **"Kabul Et"** veya **"Reddet"** butonlarıyla 1. aşama ön-onayı verilir.
+* **Benim Gönderdiğim Talepler:** Oluşturduğunuz devir taleplerinin durumunu (*Devralan Onayı Bekliyor, Admin Onayı Bekliyor, Reddedildi, İptal Edildi*) anlık takip edebilir; devralan personel henüz kabul etmeden önce **"Talebi İptal Et"** seçeneğiyle işlemi durdurabilirsiniz.
+* **Yönetici / Admin Nihai Onayı:** Devralan personelin onayladığı talepler doğrudan yöneticinin onay kuyruğuna düşer. Yönetici onayladığında nöbet otomatik olarak yeni personelin üzerine geçirilir.
+* **Yönetici Şifahi Onay Bypass Seçeneği:** Nöbeti devralan personel izinliyse veya sisteme erişemiyorsa, birim yöneticileri telefon/sözlü izni teyit ederek **"Devralan Sözlü/Telefon İzni İle Onayla"** butonuyla süreci beklemeden tamamlayabilir.
+
+##### 4. 📊 Kişisel Nöbet Dashboard ve Kısıtlar Ekranı
+
+* **Yaklaşan Vardiyalarım:** Önümüzdeki günlerde tutulacak nöbetleri sayaç ve harita bilgisiyle kart halinde gösterir.
+* **Yasal Haklar ve Muafiyetler:** Personelin tanımlı muafiyetlerini (*Gebelik, Süt İzni, 25 Yıl Kıdem Muafiyeti*) ve tavan fazla mesai limitini şeffaf bir şekilde listeler.
+
+---
+
+### ❓ Nöbet Planlama Sık Karşılaşılan Sorular
+
+* **Soru: İki personel peş peşe 2 gün nöbet tutabilir mi?**
+  * *Cevap:* Hayır. Sistemde *Nöbet Ertesi Dinlenme* sert kısıtı aktif olduğu için 24 saatlik nöbet sonrası en az 24 saat zorunlu dinlenme verilir.
+* **Soru: Yayınlanmış planda isim değişikliği yapıldığında hakediş saatleri ne olur?**
+  * *Cevap:* Eğer *Onayda Otomatik Çizelge Güncelle* ayarı aktifse, devir onaylandığı anda nöbet çizelgesindeki isim otomatik güncellenir ve personellerin aylık hakediş/fazla mesai saatleri anında yeniden hesaplanır.
+
+---
+
+<a id="bolum-7"></a>
+## 7. Radyasyon Güvenliği, Olay Bildirim ve DÖF (Düzeltici Önleyici Faaliyet) Modülü
+
+```mermaid
+graph LR
+    subgraph Web Portalı (Saha Çalışanları)
+        A1["1. Adım: Temel Bilgiler ve Birim"] --> A2["2. Adım: Kategori ve Kök Neden"]
+        A2 --> A3["3. Adım: Açıklamalar ve Acil Müdahale"]
+        A3 --> A4["🚀 Olayı Gönder (Anonim/İsimli)"]
+    end
+    
+    subgraph Masaüstü RADPYS V3 (Kalite Birimi ve RKG)
+        A4 --> B1["📥 İnceleme Paneline Düşer"]
+        B1 --> B2["🔍 Kök Neden Analizi ve İnceleme"]
+        B2 --> B3{"DÖF Gerekli mi?"}
+        B3 -- Evet --> C1["🚨 DÖF Aksiyonu Başlat ve Sorumlu Atan"]
+        B3 -- Hayır --> C2["✅ Kapanış Notu Gir ve Kapat"]
+        C1 --> C3["🎯 Aksiyon Tamamlandı ve Etkinlik Değerlendirmesi"]
+    end
+```
+
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+Bu modül; radyoloji, nükleer tıp, radyoterapi ve iyonlaştırıcı radyasyon kaynaklarıyla çalışılan birimlerde meydana gelen radyasyon emniyeti ihlallerini, ramak kala olayları, cihaz arızalarını, kurşun önlük/paravan eksikliklerini ve çalışan/hasta güvenliği anomalilerini kayıt altına almak; kök neden analizi gerçekleştirerek DÖF (Düzeltici Önleyici Faaliyet) aksiyonlarını başlatmak ve takip etmek amacıyla tasarlanmıştır.
+
+> 🌐 **Çoklu Kullanıcı ve Web Portalı Entegrasyon Mimarisi:**
+> RADPYS V3 mimarisinde **Olay Bildirimi** süreci saha çalışanları ve yönetim arasında iki kanaldan yürütülmektedir:
+> 1. **Saha Personeli ve Çalışanlar (Web Portalı):** Tıbbi görüntüleme teknikerleri, uzman doktorlar, fizikçiler ve diğer tüm çalışanlar; bilgisayar veya mobil cihazlarından **RADPYS V3 Web Portalı**'na giriş yaparak **"Olay Bildirimi"** sekmesinden anlık bildirim oluştururlar.
+> 2. **Kalite Yöneticileri ve RKG (Masaüstü RADPYS V3):** Bildirilen tüm olaylar anında veritabanına işlenir. Kalite Birimi ve Radyasyon Koruma Görevlileri (RKG) Masaüstü RADPYS V3 uygulamasında **Kalite & Güvenlik > Olay Bildirim / DÖF** sekmesinden olayları inceler, durum günceller, sorumlu atar ve DÖF aksiyonlarını yönetir.
+
+---
+
+### 🐾 7.1 Web Portalı Üzerinden Yeni Olay Bildirimi (Saha Personeli & Çalışan İş Akışı)
+
+#### 💡 Amaç
+
+Herhangi bir radyasyon emniyeti ihlali veya güvenlik olayında saha çalışanlarının web tarayıcısı üzerinden 3 adımda hızlı ve güvenli bildirim yapmasını sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı (Web Portalı)
+
+1. **Web Portalına Giriş Yapın:**
+   * Bilgisayarınızdan veya mobil cihazınızdan kurum **RADPYS V3 Web Portalı** adresine giriş yapın.
+   * Sol navigasyon panelinden **"Olay Bildirimi"** sekmesini seçin.
+2. **1. Adım: Olay Temel Bilgilerini Doldurun:**
+   * **Olay Tarihi / Saati:** Olayın gerçekleştiği tarih ve saati takvimden seçin.
+   * **Gerçekleştiği Birim:** Olayın meydana geldiği birimi (örn: *Acil Skopi, BT-1, Anjiyografi, Nükleer Tıp PET-CT*) seçin. Listede bulunmayan bir alan için **"Diğer (Serbest Yaz)"** seçeneğini işaretleyip alan adını yazın.
+   * **Bildiren Personel:** Oturum açan kullanıcının adı otomatik gelir. İstenirse listeden değiştirilebilir. Gizlilik gerektiren durumlarda **"Anonim Bildirim Yap"** kutucuğunu işaretleyin (Kimlik bilgisi gizlenir).
+   * **Bildiren Görev / Rol:** Görevinizi seçin (*Tıbbi Görüntüleme Teknikeri, Radyoloji Uzmanı / Asistanı, Tıbbi Fizik Uzmanı / Mühendisi, Hemşire, Ameliyathane Personeli / Cerrah / Anestezi Ekibi, Temizlik / Destek Personeli, Diğer*).
+   * **Etkilenen Taraf:** Olaydan etkilenen kişi, cihaz veya alanı yazın (örn: *Hasta X, BT Tüp Ünitesi, Radyoloji Teknikeri Y*).
+   * **Olay Sonucu:** Olayın şiddet seviyesini seçin:
+     * 🟡 *Ramak Kala (Hasar oluşmadan önlendi)*
+     * 🟢 *Hafif Zarar*
+     * 🟠 *Orta Zarar*
+     * 🔴 *Ciddi Zarar*
+   * **Geri Bildirim Tercihi:** İnceleme sonucu hakkında e-posta ile bilgilendirilmek istiyorsanız **"Geri Bildirim İstiyorum"** kutusunu işaretleyip e-posta adresinizi girin.
+   * **"İleri"** butonuna basarak 2. adıma geçin.
+
+3. **2. Adım: Olay Sınıflandırması ve Kök Neden Seçimi:**
+   * **Kategori Seçimi:** Olay türünü seçin (*Radyasyon İhlali Çalışan Odaklı, Radyasyon İhlali Hasta Odaklı, MR Güvenlik İhlali, Cihaz / Ekipman Arızası, Ramak Kala Vaka*).
+   * **Alt Detay Seçenekleri:** Seçtiğiniz kategoriye özel ekranda beliren onay kutularından ilgili durumları çoklu işaretleyin (örn: *Zırhlama Kapısı Açık Kaldı, Kurşun Önlük Kullanılmadı, Dozimetre Takılmadı, Yanlış Organ Çekimi*).
+   * **Olası Kök Nedenler:** Olayın kök sebeplerini işaretleyin (*Eğitim Eksikliği, Yoğun İş Yükü / Yorgunluk, Cihaz Kalibrasyon Hatası, Prosedür İhlali, İletişim Kopukluğu*).
+   * **"İleri"** butonuna basarak 3. adıma geçin.
+
+4. **3. Adım: Açıklamalar, Acil Müdahale ve Bildirim Gönderimi:**
+   * **Olay Tanımı / Detaylı Açıklaması (* Zorunlu):** Olayın geliştiği anı detaylıca yazın.
+   * **Yapılan Acil Müdahale:** Olay anında alınan ilk önlemleri yazın (örn: *Şutlama derhal durduruldu, havalandırma açıldı, oda boşaltıldı*).
+   * **DÖF Önerisi:** Olayın tekrar etmemesi için önerdiğiniz tedbiri yazın.
+   * **"Gönder / Olayı Bildir"** butonuna basarak bildirimi tamamlayın. Sistem otomatik benzersiz bir olay kayıt numarası üretir (örn: `OB-2026-00001`).
+
+---
+
+### 🐾 7.2 Masaüstü RADPYS V3: Olay Bildirimleri ve DÖF Yönetimi (Yönetici Paneli)
+
+#### 💡 Amaç
+
+Kurum kalite yöneticileri, birim amirleri ve radyasyon koruma görevlilerinin (RKG); Web Portalından gelen ve masaüstünden bildirilen tüm olayları incelemesi, durumlarını güncellemesi, sorumlu ataması ve DÖF aksiyonlarını yönetmesidir.
+
+#### 🐾 Adım Adım İş Akışı (Yönetici)
+
+1. **Yönetim Paneline Gidin:**
+   * Masaüstü RADPYS V3 uygulamasında sol menüden **Kalite & Güvenlik > Olay Bildirim / DÖF** sekmesine geçin.
+2. **Filtreleme ve Arama Yapın:**
+   * *Kategori*, *Durum* (*Açık, İncelemede, Kapalı, İptal*), *Olay Sonucu* ve *Tarih Aralığı* filtrelerini kullanarak olayları süzün. Arama kutusuna Takip No (`OB-2026-00001`) veya anahtar kelime yazın.
+3. **Olay Detayını ve Kök Nedenleri İnceleyin:**
+   * Listeden olay satırına tıkladığınızda sağ panelde olayın tüm detayları, seçilen kök nedenler, etkilenen taraf ve olaya ait tarihçe görüntülenir.
+4. **Durum Güncelleme ve Sorumlu Atama:**
+   * Olay durumunu **"İncelemede"** olarak güncelleyin ve olayı çözmekle görevli personeli seçin.
+   * Olay çözüldüğünde durumu **"Kapalı"** yapın. ⚠️ *Sistem kapatma esnasında zorunlu Kapanış Notu girilmesini ister.*
+
+---
+
+### 🐾 7.3 DÖF (Düzeltici Önleyici Faaliyet) Aksiyon Yönetimi
+
+#### 💡 Amaç
+
+Tekrarlayan veya kritik radyasyon emniyeti riskleri için aksiyon planı oluşturmak ve sorumlulara görev atamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **DÖF Aksiyonu Başlatın:**
+   * İlgili olay seçili iken **"DÖF Aksiyonu Ekle"** butonuna basın.
+2. **Aksiyon Detaylarını Tanımlayın:**
+   * **Aksiyon Tipi:** *Düzeltici Faaliyet* (mevcut hatayı düzeltme), *Önleyici Faaliyet* (olası hatayı önleme), *İyileştirici Faaliyet*.
+   * **Faaliyet Tanımı:** Yapılacak somut işlemi yazın (örn: *Acil Skopi odası kurşun cam zırhlamasının yenilenmesi ve kalibrasyon ölçümü*).
+   * **Sorumlu Personel & Hedef Tarih:** Aksiyon sorumlusunu ve tamamlanması gereken son tarihi belirleyin.
+3. **Aksiyon Takibi ve Kapatma:**
+   * Sorumlu personel faaliyetini tamamladığında durumu **"Tamamlandı"** olarak günceller ve etkinlik değerlendirme notunu ekler.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Olay Tanımı / Detaylı Açıklaması Boş Bırakılamaz" Uyarısı:**
+  * 3. adımdaki zorunlu olay tanımı alanı doldurulmadan bildirim gönderilmeye çalışılmıştır.
+* **"Olay Kapatılırken Kapanış Notu Zorunludur" Uyarısı:**
+  * Yönetici paneli üzerinden olayı *Kapalı* statüsüne alırken kapanış açıklaması girilmemiştir.
+* **"Anonim Bildirimlerde Kimlik Bilgisi Gizlenmiştir" Bilgilendirmesi:**
+  * *Anonim Bildirim Yap* seçeneği işaretlendiğinde sistem bildiren personelin ismini veritabanında anonimleştirir; yönetici panelinde personel ismi görünmez.
+
+---
+
+<a id="bolum-8"></a>
+## 8. Onay Bekleyen Görevler Paneli (Evrensel Onay ve Veri Değişiklik Denetim Sistemi)
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+RADPYS V3, kurumsal veri güvenliğini, veri doğruluğunu ve denetim izlenebilirliğini (`Audit Trail`) en üst düzeyde tutmak amacıyla **Evrensel Onay ve Veri Değişikliği Denetim Sistemi** ile donatılmıştır. Bu sistem; onay yetkisi kısıtlanmış kullanıcıların veya saha çalışanlarının sistemde yaptığı ekleme, düzenleme veya silme işlemlerini veritabanına doğrudan yazmak yerine geçici bir **Onay Kuyruğuna** aktarır. Yöneticiler tüm modüllerden gelen onay taleplerini tek bir merkezden inceler ve karara bağlar.
+
+Masaüstü uygulamasında sol dikey navigasyon menüsünden **Yönetim > Onay Bekleyen Görevler** sekmesinden erişilir.
+
+---
+
+### 🐾 8.1 5 Onay Kategorisi ve Adım Adım Yönetim İş Akışı
+
+#### 💡 Amaç
+
+Yöneticilerin ve amirlerin kurum genelinden gelen tüm izin, devir, mazeret, plan ve veri değişiklik taleplerini kategoriler halinde inceleyip onaylamasını sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Onay Bekleyen Görevler Paneline Gidin:**
+   * Sol navigasyon menüsünden **Yönetim > Onay Bekleyen Görevler** sekmesine tıklayın.
+2. **Sol Kategori Menüsünden İlgili Alanı Seçin:**
+   * 📝 **İzin Talepleri:** Personel tarafından sunulan yıllık izin, mazeret ve sağlık izni başvurularını listeler.
+   * 🔄 **Nöbet Devirleri:** Nöbetini devreden ve devralan personellerin onayından geçmiş (`Devralan Onaylı`), amir/yönetici nihai onayı bekleyen nöbet takas taleplerini listeler.
+   * 📋 **Nöbet İstekleri:** Personellerin nöbet muafiyeti, nöbet tutmama mazereti veya gün tercihi taleplerini listeler.
+   * 🖨️ **Nöbet Planları:** Birim sorumluları tarafından hazırlanan ve yayına alınmak üzere yönetici onayına sunulan taslak nöbet planlarını listeler.
+   * ⚙️ **Veri Değişiklikleri:** Yetkisiz rollerin yaptığı kaydetme/düzenleme/silme başvurularını ve veri onay taleplerini listeler.
+3. **Talep Detaylarını İnceleyin:**
+   * Sağ tablodan ilgili talep satırını seçin. Alt panelde personelin gerekçesi, başvuru tarihi ve talep detayları görüntülenir.
+4. **Onayla veya Reddet Butonlarını Kullanın:**
+   * **"Onayla"** butonuna bastığınızda işlem onaylanır ve ilgili modül veritabanına otomatik işlenir.
+   * **"Reddet"** butonuna basıldığında açılan diyalog penceresine **Reddetme Gerekçesini** yazarak işlemi reddedin. Başvuran personele otomatik bilgilendirme bildirimi gönderilir.
+
+---
+
+### 🐾 8.2 Veri Değişikliği Onay Kuyruğu ve Eski/Yeni Değer Karşılaştırması (Diff Görünümü)
+
+#### 💡 Amaç
+
+Onay gerektiren bir veri güncellemesinde (örn: personel özlük bilgisi değişikliği, nöbet kuralı değişikliği) eski veri ile yeni önerilen veriyi kıyaslayarak hatalı kayıt yapılmasını önlemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Veri Değişiklikleri Kategorisini Seçin:**
+   * Onay Bekleyen Görevler Paneli sol menüsünden **"Veri Değişiklikleri"** sekmesine tıklayın.
+2. **Fark İnceleme Diyalogunu Açın:**
+   * Listeden veri değişikliği satırını seçerek **"Fark İncele / Detay"** butonuna basın.
+3. **Eski ve Yeni Değerleri Karşılaştırın:**
+   * Açılan **Veri Karşılaştırma ve Fark Ekranında (Diff View)**:
+     * 🔴 **Mevcut / Eski Değerler (Kırmızı Vurgu):** Veritabanındaki halihazırda kayıtlı veri.
+     * 🟢 **Önerilen / Yeni Değerler (Yeşil Vurgu):** Kullanıcının değiştirmek istediği yeni değerler.
+4. **Değişikliği Karara Bağlayın:**
+   * Değişiklikler doğruysa **"Onayla ve Uygula"** butonuna basarak veriyi güncelleyin. Yanlışsa **"Talebi Reddet"** butonuna basın.
+
+---
+
+### 🐾 8.3 Yönetici Şifahi Onay Bypass Mekanizması (Nöbet Devirleri İçin)
+
+#### 💡 Amaç
+
+Devralan personelin izinli olması veya web portalına erişemediği durumlarda nöbet devir sürecinin tıkanmasını önlemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Nöbet Devirleri Kategorisine Gidin:**
+   * Sol menüden **"Nöbet Devirleri"** kategorisini seçin.
+2. **Devralan Onayı Bekleyen Talebi Seçin:**
+   * Durumu henüz *Devralan Onayı Bekliyor* aşamasında olan talebi işaretleyin.
+3. **Şifahi Onay Seçeneğini Kullanın:**
+   * **"Devralan Sözlü/Telefon İzni İle Onayla"** butonuna tıklayın.
+   * Sistem denetim günlüğüne *"Sözlü Onay İle Yönetici Tarafından Tamamlandı (Onaylayan Yöneticiniz)"* şerhini düşerek devir işlemini anında tamamlar.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Reddetme Gerekçesi Zorunludur" Uyarısı:**
+  * Bir talep reddedilirken açıklama alanı boş bırakılmıştır. Personelin neden reddedildiğini anlaması için gerekçe girilmelidir.
+* **"Değişiklik Uygulanamadı / Kaynak Veri Silinmiş" Uyarısı:**
+  * Onay bekleyen veri veritabanında başka bir yönetici tarafından daha önce silinmişse sistem çakışmayı engeller ve işlem iptal edilir.
+* **"Yetkisiz İşlem / Sadece Yönetici Rolü Onaylayabilir" Uyarısı:**
+  * Kullanıcının onay yetkisi bulunmamaktadır. Sistem yöneticisinden rol yetkilerinin güncellenmesini talep edin.
+
+---
+
+<a id="bolum-9"></a>
+## 9. Raporlar Modülü (Rapor Merkezi, Kurumsal Matbu ve Dinamik Raporlar)
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+RADPYS V3 Raporlar Modülü; kurum yönetiminin, NDK (Nükleer Düzenleme Kurumu), Sağlık Bakanlığı SKS (Sağlıkta Kalite Standartları) denetçilerinin ve birim amirlerinin ihtiyaç duyduğu tüm kurumsal dökümleri, matbu formları, istatistiki çizelgeleri ve periyodik cetvelleri üretmek amacıyla tasarlanmıştır.
+
+Sistemde üretilen tüm raporlar **PDF (.pdf)**, **Excel (.xlsx)** ve **Word (.docx)** formatlarında dışa aktarılabilir; kurum logosu, üst bilgi/alt bilgi (header/footer) ve mevzuat referansı başlıklarıyla dinamik oluşturulur.
+
+Masaüstü uygulamasında sol dikey navigasyon menüsünden **Raporlar > Rapor Merkezi** sekmesinden erişilir.
+
+---
+
+### 🐾 9.1 Rapor Kategorileri ve Katalog İçeriği
+
+Rapor Merkezi sol tarafındaki kategori ağacında 7 ana başlık altında toplanmış kurumsal raporlar yer almaktadır:
+
+1. 👥 **Personel Raporları:**
+   * **Personel Listesi Raporu:** Aktif/pasif durum, departman, ünvan ve hizmet sınıfı filtreli tüm personel özlük dökümü.
+   * **Personel Kimlik ve İletişim Rehberi Raporu:** Acil durum ve kurum içi iletişim rehberi döküm raporu.
+2. ☢️ **Doz Takip & Mevzuat Raporları:**
+   * **Dozimetre Ölçüm Döküm Raporu:** Personellerin periyodik okuma dozları ve kümülatif doz geçmişi.
+   * **SKS 6.1 SRG11.02 Kümülatif Radyasyon Doz Takip Raporu:** Sağlık Bakanlığı SKS 6.1 standartlarına ve NDK mevzuatına %100 uygun matbu resmi kümülatif doz takip formu.
+3. 🌴 **İzin ve Fiili Hizmet Raporları:**
+   * **Personel İzin Bakiye Raporu:** Personellerin kullanabileceği yıllık izin, yasal Şua izni ve mazeret izni gün bakiyeleri.
+   * **Fiili Hizmet ve Şua Hakediş Raporu:** Radyasyonlu alanda çalışma süresiyle hesaplanan Şua İzni hakediş döküm cetveli.
+4. 📊 **Nöbet ve Vardiya Raporları:**
+   * **Nöbet Hakediş ve Çalışma Raporu:** Personel bazında aylık hedef mesai, fiili nöbet saatleri, fazla mesai saatleri ve nöbet katsayı özeti.
+   * **Birim Nöbet Çizelgesi Resmi Dökümü:** Yayınlanmış onaylı nöbet planlarının resmi kurum dökümü.
+5. 🏥 **Sağlık ve Kalite Raporları:**
+   * **Personel Sağlık Muayene Döküm Raporu:** Periyodik kan ve sağlık tarama sonuçları, görev uygunluk durumları.
+   * **Personel Eğitim Durum Raporu:** Radyasyon güvenliği eğitim tamamlama ve eksik eğitim takip dökümü.
+
+---
+
+### 🐾 9.2 Rapor Oluşturma ve Parametrik Filtreleme İş Akışı
+
+#### 💡 Amaç
+
+İstenilen raporu saniyeler içinde filtreleyerek önizlemek, istenen dosya formatında (.pdf, .xlsx, .docx) bilgisayara indirmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Rapor Merkezine Geçin:**
+   * Sol dikey menüden **Raporlar > Rapor Merkezi** sekmesine tıklayın.
+2. **Kategori ve Rapor Seçimi Yapın:**
+   * Sol paneldeki **Rapor Kategorileri** ağacından ilgili kategoriyi seçin (örn: *Mevzuat* veya *Doz Takip*).
+   * Açılan listeden üretmek istediğiniz rapor başlığına tıklayın (örn: *SKS 6.1 SRG11.02 Kümülatif Radyasyon Doz Takip Raporu*).
+3. **Sağ Paneldeki Rapor Bilgilerini İnceleyin:**
+   * Seçilen raporun adı, açıklaması ve mavi renkli **Mevzuat Referansı** (örn: *SKS 6.1 SRG11.02 / NDK*) görüntülenir.
+4. **Çıktı Formatını Seçin:**
+   * **Çıktı Formatı** açılır menüsünden *PDF (.pdf)*, *Excel (.xlsx)* veya *Word (.docx)* seçeneklerinden birini seçin.
+5. **Dinamik Parametre ve Filtreleri Doldurun:**
+   * Rapor türüne göre beliren parametre alanlarını ayarlayın:
+     * **Ölçüm / Nöbet Dönemi:** Açılır listeden ilgili dönemi seçin (örn: *2026 Ağustos (2026-08)* veya *2026 Tüm Yıl*).
+     * **Departman Filtresi:** İlgili birimi seçin veya tüm kurum için *Tüm Departmanlar* olarak bırakın.
+     * **Sadece Aktif Personel:** Pasif/ayrılmış personellerin rapora dahil edilip edilmeyeceğini belirleyin.
+     * **Sıralama Düzeni:** Rapordaki sıralamayı belirleyin (*Ada göre, Departmana göre, Sicil No'ya göre*).
+6. **Raporu Üretin ve İndirin:**
+   * **"Rapor Oluştur / İndir"** butonuna basın.
+   * Sistem seçtiğiniz formatta dosyayı derler ve dosya kaydetme diyalogunu açar. Kaydetmek istediğiniz konumu seçerek işlemi tamamlayın.
+
+---
+
+### 🐾 9.3 Rapor Şablonu, Logo ve Kurumsal Marka Ayarları
+
+#### 💡 Amaç
+
+Kurum logosunu, amblemini, üst bilgi (header) ve alt bilgi (footer) metinlerini düzenleyerek raporların kurumsal kimliğe uygun üretilmesini sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Şablon Ayarları Sekmesine Geçin:**
+   * Rapor Merkezi ekranındaki 2. sekme olan **"Şablon ve Marka Ayarları"** sekmesine tıklayın *(Yalnızca yönetici yetkisine sahip kullanıcılara görünür)*.
+2. **Kurum Logosunu Yükleyin:**
+   * **"Logo Yükle / Değiştir"** butonuna basarak kurumunuzun PNG veya JPEG formatındaki yüksek çözünürlüklü logosunu seçin.
+3. **Üst Bilgi ve Alt Bilgi Metinlerini Belirleyin:**
+   * **Rapor Üst Bilgisi (Header):** Kurum resmi adı (örn: *T.C. Sağlık Bakanlığı X Şehir Hastanesi Radyoloji Kliniği*) metnini yazın.
+   * **Rapor Alt Bilgisi (Footer):** Belge doğrulama notunu veya iletişim bilgilerini ekleyin.
+4. **Ayarları Kaydedin:**
+   * **"Şablon Ayarlarını Kaydet"** butonuna basarak değişiklikleri aktifleştirin. Üretilecek tüm yeni PDF ve Word raporları bu logo ve başlıkla basılır.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Seçilen Kriterlere Uygun Kayıt Bulunamadı" Uyarısı:**
+  * Seçtiğiniz dönemde veya filtrelediğiniz departmanda herhangi bir veri (doz okuması, nöbet kaydı vb.) bulunmamaktadır. Filtre kriterlerini esneterek tekrar deneyin.
+* **"PDF / Excel Oluşturma Hatası" Uyarısı:**
+  * Çıktı dosyasının kaydedileceği konumda aynı isimde açık bir Excel/PDF dosyası bulunuyor olabilir. Açık dosyayı kapatıp tekrar deneyin.
+* **"Bu Raporu Oluşturmak İçin Yazma Yetkiniz Bulunmamaktadır" Uyarısı:**
+  * Oturum açan kullanıcının Raporlar Modülü üzerinde rapor üretme izni yoksa buton pasifleşir. Sistem yöneticinizden rol yetkinizi kontrol ettirin.
+
+---
+
+<a id="bolum-10"></a>
+## 10. Tanımlamalar (Lookup / Sabit Veriler) Modülü
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+Tanımlamalar Modülü; kurum bünyesindeki birimleri (departmanlar), personel ünvanlarını, hizmet sınıflarını, izin türlerini, resmi tatil takvimlerini ve kalite olay bildirimi sorumlularını merkezi olarak yapılandıran sistem altyapısıdır. Bu ekranda tanımlanan sabit veriler; personel kayıtlarında, otomatik nöbet dağıtım sihirbazında, Şua izni hesaplamalarında ve resmi raporlarda standart referans verisi olarak kullanılır.
+
+Masaüstü uygulamasında sol dikey navigasyon menüsünden **Yönetim > Tanımlamalar / Sabit Veriler** sekmesinden erişilir.
+
+---
+
+### 🐾 10.1 Departman ve Radyasyonlu Alan Sınıflandırması Tanımları
+
+#### 💡 Amaç
+
+Kurumdaki tıbbi ve idari birimleri tanımlamak, hiyerarşik üst departman bağlantılarını kurmak ve birimin radyasyonlu alan olup olmadığını belirlemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Departman Tanımları Ekranına Geçin:**
+   * Tanımlamalar ekranında **"Departman Tanımları"** sekmesini seçin.
+2. **Yeni Departman Ekleme:**
+   * **"Yeni"** butonuna basın. Sağ taraftaki **Departman Detayı** formu açılır.
+3. **Departman Bilgilerini Doldurun:**
+   * **Departman Adı & Kodu:** Birimin adını (örn: *Bilgisayarlı Tomografi (BT-1)*) ve kurum içi kodunu girin.
+   * **Üst Departman:** Açılır menüden bağlı olduğu ana kliniği seçin (örn: *Radynoloji Anabilim Dalı*).
+   * **Birim Sorumlusu:** Birim amiri / sorumlu teknikerini seçin.
+   * ☢️ **Radyasyonlu Alan Bayrağı:** Birimde iyonlaştırıcı radyasyon cihazı (BT, Röntgen, Skopi, Anjiyografi, Nükleer Tıp vb.) kullanılıyorsa **"Radyasyonlu Alan"** onay kutusunu işaretleyin.  
+     * ⚠️ *Bu işaretleme, o birimde görev yapan personellerin haftalık mesaisini yasal 35 saat olarak ayarlar ve yıllık 30 günlük Şua İzni hakediş motorunu tetikler.*
+   * 📅 **Nöbet Tutulan Birim Bayrağı:** Birimde gece/vardiya nöbeti tutuluyorsa **"Nöbet Tutulan Birim"** kutusunu işaretleyin.
+4. **Kaydet ve Excel'e Aktar:**
+   * **"Kaydet"** butonuna basarak birimi sisteme ekleyin. **"Excel Aktar"** butonuyla tüm departman listesini döküm alabilirsiniz.
+
+---
+
+### 🐾 10.2 Ünvan ve Hizmet Sınıfı Tanımları
+
+#### 💡 Amaç
+
+Kurumdaki personel ünvanlarını ve yasal hizmet sınıflarını (SHS, GİH, THS) tanımlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Ünvan Tanımları Ekranını Seçin:**
+   * **"Ünvan Tanımları"** sekmesine geçin.
+2. **Ünvan Detaylarını Tanımlayın:**
+   * **Ünvan Adı & Kod:** *Tıbbi Görüntüleme Teknikeri*, *Radyoloji Uzmanı*, *Tıbbi Fizik Uzmanı*, *Radyoloji Asistanı*, *Hemşire* vb. unvanları girin.
+   * **Hizmet Sınıfı:** Açılır listeden yasal hizmet sınıfını seçin (*Sağlık Hizmetleri Sınıfı - SHS, Genel İdare Hizmetleri - GİH, Teknik Hizmetler Sınıfı - THS*).
+3. **Kaydı Tamamlayın:**
+   * **"Kaydet"** butonuna basarak ünvanı aktifleştirin. Personel kayıt ekranında bu ünvanlar açılır menü olarak belirir.
+
+---
+
+### 🐾 10.3 İzin Türleri ve Şua İzni Parametre Tanımları
+
+#### 💡 Amaç
+
+Kurumda kullanılan tüm izin tiplerini (Yıllık İzin, Sağlık İzni, Şua İzni, Mazeret İzni, Süt İzni) ve Şua izni hakediş kurallarını yapılandırmaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **İzin Türleri Sekmesine Geçin:**
+   * **"İzin Türü Tanımları"** sekmesini seçin.
+2. **İzin Kurallarını Belirleyin:**
+   * **İzin Adı & Kodu:** İzin türünü tanımlayın (örn: *Sağlık (Şua) İzni*).
+   * **Yıllık Azami Limit:** İznin yıl içindeki tavan gün sayısını girin (Şua izni için 30 gün).
+   * **Düşüş Önceliği ve Maaş/Hakediş Kesintisi:** İznin yıllık izin bakiyesinden düşülüp düşülmeyeceğini ve Şua izni hakediş gün sayısını etkileyip etkilemeyeceğini belirleyin.
+3. **Değişiklikleri Kaydedin:**
+   * **"Kaydet"** butonuna basarak izin parametrelerini güncelleyin.
+
+---
+
+### 🐾 10.4 Resmi Tatiller ve İdari İzin Takvimi Tanımları
+
+#### 💡 Amaç
+
+Yıl içindeki Dini ve Millî Bayramları, resmi tatilleri, yarım gün arife günlerini ve idari izinleri tanımlayarak nöbet mesai katsayılarının ve hedef çalışma saatlerinin doğru hesaplanmasını sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Resmi Tatil Takvimi Sekmesini Açın:**
+   * **"Resmi Tatil Tanımları"** sekmesine tıklayın.
+2. **Yeni Tatil Günü Ekleme:**
+   * **"Yeni Tatil Ekle"** butonuna basın.
+3. **Tatil Bilgilerini Girin:**
+   * **Tatil Adı:** *29 Ekim Cumhuriyet Bayramı*, *Ramazan Bayramı Arife*, *15 Temmuz Demokrasi Günü* vb. yazın.
+   * **Tarih Aralığı:** Başlangıç ve bitiş tarihlerini takvimden seçin.
+   * **Mesai Durumu:** *Tam Gün Tatil*, *Yarım Gün Tatil (Arife)* veya *İdari İzin* durumunu seçin.
+4. **Takvime İşleyin:**
+   * **"Kaydet"** butonuna bastığınızda seçilen tarihler otomatik olarak Nöbet ve Vardiya motorunda tatil katsayısıyla işlenir.
+
+---
+
+### 🐾 10.5 Kalite & Olay Bildirimi Kategori Sorumluları Tanımları
+
+#### 💡 Amaç
+
+Web Portalından veya masaüstünden bildirilen olay ihlallerinin ilgili kalite ve RKG sorumlularına otomatik yönlendirilmesini sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Kategori Sorumluları Sekmesine Geçin:**
+   * **"Olay Bildirimi Kategori Sorumluları"** sekmesini seçin.
+2. **Kategori ve Sorumlu Eşleştirin:**
+   * Olay kategorisi seçin (*Radyasyon İhlali Çalışan, MR Güvenlik İhlali, Cihaz Arızası, Ramak Kala*).
+   * Karşısına incelemekle görevli Kalite Yöneticisini veya Radyasyon Koruma Görevlisini (RKG) atayın.
+3. **Kaydedin:**
+   * **"Kaydet"** butonuna basarak otomatik e-posta ve panel bildirim yönlendirmesini aktifleştirin.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Silinemez: Bu Departmana/Ünvana Bağlı Aktif Personel Bulunmaktadır" Uyarısı:**
+  * Sistemde aktif olarak kullanıcısı olan departman veya ünvan doğrudan silinemez. Önce bağlı personellerin birim/ünvanı değiştirilmeli veya pasife alınmalıdır.
+* **"Aynı İsimde veya Kodda Kayıt Zaten Mevcut" Uyarısı:**
+  * Aynı departman kodu (örn: `BT-01`) veya ünvan adı ikinci kez eklenemez.
+* **"Geçersiz Tarih Aralığı" Uyarısı:**
+  * Resmi tatil tanımlarken bitiş tarihi başlangıç tarihinden önce seçildiğinde beliren uyarıdır.
+
+---
+
+<a id="bolum-11"></a>
+## 11. Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+RADPYS V3, kurum içindeki tüm çalışanların sisteme eşzamanlı erişebilmesi için hibrit bir mimaride tasarlanmıştır:
+1. **Masaüstü RADPYS V3 (PySide6 / Qt):** Kurum yöneticileri, amirler, Radyasyon Koruma Görevlileri (RKG) ve Kalite Birimi tarafından veritabanı yönetimi, nöbet dağıtımı, dozimetre takibi ve resmi raporlama amacıyla kullanılır.
+2. **Çoklu Kullanıcı Web Portalı (`web_portal`):** Tıbbi görüntüleme teknikerleri, doktorlar, fizikçiler ve diğer tüm çalışanlar tarafından web tarayıcıları (Chrome, Edge, Safari vb.) veya mobil cihazlar üzerinden anlık nöbet takibi, nöbet devri, olay bildirimi ve izin başvurusu yapmak amacıyla kullanılır.
+
+İki sistem arasında güvenli REST API köprüsü çalışır; Web Portalında yapılan bir başvuru veya devir işlemi anında masaüstü veritabanına ve yönetici onay kuyruğuna yansır.
+
+---
+
+### 🐾 11.1 Web Portalına Giriş ve Kullanıcı Rolleri
+
+#### 💡 Amaç
+
+Saha çalışanlarının herhangi bir ek yazılım kurmadan, web tarayıcısı üzerinden kendi kullanıcı adı/şifresiyle sisteme güvenli erişmesini sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Web Portal Adresini Açın:**
+   * Bilgisayarınızın veya mobil cihazınızın web tarayıcısından kurum içi **RADPYS V3 Web Portalı** adresini girin (örn: `http://192.168.1.100:3000` veya `https://radpys.hastane.gov.tr`).
+2. **Kullanıcı Girişi Yapın:**
+   * **Kullanıcı Adı / T.C. Kimlik No** ve **Şifre** alanlarını doldurun.
+   * **"Giriş Yap"** butonuna basın. Sistem JWT (JSON Web Token) kimlik doğrulaması yaparak sizi ana dashboard ekranına yönlendirir.
+3. **Profil ve Rol Bilgisi:**
+   * Ekranın sağ üst köşesinde adınız, bağlı olduğunuz departman (örn: *BT-1 Kliniği*) ve rolünüz (*Saha Çalışanı / Tekniker*) görüntülenir.
+
+---
+
+### 🐾 11.2 Web Portalı Modülleri ve Ekran İş Akışları
+
+Web Portalı sol navigasyon panelinde çalışanların günlük operasyonlarını yürüteceği 5 ana modül bulunmaktadır:
+
+#### 1. 🏠 Kişisel Dashboard ve Anlık Bildirimler
+* **Yaklaşan Vardiyalarım:** Personelin önümüzdeki günlerde tutacağı nöbetleri tarih, saat ve birim detaylarıyla listeler.
+* **Aylık Mesai Özeti:** Personelin ilgili aydaki hedef mesai saatini ve tamamlanan nöbet saati oranını dairesel grafik ile gösterir.
+* **Okunmamış Bildirimler:** Devir talepleri, onay durumları ve yönetici duyuruları anlık zil simgesinde gösterilir.
+
+#### 2. 🗓️ Birim Aylık Nöbet Çizelgesi ve İstatistikler
+* Birimdeki tüm çalışma arkadaşlarının aylık nöbet matrisini gösterir.
+* **"Sadece Benim Nöbetlerim"** anahtarı açılarak yalnızca şahsi vardiyalar süzülebilir.
+* **"Mesai Hesabı"** sekmesinden birimdeki personellerin aylık hedef süreleri ve fazla mesai durumları incelenebilir.
+
+#### 3. 🔄 Nöbet Devir ve Takas Formu
+* Nöbet çizelgesinden devredilmek istenen nöbet günü seçilir.
+* Devralacak personel ve mazeret nedeni belirlenerek 1. aşama devir talebi oluşturulur.
+* Devralan personel web ekranına düşen onay kartından **"Kabul Et"** butonuna bastığında talep otomatik olarak masaüstü yönetici onay kuyruğuna iletilir.
+
+#### 4. ⚠️ Radyasyon Güvenliği ve Olay Bildirimi (3-Adımlı Sihirbaz)
+* Olay tarihi, gerçekleştiği birim, etkilenen taraf, olay kategorisi ve olası kök nedenler 3 adımda seçilir.
+* Gizlilik gerektiren durumlarda **"Anonim Bildirim Yap"** seçeneği işaretlenerek kimlik gizlenebilir.
+* Gönderilen bildirim anında Masaüstü RADPYS V3 Kalite & DÖF ekranına ve RKG paneline düşer.
+
+#### 5. 📝 İzin ve Mazeret Başvurusu
+* Yıllık izin, mazeret izni veya nöbet tutmama istekleri web formu üzerinden doldurularak birim amirinin onayına sunulur.
+
+---
+
+### 🐾 11.3 Masaüstü RADPYS V3: Web Portal ve REST API Servis Yönetimi
+
+#### 💡 Amaç
+
+Sistem yöneticilerinin Web Portal backend servisini (REST API) yönetmesi, bağlantı portunu ayarlaması ve aktif web oturumlarını izlemesidir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Web Portal Ayarları Ekranına Geçin:**
+   * Masaüstü uygulamasında sol menüden **Yönetim > Web Portal & API Ayarları** sekmesine tıklayın.
+2. **API Servis Durumunu Kontrol Edin:**
+   * 🟢 **"REST API Servisi Çalışıyor"** durumu yeşil renkte yanmalıdır.
+   * İhtiyaç halinde **"Servisi Durdur"** veya **"Servisi Yeniden Başlat"** butonlarını kullanın.
+3. **Erişim Portu ve Güvenlik Ayarları:**
+   * Servis dinleme portunu (örn: `8000`) ve CORS güvenli köken adreslerini tanımlayın.
+4. **Aktif Web Oturumlarını İzleyin:**
+   * Alt tablodan Web Portalına anlık olarak bağlı olan çalışanların IP adreslerini, oturum açma sürelerini ve yapılan son istekleri takip edin.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Sunucu Bağlantı Hatası / REST API Servisine Ulaşılamıyor" Uyarısı:**
+  * Web tarayıcısından portala erişilemiyorsa masaüstü uygulamasındaki REST API servisinin açık olup olmadığını ve kurum güvenlik duvarı (Firewall) izinlerini kontrol edin.
+* **"Oturum Süresi Doldu / Lütfen Yeniden Giriş Yapın" Uyarısı:**
+  * Güvenlik nedeniyle 8 saat boyunca işlem yapılmayan web oturumları otomatik sonlandırılır. Yeniden kullanıcı adı ve şifre girilmelidir.
+* **"Yetkisiz Erişim / Bu İşlem İçin Yetkiniz Bulunmamaktadır" Uyarısı:**
+  * Saha çalışanlarının masaüstü yönetici paneline veya yetkisiz birimlerin verilerine erişimi kısıtlanmıştır.
+
+---
+
+<a id="bolum-12"></a>
+## 12. Merkezi Bildirim ve Durum Çubuğu Sistemi
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+RADPYS V3; kullanıcıların sistemdeki kritik olaylardan (dozimetre limit aşımları, nöbet devir talepleri, onay bekleyen izinler, DÖF görevlendirmeleri vb.) anında haberdar olması için iki kademeli bir bildirim ve durum izleme mimarisi kullanır:
+1. **Anlık Pop-Up Bildirimleri (Toast / Snackbar):** Ekranın köşesinde belirip kullanıcının çalışmasını bölmeden (non-blocking) birkaç saniye sonra kaybolan durum mesajları.
+2. **Merkezi Bildirim Paneli ve Rozet Sayacı (Notification Center):** Ekranın sağ üst köşesindeki Zil imgesinde okunmamış bildirim sayısını (badge) anlık gösteren ve tıklandığında detaylı bildirim listesini açan diyalog.
+3. **Alt Durum Çubuğu (Status Bar):** Veritabanı bağlantı durumu, aktif kullanıcı/rol ve REST API servis durumunu anlık gösteren panel.
+
+---
+
+### 🐾 12.1 Anlık Pop-Up Bildirimleri (Toast / Snackbar Mesajları)
+
+#### 💡 Amaç
+
+Yapılan kaydetme, güncelleme veya silme işlemlerinin sonucunu kullanıcı ekranını kilitlemeden (diyalog penceresi açmadan) hızlıca teyit etmektir.
+
+#### 🐾 Adım Adım İş Akışı ve Renk Kodları
+
+Sistemde herhangi bir işlem yapıldığında (örn: personel kaydı, nöbet devir talebi oluşturma) ekranın sağ üst/alt köşesinde 3 saniyelik hafif bir bildirim kartı belirir:
+
+* 🟢 **Başarı Mesajları (Yeşil Toast):** İşlemin başarıyla tamamlandığını gösterir (örn: *Personel kaydı başarıyla güncellendi*).
+* 🔴 **Hata / Tehlike Mesajları (Kırmızı Toast):** Kritik kısıt ihlallerini ve işlem hatalarını gösterir (örn: *Nöbet ertesi dinlenme kuralı ihlali nedeniyle kayıt yapılamadı*).
+* 🟡 **Uyarı Mesajları (Sarı Toast):** Dikkat edilmesi gereken anomalileri bildirir (örn: *Personelin yıllık fazla mesai tavanına 5 saat kaldı*).
+* 🔵 **Bilgilendirme Mesajları (Mavi Toast):** Sistem içi genel duyuruları aktarır (örn: *Arka plan veritabanı yedeği alındı*).
+
+---
+
+### 🐾 12.2 Merkezi Bildirim Paneli ve Açılır Zil Ekranı (Notification Center)
+
+#### 💡 Amaç
+
+Kullanıcıya veya amire yönlendirilen tüm olay, izin, devir ve mevzuat uyarılarını tek bir merkezde toplamak ve ilgili ekrana hızlı navigasyon sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Zil Bildirim Simgesini Kontrol Edin:**
+   * Ekranın sağ üst başlık çubuğunda yer alan **Zil İkonu (Bildirimler)** üzerinde kırmızı dairesel okunmamış bildirim rozet sayısı (badge) görüntülenir (örn: `3`).
+   * Bildirim sayacı her 30 saniyede bir arka planda otomatik güncellenir.
+2. **Bildirim Panelini Açın:**
+   * **Zil İkonuna** tıklayın. Ekranın sağ üst köşesinden aşağıya doğru **Merkezi Bildirim Penceresi** açılır.
+3. **Bildirim Listesini İnceleyin:**
+   * Bildirim kartlarında olayın başlığı, açıklaması, tarihi ve kategorisi (*Nöbet Devir, İzin Talebi, Dozimetre Anomali, DÖF Görevlendirme*) renkli ikonlarla gösterilir.
+4. **Bildirime Tıklayarak İlgili Modüle Geçin:**
+   * Bir bildirim kartına tıkladığınızda:
+     * Bildirim otomatik olarak **"Okundu"** durumuna geçer ve rozet sayısı 1 azalır.
+     * Sistem sizi doğrudan ilgili işlem ekranına yönlendirir (örn: *Nöbet Devir Bildirimine* tıklandığında direkt *Onay Bekleyen Görevler > Nöbet Devirleri* sayfası açılır).
+5. **Toplu Temizleme İşlemleri:**
+   * **"Tümünü Okundu İşaretle"** butonuna basarak tüm bildirimleri tek tıkla okundu yapabilirsiniz.
+   * **"Tümünü Temizle"** butonuyla bildirim geçmişini boşaltabilirsiniz.
+
+---
+
+### 🐾 12.3 Alt Durum Çubuğu (Status Bar) ve Sistem Durum Göstergeleri
+
+#### 💡 Amaç
+
+Uygulamanın en altındaki durum çubuğunda veritabanı, servis ve kullanıcı sağlık durumunu anlık olarak izlemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+Ekranın en alt bandında soldan sağa doğru şu durum göstergeleri yer alır:
+
+* 🔐 **Veritabanı Durumu:** SQLCipher AES-256 şifreli veritabanı bağlantı durumunu gösterir (🟢 *Veritabanı Bağlı / Güvenli*).
+* 👤 **Aktif Kullanıcı Bilgisi:** Giriş yapan kullanıcının adını ve rolünü gösterir (örn: *Kullanıcı: Ahmet Yılmaz (Birim Yöneticisi)*).
+* 🌐 **REST API Servis Durumu:** Web Portalı sunucusunun çalışıp çalışmadığını gösterir (🟢 *Web API Aktif (Port 8000)*).
+* ⏳ **Asenkron Görev / Arka Plan İlerleme Çubuğu:** Toplu Excel içe aktarma veya otomatik nöbet dağıtım sihirbazı çalışırken ilerleme yüzdesini (%65) ve işlem durumunu gösterir.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Okunmamış Bildiriminiz Bulunmaktadır" Hatırlatması:**
+  * Yönetici onay kuyruğunda bekleyen acil devir veya izin başvuruları olduğunda sistem periyodik olarak zil simgesinde kırmızı uyarı yakar.
+* **"Bildirim Servisi Bağlantı Hatası" Uyarısı:**
+  * Yerel bildirim servisi geçici olarak durduğunda belirir. Sayfa yenilendiğinde otomatik düzelir.
+
+---
+
+<a id="bolum-13"></a>
+## 13. Program Ayarları & Temalar (Karanlık/Aydınlık Görünüm Yönetimi)
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+Program Ayarları ve Temalar modülü; uygulamanın görsel temasını (Karanlık/Aydınlık mod), sistem genelinde çalışan çalışma parametrelerini (izin düşüş kuralları, dozimetre anomali eşikleri, otomatik yedekleme sıklığı vb.) ve kullanıcı arayüzü tercihlerini kişiselleştirmek amacıyla tasarlanmıştır.
+
+Masaüstü uygulamasında sol dikey navigasyon menüsünden **Yönetim > Program Ayarları** sekmesinden erişilir.
+
+---
+
+### 🐾 13.1 Karanlık Mode (Dark Mode) ve Aydınlık Tema Geçişi
+
+#### 💡 Amaç
+
+Gece nöbetinde çalışan radyoloji personelinin göz yorulmasını önlemek veya gündüz mesaisinde yüksek okunabilirlik sağlamak için arayüz temasını tek tıkla değiştirmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Tema İkonunu Bulun:**
+   * Ekranın sağ üst tarafında yer alan **Güneş / Ay (Tema Değiştir)** butonunu bulun.
+2. **Temayı Değiştirin:**
+   * **Ay Simgesine (Karanlık Moda Geç)** bastığınızda arayüz anında modern, göz yormayan koyu mavi/gri **Karanlık Tema (Dark Mode)** rengine bürünür.
+   * **Güneş Simgesine (Aydınlık Moda Geç)** bastığınızda arayüz ferah **Aydınlık Tema (Light Mode)** rengine döner.
+3. **Kalıcı Hatırlatma:**
+   * Seçilen tema tercihi veritabanına otomatik kaydedilir; uygulamayı kapatıp açtığınızda son seçtiğiniz tema ile açılır.
+
+---
+
+### 🐾 13.2 Sistem Çalışma Parametreleri ve Konfigürasyon Yönetimi
+
+#### 💡 Amaç
+
+Yazılımın temel çalışma kurallarını ve sistem anahtarlarını dinamik olarak yapılandırmaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Program Ayarları Sayfasına Geçin:**
+   * Sol navigasyon panelinden **Yönetim > Program Ayarları** sekmesine tıklayın.
+2. **Arama ve Filtreleme Yapın:**
+   * Üstteki arama kutusuna değiştirmek istediğiniz parametrenin adını veya anahtar kelimesini yazın (örn: *doz_limiti*, *yedekleme_sifresi*, *bildirim_suresi*).
+3. **Kategori Seçimi:**
+   * Tablo üzerindeki kategorilerden (*Genel, İzin, Dozimetre, Nöbet, Güvenlik, Sistem*) ilgili alanı seçin.
+4. **Ayar Detayını Düzenleyin:**
+   * Tablodan ayar satırına tıkladığınızda sağdaki **Ayar Detayı** paneli açılır.
+   * **Ayar Değeri:** Parametrenin yeni değerini girin veya açılır menüden seçin.
+   * **Açıklama:** Ayarın ne işe yaradığı detaylıca açıklanır.
+5. **Değişiklikleri Kaydedin:**
+   * **"Kaydet"** butonuna basarak yeni ayarı aktifleştirin. Sistem gerekli durumlarda yeniden başlatma gerektirmeden konfigürasyonu anında uygular.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Yönetici Yetkisi Gereklidir" Uyarısı:**
+  * Program ayarlarını değiştirme yetkisi yalnızca *Sistem Yöneticisi* rolüne verilmiştir.
+* **"Varsayılan Değerlere Dön" Seçeneği:**
+  * Yanlış bir konfigürasyon girildiğinde **"Varsayılan Ayarları Yükle"** butonuna basarak fabrikanın orijinal çalışma parametrelerine dönebilirsiniz.
+
+---
+
+<a id="bolum-14"></a>
+## 14. Veritabanı Modülü & SQLCipher Şifreli Yedekleme ve Geri Yükleme
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+RADPYS V3 veritabanı altyapısı; KVKK ve kişisel sağlık verilerini koruma kanunlarına tam uyumlu olarak **SQLCipher 256-bit AES askeri düzeyde şifreleme** ile korunmaktadır. Yetkisiz kişilerin veya üçüncü taraf yazılımların veritabanı dosyasını doğrudan açması engellenmiştir. 
+
+Veritabanı Bakım ve Yedekleme Modülü; olası donanım arızalarına, veri kayıplarına veya çökme durumlarına karşı şifreli yedek almayı, geçmiş yedeğe geri dönmeyi (restore) ve veritabanı performansını optimize etmeyi sağlar.
+
+Masaüstü uygulamasında sol dikey navigasyon menüsünden **Yönetim > Veritabanı & Bakım** sekmesinden erişilir.
+
+---
+
+### 🐾 14.1 Şifreli Veritabanı ve Dosya Yedekleme İş Akışı
+
+#### 💡 Amaç
+
+Sistemdeki tüm personel, izin, nöbet, dozimetre ve olay verilerinin anlık şifreli yedeğini oluşturmaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Veritabanı Bakım ve Yedekleme Ekranına Geçin:**
+   * Sol dikey menüden **Yönetim > Veritabanı & Bakım** sekmesine tıklayın.
+2. **Veritabanını Yedekleyin:**
+   * **"Veritabanı Yedekle"** butonuna basın.
+   * Sistem o anki tüm kayıtları tarih ve saat damgası ekleyerek (örn: `radpys_backup_2026-08-12_0830.db`) şifreli arşiv dosyası olarak kaydeder.
+3. **Ekli Dosyaları Arşivleyin:**
+   * Sisteme yüklenmiş matbu dilekçeleri, sağlık muayene raporlarını ve kurum içi tutanakları yedeklemek için **"Dosyaları Yedekle"** butonuna basın. Yüklenmiş tüm dosyalar sıkıştırılmış arşiv paketi olarak dışa aktarılır.
+4. **Yedek Listesini Yenileyin:**
+   * **"Yenile"** butonuna basarak sol paneldeki **Veritabanı Yedekleri** tablosunda oluşturulan yeni yedeğin tarihini, dosya boyutunu ve durumunu kontrol edin.
+
+---
+
+### 🐾 14.2 Geçmiş Yedekten Geri Yükleme (Restore) İş Akışı
+
+#### 💡 Amaç
+
+Yanlışlıkla silinen verileri kurtarmak veya sistemi geçmişteki kararlı bir yedek noktasına geri döndürmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Yedek Satırını Seçin:**
+   * Sol taraftaki **Veritabanı Yedekleri** tablosundan geri dönmek istediğiniz yedek kaydını işaretleyin.
+2. **Geri Yükleme İşlemini Başlatın:**
+   * İlgili satırdaki **"Geri Yükle"** butonuna basın.
+3. **Güvenlik Onayını Verin:**
+   * Sistem öncelikle mevcut halihazırdaki veritabanının otomatik *Güvenlik Yedeğini* alır.
+   * Açılan onay uyarısında **"Evet, Geri Yükle"** butonuna basarak işlemi tamamlayın. Uygulama veritabanı bağlantısını yenileyerek seçilen yedek noktasına geri döner.
+
+---
+
+### 🐾 14.3 Veritabanı Bakım ve Performans İyileştirme Araçları
+
+#### 💡 Amaç
+
+Zamanla genişleyen veritabanının dosya boyutunu küçültmek, sorgulama hızını artırmak ve yapısal sağlığını doğrulamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+Sağ paneldeki **Sistem Bakım Araçları** kartı üzerinden 3 temel bakım aracı çalıştırılabilir:
+
+1. 🧹 **Boyut Optimize Et (VACUUM):**
+   * **"Boyut Optimize Et (VACUUM)"** butonuna basın.
+   * Veritabanında silinen kayıtların kapladığı atık boş alanı temizler, veritabanı dosya boyutunu küçültür ve disk alanını rahatlatır.
+2. 🏥 **Bütünlük Kontrolü Çalıştır (Integrity Check):**
+   * **"Bütünlük Kontrolü Çalıştır"** butonuna basın.
+   * Veritabanının fiziksel yapısında veri bozulması (corruption) veya indeks çakışması olup olmadığını tarar ve sağlık raporu basar.
+3. ⚡ **İndeksleri Yenile (REINDEX):**
+   * **"İndeksleri Yenile (REINDEX)"** butonuna basın.
+   * Arama, filtreleme ve raporlama sorgularının çalışma hızını artıran veritabanı indekslerini yeniden inşa eder.
+
+---
+
+### 🐾 14.4 Tehlikeli Bölge: Veritabanı Sıfırlama Mekanizması
+
+#### 💡 Amaç
+
+Yıl sonu devirlerinde veya test sonrasında tüm kullanıcı ve operasyon verilerini temizleyerek sistemi fabrika ayarlarına döndürmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Tehlikeli Bölge Kartını İnceleyin:**
+   * Ekranın sağ altındaki **Tehlikeli Bölge** kartını bulun.
+2. **Sıfırlama Butonuna Basın:**
+   * **"Veritabanını Sıfırla"** butonuna tıklayın.
+3. **Kapsam Açıklaması ve Güvenlik Onayı:**
+   * ⚠️ *Sıfırlama işlemi; tüm personelleri, nöbetleri, izinleri, dozimetre ölçümlerini ve kalite ihlal kayıtlarını siler. Ancak sistem sabitleri, tanımlamalar, program ayarları ve yönetici hesabı korunur.*
+   * Açılan diyalog penceresinde Sistem Yöneticisi (Sudo) şifrenizi girerek sıfırlamayı onaylayın.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Yedek Dosyası Bozuk / Geri Yüklenemedi" Uyarısı:**
+  * Seçilen yedek dosyasının 256-bit AES anahtarı uyumsuz veya dosya bütünlüğü bozulmuştur. Başka bir yedek noktası seçin.
+* **"Yedekleme İçin Disk Alanı Yersiz" Uyarısı:**
+  * Bilgisayarınızın C: veya çalışma sürücüsünde yeterli boş alan kalmamıştır. Disk temizliği yapıp tekrar deneyin.
+
+---
+
+
+
+---
+
+### 🐾 14.4 🔓 Şifresiz Veritabanı Dışa Aktarma (Unencrypted Export)
+
+#### 💡 Amaç
+
+Kurumun yazılım kullanımını sonlandırması veya verilerini başka bir veritabanı sistemine aktarmak istemesi durumunda, 256-bit AES SQLCipher şifrelemesini kaldırarak tüm veritabanı kayıtlarını ve şifreli dosya kasanı (`files.db`) standart (kilitlenmemiş) SQLite veritabanı dosyaları olarak ihraç etmektir.
+
+#### 炎 Adım Adım İş Akışı
+
+1. **Veritabanı Bakım Ekranına Geçin:**
+   * Sol menüden **Yönetim > Veritabanı & Bakım** sekmesine tıklayın.
+2. **Şifresiz Dışa Aktar Butonuna Basın:**
+   * Sağ taraftaki Sistem Bakım Araçları altındaki **`🔓 Şifresiz Veritabanı Dışa Aktar (Unencrypted Export)`** butonuna basın.
+3. **KVKK Uyarısını Onaylayın ve Sudo Şifresini Girin:**
+   * Açılan güvenlik penceresindeki KVKK bilgilendirme uyarısını okuyup Sistem Yöneticisi (Sudo) parolanızı girin.
+4. **ZIP Dosyasını Kaydedin:**
+   * Oluşturulacak `radpys_unencrypted_YYYYMMDD_HHMMSS.zip` dosyasının konumunu seçin.
+5. **Kilitlenmemiş Veritabanı Paketini İnceleyin:**
+   * ZIP içinde yer alan `radpys_unencrypted.db` ve `files_unencrypted.db` dosyaları her standart SQLite tarayıcısı (DB Browser for SQLite, DBeaver vb.) ile doğrudan açılabilir.
+
+> [!WARNING]
+> **KVKK Güvenlik Uyarısı:** Şifresiz dışa aktarılan veritabanı dosyaları 256-bit AES koruması içermez. Bu dosyaları yetkisiz kişilerin erişemeyeceği güvenli harici ortamlarda saklamanız gerekmektedir.
+
+---
+
+### 🐾 14.5 🛡️ KVKK Dosya Erişim ve İşlem İzi Logu (Audit Log)
+
+#### 💡 Amaç
+
+Hangi yetkilinin ne zaman hangi evrakı görüntülediğini, deşifre ettiğini, sildiğini veya dışa aktardığını KVKK Madde 12 uyarınca geriye dönük denetlemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Yönetim > Veritabanı & Bakım** ekranına gelin.
+2. **`🛡️ KVKK Dosya Günlüğü`** butonuna basın.
+3. Açılan **KVKK Dosya İşlem ve Erişim Log Paneli** diyalogunda:
+   * `STORE`: Yeni dosya yükleme işlemi
+   * `READ`: Şifreli dosyanın geçici çözülüp açılması
+   * `DELETE`: Dosyanın silinmesi (30 günlük soft-delete)
+   * `PURGE`: Dosyanın kalıcı imha edilmesi
+   aksiyonlarını zaman damgası ve kullanıcı bilgisiyle sorgulayın.
+
+
+<a id="bolum-15"></a>
+## 15. Toplu İçe Aktarma (Excel / CSV Import) Sihirbazları
+
+### 💡 İşlemin Amacı ve Mimari Yapısı
+
+Toplu Veri Aktarım Sihirbazı; kuruma yeni katılan çok sayıda personeli, geçmiş dozimetre okuma dozlarını veya hazır nöbet listelerini tek tek elle girmek yerine Excel (.xlsx, .xls) veya CSV (.csv) dosyalarından topluca veritabanına aktarmak amacıyla tasarlanmış 4 adımlı akıllı aktarım modülüdür.
+
+Sistem, yüklenen dosyadaki veri hatalarını, mükerrer T.C. Kimlik Numaralarını ve geçersiz departman kodlarını aktarım öncesinde otomatik tespit eder.
+
+Masaüstü uygulamasında sol dikey navigasyon menüsünden **Yönetim > Toplu İçe Aktarma** sekmesinden erişilir.
+
+---
+
+### 🐾 15.1 4-Adımlı Toplu Aktarım Sihirbazı İş Akışı
+
+#### 💡 Amaç
+
+Dış kaynaktan gelen verileri doğrulamadan geçirerek saniyeler içinde hatasız bir şekilde veritabanına yüklemektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+##### 1. Adım: Aktarım Modülü Seçimi ve Dosya Yükleme
+
+1. **Aktarım Ekranına Geçin:**
+   * Sol menüden **Yönetim > Toplu İçe Aktarma** sekmesine tıklayın.
+2. **Aktarım Modülünü Seçin:**
+   * Sol listeden veri yükleyeceğiniz alanı seçin:
+     * 👥 **Toplu Personel Aktarımı:** Personel özlük bilgileri, TC Kimlik No, departman, unvan vb.
+     * ☢️ **Toplu Dozimetre Ölçüm Aktarımı:** Dozimetre seri numaraları, Hp10/Hp0.07 doz değerleri, okuma dönemi.
+     * 📅 **Toplu Nöbet Listesi Aktarımı:** Aylık vardiya çizelgeleri.
+3. **Örnek Şablon İndirin:**
+   * **"Örnek Şablon İndir"** butonuna basarak sistemin %100 uyumlu hazırladığı örnek Excel şablonunu bilgisayarınıza indirin ve verilerinizi bu formata yerleştirin.
+4. **Dosyayı Seçin:**
+   * **"Dosya Seç"** butonuna basarak bilgisayarınızdaki Excel (.xlsx) veya CSV dosyasını yükleyin ve **"İleri"** butonuna basın.
+
+---
+
+##### 2. Adım: Sütunları Eşleştirme (Column Mapping)
+
+1. **Otomatik Eşleştirmeyi Kontrol Edin:**
+   * Sistem, Excel dosyanızdaki sütun başlıkları ile RADPYS veritabanı alanlarını otomatik eşleştirir (örn: *Excel: TC No ➔ Sistem: tc_kimlik_no*).
+2. **Manuel Düzeltme Yapın:**
+   * Otomatik eşleşmeyen bir alan varsa açılır menüden karşılık gelen sütun adını seçin.
+3. **"İleri"** butonuna basarak doğrulama adımına geçin.
+
+---
+
+##### 3. Adım: Önizleme ve Veri Doğrulama (Data Validation)
+
+1. **Hata Kodlarını ve Renkleri İnceleyin:**
+   * 🔴 **Hatalı Satırlar (Kırmızı Vurgu):** Zorunlu alan eksikliği (örn: *TC Kimlik No boş* veya *Geçersiz E-Posta*). Bu satırlar aktarılmaz.
+   * 🟡 **Mükerrer Kayıt Uyarısı (Sarı Vurgu):** Veritabanında zaten kayıtlı olan personel/dozimetre satırı.
+   * 🟢 **Geçerli Kayıtlar (Yeşil Vurgu):** Sorunsuz aktarılacak veriler.
+2. **Çakışma Politikasını Belirleyin:**
+   * Var olan mükerrer kayıtlar için **"Mevcut Kaydı Güncelle (Overwrite)"** veya **"Mükerrer Kayıtları Atla (Skip)"** seçeneğini belirleyin.
+3. **"İleri"** butonuna basın.
+
+---
+
+##### 4. Adım: İçe Aktar ve Sonuç Özeti
+
+1. **Toplu Yüklemeyi Başlatın:**
+   * **"Verileri İçe Aktar"** butonuna basın.
+2. **Sonuç Kartını İnceleyin:**
+   * Aktarım tamamlandığında ekranda özet kartı gösterilir:
+     * 🟢 *Başarıyla Aktarılan Kayıt:* `145`
+     * 🟡 *Güncellenen Kayıt:* `12`
+     * 🔴 *Atlanan / Hatalı Satır:* `0`
+3. **"Tamamla"** butonuna basarak işlemi sonlandırın.
+
+---
+
+### ❓ Sık Karşılaşılan Uyarılar ve Çözümleri
+
+* **"Format Uyumsuzluğu / Sütun Başlıkları Bulunamadı" Uyarısı:**
+  * İndirilen örnek şablon formatı değiştirilmiştir. *Örnek Şablon İndir* butonundan ham şablonu alıp verilerinizi tekrar yapıştırın.
+* **"Geçersiz Departman Kodu" Uyarısı:**
+  * Excel dosyasındaki departman adı sistemdeki *Tanımlamalar > Departmanlar* listesiyle uyuşmamaktadır.
+
+---
+
+<a id="bolum-16"></a>
+## 16. Sık Karşılaşılan Durumlar, İpuçları ve Sorun Giderme (Troubleshooting / SSS)
+
+### 💡 Genel Sorun Giderme Yaklaşımı
+
+Bu bölümde RADPYS V3 kullanımı sırasında karşılaşılabilecek olası aksaklıklar, sistem mesajları ve adım adım çözüm yöntemleri derlenmiştir.
+
+---
+
+### ❓ Sıkça Sorulan Sorular ve Çözüm Adımları
+
+#### 1. 🚨 Nöbet Otomatik Dağıtım Sihirbazı Boş Slot Bırakıyor (🔴 "Kadro Yetersiz / Boş Slot")
+* **Neden Olur?:** Birimdeki personel sayısının az olması, 24 saatlik nöbet ertesi zorunlu dinlenme kuralı, emzirme/gebelik muafiyetleri veya yıllık fazla mesai tavan sınırının aşılması nedeniyle matematiksel kısıtlar çakışmaktadır.
+* **Çözüm:**
+  1. Nöbet Sihirbazı 1. Adımında veya Nöbet Çizelgesi ekranında **"Çapraz Görevlendirme"** butonuna basarak komşu birimlerden geçici personel çekin.
+  2. **Nöbet Ayarları > Yasal Kısıtlar** ekranından ilgili yumuşak kısıt limitlerini esnetin.
+  3. Kırmızı hücreye çift tıklayarak amir yetkisiyle manuel atama yapın.
+
+---
+
+#### 2. ☢️ Dozimetre NDK Yıllık Limit Aşım Uyarısı Alıyorum (🔴 "NDK Limit Aşımı >20 mSv")
+* **Neden Olur?:** Personelin 12 aylık kümülatif tümdücut dozu NDK ve Sağlık Bakanlığı yasal sınırı olan 20 mSv (veya 5 yıllık 100 mSv) limitini aşmıştır.
+* **Çözüm:**
+  1. Sistem personel sayfasında ve dozimetre tablosunda personeli otomatik 🔴 **"Yüksek Riskli / Limit Aşıldı"** statüsüne alır.
+  2. Personeli derhal radyasyonlu alandan (BT/Röntgen) çıkarıp radyasyonsuz birime (MR/Poliklinik) çekin.
+  3. **Kalite & Güvenlik > Olay Bildirim / DÖF** panelinden otomatik oluşturulan DÖF aksiyonunu açıp Sağlık Bakanlığı sağlık tarama tutanağını işleyin.
+
+---
+
+#### 3. 🌐 Web Portalına Tarayıcıdan Erişilemiyor ("Bağlantı Reddedildi")
+* **Neden Olur?:** Masaüstü RADPYS V3 uygulamasındaki REST API arka plan servisi kapalıdır veya kurum güvenlik duvarı (Firewall) bağlantı portunu engellemektedir.
+* **Çözüm:**
+  1. Masaüstü uygulamasında **Yönetim > Web Portal & API Ayarları** sekmesine gidin.
+  2. 🟢 **"REST API Servisini Başlat"** butonuna basın.
+  3. Sunucu IP adresini (örn: `http://192.168.1.100:8000`) kontrol edin.
+
+---
+
+#### 4. 🖨️ PDF / Excel Rapor Alırken "İzin Engeli / Dosya Açık" Uyarısı
+* **Neden Olur?:** Üretilecek rapor dosyası bilgisayarınızda halihazırda başka bir programa (Adobe Reader, Microsoft Excel) açıktır.
+* **Çözüm:**
+  1. Açık olan PDF/Excel dosyasını veya klasör penceresini kapatın.
+  2. **Rapor Merkezi > Rapor Oluştur** butonuna tekrar basın.
+
+---
+
+#### 5. 🔑 Şifremi Unuttum / Hesabım Kilitlendi
+* **Neden Olur?:** 3 kez üst üste hatalı şifre girildiğinde sistem hesabı 15 dakika boyunca geçici kilitler.
+* **Çözüm:**
+  1. Kurum Sistem Yöneticinize (Admin) başvurun.
+  2. Yönetici **Yönetim > Kullanıcı Yönetimi** panelinden kullanıcınızı bularak **"Şifre Sıfırla"** butonunu kullanabilir.
+
+---
+
+<a id="bolum-17"></a>
+## 17. Sürüm Notları ve Güncelleme Geçmişi (Update Log)
+
+### 🚀 RADPYS V3 (Sürüm 3.0.0 — Kurumsal Sürüm)
+
+* 🌐 **Çoklu Kullanıcı Web Portalı Entegrasyonu (`web_portal`):**
+  * Saha çalışanları, teknikerler ve doktorlar için React + Node.js tabanlı duyarlı (responsive) web portalı erişimi.
+  * Mobil uyumlu Nöbet Çizelgesi takvim matrisi ve kişisel vardiya takibi.
+* ⚠️ **3-Adımlı Radyasyon Güvenliği ve Olay Bildirim Sihirbazı:**
+  * Web portalı ve masaüstünden 3 adımda ramak kala / radyasyon ihlali bildirimi.
+  * Anonim bildirim yapma seçeneği ve masaüstü DÖF/CAPA aksiyon takip paneli.
+* 🛡️ **Evrensel Onay ve Veri Değişikliği Denetim Sistemi (`Audit Trail`):**
+  * Yetkisiz rollerin veri değişikliklerini onay kuyruğuna aktaran yapı.
+  * Eski/Yeni veri değerlerini yan yana kıyaslayan **Diff Görünüm Diyaloğu**.
+* 🔐 **SQLCipher 256-Bit AES Şifreli Veritabanı:**
+  * KVKK ve kişisel sağlık verilerini askeri düzeyde koruyan şifreleme altyapısı.
+  * Otomatik **VACUUM**, **REINDEX** ve **Integrity Check** veritabanı bakım araçları.
+* 🤖 **Gelişmiş Otomatik Nöbet Dağıtım Motoru (Scheduler / Solver):**
+  * Yasal Şua izni, gebelik/emzirme koruması, 25 yıl kıdem muafiyeti ve 24 saatlik dinlenme kısıtlarını gözeterek otomatik vardiya yazan solver altyapısı.
+  * Çapraz görevlendirme ile komşu birimlerden geçici personel çekme ve boş slot doldurma mekanizmaları.
+* 📊 **SKS 6.1 SRG11.02 & NDK Mevzuat Uyum Motoru:**
+  * Sağlık Bakanlığı SKS standartlarına tam uyumlu kümülatif doz takip formu ve Şua İzni kıstelyevm hesaplama motoru.
+* 🎨 **Karanlık / Aydınlık Tema Motoru (Dark/Light Mode):**
+  * Gece nöbetlerinde göz yormayan HSL tailormade Karanlık Tema tercihi.
+
+
+
+
+
+
+
+
+
 
 
