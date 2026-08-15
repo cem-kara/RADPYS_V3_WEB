@@ -2,6 +2,27 @@
 
 Tüm önemli değişiklikler bu dosyada kayıt altına alınacaktır.
 
+## [3.8.6.2] - 2026-08-10
+
+### PySide6/PyQt Regresyon Test Düzeltmeleri, Türkçe Karakter Lookup Normalizasyonu ve Qt Asenkron Zamanlayıcı Güvenliği
+
+#### PySide6 Sinyal, Slot & Import Düzeltmeleri
+
+- **`QAction` İçe Aktarım Standartlaştırması:** `tests/test_pyside_buttons_regression.py` dosyasındaki hatalı `from PySide6.QtWidgets import QAction` içe aktarımı, PySide6 standartlarına uygun olarak `from PySide6.QtGui import QAction` şeklinde güncellendi.
+- **Subwindow Ertelenmiş Silme (`deleteLater`) Test Uyumu:** `test_app_controller_subwindow_destroyed_connection` testinde `deleteLater()` çağrısı sonrası `destroyed` sinyalinin anında yakalanabilmesi için `QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)` işleyicisi eklendi.
+
+#### Türkçe Karakterli Departman & Görev Yeri Eşleştirme (Lookup Normalizasyonu)
+
+- **ASCII Dönüşüm Mantığı:** Excel aktarım işlemlerinde Türkçe karakterli departman/unvan isimlerinin (`Başhemşirelik` vb.) ASCII karşılıkları (`BASHEMSIRELIK`) ile hatasız eşleşebilmesi için `_clean_for_lookup_match` metodu ve `tests/test_import_department_resolution.py` testindeki dönüşüm haritası `ÇĞİÖŞÜçğıöşü` -> `cgiosucgiosu` ASCII normalizasyonuna kavuşturuldu.
+
+#### Headless CI & Test Altyapısı İyileştirmeleri
+
+- **Fallback `qtbot` Fixture'ı (`conftest.py`):** `pytest-qt` kütüphanesinin yüklü olmadığı headless CI/CD ortamlarında buton ve arayüz regresyon testlerinin toplanırken (`collection phase`) `fixture 'qtbot' not found` hatası vermesini engellemek üzere `tests/conftest.py` dosyasına dinamik fallback `qtbot` fixture'ı yerleştirildi.
+
+#### Qt C++ Nesne Yaşam Döngüsü & Asenkron `QTimer` Güvenliği
+
+- **Silinmiş C++ Nesne Koruması:** Diyalogların ve pencere bileşenlerinin kapatılmasından sonra çalışan asenkron `QTimer.singleShot` zamanlayıcılarının silinmiş C++ nesnelerine erişip `RuntimeError` (`libshiboken: Internal C++ object already deleted`) üretmesini önlemek için `TemplatesController`, `RoleFormController`, `UserFormController` ve `AuthPasswordChangeDialog` sınıflarına `shiboken6.isValid(self)` denetimleri ve `RuntimeError` istisna yakalayıcıları eklendi.
+
 ## [3.4.0] - 2026-07-21
 
 ### Demo Modu, Veritabanı Şifreleme ve Lisans Aktivasyonu Entegrasyonu

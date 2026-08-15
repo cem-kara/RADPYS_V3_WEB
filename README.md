@@ -14,7 +14,7 @@ static-site/
 ├── dokumanlar.html         → Dokümantasyon (14 bölüm, sticky sidebar, aktif başlık)
 ├── changelog.html          → Sürüm notları (timeline, etiketli değişiklikler)
 ├── hakkimizda.html         → Hakkımızda
-├── iletisim.html           → Demo talep formu (mailto: ile çalışır)
+├── iletisim.html           → İletişim formu (mailto: ile çalışır)
 ├── .nojekyll               → GitHub Pages Jekyll dönüşümünü kapatır
 └── assets/
     ├── css/tokens.css      → Tüm tasarım stilleri (renk, font, animasyon)
@@ -62,7 +62,7 @@ Sonra tarayıcıda `http://localhost:8000` açın.
 - **Dokümantasyon:** `dokumanlar.html` dosyasında `<article class="prose-doc">` içindeki bölümler. Yeni bölüm eklemek için `<h2 id="...">` başlığı + sidebar'a `<a href="#...">` linki ekleyin — aktif başlık otomatik takip edilir.
 - **Yeni sürüm eklemek (changelog):** `changelog.html` içindeki `RELEASES` dizisinin en başına yeni obje ekleyin. `type` değerleri: `new`, `improved`, `fixed`, `breaking`. İlk sürüm otomatik "Son sürüm" etiketi alır.
 
-## Demo Talep Formu
+## İletişim Formu
 
 Form gönderildiğinde, kullanıcının e-posta uygulaması bilgiler önceden doldurulmuş şekilde `mailto:radpys.iletisim@gmail.com` ile açılır. Gerçek bir backend'e gönderim isterseniz, `iletisim.html` sonundaki submit handler'ı [Formspree](https://formspree.io) veya [Getform](https://getform.io) gibi ücretsiz form servisleriyle değiştirebilirsiniz — kod içinde tek satırlık değişiklik yeterli.
 

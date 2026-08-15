@@ -5,12 +5,63 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description"
-        content="RADPYS V3 dokümantasyonu — kurulum, ilk adımlar, modül rehberleri ve sık sorulan sorular." />
+        content="RADPYS V3 kapsamlı dokümantasyonu — Kurulum, lisanslama, personel özlük, nöbet, dozimetre, izin, FHZ, onay sistemi, raporlar ve veritabanı şifreleme rehberi." />
     <title>Dokümanlar — RADPYS V3</title>
     <link rel="icon" type="image/x-icon" href="images/logo.ico" />
     <link rel="icon" type="image/png" href="images/logo.PNG" />
+    <link rel="canonical" href="https://radpys.com.tr/dokumanlar.html" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://radpys.com.tr/dokumanlar.html" />
+    <meta property="og:site_name" content="RADPYS V3" />
+    <meta property="og:locale" content="tr_TR" />
     <meta property="og:title" content="Dokümanlar — RADPYS V3" />
-    <meta property="og:image" content="images/main_logo.PNG" />
+    <meta property="og:description"
+        content="RADPYS V3 kapsamlı dokümantasyonu — Kurulum, lisanslama, personel özlük, nöbet, dozimetre, izin, FHZ, onay sistemi, raporlar ve veritabanı şifreleme rehberi." />
+    <meta property="og:image" content="https://radpys.com.tr/images/main_logo.PNG" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dokümanlar — RADPYS V3" />
+    <meta name="twitter:description"
+        content="RADPYS V3 kapsamlı dokümantasyonu — Kurulum, lisanslama, nöbet, dozimetre, izin ve raporlar." />
+    <meta name="twitter:image" content="https://radpys.com.tr/images/main_logo.PNG" />
+
+    <!-- Schema.org TechArticle & BreadcrumbList JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Ana Sayfa",
+              "item": "https://radpys.com.tr/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Dokümanlar",
+              "item": "https://radpys.com.tr/dokumanlar.html"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "headline": "RADPYS V3 Kullanım ve Kurulum Dokümantasyonu",
+          "description": "RADPYS V3 kapsamlı dokümantasyonu — Kurulum, lisanslama, personel özlük, nöbet, dozimetre, izin, FHZ, onay sistemi, raporlar ve veritabanı şifreleme rehberi.",
+          "url": "https://radpys.com.tr/dokumanlar.html",
+          "inLanguage": "tr-TR",
+          "publisher": {
+            "@type": "Organization",
+            "name": "RADPYS",
+            "url": "https://radpys.com.tr/"
+          }
+        }
+      ]
+    }
+    </script>
     <link rel="preconnect" href="https://cdn.fontshare.com" />
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
     <link
@@ -20,91 +71,112 @@
     <script src="assets/js/tailwind.config.js"></script>
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <style>
-        /* Docs-specific */
+        /* Docs-specific styling */
         .docs-side a {
             display: block;
-            padding: 0.5rem 0.75rem;
+            padding: 0.45rem 0.75rem;
             border-left: 2px solid transparent;
             color: #94a3b8;
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             transition: color 0.2s, border-color 0.2s, background 0.2s;
+            border-radius: 0 0.375rem 0.375rem 0;
         }
 
         .docs-side a:hover {
             color: #fff;
             border-color: rgba(20, 184, 166, 0.4);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .docs-side a.is-active {
-            color: #fff;
+            color: #5eead4;
             border-color: #14b8a6;
-            background: rgba(20, 184, 166, 0.06);
+            background: rgba(20, 184, 166, 0.08);
+            font-weight: 500;
         }
 
         .docs-side .group-label {
             font-family: "JetBrains Mono", monospace;
             font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.22em;
+            letter-spacing: 0.2em;
             color: #14b8a6;
-            padding: 0.5rem 0.75rem;
-            margin-top: 1rem;
+            padding: 0.75rem 0.75rem 0.25rem;
+            margin-top: 0.75rem;
+            display: flex;
+            items-center: center;
+            gap: 0.5rem;
         }
 
         .prose-doc h2 {
             font-family: "Clash Display", sans-serif;
-            font-size: 2rem;
+            font-size: 1.85rem;
             letter-spacing: -0.02em;
-            margin: 3rem 0 1rem;
+            margin: 3.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             scroll-margin-top: 6rem;
+            color: #f8fafc;
         }
 
         .prose-doc h3 {
             font-family: "Clash Display", sans-serif;
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             margin: 2rem 0 0.75rem;
-            color: #f8fafc;
+            color: #e2e8f0;
             scroll-margin-top: 6rem;
+        }
+
+        .prose-doc h4 {
+            font-family: "Manrope", sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin: 1.5rem 0 0.5rem;
+            color: #cbd5e1;
         }
 
         .prose-doc p {
             color: #cbd5e1;
             line-height: 1.75;
             margin: 0 0 1.1rem;
+            font-size: 0.96rem;
         }
 
-        .prose-doc ul {
+        .prose-doc ul,
+        .prose-doc ol {
             color: #cbd5e1;
-            padding-left: 1.2rem;
+            padding-left: 1.25rem;
             line-height: 1.8;
-            margin-bottom: 1.1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.95rem;
         }
 
         .prose-doc li {
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.4rem;
         }
 
         .prose-doc code {
             font-family: "JetBrains Mono", monospace;
-            font-size: 0.85em;
-            background: rgba(20, 184, 166, 0.1);
+            font-size: 0.84em;
+            background: rgba(20, 184, 166, 0.12);
             color: #5eead4;
             padding: 0.15rem 0.45rem;
             border-radius: 4px;
-            border: 1px solid rgba(20, 184, 166, 0.2);
+            border: 1px solid rgba(20, 184, 166, 0.25);
         }
 
         .prose-doc pre {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(10, 15, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 0.75rem;
-            padding: 1.1rem 1.25rem;
+            padding: 1.15rem 1.35rem;
             overflow-x: auto;
             font-family: "JetBrains Mono", monospace;
             font-size: 0.82rem;
             line-height: 1.65;
-            color: #cbd5e1;
+            color: #e2e8f0;
             margin: 1.25rem 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
         }
 
         .prose-doc pre code {
@@ -115,11 +187,11 @@
         }
 
         .prose-doc blockquote {
-            border-left: 2px solid #14b8a6;
+            border-left: 3px solid #14b8a6;
             background: rgba(20, 184, 166, 0.06);
-            padding: 0.85rem 1.15rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-            margin: 1.25rem 0;
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.6rem 0.6rem 0;
+            margin: 1.35rem 0;
             color: #e2e8f0;
         }
 
@@ -130,28 +202,58 @@
         .prose-doc a {
             color: #67e8f9;
             border-bottom: 1px dashed rgba(103, 232, 249, 0.4);
+            transition: border-color 0.2s, color 0.2s;
         }
 
         .prose-doc a:hover {
-            border-bottom-color: #67e8f9;
+            color: #38bdf8;
+            border-bottom-color: #38bdf8;
         }
 
         .kbd {
             display: inline-block;
-            padding: 0.1rem 0.5rem;
+            padding: 0.12rem 0.5rem;
             border-radius: 0.35rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
             font-family: "JetBrains Mono", monospace;
             font-size: 0.78rem;
             color: #f1f5f9;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .badge-step {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 9999px;
+            background: rgba(20, 184, 166, 0.2);
+            border: 1px solid rgba(20, 184, 166, 0.4);
+            color: #5eead4;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .flow-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1.25rem 0;
         }
 
         @media (min-width: 1024px) {
             .docs-side-wrap {
                 position: sticky;
-                top: 6rem;
+                top: 5.5rem;
                 align-self: start;
+                max-height: calc(100vh - 6.5rem);
+                overflow-y: auto;
+                padding-right: 0.5rem;
             }
         }
     </style>
@@ -162,237 +264,411 @@
 
     <main>
         <!-- HERO -->
-        <section class="relative pt-40 pb-12 overflow-hidden">
+        <section class="relative pt-36 pb-12 overflow-hidden">
             <div class="blob blob-teal" style="top:-10%; left:-10%; width:520px; height:520px; border-radius:9999px">
             </div>
             <div class="blob blob-purple" style="top:10%; right:-15%; width:560px; height:560px; border-radius:9999px">
             </div>
             <div class="absolute inset-0 bg-grid bg-grid-fade opacity-70"></div>
             <div class="relative container-narrow">
-                <span class="section-label">Dokümanlar</span>
-                <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
+                <span class="section-label">Kullanım Kılavuzu & Rehber</span>
+                <h1 class="mt-4 font-display text-4xl md:text-6xl leading-[1.1] tracking-[-0.03em]">
                     <span class="reveal-mask d1"><span>Kurulumdan denetime</span></span>
-                    <span class="reveal-mask d2"><span>tek rehber.</span></span>
+                    <span class="reveal-mask d2"><span>tüm operasyonlar için rehber.</span></span>
                 </h1>
-                <p class="reveal mt-6 max-w-2xl text-slate-300 text-lg">
-                    RADPYS V3'ü kurmak, ekibinizi eklemek ve tüm operasyonel modülleri yapılandırmak
-                    için ihtiyacınız olan her şey.
+                <p class="reveal mt-5 max-w-2xl text-slate-300 text-lg">
+                    RADPYS V3 masaüstü ve web portalı bileşenlerinin kurulumu, lisanslanması, personel özlük, nöbet,
+                    dozimetre, izin, FHZ ve veritabanı yönetimi için eksiksiz kılavuz.
                 </p>
             </div>
         </section>
 
         <!-- DOCS BODY -->
-        <section class="relative py-8">
-            <div class="container-narrow grid lg:grid-cols-[240px,1fr] gap-10">
+        <section class="relative py-6">
+            <div class="container-narrow grid lg:grid-cols-[260px,1fr] gap-10">
                 <!-- Sidebar -->
                 <aside class="docs-side-wrap">
+                    <!-- Search Input -->
+                    <div class="mb-3 px-1">
+                        <input id="docs-search" type="text" placeholder="Dokümantasyonda ara..."
+                            class="w-full bg-slate-900/80 border border-white/10 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500/50 transition-colors" />
+                    </div>
+
                     <nav class="docs-side" id="docs-nav">
-                        <span class="group-label">Başlarken</span>
-                        <a href="#kurulum">Kurulum & Giriş</a>
-                        <a href="#kullanici-ekleme">Kullanıcı Ekleme</a>
+                        <span class="group-label">I. Başlarken & Kurulum</span>
+                        <a href="#kurulum">1. Kurulum & Windows Güvenliği</a>
+                        <a href="#giris-lisans">2. Giriş, Şifre & Lisans</a>
+                        <a href="#hizli-baslangic">3. Hızlı Başlangıç & İçe Aktarım</a>
 
-                        <span class="group-label">Modüller</span>
-                        <a href="#nobet">Nöbet Planlaması</a>
-                        <a href="#dozimetre">Dozimetre</a>
-                        <a href="#izin">İzin Yönetimi</a>
-                        <a href="#fiili-hizmet">Fiili Hizmet</a>
-                        <a href="#saglik">Sağlık Muayeneleri</a>
-                        <a href="#olay">Olay Bildirimi</a>
+                        <span class="group-label">II. Operasyonel Modüller</span>
+                        <a href="#personel">4. Personel Modülü & Özlük</a>
+                        <a href="#izin-fhz">5. İzin & Fiili Hizmet (FHZ)</a>
+                        <a href="#dozimetre">6. Dozimetre & NDK Risk</a>
+                        <a href="#nobet">7. Nöbet Planlaması & Ayarları</a>
+                        <a href="#olay-dof">8. Olay Bildirimi & DÖF</a>
 
-                        <span class="group-label">Yönetim</span>
-                        <a href="#yedekleme">Yedekleme & Geri Yükleme</a>
-                        <a href="#kvkk">Veri Güvenliği & Şifreleme</a>
-                        <a href="#olay-bildirimleri">Olay Bildirimleri</a>
-                        <a href="#onay-sistemi">Evrensel Onay Sistemi</a>
-                        <a href="#bildirim-sistemi">Merkezi Bildirim Sistemi</a>
+                        <span class="group-label">III. Yönetim & Raporlar</span>
+                        <a href="#onay-sistemi">9. Evrensel Onay Sistemi</a>
+                        <a href="#raporlar">10. Raporlar & Akıllı Eşleme</a>
+                        <a href="#tanimlamalar">11. Tanımlamalar (Lookup)</a>
+                        <a href="#web-portal">12. Web Portalı & REST API</a>
 
-                        <span class="group-label">Diğer</span>
-                        <a href="#sss">Sık Sorulan Sorular</a>
+                        <span class="group-label">IV. Sistem & Veri</span>
+                        <a href="#bildirim-sistemi">13. Merkezi Bildirim & Saat</a>
+                        <a href="#ayarlar">14. Program Ayarları & Temalar</a>
+                        <a href="#yedekleme">15. SQLCipher Yedekleme</a>
+                        <a href="#toplu-aktar">16. Toplu İçe Aktarma Sihirbazı</a>
 
-                        <span class="group-label">İlgili</span>
-                        <a href="changelog.html" style="color:#67e8f9">Sürüm Notları →</a>
-                        <a href="iletisim.html">Destek talep et →</a>
+                        <span class="group-label">V. Destek & SSS</span>
+                        <a href="#sss">17. Sık Sorulan Sorular & Lisans</a>
+                        <a href="changelog.html" style="color:#67e8f9">18. Sürüm Notları (v3.2.1) →</a>
+                        <a href="iletisim.html">Destek Talep Et →</a>
                     </nav>
                 </aside>
 
                 <!-- Content -->
                 <article class="prose-doc" id="docs-content">
                     <div
-                        class="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">
-                        <span>Sürüm 3.2.1</span><span>·</span><span>Son güncelleme: Haziran 2026</span>
+                        class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400 mb-6">
+                        <span class="px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/20 text-teal-300">Sürüm
+                            3.2.1</span>
+                        <span>·</span>
+                        <span>Güncel Operasyon Kılavuzu</span>
                     </div>
 
-                    <h2 id="kurulum">1. Kurulum & Giriş</h2>
-                    <p>RADPYS V3; Windows 10 (Sürüm 1809 ve üzeri) ve Windows 11 (64-bit) işletim sistemlerini
-                        destekleyen, tüm verileri yerel veritabanında saklayan (local-first) bir masaüstü uygulamasıdır.
-                        İnternet bağlantısı sadece lisans doğrulama aşamasında gereklidir.</p>
-                    <h3>Gereksinimler</h3>
+                    <!-- 1. KURULUM & GÜVENLİK -->
+                    <h2 id="kurulum">1. RADPYS V3 Kurulumu ve Windows Güvenlik İzinleri</h2>
+                    <p>RADPYS V3; Windows 10 (Sürüm 1809 ve üzeri) ve Windows 11 (64-bit) işletim sistemlerinde çalışan,
+                        tüm verilerinizi <strong>AES-256 SQLCipher</strong> ile yerel bilgisayarınızda şifreleyen bir
+                        masaüstü uygulamasıdır. İnternet erişimi sadece lisans doğrulama aşamasında gereklidir.</p>
+
+                    <h3>Sistem ve Çalışma Zamanı Gereksinimleri</h3>
                     <ul>
-                        <li>Windows 10 (Sürüm 1809 ve üzeri) veya Windows 11 (64-bit)</li>
-                        <li>4 GB RAM (8 GB önerilen)</li>
-                        <li>En az 500 MB boş disk alanı</li>
+                        <li><strong>İşletim Sistemi:</strong> Windows 10 (Sürüm 1809 ve üzeri) veya Windows 11 (64-bit)
+                        </li>
+                        <li><strong>Bellek (RAM):</strong> En az 4 GB (8 GB önerilen)</li>
+                        <li><strong>Disk Alanı:</strong> En az 500 MB boş disk alanı</li>
+                        <li><strong>Masaüstü Uygulaması:</strong> Python 3.10+ / PySide6 (Kurulum paketinde gömülü
+                            olarak gelir)</li>
+                        <li><strong>Web Portalı & REST API Servisi (İsteğe Bağlı):</strong> Node.js LTS v18.0.0+ (Çoklu
+                            kullanıcı Web Portalı <code>web_portal</code> modülü kullanılacaksa kurulmalıdır)</li>
                     </ul>
-                    <h3>Kurulum Adımları</h3>
-                    <ol style="color:#cbd5e1; padding-left:1.2rem; line-height:1.8">
-                        <li>İndirilen <code>RADPYS_Setup_latest.exe</code> dosyasına çift tıklayın.</li>
-                        <li>Yönetici izni verin ve kurulum sihirbazını takip edin.</li>
-                        <li>Giriş ekranında kullanıcı adı ve şifrenizi girin.</li>
-                        <li>İlk girişte şifre değiştirme adımlarını tamamlayın.</li>
+
+                    <h3>Adım Adım Kurulum Adımları</h3>
+                    <ol>
+                        <li>İndirdiğiniz <code>RADPYS_Setup_latest.exe</code> kurulum dosyasını çift tıklayarak
+                            çalıştırın.</li>
+                        <li><strong>Windows SmartScreen Uyarısını Geçme:</strong> Mavi renkli <em>"Windows kişisel
+                                bilgisayarınızı korudu"</em> uyarısı çıktığında, penceredeki <strong>"Daha fazla
+                                bilgi"</strong> (<em>More info</em>) bağlantısına ve ardından <strong>"Yine de
+                                çalıştır"</strong> (<em>Run anyway</em>) butonuna tıklayın.</li>
+                        <li>Inno Setup yükleme sihirbazında hedef dizini seçin ve <em>"Masaüstü kısayolu oluştur"</em>
+                            seçeneğini işaretleyerek <strong>Kur</strong> butonuna tıklayın.</li>
                     </ol>
-                    <h3>İlk Giriş ve Oturum Yönetimi</h3>
-                    <p>Uygulamayı açtığınızda geçici şifrenizle oturum açmanız istenir. İlk girişte şifre kurallarına
-                        uygun yeni bir şifre belirlenmesi zorunludur. Güvenlik gerekçesiyle 5 kez hatalı şifre
-                        girildiğinde hesap geçici olarak kilitlenir. "Beni Hatırla" seçeneğiyle sonraki girişlerinizi
-                        hızlandırabilirsiniz.</p>
+
                     <blockquote>
-                        <p><strong>Gösterge Paneli (Dashboard):</strong> Oturum açtığınızda sizi karşılayan Genel Bakış,
-                            Nöbet Analizi (aylık nöbet doluluk takvimi ve bekleyen devirler), Dozimetre Analizi
-                            (maksimum doz seviyesi), Olay & DÖF Analizi ve Eğitim Analiz panelleriyle tüm kurumu tek
-                            ekranda izleyebilirsiniz.</p>
+                        <p><strong>Windows Defender Karantina Muafiyeti:</strong> Eğer antivirüs yazılımı engelleme
+                            yaparsa, Başlat > <strong>Windows Güvenliği > Virüs ve tehdit koruması > Koruma
+                                geçmişi</strong> sekmesine giderek engellenen <code>RADPYS.exe</code> dosyasını seçin ve
+                            <strong>"Cihazda İzin Ver"</strong> seçeneğini tıklayın.
+                        </p>
                     </blockquote>
 
-                    <h2 id="kullanici-ekleme">2. Kullanıcı Ekleme & Rol Yetki Yönetimi</h2>
-                    <p>Yöneticiler <code>Kullanıcı Modülü → Kullanıcı Listesi</code> ekranından personelle ilişkili hesaplar
-                        oluşturabilir. Personelin işten ayrılış işlemi yapıldığında bağlı kullanıcı hesabı da otomatik
-                        olarak pasif duruma çekilir.</p>
-                    <h3>Rol Kapsamı (Görüş Sınırı)</h3>
-                    <p>Rollere üç farklı kapsam atanabilir: <strong>Sadece Kendisi</strong> (yalnızca kendi kayıtlarını
-                        görür), <strong>Kendi Departmanı</strong> (kendi birimindeki personellerin verilerini görür)
-                        veya <strong>Tümü</strong> (tüm kurumu görür).</p>
-                    <h3>Rol Yetkileri Karşılaştırma Ekranı</h3>
-                    <p>Gelişmiş Rol Yetki panelinde Okuma, Yazma, Güncelleme, Silme ve Özel Buton yetkileri (Nöbet devir
-                        talebi, plan onaylama vb.) matris üzerinden yönetilir. <code>Karşılaştır</code> butonuyla iki
-                        farklı rolün yetki ve kapsamları kırmızı-yeşil karşılaştırma matrisinde taslak halinde analiz
-                        edilebilir.</p>
+                    <!-- 2. GİRİŞ, ŞİFRE & LİSANS -->
+                    <h2 id="giris-lisans">2. Sisteme Giriş, Şifre Değiştirme ve Lisans Aktivasyonu</h2>
+                    <p>Sisteme giriş ekranı, kullanıcının rolüne tanımlı yetkiler çerçevesinde uygulamaya erişmesini
+                        sağlar. İlk oturum açma, varsayılan admin şifresi, geçici şifre değiştirme ve lisans aktifleştirme
+                        bu ekrandan yönetilir.</p>
 
-                    <h2 id="nobet">3. Nöbet Planlaması & Ayarları</h2>
+                    <h3>2.1 İlk Admin Giriş Bilgileri ve Tespiti</h3>
+                    <p>RADPYS V3 ilk kez yüklendiğinde, veritabanı otomatik olarak tam yetkili bir <code>admin</code>
+                        hesabı oluşturur:</p>
+                    <ul>
+                        <li><strong>Kullanıcı Adı:</strong> <code>admin</code></li>
+                        <li><strong>Geçici Şifre Dosyası:</strong> Yükleme dizinindeki <code>data/</code> klasörü
+                            altında otomatik üretilen <code>ilk_admin_bilgileri.txt</code> metin dosyası içinde yer
+                            alır. Dosyayı Not Defteri ile açarak geçici şifreyi görebilirsiniz.</li>
+                    </ul>
+                    <blockquote>
+                        <p>🔒 <strong>Güvenlik Zorunluluğu:</strong> <code>admin</code> hesabı ile ilk girişte sistem
+                            otomatik olarak <strong>Şifre Değiştirme Penceresini</strong> açar. Kendi şifrenizi
+                            belirledikten sonra <code>ilk_admin_bilgileri.txt</code> dosyasını siliniz.</p>
+                    </blockquote>
+
+                    <h3>2.2 Oturum Açma & Şifre Kuralları</h3>
+                    <ul>
+                        <li>Giriş ekranında kullanıcı adı ve şifrenizi girin. Karakterleri doğrulamak için <em>"Şifreyi
+                                Göster"</em> seçeneğini kullanabilirsiniz.</li>
+                        <li>Sonraki girişleri hızlandırmak için <strong>"Beni Hatırla"</strong> kutucuğunu işaretleyin.
+                        </li>
+                        <li>Güvenlik gerekçesiyle <strong>5 kez üst üste hatalı şifre</strong> girildiğinde hesap geçici
+                            olarak kilitlenir. Sistem yöneticisi tarafından kilit kaldırılabilir.</li>
+                        <li><strong>Şifremi Unuttum:</strong> Giriş ekranındaki butonla e-posta adresi ve kullanıcı adı
+                            doğrulaması yapılarak yeni şifre oluşturulabilir.</li>
+                    </ul>
+
+                    <h3>2.3 Demo Modundan Tam Sürüme (Lisans Aktivasyonu)</h3>
+                    <p>Uygulama ilk kurulduğunda 15 Gün Deneme Süresi, Maksimum 6 Personel Kaydı ve Maksimum 3 Nöbet
+                        Planı kısıtlamasına sahip Demo Modunda başlar. Tam sürüme geçmek için:</p>
+                    <ol>
+                        <li>Sağ üst köşedeki <strong>"Hakkında"</strong> butonuna tıklayın.</li>
+                        <li><strong>Lisans ve Aktivasyon</strong> bölümündeki benzersiz <strong>Cihaz Kimliği</strong>
+                            (Örn: <code>RP-A1B2-C3D4-E5F6</code>) bilgisini kopyalayın.</li>
+                        <li>Cihaz Kimliğinizi yazılım sağlayıcısına (<code>radpys.iletisim@gmail.com</code>) ileterek
+                            üretilen <strong>Lisans Anahtarını</strong> (Örn: <code>LK-AS-PRO-PERM-...</code>) temin
+                            edin.</li>
+                        <li>Lisans Anahtarını kutuya yapıştırıp <strong>"Lisansı Aktifleştir"</strong> butonuna basın ve
+                            uygulamayı yeniden başlatın.</li>
+                    </ol>
+
+                    <!-- 3. HIZLI BAŞLANGIÇ & İÇE AKTARIM -->
+                    <h2 id="hizli-baslangic">3. Kurulum Sonrası Hızlı Başlangıç & İçe Aktarım Sırası</h2>
+                    <p>İlk kurulumda veritabanı boş durumdadır. Tüm personeli tek tek girmek yerine <strong>Excel/CSV
+                            Toplu İçe Aktarma Sihirbazı</strong> ile toplu aktarım yapılabilir. Veritabanı ilişkisel
+                        bütünlüğünün bozulmaması için kesinlikle aşağıdaki içe aktarım sırasına uyulmalıdır:</p>
+
+                    <div class="flow-box">
+                        <div class="font-mono text-xs text-teal-400 uppercase tracking-widest mb-2">ÖNERİLEN TOPLU VERİ
+                            İÇE AKTARIM SIRALAMASI</div>
+                        <div class="grid md:grid-cols-4 gap-3 text-xs">
+                            <div class="p-3 rounded bg-slate-900/90 border border-teal-500/30">
+                                <span class="font-bold text-teal-300 block mb-1">1. ADIM: Tanımlamalar</span>
+                                Departmanlar, Unvanlar, İzin Türleri (Lookup Tabloları)
+                            </div>
+                            <div class="p-3 rounded bg-slate-900/90 border border-teal-500/30">
+                                <span class="font-bold text-teal-300 block mb-1">2. ADIM: Personel Kayıtları</span>
+                                Özlük, Kimlik, Sicil ve Birim Ataması (Personel Modülü)
+                            </div>
+                            <div class="p-3 rounded bg-slate-900/90 border border-teal-500/30">
+                                <span class="font-bold text-teal-300 block mb-1">3. ADIM: Kullanıcı Hesapları</span>
+                                Sisteme giriş hesapları ve Rol yetki tanımları
+                            </div>
+                            <div class="p-3 rounded bg-slate-900/90 border border-teal-500/30">
+                                <span class="font-bold text-teal-300 block mb-1">4. ADIM: Geçmiş Veriler</span>
+                                Geçmiş İzinler, Dozimetre ölçümleri ve Sağlık kayıtları
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Otomatik Kullanıcı Hesabı & Geçici Şifre Üretimi</h3>
+                    <p>Toplu personel içe aktarımı sonrası sistem otomatik kullanıcı hesapları oluşturur:</p>
+                    <ul>
+                        <li><strong>Kullanıcı Adı Formatı:</strong> Personel Adının ilk harfi + Soyadı (Örn: <em>Ahmet
+                                Yılmaz</em> → <code>AYilmaz</code>).</li>
+                        <li><strong>Geçici Şifre Formatı:</strong> <code>KullanıcıAdı123!</code> (Örn:
+                            <code>AYilmaz123!</code>).
+                        </li>
+                        <li>Personel geçici şifresiyle ilk giriş yaptığında sistem zorunlu olarak <strong>Şifre
+                                Değiştirme Ekranını</strong> açar.</li>
+                    </ul>
+
+                    <!-- 4. PERSONEL MODÜLÜ -->
+                    <h2 id="personel">4. Personel Modülü Yönetimi & Özlük Dosyası İşlemleri</h2>
+                    <p>Personel Modülü; kurumda çalışan radyasyon görevlilerinin (Grup A / Grup B) ve sağlık personelinin
+                        kimlik, özlük, sicil, acil durum yakını, gebelik/emzirme kısıtları ve eğitim/belge geçmişinin
+                        yönetildiği merkezdir.</p>
+
+                    <h3>4.1 Personel Ekleme Sihirbazı (5 Adım)</h3>
+                    <ol>
+                        <li><span class="badge-step">1</span><strong>Kimlik Bilgileri:</strong> TC Kimlik No (11 hane,
+                            anlık mükerrer denetimi yapılır), Ad, Soyad, Doğum Tarihi/Yeri, Medeni Hal.</li>
+                        <li><span class="badge-step">2</span><strong>İletişim & Acil Durum Yakınları:</strong> Telefon,
+                            e-posta, adres ve acil durumda ulaşılacak yakın bilgileri.</li>
+                        <li><span class="badge-step">3</span><strong>Özlük & Görev:</strong> Departman, Unvan, İşe
+                            Başlama Tarihi, Radyasyon Risk Grubu (Grup A / Grup B), Gebelik/Emzirme durumu.</li>
+                        <li><span class="badge-step">4</span><strong>Eğitim Geçmişi:</strong> Radyasyon Güvenliği Eğitimi,
+                            Sertifikalar ve geçerlilik tarihleri.</li>
+                        <li><span class="badge-step">5</span><strong>Belgeler & Dosya Eki:</strong> Personel vesikalık
+                            fotoğrafı, diploma ve sağlık raporu dijital taramaları.</li>
+                    </ol>
+
+                    <h3>4.2 Rol Kapsamı ve Yetki Karşılaştırma Matrisi</h3>
+                    <p>Rollere 3 farklı görüş kapsamı atanabilir:</p>
+                    <ul>
+                        <li><strong>Sadece Kendisi:</strong> Yalnızca kendi nöbet, izin ve dozimetre kayıtlarını görür.
+                        </li>
+                        <li><strong>Kendi Departmanı:</strong> Yalnızca bağlı olduğu birimdeki personellerin verilerini
+                            yönetir.</li>
+                        <li><strong>Tümü (Kurum Geneli):</strong> Tüm hastane/kurum verilerine erişebilir.</li>
+                    </ul>
+                    <p>Gelişmiş Rol Yetki panelindeki <code>Karşılaştır</code> butonuyla iki farklı rolün Okuma, Yazma,
+                        Güncelleme, Silme ve Özel Buton yetkileri kırmızı-yeşil matris üzerinden analiz edilebilir.</p>
+
+                    <!-- 5. İZİN & FHZ -->
+                    <h2 id="izin-fhz">5. İzin Takip, Şua İzni ve Fiili Hizmet Süresi (FHZ)</h2>
+                    <p>Yıllık, mazeret, sağlık ve Şua izinleri hiyerarşik onay akışıyla yönetilir. Radyasyon görevlileri
+                        için Şua izni ve Fiili Hizmet Süresi (FHZ / Yıpranma Payı) otomatik hesaplanır.</p>
+
+                    <h3>5.1 Şua İzni Hakediş ve Bakiye Devri</h3>
+                    <ul>
+                        <li><strong>30 Gün Şua Hak Edişi:</strong> Yılda en az 11 ay radyasyonlu alanda çalışan
+                            personele kıdemine bakılmaksızın otomatik 30 gün Şua izni hakedişi tanımlanır.</li>
+                        <li><strong>Kıdem Hesabı:</strong> İzin Hakediş ekranında <em>Toplu Hesaplama</em> ve <em>Bakiye
+                                Devir</em> butonları ile geçmiş yıldan devreden izinler güncellenir.</li>
+                        <li>İzinlerin silinebilmesi veya düzenlenebilmesi için mutlaka "Beklemede" durumunda olmaları
+                            gerekir.</li>
+                    </ul>
+
+                    <h3>5.2 Fiili Hizmet Süresi (FHZ) & Görev Dağılım Paneli</h3>
+                    <p>Fiili Hizmet Süresi (FHZ) modülü, personelin fiilen radyasyonlu alanda çalıştığı günleri
+                        hesaplayarak SGK yıpranma payı cetvellerine dönüştürür:</p>
+                    <ul>
+                        <li><strong>Dönem Navigasyonu:</strong> Aylar arasında tek tıkla geçiş yapılır, tüm sekmeler
+                            senkronize kalır.</li>
+                        <li><strong>Sadece Değişenleri Göster Filtresi:</strong> Manuel müdahale edilmiş (turuncu
+                            vurgulu) kayıtları filtreler.</li>
+                        <li><strong>Proaktif Taslak Uyarısı:</strong> Onay bekleyen taslak kayıtlar olduğunda üst bantta
+                            sarı uyarı belirir ve <strong>Toplu Onayla</strong> yapılmasına imkan tanır.</li>
+                    </ul>
+
+                    <!-- 6. DOZİMETRE -->
+                    <h2 id="dozimetre">6. Dozimetre Takip, Doz Trendi ve NDK Risk Analizi</h2>
+                    <p>Radyasyona maruz kalan personellerin aylık derin ($H_p(10)$) ve yüzeysel ($H_p(0.07)$) doz
+                        ölçümleri Dozimetre Listesi ekranından takip edilir.</p>
+
+                    <h3>6.1 NDK Yasal Limitleri ve Erken Uyarı</h3>
+                    <ul>
+                        <li><strong>Yıllık Doz Limiti:</strong> Radyasyon görevlileri için yıllık efektif doz sınırı
+                            <strong>20 mSv</strong>'dir.
+                        </li>
+                        <li><strong>5 Yıllık Kumulatif Limit:</strong> Ardışık 5 yılın toplam efektif dozu <strong>100
+                                mSv</strong>'yi aşamaz.</li>
+                        <li>Ölçüm firmasından gelen Excel/CSV dosyaları <em>"İçe Aktar"</em> sihirbazıyla yüklenir. Eşik
+                            aşımlarında sistem yöneticilere anında erken uyarı uyarısı verir.</li>
+                        <li><strong>Doz Trendi Analizi:</strong> Personel detayında grafiksel doz artış trendi ve birim
+                            risk matrisi otomatik üretilir.</li>
+                    </ul>
+
+                    <!-- 7. NÖBET PLANLAMASI -->
+                    <h2 id="nobet">7. Nöbet Modülü Yönetimi ve Nöbet Ayarları</h2>
                     <p>Nöbet algoritması; aylık maksimum nöbet sınırı, dinlenme süreleri, kıdem yaş/yıl muafiyet
-                        eşikleri, gebelik/emzirme kısıtları ve personel isteklerini değerlendirerek dengeli çizelgeler
-                        üretir.</p>
-                    <h3>Plan Onay ve Devir Kuralları</h3>
+                        eşikleri, gebelik/emzirme kısıtları ve personel mazeret isteklerini değerlendirerek otomatik
+                        çizelge üretir.</p>
+
+                    <h3>7.1 Nöbet Onay ve Devir Kuralları</h3>
                     <ul>
                         <li><strong>Plan Onayı:</strong> Taslak planlar onaylanıp yayına alındıktan sonra salt okunur
-                            kalır. Yayındaki planı taslağa çekme yetkisi sadece yetkilendirilmiş rollere özeldir. Onay
-                            sırasında açıklama notu girilmesi zorunlu kılınabilir.</li>
-                        <li><strong>Nöbet Devir Talebi:</strong> Personeller nöbetlerini devrederken gerekçe belirtmek
-                            zorundadır. Devredilen bir nöbet kaydı üzerinde tekrar bir devir talebi oluşturulamaz.
+                            kilitlenir. Yayındaki planı taslağa çekme yetkisi sadece üst yetkili rollere açıktır.</li>
+                        <li><strong>Nöbet Devir Talebi:</strong> Personeller nöbet devrederken gerekçe belirtmek
+                            zorundadır. Devredilmiş bir nöbet kaydı üzerinde ikinci kez devir talebi oluşturulamaz.
                             Yönetici onayladığında çizelge otomatik güncellenir.</li>
                     </ul>
 
-                    <h2 id="dozimetre">4. Dozimetre Ölçümleri</h2>
-                    <p>Radyasyona maruz kalan personellerin aylık derin ve yüzeysel doz ölçümleri Dozimetre Listesi
-                        ekranından takip edilir. Ölçüm firmalarından gelen Excel/CSV sonuçları "İçe Aktar" sihirbazıyla
-                        hızlıca toplu olarak yüklenebilir. Eşik değer aşımlarında sistem yöneticilere erken uyarı paneli
-                        gösterir.</p>
+                    <!-- 8. OLAY BİLDİRİMİ & DÖF -->
+                    <h2 id="olay-dof">8. Radyasyon Güvenliği, Olay Bildirimi & DÖF Yönetimi</h2>
+                    <p>Bir radyasyon kazası, cihaz arızası veya doz aşımı yaşandığında çalışanlar 3 aşamalı sihirbazla
+                        (Temel Bilgiler, Kategori Sınıflandırması, Açıklamalar) bildirim yapabilirler.</p>
 
-                    <h2 id="izin">5. İzin Yönetimi & Şua İzinleri</h2>
-                    <p>Yıllık, mazeret, sağlık ve Şua izinleri hiyerarşik onay akışıyla yönetilir. İzinlerin
-                        silinebilmesi için mutlaka "Beklemede" durumunda olmaları gerekir. İzin Hakediş ekranından kıdem
-                        yılına göre otomatik hakediş hesaplama (Toplu Hesaplama) ve bakiye aktarımı (Devir) işlemleri
-                        yönetilir.</p>
-
-                    <h2 id="fiili-hizmet">6. Fiili Hizmet Süresi (FHZ)</h2>
-                    <p>Riskli çalışma günleri ve yıpranma payları her ay otomatik hesaplanarak yasal formatına
-                        dönüştürülür.</p>
-                    <h3>Görev Dağılım Paneli Kolaylıkları</h3>
+                    <h3>8.1 Anonim Bildirim ve Takip No</h3>
                     <ul>
-                        <li><strong>Dönem Navigasyonu:</strong> Aylar arasında tek tıkla geçiş yapabilir, tüm sekmeleri
-                            otomatik senkronize edebilirsiniz.</li>
-                        <li><strong>Sadece Değişenleri Göster Filtresi:</strong> Manuel müdahale edilmiş (turuncu
-                            renkli) personelleri filtreler.</li>
-                        <li><strong>Proaktif Taslak Uyarısı:</strong> Onay bekleyen taslak kayıtlar olduğunda sayfa
-                            üstünde sarı renkli uyarı bandı açılır ve tek tıkla <strong>Toplu Onayla</strong> yapmanıza
-                            izin verir. 500 satır aşımında performans uyarısı gösterilir.</li>
+                        <li>Kimliğini gizlemek isteyen çalışanlar <strong>"Anonim Bildirim"</strong> seçeneğini
+                            kullanabilir.</li>
+                        <li>Bildirim sonrası <code>OB-YYYY-XXXXX</code> formatında benzersiz takip numarası üretilir.
+                        </li>
+                        <li><strong>DÖF (Düzeltici Önleyici Faaliyet):</strong> Yönetici detay kartından DÖF başlatarak
+                            aksiyon sorumlusu ve hedef bitiş tarihini takip eder.</li>
                     </ul>
 
-                    <h2 id="saglik">7. Sağlık Muayeneleri</h2>
-                    <p>İşe Giriş, Periyodik, Radyasyon ve Şua muayene kayıtları yasal arşivi oluşturur.</p>
-                    <h3>Veri Emniyeti & Tarih Hesaplama</h3>
-                    <ul>
-                        <li><strong>Not Koruması & Branş Kolaylığı:</strong> Kayıtlı klinik notlar kilitlidir. Göz branş
-                            sonucu seçildiğinde, boş olan Dahiliye ve Dermatoloji branşları otomatik doldurulur. Kayıt
-                            için en az bir branş sonucu doldurulmalıdır. Belgeler varsayılan işletim sistemi
-                            (Windows/macOS/Linux) uygulamalarıyla açılır.</li>
-                        <li><strong>Gelecek Muayene Tarihi:</strong> Girilen tarihe ve tipe göre randevu takvimi
-                            otomatik hesaplanır (Şua muayenesi için 6 ay, Periyodik/Radyasyon için 12 ay).</li>
-                    </ul>
-
-                    <h2 id="olay">8. Olay Bildirimi & DÖF Yönetimi</h2>
-                    <p>Bir olay yaşandığında çalışanlar 3 aşamalı sihirbazla (Temel Bilgiler, Kategori Sınıflandırması,
-                        Açıklamalar) hızlıca bildirim yapabilirler. Kimliğini gizlemek isteyenler "Anonim" seçeneğini
-                        kullanabilir. Bildirim sonrasında <code>OB-YYYY-XXXXX</code> benzersiz takip numarası üretilir.
-                    </p>
-                    <h3>Yönetici Paneli ve DÖF Faaliyetleri</h3>
-                    <p>Yöneticiler olay durumunu değiştirebilir, sorumlu atayabilir ve olay kapatılırken zorunlu kapanış
-                        notu girerler. Olay detay kartından Düzeltici Önleyici Faaliyetler (DÖF) başlatılarak aksiyon
-                        hedef tarihi ve sorumlusu takip edilir.</p>
-
-                    <h2 id="yedekleme">9. Yedekleme & Geri Yükleme</h2>
-                    <p>RADPYS V3, tüm verileri yerel veritabanı dosyasında (local-first) saklar. <code>Veritabanı Modülü → Veritabanı Yedekleme</code> ekranından "Yedek Al" butonuna basarak tüm verilerinizin yedeğini alabilir ve "Yedekten Geri Yükleme" seçeneğiyle geri yükleyebilirsiniz. Geri yükleme işlemi mevcut verilerin üzerine yazar.</p>
-
-                    <h2 id="kvkk">10. Veri Güvenliği & Yerel Şifreleme</h2>
-                    <p>Tüm verileriniz bilgisayarınızda yerel olarak AES-256 SQLCipher ile şifrelenmiş veritabanında saklanır (local-first). İnternete veya dış sunuculara veri gönderilmez; veri kontrolü ve güvenliği tamamen kurumunuzun yerel bilgisayarında kalır.</p>
-
-                    <h2 id="olay-bildirimleri">11. Olay Bildirimleri</h2>
-                    <p>Olay bildirimleri, periyodik sağlık raporları ve yıllık kolektif doz raporları, yasal olarak
-                        sunulmak üzere standart PDF formatında dışa aktarılabilir. Dışa aktarma
-                        sihirbazı, şablonlardaki sütunların sırası değişse bile veriyi doğru başlık altına yazan
-                        <strong>Akıllı Konum Eşleme</strong> teknolojisini kullanır.
-                    </p>
-
-                    <h2 id="onay-sistemi">12. Evrensel Onay Sistemi</h2>
+                    <!-- 9. EVRENSEL ONAY SİSTEMİ -->
+                    <h2 id="onay-sistemi">9. Onay Bekleyen Görevler Paneli (Evrensel Onay Sistemi)</h2>
                     <p>Yetkisi kısıtlı veya onay gerektiren rollerdeki kullanıcıların yaptığı ekleme, düzenleme ve silme
-                        işlemleri doğrudan veritabanına yazılmaz, onay kuyruğuna alınır. Yöneticiler bekleyen talepleri
-                        merkezi panelden onaylar.</p>
-                    <h3>Özellikler</h3>
+                        işlemleri doğrudan veritabanına yazılmaz, Onay Kuyruğuna alınır. Yöneticiler bekleyen talepleri
+                        merkezi panelden inceler.</p>
+
+                    <h3>Onay Paneli Özellikleri</h3>
                     <ul>
-                        <li><strong>Kategoriler:</strong> İzinler, Nöbet Devirleri, Nöbet İstekleri, Nöbet Planları ve
-                            Veri Değişiklikleri (Personel, Muayene).</li>
                         <li><strong>Karşılaştırma Matrisi:</strong> Talepler incelenirken eski değer (kırmızı) ve teklif
                             edilen yeni değer (yeşil) yan yana Türkçe etiketlerle listelenir.</li>
-                        <li><strong>Kuyruk İstisnası:</strong> Yasal bütünlük gereği Dozimetre ve Fiili Hizmet
-                            modüllerinde onay kuyruğu kullanılmaz; yetkili roller doğrudan veri yazabilir.</li>
+                        <li><strong>Kuyruk İstisnası:</strong> Yasal bütünlük ve denetim gereği <strong>Dozimetre</strong>
+                            ve <strong>Fiili Hizmet (FHZ)</strong> modüllerinde onay kuyruğu kullanılmaz; yetkili roller
+                            doğrudan veri yazar.</li>
                     </ul>
 
-                    <h2 id="bildirim-sistemi">13. Merkezi Bildirim & Durum Çubuğu</h2>
-                    <p>Ekranın sağ alt köşesinde canlı Türkçe saat ve bildirim zil simgesi bulunur. Zil simgesine
-                        tıklandığında yukarı kayan Bildirim Çekmecesi açılır. Okunmamış bildirimler türe özel renkli
-                        ikonlarla listelenir. Bildirime tıklandığında çekmece kapanır ve kullanıcıyı doğrudan ilgili
-                        aksiyona (örn. nöbet devri onay penceresi) yönlendirir.</p>
+                    <!-- 10. RAPORLAR -->
+                    <h2 id="raporlar">10. Raporlar Modülü & Akıllı Konum Eşleme</h2>
+                    <p>Olay bildirimleri, periyodik sağlık raporları, nöbet çizelgeleri ve yıllık kolektif doz
+                        raporları, kurumsal matbu PDF ve Excel formatında dışa aktarılabilir.</p>
+                    <blockquote>
+                        <p><strong>Akıllı Konum Eşleme (Smart Column Mapping):</strong> Dışa aktarma sihirbazı, Excel
+                            şablonlarındaki sütunların sırası değişse dahi veriyi doğru başlık altına yazan akıllı
+                            konum eşleme teknolojisine sahiptir.</p>
+                    </blockquote>
 
-                    <h2 id="sss">14. Sık Sorulan Sorular & Lisans</h2>
+                    <!-- 11. TANIMLAMALAR -->
+                    <h2 id="tanimlamalar">11. Tanımlamalar (Lookup / Sabit Veriler) Modülü</h2>
+                    <p>Sol menüdeki <code>Tanımlamalar</code> ekranı; departmanlar, unvanlar, izin türleri, nöbet
+                        tipleri ve poliklinik/bina tanımlarının yönetildiği bölümdür. Pasife alınan bir tanım geçmiş
+                        kayıtlarda görünmeye devam eder ancak yeni kayıtlarda seçilemez.</p>
+
+                    <!-- 12. WEB PORTAL -->
+                    <h2 id="web-portal">12. Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyonu</h2>
+                    <p>RADPYS V3 masaüstü uygulaması (Python 3.10+ / PySide6), kurum içi ağı üzerinde çalışan Node.js
+                        REST API backend servisi ile senkronize olabilir. Web Portalı sayesinde çalışanlar mobil veya web
+                        tarayıcı üzerinden nöbet çizelgelerini görüntüleyebilir ve nöbet devir talebi oluşturabilirler.</p>
+
+                    <!-- 13. MERKEZİ BİLDİRİM -->
+                    <h2 id="bildirim-sistemi">13. Merkezi Bildirim & Durum Çubuğu Sistemi</h2>
+                    <p>Uygulamanın sağ alt köşesinde canlı Türkçe saat ve bildirim zili yer alır. Zil simgesine
+                        tıklandığında açılan Bildirim Çekmecesinden (Drawer) okunmamış bildirimler türe özel renkli
+                        ikonlarla listelenir. Bildirime tıklandığında doğrudan ilgili onay penceresine yönlendirme
+                        yapılır.</p>
+
+                    <!-- 14. AYARLAR -->
+                    <h2 id="ayarlar">14. Program Ayarları & Temalar</h2>
+                    <p>Kullanıcılar uygulamayı Karanlık (Dark) veya Aydınlık (Light) tema modunda kullanabilirler.
+                        Kurum logosu, başlık bilgileri, otomatik yedekleme periyotları ve teknik log seviyeleri Ayarlar
+                        penceresinden yapılandırılır.</p>
+
+                    <!-- 15. SQLCIPHER YEDEKLEME -->
+                    <h2 id="yedekleme">15. Veritabanı Modülü & SQLCipher Şifreli Yedekleme</h2>
+                    <p>Tüm veriler yerel bilgisayarınızda <strong>AES-256 SQLCipher</strong> ile şifrelenmiş veritabanı
+                        dosyasında saklanır (Local-First). İnternete veri aktarılmaz.</p>
+                    <ul>
+                        <li><strong>Yedek Al:</strong> <code>Veritabanı Modülü > Veritabanı Yedekleme</code> ekranından
+                            "Yedek Al" butonuna basarak <code>.radpysbak</code> uzantılı şifreli yedek alabilirsiniz.
+                        </li>
+                        <li><strong>Geri Yükle:</strong> "Yedekten Geri Yükleme" seçeneği mevcut veritabanını güvenle
+                            günceller.</li>
+                    </ul>
+
+                    <!-- 16. TOPLU İÇE AKTARMA -->
+                    <h2 id="toplu-aktar">16. Toplu İçe Aktarma (Excel / CSV Import) Sihirbazları</h2>
+                    <p>Personel, Dozimetre, İzin ve Muayene kayıtları için gelişmiş Excel içe aktarma sihirbazı
+                        mevcuttur. Sihirbaz içindeki <em>"Örnek Şablon İndir"</em> butonuyla standart şablonlar temin
+                        edilebilir. Yükleme esnasında hatalı veya uyumsuz satırlar önizleme tablosunda <strong>kırmızı
+                            renkle</strong> vurgulanır.</p>
+
+                    <!-- 17. SSS -->
+                    <h2 id="sss">17. Sık Sorulan Sorular & Sorun Giderme (SSS)</h2>
                     <div class="faq mt-4">
                         <details>
                             <summary>Demo sürüm kısıtlamaları nelerdir?</summary>
-                            <p>Demo modunda uygulama 15 gün deneme süresiyle, en fazla 6 aktif personel ve 3 nöbet
-                                planıyla sınırlandırılmıştır. Excel içe aktarımında da bu limitler denetlenir. Kritik
-                                yama güncellemeleri demo modunda da otomatik olarak sunulmaya devam eder.</p>
+                            <p>Demo modunda uygulama 15 gün deneme süresi, en fazla 6 aktif personel ve 3 nöbet
+                                planıyla kısıtlanmıştır. Excel içe aktarımında da bu limitler denetlenir.</p>
                         </details>
                         <details>
                             <summary>Uygulamayı nasıl aktifleştiririm?</summary>
-                            <p>Hakkında penceresindeki <strong>Lisans ve Aktivasyon</strong> alanından bilgisayarınıza
-                                özel <strong>Cihaz Kimliğini</strong> kopyalayıp yazılım sağlayıcısına (Cem Kara)
-                                iletin. Size üretilen Lisans Anahtarını aynı ekrana girerek programı Tam Sürüm olarak
-                                kullanabilirsiniz.</p>
+                            <p>Hakkında penceresindeki Cihaz Kimliğini kopyalayıp yazılım temsilcisine
+                                (<code>radpys.iletisim@gmail.com</code>) iletin. Üretilen Lisans Anahtarını girerek Tam
+                                Sürüme geçebilirsiniz.</p>
                         </details>
                         <details>
-                            <summary>Teknik hata durumlarında destek nasıl alınır?</summary>
-                            <p>Beklenmedik program çöküşlerinde özel hata penceresi açılır. Hakkında sayfasından
-                                <strong>Destek Paketi (Log) Oluştur</strong> butonuyla KVKK uyumlu teknik kayıt
-                                loglarını zip formatında masaüstünüze çıkarıp <code>radpys.iletisim@gmail.com</code>
-                                adresine gönderebilirsiniz.
+                            <summary>Teknik hata durumunda log dosyası nasıl gönderilir?</summary>
+                            <p>Hakkında sayfasından <strong>"Destek Paketi (Log) Oluştur"</strong> butonuna basarak KVKK
+                                uyumlu teknik kayıt loglarını zip formatında masaüstünüze çıkarıp e-posta ile iletebilirsiniz.
                             </p>
                         </details>
                         <details>
-                            <summary>Verilerim bulutta mı saklanıyor?</summary>
-                            <p>Tüm verileriniz tamamen yerel olarak kendi bilgisayarınızda AES-256 şifreli olarak saklanır (local-first). İnternete veya dış sunuculara hiçbir kişisel veri gönderilmez.</p>
+                            <summary>Verilerim bulut sunucularında saklanıyor mu?</summary>
+                            <p>Hayır. Tüm verileriniz tamamen yerel olarak bilgisayarınızda AES-256 SQLCipher şifreli
+                                olarak saklanır (Local-First). Dış sunuculara kişisel veri aktarılmaz.</p>
                         </details>
                     </div>
 
                     <div class="mt-12 rounded-2xl border border-white/10 p-8"
                         style="background:linear-gradient(135deg, rgba(20,184,166,0.08), rgba(139,92,246,0.05))">
-                        <h3 style="margin-top:0">Aradığınızı bulamadınız mı?</h3>
-                        <p>Ekibimiz size 1 iş günü içinde geri döner.</p>
+                        <h3 style="margin-top:0">Sorunuzun cevabını bulamadınız mı?</h3>
+                        <p>Teknik destek ekibimiz sorularınızı yanıtlamaktan memnuniyet duyar.</p>
                         <a href="iletisim.html" class="btn btn-primary mt-4">Destek Talep Et →</a>
                     </div>
                 </article>
@@ -404,26 +680,58 @@
 
     <script src="assets/js/layout.js"></script>
     <script>
-        // Active section on scroll
+        // Docs Navigation & Active Scroll & Live Filter Search
         (function () {
             const links = Array.from(document.querySelectorAll("#docs-nav a[href^='#']"));
-            const targets = links
-                .map((a) => ({ a, el: document.querySelector(a.getAttribute("href")) }))
-                .filter((x) => x.el);
+
+            function getAbsoluteTop(el) {
+                return el.getBoundingClientRect().top + window.scrollY;
+            }
+
+            function getTargets() {
+                return links
+                    .map((a) => {
+                        const href = a.getAttribute("href");
+                        const el = (href && href.startsWith("#")) ? document.querySelector(href) : null;
+                        return { a, el };
+                    })
+                    .filter((x) => x.el);
+            }
+
+            let targets = getTargets();
 
             function onScroll() {
-                const y = window.scrollY + 120;
-                let active = targets[0];
-                for (const t of targets) {
-                    if (t.el.offsetTop <= y) active = t;
+                const scrollThreshold = window.scrollY + 140;
+                let active = null;
+
+                for (let i = 0; i < targets.length; i++) {
+                    const top = getAbsoluteTop(targets[i].el);
+                    if (top <= scrollThreshold) {
+                        active = targets[i];
+                    } else {
+                        break;
+                    }
                 }
+
+                // If scrolled to the very bottom of page, highlight the last section
+                if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+                    if (targets.length > 0) active = targets[targets.length - 1];
+                }
+
                 links.forEach((l) => l.classList.remove("is-active"));
-                if (active) active.a.classList.add("is-active");
+                if (active && active.a) {
+                    active.a.classList.add("is-active");
+                }
             }
+
             window.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("resize", () => {
+                targets = getTargets();
+                onScroll();
+            });
             onScroll();
 
-            // Smooth in-page scroll
+            // Smooth scroll click handler
             links.forEach((a) => {
                 a.addEventListener("click", (e) => {
                     const href = a.getAttribute("href");
@@ -431,12 +739,29 @@
                         const el = document.querySelector(href);
                         if (el) {
                             e.preventDefault();
-                            window.scrollTo({ top: el.offsetTop - 90, behavior: "smooth" });
+                            const targetY = getAbsoluteTop(el) - 100;
+                            window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
                             history.replaceState(null, "", href);
                         }
                     }
                 });
             });
+
+            // Live Filter Search for Sidebar Links
+            const searchInput = document.getElementById("docs-search");
+            if (searchInput) {
+                searchInput.addEventListener("input", (e) => {
+                    const term = e.target.value.toLowerCase().trim();
+                    links.forEach((link) => {
+                        const text = link.textContent.toLowerCase();
+                        if (!term || text.includes(term)) {
+                            link.style.display = "block";
+                        } else {
+                            link.style.display = "none";
+                        }
+                    });
+                });
+            }
         })();
     </script>
 </body>

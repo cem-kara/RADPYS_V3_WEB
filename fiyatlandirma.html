@@ -9,8 +9,92 @@
     <title>Fiyatlandırma — RADPYS V3</title>
     <link rel="icon" type="image/x-icon" href="images/logo.ico" />
     <link rel="icon" type="image/png" href="images/logo.PNG" />
+    <link rel="canonical" href="https://radpys.com.tr/fiyatlandirma.html" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://radpys.com.tr/fiyatlandirma.html" />
+    <meta property="og:site_name" content="RADPYS V3" />
+    <meta property="og:locale" content="tr_TR" />
     <meta property="og:title" content="Fiyatlandırma — RADPYS V3" />
-    <meta property="og:image" content="images/main_logo.PNG" />
+    <meta property="og:description"
+        content="RADPYS V3 fiyatları — Başlangıç (1.500 ₺/ay), Standart (3.500 ₺/ay) ve Pro (7.000 ₺/ay) paket seçenekleri ile esnek fiyatlandırma." />
+    <meta property="og:image" content="https://radpys.com.tr/images/main_logo.PNG" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fiyatlandırma — RADPYS V3" />
+    <meta name="twitter:description"
+        content="RADPYS V3 fiyatları — Başlangıç, Standart ve Pro paket seçenekleri ile esnek fiyatlandırma." />
+    <meta name="twitter:image" content="https://radpys.com.tr/images/main_logo.PNG" />
+
+    <!-- Schema.org FAQPage & BreadcrumbList JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Ana Sayfa",
+              "item": "https://radpys.com.tr/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Fiyatlandırma",
+              "item": "https://radpys.com.tr/fiyatlandirma.html"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Kapasite veya personel sayısı aşılırsa ne olur?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Başlangıç paketi maks. 5, Standart paket maks. 15 personele kadar kullanım sağlar. Personel sayınız arttığında dilediğiniz zaman aradaki farkı ödeyerek üst pakete geçiş yapabilirsiniz."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Ödeme periyotları nasıl çalışır?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "1, 3, 6 veya 12 aylık periyotlarla peşin ödeme seçeneği mevcuttur. Daha uzun süreli periyotlarda aylık birim maliyet %30'a varan oranlarda düşmektedir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Verilerimiz nerede saklanıyor?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Varsayılan kurulumda verileriniz tamamen yerel olarak kendi bilgisayarınızda veya kendi yerel sunucunuzda AES-256 ile şifrelenerek saklanır. Dışarıdaki hiçbir bulut sunucusuna gönderilmez. Opsiyonel bulut yedekleme hizmetinde veriler Türkiye'deki KVKK uyumlu güvenli sunucularda yedeklenir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Mevcut sistemimizden geçiş yapabilir miyiz?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Evet. Excel ve CSV raporlarından toplu içe aktarma yapıyoruz. Geçiş desteği tüm paketlerde ilk 30 gün ücretsizdir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Deneme sürümü var mı?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Evet, 14 günlük ücretsiz deneme sunuyoruz. Kredi kartı bilgisi vermeniz gerekmez."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="preconnect" href="https://cdn.fontshare.com" />
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
     <link
@@ -225,6 +309,9 @@
         ];
         document.getElementById("faq").innerHTML = FAQ.map(f => `<details><summary>${f.q}</summary><p>${f.a}</p></details>`).join("");
     </script>
+    <div id="site-footer"></div>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/layout.js"></script>
 </body>
 
 </html>

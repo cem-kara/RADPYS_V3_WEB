@@ -1,7 +1,25 @@
-# RADPYS - Radyasyon Çalışanları Yönetim Sistemi
+# RADPYS V3 — Radyasyon Çalışanları Yönetim Sistemi
 
-RADPYS; hastane ve radyoloji departmanları için SKS 6.1 uyumlu doz takibi, otomatik nöbet planlama ve kalite yönetim platformudur.
+> RADPYS V3; hastane ve radyoloji departmanları için SKS 6.1, KVKK ve NDK/TAEK mevzuatlarına tam uyumlu dozimetre takibi, otomatik nöbet planlama, Şua izinleri ve kalite yönetim platformudur.
 
-- [Ana Sayfa](https://radpys.com.tr)
+## Genel Bakış
+RADPYS V3, radyasyon alanında çalışan sağlık personelinin (Radyoloji Teknisyenleri/Teknikerleri, Radyoloji Uzmanları, Sağlık Fizikçileri) tüm idari, tıbbi ve yasal takip süreçlerini %100 yerel ve şifreli veritabanı altyapısıyla yönetir.
+
+## Temel Modüller
+- **Nöbet Planlaması:** Kısıt-bilinçli, adil ve otomatik nöbet çizelgesi oluşturma.
+- **Dozimetre Takibi:** Kişisel dozimetre ölçüm verileri, yıllık/5 yıllık doz limit takibi ve uyarı mekanizması.
+- **İzin ve Şua İzni Takibi:** 3153 sayılı kanun uyumlu Şua izdi hakkı ve mazeret izni yönetimi.
+- **Fiili Hizmet Zammı (FHZ):** Yıllık yıpranma payı ve riskli birim süre hesaplamaları.
+- **Sağlık Muayeneleri:** Periyodik kan (hemogram), göz ve dermatoloji muayene takibi.
+- **Olay & DÖF Bildirimi:** SKS 6.1 uyumlu radyolojik kaza, doz aşımı ve düzeltici önleyici faaliyet yönetimi.
+
+## Bağlantılar & Kaynaklar
+- [Ana Sayfa](https://radpys.com.tr/)
 - [Modüller](https://radpys.com.tr/moduller.html)
-- [Kullanım Kılavuzu](https://radpys.com.tr/Kullanim_Kilavuzu.md)
+- [Fiyatlandırma](https://radpys.com.tr/fiyatlandirma.html)
+- [Dokümanlar & Rehber](https://radpys.com.tr/dokumanlar.html)
+- [Referanslar](https://radpys.com.tr/referanslar.html)
+- [Hakkımızda](https://radpys.com.tr/hakkimizda.html)
+- [İletişim](https://radpys.com.tr/iletisim.html)
+- [Kullanım Kılavuzu Markdown](https://radpys.com.tr/Kullanim_Kilavuzu.md)
+
