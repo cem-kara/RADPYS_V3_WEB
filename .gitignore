@@ -9,3 +9,10 @@ Thumbs.db
 .vscode/
 .idea/
 docs/images/*
+
+# ALwrity & Python AI Tools
+alwrity/
+.env
+venv/
+__pycache__/
+
