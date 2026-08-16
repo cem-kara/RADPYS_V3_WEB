@@ -133,21 +133,22 @@
             } else {
                 // list view
                 const CATS = ["Tümü", "Mevzuat & Kanunlar", "NDK Kılavuzları", "Radyasyon Güvenliği", "Rehber & Ürün"];
-                let active = "Tümü";
+                let activeIdx = 0;
 
                 function renderFilters() {
-                    document.getElementById("filters").innerHTML = CATS.map(c => `
-              <button data-cat="${c}" class="px-4 py-2 rounded-full text-sm border transition-all ${c === active ? "bg-neon-teal text-[#0a0f1e] border-neon-teal" : "border-white/10 text-slate-300 hover:border-neon-teal/40"}">${c}</button>
+                    document.getElementById("filters").innerHTML = CATS.map((c, i) => `
+              <button data-idx="${i}" class="px-4 py-2 rounded-full text-sm border transition-all ${i === activeIdx ? "bg-neon-teal text-[#0a0f1e] border-neon-teal" : "border-white/10 text-slate-300 hover:border-neon-teal/40"}">${c}</button>
             `).join("");
                     document.querySelectorAll("#filters button").forEach(b => b.addEventListener("click", () => {
-                        active = b.dataset.cat;
+                        activeIdx = parseInt(b.dataset.idx, 10);
                         renderFilters();
                         renderPosts();
                     }));
                 }
 
                 function renderPosts() {
-                    const list = active === "Tümü" ? posts : posts.filter(p => p.category === active);
+                    const activeCategory = CATS[activeIdx];
+                    const list = activeIdx === 0 ? posts : posts.filter(p => p.category === activeCategory);
                     document.getElementById("post-grid").innerHTML = list.length ? list.map(p => `
               <a href="kaynaklar.html?slug=${encodeURIComponent(p.slug)}" class="reveal is-visible block h-full group">
                 <article class="card card-lift overflow-hidden h-full">
