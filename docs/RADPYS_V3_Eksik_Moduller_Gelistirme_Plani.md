@@ -10,12 +10,10 @@
 
 | # | Modül | Yasal Dayanak | Öncelik | Efor |
 |---|---|---|---|---|
-| 1 | Hizmet İçi Radyasyon Güvenliği Eğitimi | NDK RGY, periyodik eğitim yükümlülüğü | 🔴 Yüksek | Orta |
-| 2 | NDK Bildirim Sürecinin Dokümantasyonu | Radyasyon Güvenliği Yönetmeliği (3 gün/72 saat) | 🔴 Yüksek | Düşük (sadece doküman) |
-| 3 | Cihaz Kalite Kontrol / Kalibrasyon Takibi | NDK RGY, SKS 6.1 | 🟡 Orta-Yüksek | Yüksek |
-| 4 | Kurum/İşyeri NDK Lisansı Takibi | Radyasyon Tesislerine İlişkin Yetkilendirmeler Yön. | 🟡 Orta | Orta |
-| 5 | RGS/RSO Görevlendirme & Sertifika Takibi | NDK RGY | 🟡 Orta | Düşük-Orta |
-| 6 | Gebelik Bildirim/Rapor İş Akışı | Sağlık Kuralları Yönetmeliği | 🟢 Orta-Düşük | Düşük-Orta |
+| 1 | Hizmet İçi Radyasyon Güvenliği Eğitimi | NDK RGY, periyodik eğitim yükümlülüğü | 🔴 Yüksek (Faz 1) | Orta |
+| 2 | Cihaz Kalite Kontrol / Kalibrasyon Takibi | NDK RGY, SKS 6.1 | 🟡 Orta-Yüksek (Faz 4) | Yüksek |
+| 3 | Kurum/İşyeri NDK Lisansı Takibi | Radyasyon Tesislerine İlişkin Yetkilendirmeler Yön. | 🟡 Orta (Faz 3) | Orta |
+| 4 | RGS/RSO Görevlendirme & Sertifika Takibi | NDK RGY | 🟡 Orta (Faz 2) | Düşük-Orta |
 
 ---
 
@@ -73,27 +71,7 @@ Raporlar Modülü'ndeki "Personel Eğitim Durum Raporu" (Kılavuz Bölüm 9.1) �
 
 ---
 
-## 2. NDK Bildirim Sürecinin Dokümantasyona Eklenmesi
-
-### Durum
-Kod tarafında zaten var: `olay_bildirim_service.py` + `V20260801_9_olay_ndk.py` migration'ı, olay radyasyonla ilgiliyse otomatik olarak `ndk_bildirim_gerekli=1` işaretliyor ve olay tarihinden **3 gün sonrasını** `ndk_bildirim_son_tarih` olarak hesaplıyor (`Radyasyon Güvenliği Yönetmeliği` ve `Radyasyon Tesislerine İlişkin Yetkilendirmeler Yönetmeliği` gereği 72 saatlik bildirim süresiyle birebir uyumlu). Sorun sadece **dokümantasyon eksikliği**.
-
-### Yapılacaklar
-1. **Kullanım Kılavuzu Bölüm 7 (Radyasyon Güvenliği, Olay Bildirim ve DÖF)** içine yeni bir alt başlık eklenmeli: *"7.4 NDK Resmi Bildirim Süreç Takibi"*
-   - Radyasyon içeren olaylarda sistemin otomatik olarak `NDK Bildirimi Gerekli` bayrağını nasıl kaldırdığını
-   - 3 günlük yasal sürenin nasıl hesaplandığını ve ekranda nerede göründüğünü (muhtemelen olay detay panelinde bir alan — kontrol edilmeli)
-   - `ndk_durum_guncelle()` metodunun UI karşılığı olan "NDK'ya Bildirildi" işaretleme butonunun nerede olduğunu
-   - Süresi yaklaşan/geçen bildirimler için görsel uyarı olup olmadığı (yoksa madde 2b'ye bakın)
-2. **SSS'ye** yeni bir soru eklenmeli: *"Radyasyon olayı bildiriminde NDK'ya bildirim süresi doluyor, ne yapmalıyım?"*
-
-### 2b. Kod tarafında kontrol edilmesi gereken nokta
-Kılavuz yazımı sırasında şunu doğrulayın: `ndk_bildirim_son_tarih` süresi dolmuş/yaklaşan kayıtlar için Olay Bildirim listesinde **görsel bir renk uyarısı** (dozimetre/sağlık muayenesi modüllerindeki kırmızı/sarı mantığı) var mı? Yoksa bu, dokümantasyon değil, küçük bir kod eklentisi gerektirir — `olay_bildirim_service.py` listesine `ndk_takip_durumu` bazlı bir `WHERE` filtresi veya UI tarafında renk delegesi eklenmesi yeterli olur (mevcut `status_delegate.py` widget'ı kullanılabilir).
-
-**Tahmini efor:** Dokümantasyon için düşük; görsel uyarı eksikse ek olarak küçük (status_delegate entegrasyonu).
-
----
-
-## 3. Cihaz Kalite Kontrol / Kalibrasyon Takibi
+## 2. Cihaz Kalite Kontrol / Kalibrasyon Takibi
 
 ### Neden gerekli?
 Kod tabanında (`app/services/*`) BT, Röntgen, Anjiyografi gibi cihazların periyodik kalite kontrol/kalibrasyon kayıtlarını tutan bir servis bulunmuyor (grep sonucu boş). NDK mevzuatı ve SKS 6.1, personel güvenliğinin yanı sıra **cihaz bazlı** periyodik kalite kontrol ve kalibrasyon kaydını da ister.
@@ -133,7 +111,7 @@ Bu, mevcut dört modülden (Personel/İzin/Dozimetre/Nöbet) yapısal olarak far
 
 ---
 
-## 4. Kurum/İşyeri NDK Lisansı ve Cihaz Lisans Süre Takibi
+## 3. Kurum/İşyeri NDK Lisansı ve Cihaz Lisans Süre Takibi
 
 ### Neden gerekli?
 Kurumun radyasyon kaynağı kullanım lisansının (işyeri lisansı) ve varsa cihaz bazlı lisansların yenileme tarihini izleyen bir alan/modül bulunmuyor (Radyasyon Tesislerine İlişkin Yetkilendirmeler Yönetmeliği).
@@ -146,7 +124,7 @@ CREATE TABLE kurumsal_lisanslar (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     lisans_turu     TEXT,        -- 'İşyeri Lisansı','Cihaz Lisansı' vb.
     lisans_no       TEXT,
-    ilgili_cihaz_id INTEGER REFERENCES cihazlar(id),  -- madde 3 uygulanırsa bağlanabilir, yoksa NULL
+    ilgili_cihaz_id INTEGER REFERENCES cihazlar(id),  -- madde 2 uygulanırsa bağlanabilir, yoksa NULL
     verilis_tarihi  DATE,
     gecerlilik_bitis DATE NOT NULL,
     veren_kurum     TEXT DEFAULT 'NDK',
@@ -157,11 +135,11 @@ CREATE TABLE kurumsal_lisanslar (
 
 UI: **Tanımlamalar > Kurumsal Lisanslar** sekmesi + dashboard'da "Süresi Yaklaşan Lisans" uyarı kartı.
 
-**Tahmini efor:** Orta — bağımsız çalışabilir (madde 3'e bağımlı değil), önce bu yapılabilir.
+**Tahmini efor:** Orta — bağımsız çalışabilir (madde 2'ye bağımlı değil), önce bu yapılabilir.
 
 ---
 
-## 5. RGS/RSO Görevlendirme ve Sertifika Takibi
+## 4. RGS/RSO Görevlendirme ve Sertifika Takibi
 
 ### Neden gerekli?
 Kurumun resmi Radyasyon Güvenliği Sorumlusu/Uzmanı (RGS/RSO) atamasını ve sertifika geçerliliğini izleyen ayrı bir kayıt yapısı yok; genel eğitim modülüyle karışabilir.
@@ -189,32 +167,16 @@ UI: Personel Detay ekranına yeni bir sekme ("RGS Görevlendirme") veya bağıms
 
 ---
 
-## 6. Gebelik Bildirim/Rapor İş Akışı
-
-### Neden gerekli?
-Kılavuzda "gebelik muafiyeti" bir nöbet kısıtı olarak tanımlı, ama personelin hamileliğini resmi olarak bildirdiği, doktor raporu yüklediği ve bu durumun otomatik olarak nöbet/dozimetre kısıtlarını tetiklediği ayrı bir iş akışı belgelenmemiş (kodda var mı belirsiz — kontrol edilmeli).
-
-### Yapılacaklar
-1. Önce kod tarafında `personeller` tablosunda gebelik/emzirme durumunu tutan bir alan olup olmadığı kontrol edilmeli (`grep -i "hamile\|gebelik\|emzirme" app/db/schema.sql`)
-2. Eğer alan var ama resmi bir "bildirim + rapor yükleme + onay" iş akışı yoksa, bu **Personel Modülü** içine küçük bir dialog olarak eklenebilir: *Personel Detay > Özel Durum Bildirimi* — tarih aralığı + doktor raporu yükleme (mevcut `DocumentService` kullanılarak) + kaydedildiğinde otomatik olarak nöbet motoruna (`nobet_scheduler.py`) sinyal göndermesi
-3. Eğer alan hiç yoksa, önce şema seviyesinde eklenmesi gerekir — bu durumda öncelik yükselir
-
-**Tahmini efor:** Kod kontrolüne bağlı — mevcut alan varsa düşük, yoksa orta.
-
----
-
 ## Önerilen Uygulama Sırası (Yol Haritası)
 
 ```
-Faz 1 (1 hafta):         Madde 2 — NDK bildirim sürecinin dokümantasyonu + kod kontrolü
-Faz 2 (1-2 hafta):       Madde 1 — Hizmet İçi Eğitim Modülü (Sağlık Muayenesi şablonu kullanılarak)
-Faz 3 (3-5 gün):         Madde 5 — RGS/RSO Görevlendirme Takibi
-Faz 4 (3-5 gün):         Madde 4 — Kurumsal Lisans Takibi
-Faz 5 (1-2 gün araştırma + geliştirme): Madde 6 — Gebelik Bildirim İş Akışı (önce kod kontrolü)
-Faz 6 (2-3 hafta, ayrı sprint): Madde 3 — Cihaz Kalite Kontrol/Kalibrasyon Modülü (en büyük kapsam)
+Faz 1 (1-2 hafta):       Madde 1 — Hizmet İçi Eğitim Modülü (Sağlık Muayenesi şablonu kullanılarak)
+Faz 2 (3-5 gün):         Madde 4 — RGS/RSO Görevlendirme Takibi
+Faz 3 (3-5 gün):         Madde 3 — Kurumsal Lisans Takibi
+Faz 4 (2-3 hafta, ayrı sprint): Madde 2 — Cihaz Kalite Kontrol/Kalibrasyon Modülü (en büyük kapsam)
 ```
 
-Faz 1-5, mevcut mimariye (servis + repository + Wizard/dialog UI + Raporlar entegrasyonu) doğrudan oturuyor ve mevcut Sağlık Muayenesi/Dozimetre modüllerindeki "süresi geçmiş/yaklaşan/normal" renk kodlama deseni her birinde tekrar kullanılabilir. Faz 6 ayrı bir varlık (cihaz) etrafında kurulduğu için ayrı planlanmalı.
+Faz 1-3, mevcut mimariye (servis + repository + Wizard/dialog UI + Raporlar entegrasyonu) doğrudan oturuyor ve mevcut Sağlık Muayenesi/Dozimetre modüllerindeki "süresi geçmiş/yaklaşan/normal" renk kodlama deseni her birinde tekrar kullanılabilir. Faz 4 ayrı bir varlık (cihaz) etrafında kurulduğu için ayrı planlanmalı.
 
 ---
 

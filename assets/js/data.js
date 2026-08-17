@@ -9,7 +9,7 @@
         institutions: 84,
         users: 6200,
         years: 8,
-        modules: 6,
+        modules: 8,
     };
 
     const TESTIMONIALS = [
@@ -180,6 +180,8 @@
         { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z", name: "Fiili Hizmet", desc: "Sağlık (Şua) izin takibi.", tag: "04" },
         { icon: "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z", name: "Sağlık Muayeneleri", desc: "Periyodik muayene planı, hatırlatma ve raporlama.", tag: "05" },
         { icon: "M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z", name: "Olay Bildirimi", desc: "Çok kullanıcılı olay bildirim altyapısı, kurum içi bildirim şablonu ve delil zinciri.", tag: "06" },
+        { icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z", name: "Gebelik Bildirimi", desc: "Doktor raporu entegreli hamilelik bildirimi, nöbet ve dozimetre kısıt entegrasyonu.", tag: "07" },
+        { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", name: "NDK Resmi Bildirimler", desc: "72 saatlik yasal kaza/olay bildirim takibi ve dijital zaman sayacı.", tag: "08" },
     ];
 
     window.RADPYS = { STATS, TESTIMONIALS, BLOG_POSTS, MODULES };

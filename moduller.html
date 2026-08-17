@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi. Altı modül, sıfır elektronik tablo." />
+    content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi, Hizmet İçi Eğitim, RGS/RSO Görevlendirme. Sekiz modül, sıfır elektronik tablo." />
   <title>Modüller — RADPYS V3</title>
   <link rel="icon" type="image/x-icon" href="images/logo.ico" />
   <link rel="icon" type="image/png" href="images/logo.PNG" />
@@ -17,12 +17,12 @@
   <meta property="og:locale" content="tr_TR" />
   <meta property="og:title" content="Modüller — RADPYS V3" />
   <meta property="og:description"
-    content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi. Altı modül, sıfır elektronik tablo." />
+    content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi, Hizmet İçi Eğitim, RGS/RSO Görevlendirme. Sekiz modül, sıfır elektronik tablo." />
   <meta property="og:image" content="https://radpys.com.tr/images/main_logo.PNG" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Modüller — RADPYS V3" />
   <meta name="twitter:description"
-    content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi." />
+    content="RADPYS V3 modülleri — Nöbet, Dozimetre, İzin, Fiili Hizmet, Sağlık Muayeneleri, Olay Bildirimi, Hizmet İçi Eğitim, RGS/RSO Görevlendirme." />
   <meta name="twitter:image" content="https://radpys.com.tr/images/main_logo.PNG" />
 
   <!-- Schema.org BreadcrumbList JSON-LD -->
@@ -67,7 +67,7 @@
       <div class="relative container-narrow">
         <span class="section-label">Modüller</span>
         <h1 class="mt-6 font-display text-5xl md:text-7xl leading-[1] tracking-[-0.03em]">
-          <span class="reveal-mask d1"><span>Altı modül, sıfır</span></span>
+          <span class="reveal-mask d1"><span>Sekiz modül, sıfır</span></span>
           <span class="reveal-mask d2"><span>elektronik tablo.</span></span>
         </h1>
         <p class="reveal mt-8 max-w-2xl text-slate-300 text-lg">Her modül bağımsız çalışır — hepsi birlikte ise tek bir
@@ -88,7 +88,8 @@
             Kesintisiz Mevzuat Uyumu & <span class="text-neon-teal">Gelecek Modüllerimiz</span>
           </h2>
           <p class="reveal mt-4 text-slate-300 text-lg leading-relaxed">
-            RADPYS; NDK, SKS 6.1 ve Sağlık Bakanlığı standartlarındaki tüm gelişmeleri yakından takip eder. Kurumunuzun gelecekteki denetim ve mevzuat ihtiyaçlarına özel olarak tasarlanan yeni modüllerimiz:
+            RADPYS; NDK, SKS 6.1 ve Sağlık Bakanlığı standartlarındaki tüm gelişmeleri yakından takip eder. Kurumunuzun
+            gelecekteki denetim ve mevzuat ihtiyaçlarına özel olarak tasarlanan yeni modüllerimiz:
           </p>
         </div>
 
@@ -144,11 +145,23 @@
         features: ["Çok kullanıcılı olay bildirim altyapısı ve sihirbazı", "Süre bazlı hatırlatma", "Delil zinciri (ek dosya, imza)", "Resmi kurum içi bildirim şablonu"],
         benefit: "Kaçırılan bildirim = ciddi ceza. RADPYS'te sıfır olay unutulmaz.",
       },
+      {
+        n: "07", name: "Gebelik Bildirimi & Yasal Muafiyet", tag: "Doktor raporu entegreli, kısıt sinyalleri.",
+        img: "images/cover_mevzuat_kanunlar.jpg",
+        features: ["Doktor raporu ile hamilelik bildirimi kaydı", "Nöbet algoritmasına otomatik mazeret/muafiyet sinyali", "Dozimetre takip sistemine kümülatif gebelik dozu uyarısı", "Yasal çalışma süresi kısıt denetimi"],
+        benefit: "Hamile çalışanların yasal hakları ve radyasyon güvenliği sıfır hata ile korunur.",
+      },
+      {
+        n: "08", name: "NDK Resmi Bildirim Süreçleri", tag: "72 saat yasal bildirim garantisi.",
+        img: "images/cover_ndk_kilavuzlar.jpg",
+        features: ["3 günlük (72 saat) yasal NDK bildirim süresi takibi", "Dijital geri sayım sayacı ve görsel uyarılar", "Radyasyon kazası ve olay bildirim entegrasyonu", "Kurumsal denetim ve resmi NDK bildirim arşivi"],
+        benefit: "Geciken bildirimlerden kaynaklanan ağır cezai yaptırımların önüne geçilir.",
+      },
     ];
 
     const FUTURE_MODULES = [
       {
-        badge: "Geliştirme Aşamasında",
+        badge: "Planlanan Güncelleme",
         badgeColor: "border-emerald-500/30 text-emerald-400 bg-emerald-500/10",
         name: "Hizmet İçi Eğitim Takibi",
         highlight: "Süresi Dolan Eğitime Anında Uyarı",
@@ -156,39 +169,23 @@
         tag: "NDK RGY Uyumlu",
       },
       {
-        badge: "Çok Yakında",
-        badgeColor: "border-cyan-500/30 text-cyan-400 bg-cyan-500/10",
-        name: "NDK Resmi Bildirim Süreç Takibi",
-        highlight: "72 Saat Yasal Bildirim Garantisi",
-        desc: "Radyasyon kazası ve olay bildirimlerinde NDK'ya zorunlu olan 3 günlük yasal süreyi otomatik hesaplar, dijital sayaç ve görsel uyarılar ile bildirim gecikmelerini önler.",
-        tag: "RGY & SKS 6.1",
-      },
-      {
-        badge: "Geliştirme Aşamasında",
-        badgeColor: "border-emerald-500/30 text-emerald-400 bg-emerald-500/10",
+        badge: "Planlanan Güncelleme",
+        badgeColor: "border-teal-500/30 text-teal-400 bg-teal-500/10",
         name: "RGS / RSO Sertifika ve Görevlendirme",
         highlight: "Uzman Yetki Kontrolü",
         desc: "Radyasyon Güvenliği Sorumlularının (RGS/RSO) resmi atamalarını, görev tarihlerini ve sertifika geçerlilik sürelerini kayıt altında tutarak yetki karmaşasını engeller.",
         tag: "Kurumsal Güvenlik",
       },
       {
-        badge: "Planlanan Güncelleme",
-        badgeColor: "border-purple-500/30 text-purple-400 bg-purple-500/10",
+        badge: "Çok Yakında",
+        badgeColor: "border-cyan-500/30 text-cyan-400 bg-cyan-500/10",
         name: "Kurumsal NDK Lisans Takibi",
         highlight: "Zamanında Yenileme Hatırlatıcısı",
         desc: "Kurumun ve cihazların NDK lisans geçerlilik tarihlerini izler. Lisans yenileme süreçleri yaklaşırken yönetimi uyararak lisanssız çalışma riskini ortadan kaldırır.",
         tag: "Lisans Güvencesi",
       },
       {
-        badge: "Yakında Yayında",
-        badgeColor: "border-teal-500/30 text-teal-400 bg-teal-500/10",
-        name: "Gebelik Bildirim & Yasal Muafiyet İş Akışı",
-        highlight: "Doktor Raporu Entegreli",
-        desc: "Personelin hamilelik bildirimini resmi doktor raporuyla sisteme kaydeder. Nöbet motoruna ve dozimetre takip sistemine otomatik kısıt sinyalleri iletir.",
-        tag: "Sağlık Yönetmeliği",
-      },
-      {
-        badge: "Yol Haritamızda",
+        badge: "Geliştirme Aşamasında",
         badgeColor: "border-amber-500/30 text-amber-400 bg-amber-500/10",
         name: "Cihaz Kalite Kontrol & Kalibrasyon Takibi",
         highlight: "BT, Röntgen ve Anjiyo Uyumlu",

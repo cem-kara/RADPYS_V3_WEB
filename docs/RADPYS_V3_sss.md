@@ -109,6 +109,11 @@ Bu doküman, RADPYS V3 (Radyoloji & Radyasyon Personeli Yönetim Sistemi) masaü
 * **Çözüm:** Sistem yöneticisine başvurarak ilgili dönemin kilidini geçici olarak kaldırtın.
 * *🔍 Kaynak:* `docs/Kullanim_Kilavuzu.md` (Bölüm 4)
 
+### ❓ 4.4 Web Portalından iletilen İzin Talepleri masaüstü veritabanına ve yöneticiye nasıl yansır?
+* **Neden Olur?:** Saha çalışanı Web Portalındaki *İzin Talep Formu* üzerinden izin başvurusunu ilettiğinde `POST /api/izin/talep` endpoint'i çalışır.
+* **Çözüm:** Masaüstü RADPYS V3 `WebSyncService` servisi kaydı otomatik alarak `radpys.db` `personel_izinler` tablosuna ve **Yönetim > Onay Bekleyen Görevler > İzin Talepleri** paneline işler. Yönetici onayladığında izin kaydı kesinleşir ve bakiyeden düşer.
+* *🔍 Kaynak:* `docs/Kullanim_Kilavuzu.md` (Bölüm 4.4 & 11.2.5), `web_portal/server.ts`
+
 ---
 
 <a id="5-dozimetre-takip--ndk-limit-uyarisi-modulu"></a>
@@ -152,6 +157,13 @@ Bu doküman, RADPYS V3 (Radyoloji & Radyasyon Personeli Yönetim Sistemi) masaü
 ### ❓ 6.4 Yayınlanmış planda nöbet devri veya isim değişikliği yapıldığında hakediş saatleri ne olur?
 * **Yanıt:** Eğer *Onayda Otomatik Çizelge Güncelle* seçeneği aktifse, devir onaylandığı anda nöbet çizelgesindeki isim otomatik güncellenir ve personellerin aylık hakediş/fazla mesai saatleri anında yeniden hesaplanır.
 * *🔍 Kaynak:* `docs/Kullanim_Kilavuzu.md` (Bölüm 6.16)
+
+### ❓ 6.5 🤰 Personel gebelik bildirimi yaptığında mevcut ve gelecek ay nöbetleri nasıl etkilenir?
+* **Yanıt:** 
+  * **Radyasyonlu Alan Personeli (`radyasyonlu_alan = 1`):** Mevcut ve hazırlanmış gelecek ay nöbet çizelgesindeki **GÜNDÜZ VE GECE TÜM NÖBETLERİ** otomatik olarak `IPTAL_MAZERET` yapılır.
+  * **Radyasyonsuz Alan Personeli (`radyasyonlu_alan = 0`):** Gündüz mesaileri saklı tutulur, **SADECE GECE VE 24 SAATLİK NÖBETLERİ** `IPTAL_MAZERET` yapılır.
+  * **Yönetici Aksiyonu:** Yönetici **🎯 Yönetici Aksiyon Merkezi** (Masaüstünde *Onay Bekleyen Görevler > Gebelik & İdari Aksiyonlar*) üzerinden tek tıkla personelin yeni radyasyonsuz birim atamasını, boşalan nöbetlerin ikamelerini ve 160 saatlik gündüz mesai dengelemesini 3 adımlı sihirbazla tamamlar.
+* *🔍 Kaynak:* `docs/Kullanim_Kilavuzu.md` (Bölüm 3.6 & 8.4)
 
 ---
 

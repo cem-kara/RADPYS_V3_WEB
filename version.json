@@ -1,7 +1,7 @@
 {
-  "version": "3.8.6.2",
-  "latest_demo_version": "3.8.6.2",
-  "release_date": "2026-08-10",
+  "version": "3.9.0.0",
+  "latest_demo_version": "3.9.0.0",
+  "release_date": "2026-08-15",
   "download_url": "https://download.radpys.com.tr/releases/RADPYS_Setup_latest.exe",
-  "changelog": "PySide6 QAction import düzeltmesi, Türkçe karakterli departman lookup ASCII normalizasyonu, headless CI qtbot fixture uyumu ve Qt nesne yaşam döngüsü async QTimer güvenlik güncellemeleri yapıldı."
+  "changelog": "Gebelik Bildirimi & Yasal Muafiyet ve NDK Resmi Bildirim Süreç Takibi modülleri entegre edilerek toplam aktif modül sayısı 8'e çıkarıldı."
 }

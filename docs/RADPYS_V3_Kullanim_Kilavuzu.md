@@ -216,7 +216,7 @@ Veri aktarımının hatalara yol açmaması için işlemler **kesinlikle aşağ�
    * *(Not: Excel'e yazdığınız Departman veya Unvan bilgisi sistemde henüz tanımlı değilse, 1. Adımdaki tanımlamalar esnasında sistem tarafından otomatik oluşturulur).*
 3. **Excel Dosyasını Yükleyin ve Doğrulayın:**
    * İçe Aktar penceresindeki **"Dosya Seç"** butonuna tıklayarak hazırladığınız Excel dosyasını seçin.
-   * Sistem verileri önizleme tablosunda listeleyecek; eksik veya hatalı alan içeren satırları **kırmızı renkle** vurgulayacaktır.
+   * Sistem verileri önizleme tablosunda listeleyerek sütun eşleştirme kontrollerini hazırlar.
 4. **Aktarımı Başlatın:**
    * Hatalı satır yoksa veya düzeltildikten sonra **"Aktarımı Başlat"** butonuna tıklayın.
    * Aktarım bittiğinde ekranda *"X adet personel başarıyla aktarıldı"* özeti görüntülenecektir.
@@ -229,8 +229,8 @@ Toplu personel içe aktarımı tamamlandığında sistem, her personel için oto
 
 #### 1. Otomatik Kullanıcı Adı ve Geçici Şifre Formatı
 
-* **Kullanıcı Adı Formatı:** Personelin Adının ilk harfi + Soyadı (Örn: *Ahmet Yılmaz* -> `AYilmaz`).
-* **Geçici Şifre Formatı:** `KullanıcıAdı123!` (Örn: Kullanıcı adı `AYilmaz` olan personel için geçici şifre: `AYilmaz123!`).
+* **Kullanıcı Adı Formatı:** Personelin Adının ilk harfi + Soyadı küçük harf ASCII formatında (Örn: *Ahmet Yılmaz* -> `ayilmaz`).
+* **Geçici Şifre Formatı:** `KullanıcıAdı123!` (Örn: Kullanıcı adı `ayilmaz` olan personel için geçici şifre: `Ayilmaz123!`).
 
 #### 2. Geçici Şifrelerin Kaydedildiği Yer ve Erişim
 
@@ -296,7 +296,7 @@ Sisteme yeni başlayan bir personelin özlük, kimlik, iletişim, acil durum yak
    * **Özlük Belgeleri:** Personelin kimlik fotokopisi, sertifika veya sözleşme gibi özlük dosyalarını (PDF/Görsel) yükleyin.
    * Formu kaydetmek için **"Kaydet"** butonuna tıklayın.
    * Peş peşe birden fazla personel eklemek için **"Kaydet ve Yeni"** butonunu kullanabilirsiniz.
-   * *(Sistem kayıt tamamlandığında personel için otomatik olarak `AYilmaz` kullanıcı adı ve `AYilmaz123!` geçici şifresini oluşturur).*
+   * *(Sistem kayıt tamamlandığında personel için otomatik olarak `ayilmaz` kullanıcı adı ve `Ayilmaz123!` geçici şifresini oluşturur).*
 
 ---
 
@@ -377,6 +377,28 @@ Kurumdan ayrılan veya tayini çıkan personeli veritabanından kalıcı olarak 
 
 > [!TIP]
 > **Veri Taşınabilirliği İpucu:** KVKK ihraç paketi personelin kurumdan ayrılması durumunda kişisel verilerinin eksiksiz bir kopyasını kendisine teslim etmek için kullanılabilir.
+
+### 🐾 3.6 Gebelik & Sağlık Muafiyet Bildirim Süreci ve Otomatik Nöbet Düzenlemesi
+
+#### 💡 Amaç
+Kadın personelin gebelik bildiriminde bulunması, doktor raporunu dijital arşive işlemesi, radyasyon risk grubuna göre nöbetlerinin otomatik iptal edilmesi ve yöneticinin tek tıkla görev yeri atamasını tamamlamasını sağlamaktır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Gebelik / Sağlık Muafiyet Bildirimi Oluşturma:**
+   * **Web Portal Üzerinden:** Sol Yan Menüdeki **"🤰 Gebelik & Sağlık Muafiyeti"** sekmesine tıklayın. *(Admin ve Yönetici kullanıcıları kadın personeller arasından seçim yaparak bildirim oluşturabilir).*
+   * **Masaüstü Uygulaması Üzerinden:** **Personel Detay** sayfasındaki **"🤰 Gebelik / Muafiyet Ekle"** butonuna tıklayın.
+2. **Bildirim Detaylarını ve Doktor Raporunu Yükleyin:**
+   * **Bildirim Tarihi & Tahmini Bitiş Tarihi:** Gebelik başlangıç ve tahmini bitiş tarihlerini girin.
+   * **Tercih Edilen Radyasyonsuz Birim:** Personelin talep ettiği yeni birim tercihini seçin.
+   * **Doktor Raporu Yükleme:** Gebelik raporunu (PDF/Resim) sisteme yükleyin *(Belge personelin dijital özlük dosyası arşivine otomatik senkronize edilir)*.
+3. **Alan Bazlı Otomatik Nöbet İptal Kuralları (Sistem Tarafından Otomatik Uygulanır):**
+   * ☢️ **Radyasyonlu Alan Personeli (`radyasyonlu_alan = 1`; Tomografi, Anjiyo, Skopi vb.):** Gebelik bildirimi yapıldığı an, içinde bulunulan ay ve hazırlanmış sonraki ay içerisindeki **GÜNDÜZ VE GECE TÜM NÖBETLER** yasal zorunluluk gereği otomatik olarak `IPTAL_MAZERET` durumuna getirilir.
+   * 🛡️ **Radyasyonsuz Alan Personeli (`radyasyonlu_alan = 0`; Idari, Poliklinik vb.):** Gündüz mesaileri korunur, **SADECE GECE VE 24 SAATLİK NÖBETLER** `IPTAL_MAZERET` yapılır.
+4. **Merkezi Yönetici Aksiyon Sihirbazı (İdarenin 1-Tıkla Tamamlaması):**
+   * Bildirim yapıldığı an **🎯 Yönetici Aksiyon Merkezi (Manager Action Hub)** ekranında yönetici için otomatik aksiyon kartı oluşturulur (Bkz. [Madde 8.4](#bolum-8-4)).
+
+---
 
 ## 4. İzin Takip, Şua İzni ve Fiili Hizmet Takip Modülü ve Şua İzni Hak Ediş İşlemleri
 
@@ -459,7 +481,26 @@ Hatalı veya tarihi değişen izin kayıtlarını güncellemek ya da iptal edile
 
 ---
 
-### 🐾 4.4 Yıl Sonu Devir İzin Bakiyeleri Yeni Yıla Nasıl Aktarılır?
+### 🐾 4.4 Web Portalı Çevrimiçi İzin Talepleri ve Masaüstü Veritabanı Senkronizasyonu
+
+#### 💡 Amaç
+Saha çalışanlarının Web Portalı (`web_portal`) üzerinden oluşturduğu izin başvurularının Masaüstü RADPYS V3 veritabanına (`radpys.db` `personel_izinler` tablosu) otomatik aktarılması, **Onay Bekleyen Görevler Paneli** üzerinden yöneticilerce incelenerek karara bağlanmasıdır.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Web Portalından İzin Talebinin İletilmesi:**
+   * Personel Web Portalı üzerinden *İzin Talep Formu* ile talebini iletir (`POST /api/izin/talep`).
+2. **Arka Plan Senkronizasyonu (`WebSyncService`):**
+   * Masaüstü RADPYS V3 arka plan senkronizasyon servisi (`WebSyncService`) web verilerini okuyarak `personel_izinler` tablosuna `onay_durumu = 'Beklemede'` etiketiyle işler ve yöneticiye anlık bildirim üretir.
+3. **Amir / Yönetici Onayı:**
+   * Masaüstü uygulamasında **Yönetim > Onay Bekleyen Görevler > İzin Talepleri** sekmesine gidin.
+   * Talebi inceleyip **"Onayla"** butonuna basarak izni onaylayın veya gerekçe yazarak **"Reddet"** butonuna basın.
+4. **Bakiye ve Takvim Güncellemesi:**
+   * Onaylanan izin kaydı otomatik olarak personelin bakiye düşümüne işlenir ve Birim Nöbet Çizelgesinde izinli gün olarak gösterilir.
+
+---
+
+### 🐾 4.5 Yıl Sonu Devir İzin Bakiyeleri Yeni Yıla Nasıl Aktarılır?
 
 #### 💡 Amaç
 
@@ -809,7 +850,7 @@ Yıllık 20 mSv limitini geçen veya tek ölçümde 5 mSv anomali eşiğini aşa
 2. **1. Adım (Dosya Seç):**
    * Ölçüm firmasından gelen Excel (`.xlsx`) veya PDF rapor dosyasını ekrandaki sürükle-bırak alanına bırakın veya **"Dosya Seç"** butonuyla yükleyin.
 3. **2. Adım (Önizleme & Eşleştirme Kontrolü):**
-   * Sistem dosyadaki personelleri TC Kimlik veya Dozimetre No ile otomatik eşleştirir. Mükerrer kayıtları ve eşleşmeyen personelleri uyarı renkleriyle listeler.
+   * Sistem dosyadaki personelleri TC Kimlik veya Dozimetre No ile otomatik eşleştirir; eşleşen ve eşleşmeyen kayıt sayılarını özet alanında görüntüler.
 4. **3. Adım (Kaydet & Raporla):**
    * **"Aktarımı Başlat"** butonuna basarak verileri kaydedin. İçe aktarım bittiğinde otomatik anomali DÖF kayıtları üretilecektir.
 
@@ -1226,20 +1267,22 @@ Tekrarlayan veya kritik radyasyon emniyeti riskleri için aksiyon planı oluştu
 
 Nükleer Düzenleme Kurumu (NDK) *Radyasyon Güvenliği Yönetmeliği* ve *Radyasyon Tesislerine İlişkin Yetkilendirmeler Yönetmeliği* uyarınca; iyonlaştırıcı radyasyon kaynaklarıyla çalışılan alanlarda meydana gelen doz aşımı, cihaz arızası veya radyasyon güvenliğini ihlal eden olaylarda **en geç 3 takvim günü (72 saat)** içerisinde NDK'ya resmi bildirim yapılması yasal bir zorunluluktur.
 
-RADPYS V3; radyasyon kategorisindeki olaylarda bu 3 günlük yasal son tarihi otomatik hesaplar ve yönetim panelinde mevzuat uyum takibini yürütür.
+RADPYS V3; radyasyon kategorisindeki olaylarda bu 3 günlük yasal son tarihi otomatik hesaplar, görsel renk kodlarıyla amirleri uyarır ve yönetim panelinde mevzuat uyum takibini yürütür.
 
-#### 🐾 Otomatik Takip ve Rozet Mantığı
+#### 🐾 Otomatik Takip, Renk Kodlu Uyarılar ve İşaretleme
 
 1. **Otomatik Son Tarih Hesaplama:**
    * Bir bildirim açıldığında olay kategorisinde `"RADYASYON"` tanımlı ise veya formda **"NDK Bildirimi Gerekli"** kutucuğu işaretlendiğinde sistem `ndk_bildirim_gerekli = 1` set eder.
    * Bildirim tarihi esas alınarak yasal NDK son bildirim tarihi otomatik olarak **`Olay Tarihi + 3 Gün`** olarak hesaplanır.
-2. **NDK Takip Statüleri ve Görsel Rozetler:**
-   * 🟡 **`bekliyor` (NDK Bildirimi Bekliyor):** Yasal 3 günlük bildirim süresi devam eden, henüz NDK resmi bildirim tarihi girilmemiş kayıtlar.
-   * 🟢 **`yapildi` (NDK Bildirimi Yapıldı):** NDK'ya resmi bildirim tarihi sisteme işlenerek kapatılan kayıtlar.
-   * ⚪ **`gerekmiyor` (Bildirim Gerekmiyor):** Radyasyon riski içermeyen standart olaylar.
-3. **Masaüstü ve Web Portalı Yönetim Paneli:**
-   * Kalite Yöneticileri ve RKG; **Kalite & Güvenlik > Olay Bildirim / DÖF** panelinden veya Web Portalı Olay Dashboard alanından NDK bildirimi bekleyen vakaları tek tıkla filtreleyebilir.
-   * Yasal 3 günlük süre aşıldığında sistem 🔴 **"NDK Süre İhlali / Gecikmiş Bildirim"** uyarısı vererek amirleri bilgilendirir.
+2. **Tablo Görsel Renk Kodlama Mimarisi (Masaüstü & Web):**
+   * 🔴 **`🔴 GECİKMEDE (Kırmızı Vurgu)`:** 3 günlük yasal NDK süresi dolmuş ancak resmi bildirim henüz yapılmamış acil vakalar. Tablo hücresi açık kırmızı arka plan ve koyu kırmızı font ile uyarılır.
+   * 🟠 **`🟠 SON GÜN (Turuncu Vurgu)`:** 72 saatlik bildirim sınırının son gününe girilmiş kritik vakalar.
+   * 🔵 **`🔵 Bekliyor (Mavi Vurgu)`:** 3 günlük yasal süre içerisinde takibi devam eden bildirimler.
+   * 🟢 **`🟢 Bildirildi (Yeşil Vurgu)`:** NDK resmi bildirim tarihi sisteme işlenerek kapatılan vakalar.
+   * ⚪ **`⚪ Gerekmiyor`:** Radyasyon riski taşımayan standart olay bildirimleri.
+3. **1-Tıkla NDK Bildirimi İşaretleme Paneli:**
+   * RKG veya İdareci Masaüstü uygulamasında **Olay Bildirim Listesi**'nden ilgili vakayı seçtiğinde sağ paneldeki **NDK Bildirim Kayıt Alanı** aktifleşir.
+   * Bildirim tarihini seçip **"NDK Bildirim Durumunu Kaydet"** butonuna basıldığında kayıt `yapildi` (veya süresi geçmişse `gecikmeli_yapildi`) olarak güncellenir ve denetim loglarına kaydedilir.
 
 ---
 
@@ -1319,6 +1362,27 @@ Devralan personelin izinli olması veya web portalına erişemediği durumlarda 
 3. **Şifahi Onay Seçeneğini Kullanın:**
    * **"Devralan Sözlü/Telefon İzni İle Onayla"** butonuna tıklayın.
    * Sistem denetim günlüğüne *"Sözlü Onay İle Yönetici Tarafından Tamamlandı (Onaylayan Yöneticiniz)"* şerhini düşerek devir işlemini anında tamamlar.
+
+---
+
+<a id="bolum-8-4"></a>
+
+### 🐾 8.4 Gebelik ve Sağlık İdari Aksiyon Sihirbazı (Merkezi Yönetici Aksiyon Merkezi)
+
+#### 💡 Amaç
+Gebelik bildirimi yapan personelin boşalan nöbetlerine ikame atanması, yeni radyasyonsuz birimine geçişi ve eksik gündüz mesailerinin tamamlanmasını tek bir onay ekranından 3 adımlı sihirbazla atomik olarak çözmektir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Aksiyon Merkezini Açın:**
+   * **Web Portal Üzerinden:** Sol menüden **"🎯 Yönetici Aksiyon Merkezi"** sekmesine gidin.
+   * **Masaüstü Üzerinden:** **Onay Bekleyen Görevler > 🤰 Gebelik & İdari Aksiyonlar** butonuna basın.
+2. **3 Adımlı Sihirbazı Çalıştırın ("Aksiyonları Düzenle & Onayla"):**
+   * **1️⃣ Adım (Görev Yeri Değişikliği):** Personelin atanacağı radyasyonsuz birimi onaylayın *(Personelin tercihi vurgulanır)*.
+   * **2️⃣ Adım (Boşalan İkame Nöbetler):** Personelin iptal edilen nöbet günlerine girmesi için diğer uygun çalışanlara nöbet devri/atamasını yapın veya kısmi otomatik nöbet motorunu çalıştırın.
+   * **3️⃣ Adım (Gündüz Vardiya Dengeleme):** Personelin aylık yasal mesai hedefini (160s) doldurmak üzere eksik kalan saatler için radyasyonsuz gündüz mesaisi (08:00-16:00) atayın.
+3. **Onayla ve Tamamla:**
+   * **"Tüm Değişiklikleri Onayla & Kaydet"** butonuna basın. Sistem görev yeri değişikliğini, nöbet ikamelerini ve gündüz vardiyalarını veritabanında tek işlem grubunda tamamlar.
 
 ---
 
@@ -1602,9 +1666,30 @@ Web Portalı sol navigasyon panelinde çalışanların günlük operasyonların�
 * Gizlilik gerektiren durumlarda **"Anonim Bildirim Yap"** seçeneği işaretlenerek kimlik gizlenebilir.
 * Gönderilen bildirim anında Masaüstü RADPYS V3 Kalite & DÖF ekranına ve RKG paneline düşer.
 
-#### 5. 📝 İzin ve Mazeret Başvurusu
+#### 5. 🌴 Çevrimiçi İzin Talep Formu ve Amir Onay Akışı
 
-* Yıllık izin, mazeret izni veya nöbet tutmama istekleri web formu üzerinden doldurularak birim amirinin onayına sunulur.
+#### 💡 Amaç
+Saha çalışanlarının (radyoloji teknikerleri, uzmanlar, hemşireler) hastane iç ağından (Intranet) veya dış internet üzerinden mobil cihaz/web tarayıcısı ile Yıllık İzin, Şua İzni (Sağlık İzni), Mazeret İzni, Hastalık/Rapor İzni, Evlilik/Babalık İzni başvurularını çevrimiçi iletmesi, takvim günü bazlı izin sürelerini otomatik hesaplatması ve başvuru durumlarını (`Beklemede`, `Onaylandı`, `Reddedildi`, `İptal`) canlı takip etmesidir.
+
+#### 🐾 Adım Adım İş Akışı
+
+1. **Saha Formları veya Ana Ekrandan Formu Açın:**
+   * Web Portal sol navigasyon akordiyon menüsünden **Saha Formları > İzin Talep Formu** sekmesine veya ana karşılama ekranındaki **"İzin Talep Formu"** kartına tıklayın.
+2. **İzin Türünü Seçin:**
+   * Açılır menüden talep edilen izin türünü seçin:
+     * **Yıllık İzin:** Hizmet kıdemine göre 20 veya 30 gün olarak hak edilen resmi izin.
+     * **Şua İzni (Işın İzni):** Radyasyon görevlilerine tanınan kesintisiz 30 günlük yasal sağlık izni. *(Seçildiğinde ekranda mevzuat bilgilendirme uyarı rozeti belirir).*
+     * **Mazeret / Evlilik / Babalık / Ölüm / Rapor İzni:** Kurumsal ve sağlık mazeret başvuruları.
+3. **Başlangıç ve Bitiş Tarihlerini Belirleyin:**
+   * **İzin Başlangıç Tarihi** ve **İzin Bitiş Tarihi** alanlarını takvim seçiciden işaretleyin.
+   * Sistem otomatik olarak takvim günü farkını hesaplayıp sağ alt köşedeki **"Talep Edilen İzin Süresi"** rozetinde gösterecektir. *(Eğer bitiş tarihi başlangıçtan önce seçilirse sistem kırmızı renkli `⚠️ Geçersiz Tarih` uyarısı vererek kaydı engeller).*
+4. **Mazeret / Açıklama Notu Ekleyin:**
+   * İznin gerekçesini veya ulaşılabilecek iletişim bilgilerini açıklama kutusuna yazın.
+5. **Başvuruyu Gönderin:**
+   * **"İzin Talebini Gönder"** butonuna basın. Talep anında veritabanına işlenerek Masaüstü RADPYS V3 veritabanına (`radpys.db`) ve **Onay Bekleyen Görevler Paneline** iletilir.
+6. **Canlı Talep Takibi ve İptal İşlemi:**
+   * Ekranın sağ tarafındaki **"İzin Taleplerim ve Durum Takibi"** panelinden başvurunuzun son durumunu (`Beklemede`, `Onaylandı`, `Reddedildi`) ve varsa yöneticinin red nedenini anlık takip edin.
+   * Henüz `Beklemede` statüsündeki bir talebinizi vazgeçmeniz halinde satır yanındaki **"Talebi İptal Et"** butonuna basarak iptal edebilirsiniz.
 
 ---
 
@@ -1933,7 +2018,7 @@ Hangi yetkilinin ne zaman hangi evrakı görüntülediğini, deşifre ettiğini,
 
 Toplu Veri Aktarım Sihirbazı; kuruma yeni katılan çok sayıda personeli, geçmiş dozimetre okuma dozlarını veya hazır nöbet listelerini tek tek elle girmek yerine Excel (.xlsx, .xls) veya CSV (.csv) dosyalarından topluca veritabanına aktarmak amacıyla tasarlanmış 4 adımlı akıllı aktarım modülüdür.
 
-Sistem, yüklenen dosyadaki veri hatalarını, mükerrer T.C. Kimlik Numaralarını ve geçersiz departman kodlarını aktarım öncesinde otomatik tespit eder.
+Sistem, yüklenen dosyayı veritabanına aktarırken veri hatalarını, mükerrer T.C. Kimlik Numaralarını ve geçersiz kayıtları otomatik tespit eder; aktarılamayan satırları işlem sonunda detaylı hata raporu (.csv) olarak sunar.
 
 Masaüstü uygulamasında sol dikey navigasyon menüsünden **Yönetim > Toplu İçe Aktarma** sekmesinden erişilir.
 
@@ -1943,58 +2028,53 @@ Masaüstü uygulamasında sol dikey navigasyon menüsünden **Yönetim > Toplu �
 
 #### 💡 Amaç
 
-Dış kaynaktan gelen verileri doğrulamadan geçirerek saniyeler içinde hatasız bir şekilde veritabanına yüklemektir.
+Dış kaynaktan (Excel / CSV) gelen verileri belirlenen modüle göre eşleştirip toplu olarak sisteme aktarmaktır.
 
 #### 🐾 Adım Adım İş Akışı
 
 ##### 1. Adım: Aktarım Modülü Seçimi ve Dosya Yükleme
 
 1. **Aktarım Ekranına Geçin:**
-   * Sol menüden **Yönetim > Toplu İçe Aktarma** sekmesine tıklayın.
+   * Sol dikey menüden **Yönetim > Toplu İçe Aktarma** sekmesine tıklayın (`ui/pages/admin/system/import_page.ui`).
 2. **Aktarım Modülünü Seçin:**
-   * Sol listeden veri yükleyeceğiniz alanı seçin:
-     * 👥 **Toplu Personel Aktarımı:** Personel özlük bilgileri, TC Kimlik No, departman, unvan vb.
-     * ☢️ **Toplu Dozimetre Ölçüm Aktarımı:** Dozimetre seri numaraları, Hp10/Hp0.07 doz değerleri, okuma dönemi.
-     * 📅 **Toplu Nöbet Listesi Aktarımı:** Aylık vardiya çizelgeleri.
-3. **Örnek Şablon İndirin:**
-   * **"Örnek Şablon İndir"** butonuna basarak sistemin %100 uyumlu hazırladığı örnek Excel şablonunu bilgisayarınıza indirin ve verilerinizi bu formata yerleştirin.
+   * Sol listeden aktaracağınız veri türünü seçin (*Personel Listesi*, *Geçmiş İzin Bilgileri*, *İzin Hakedişleri*, *Fiili Hizmet Süreleri*, *Sağlık Muayeneleri*, *Nöbet Planları*, *Roller*, *Modüller/Yetkiler*, *Departmanlar*, *Unvanlar* vb.).
+3. **Şablon İndirin (İsteğe Bağlı):**
+   * **"Şablonlar"** butonuna basarak örnek dosya formatını inceleyin.
 4. **Dosyayı Seçin:**
-   * **"Dosya Seç"** butonuna basarak bilgisayarınızdaki Excel (.xlsx) veya CSV dosyasını yükleyin ve **"İleri"** butonuna basın.
+   * **"Gözat"** (`browseButton`) butonuna basarak Excel (.xlsx, .xls) veya CSV (.csv) dosyanızı seçin (veya dosyayı ekrana sürükleyip bırakın).
+5. **"İleri"** butonuna basarak sütun eşleştirme adımına geçin.
 
 ---
 
-##### 2. Adım: Sütunları Eşleştirme (Column Mapping)
+##### 2. Adım: Sütun Eşleştirme ve Önizleme (Column Mapping & Raw Preview)
 
-1. **Otomatik Eşleştirmeyi Kontrol Edin:**
-   * Sistem, Excel dosyanızdaki sütun başlıkları ile RADPYS veritabanı alanlarını otomatik eşleştirir (örn: *Excel: TC No ➔ Sistem: tc_kimlik_no*).
-2. **Manuel Düzeltme Yapın:**
-   * Otomatik eşleşmeyen bir alan varsa açılır menüden karşılık gelen sütun adını seçin.
-3. **"İleri"** butonuna basarak doğrulama adımına geçin.
-
----
-
-##### 3. Adım: Önizleme ve Veri Doğrulama (Data Validation)
-
-1. **Hata Kodlarını ve Renkleri İnceleyin:**
-   * 🔴 **Hatalı Satırlar (Kırmızı Vurgu):** Zorunlu alan eksikliği (örn: *TC Kimlik No boş* veya *Geçersiz E-Posta*). Bu satırlar aktarılmaz.
-   * 🟡 **Mükerrer Kayıt Uyarısı (Sarı Vurgu):** Veritabanında zaten kayıtlı olan personel/dozimetre satırı.
-   * 🟢 **Geçerli Kayıtlar (Yeşil Vurgu):** Sorunsuz aktarılacak veriler.
-2. **Çakışma Politikasını Belirleyin:**
-   * Var olan mükerrer kayıtlar için **"Mevcut Kaydı Güncelle (Overwrite)"** veya **"Mükerrer Kayıtları Atla (Skip)"** seçeneğini belirleyin.
-3. **"İleri"** butonuna basın.
+1. **Sütun Eşleştirmelerini Kontrol Edin:**
+   * Sistem, dosyanızdaki sütun başlıkları ile veri alanlarını (Alias ve Etiket eşleştirmeleriyle) otomatik eşleştirir.
+   * Zorunlu alanlar kırmızı yıldız (`*`) ile belirtilmiştir (örn: *Ad Soyad \**, *TC No \**). Otomatik eşleşmeyen alanları açılır menülerden (`QComboBox`) manuel seçin.
+2. **Önizleme Tablosunu İnceleyin:**
+   * Ekrandaki önizleme tablosu (`previewTable_2`), dosyanızdaki ilk 10 satırı ham veri olarak doğrulamaya hazırlık amacıyla gösterir.
+3. **"Aktarımı Başlat"** butonuna basın.
 
 ---
 
-##### 4. Adım: İçe Aktar ve Sonuç Özeti
+##### 3. Adım: Aktarım İşlemi (Processing)
 
-1. **Toplu Yüklemeyi Başlatın:**
-   * **"Verileri İçe Aktar"** butonuna basın.
-2. **Sonuç Kartını İnceleyin:**
-   * Aktarım tamamlandığında ekranda özet kartı gösterilir:
-     * 🟢 *Başarıyla Aktarılan Kayıt:* `145`
-     * 🟡 *Güncellenen Kayıt:* `12`
-     * 🔴 *Atlanan / Hatalı Satır:* `0`
-3. **"Tamamla"** butonuna basarak işlemi sonlandırın.
+1. **İlerleme Çubuğunu Takip Edin:**
+   * Sistem verileri arka planda veritabanı işlemleri (Transaction Batch) halinde işler ve `ModernProgressDialog` üzerinde ilerleme yüzdesini gösterir.
+
+---
+
+##### 4. Adım: Sonuç Özeti ve Hata Detay Raporu
+
+1. **Aktarım Sonucunu İnceleyin:**
+   * İşlem tamamlandığında özet bilgi görüntülenir:
+     * *Başarılı Kayıt Sayısı*
+     * *Hatalı Kayıt Sayısı*
+2. **Hata Raporu İndirin (Varsa):**
+   * Eğer aktarılamayan hatalı satırlar varsa **"Hata Raporunu Aç (.csv)"** (`btnOpenErrorReport`) butonu görünür. Bu rapora tıklayarak hangi satırda ne hatası alındığını (ör. geçersiz veri formatı, yetkisiz alan vb.) CSV formatında inceleyebilirsiniz.
+3. **Kullanıcı Hesap Bilgilerini İndirin (Personel Aktarımı İse):**
+   * Otomatik kullanıcı hesabı oluşturulmuşsa **"Kullanıcı Hesap Bilgilerini İndir (.txt)"** (`btnExportCredentials`) butonu görünür.
+4. **"Tamamla"** veya **"Yeni Aktarım"** butonuna basarak işlemi sonlandırın.
 
 ---
 
