@@ -12,7 +12,6 @@
   const NAV_LINKS = [
     { href: "moduller.html", label: "Modüller" },
     { href: "fiyatlandirma.html", label: "Fiyatlandırma" },
-    { href: "referanslar.html", label: "Referanslar" },
     { href: "dokumanlar.html", label: "Dokümanlar" },
     { href: "kaynaklar.html", label: "Kaynaklar" },
     { href: "hakkimizda.html", label: "Hakkımızda" },
@@ -76,7 +75,6 @@
               <ul class="mt-4 space-y-2 text-sm text-slate-300">
                 <li><a href="moduller.html" class="hover:text-white">Modüller</a></li>
                 <li><a href="fiyatlandirma.html" class="hover:text-white">Fiyatlandırma</a></li>
-                <li><a href="referanslar.html" class="hover:text-white">Referanslar</a></li>
               </ul>
             </div>
             <div>
