@@ -42,7 +42,7 @@
     <meta name="twitter:image" content="https://radpys.com.tr/images/main_logo.PNG" />
     <meta name="twitter:image:alt" content="RADPYS V3 Dokümanları Logo" />
 
-    <!-- Schema.org TechArticle & BreadcrumbList JSON-LD -->
+    <!-- Schema.org TechArticle, BreadcrumbList & FAQPage JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -75,6 +75,51 @@
             "name": "RADPYS",
             "url": "https://radpys.com.tr/"
           }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Kurulumda 'Windows kişisel bilgisayarınızı korudu' (SmartScreen) uyarısı alıyorum, ne yapmalıyım?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Mavi renkli güvenlik uyarısında 'Daha fazla bilgi' (More info) bağlantısına tıklayıp pencerenin altında açılan 'Yine de çalıştır' (Run anyway) butonuna basarak kurulumu başlatabilirsiniz. RADPYS V3 %100 güvenlidir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "NDK Yıllık Limit Aşımı (>20 mSv) uyarısı alındığında ne yapılmalıdır?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sistem personeli otomatik 'Yüksek Riskli / Limit Aşıldı' statüsüne alır. Personel derhal radyasyonlu alandan çıkarılıp radyasyonsuz birime çekilmelidir. Otomatik oluşturulan DÖF kaydı işlenip Sağlık Bakanlığı sağlık tarama tutanağı sisteme yüklenir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Şua İzni (Sağlık İzni) parçalı olarak kullanılabilir mi?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hayır. Sağlık Bakanlığı ve NDK mevzuatı gereğince 4 haftalık Şua İzni parçalı kullanılamaz; tek seferde blok olarak kullandırılmalıdır."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Radyasyon kazası veya ihlalinde NDK 3 Günlük Yasal Bildirim Takibi nasıl çalışır?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Olay kategorisi 'RADYASYON' içerdiğinde NDK mevzuatı gereği 3 takvim günü (72 saat) içinde resmi bildirim yapılması yasal zorunluluktur. Sistem son tarihi otomatik hesaplar ve zamanında yapılmayan bildirimlerde panelde kırmızı uyarı verir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Verilerimiz başka bir sisteme aktarılırken SQLCipher şifrelemesi kaldırılabilir mi?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Evet. Yönetim > Veritabanı & Bakım sekmesindeki 'Şifresiz Veritabanı Dışa Aktar' butonuyla standart SQLite veritabanı yedeği indirilebilir."
+              }
+            }
+          ]
         }
       ]
     }
@@ -657,28 +702,38 @@
 
                     <!-- 17. SSS -->
                     <h2 id="sss">17. Sık Sorulan Sorular & Sorun Giderme (SSS)</h2>
-                    <div class="faq mt-4">
+                    <div class="faq mt-4 space-y-3">
                         <details>
-                            <summary>Demo sürüm kısıtlamaları nelerdir?</summary>
-                            <p>Demo modunda uygulama 15 gün deneme süresi, en fazla 6 aktif personel ve 3 nöbet
-                                planıyla kısıtlanmıştır. Excel içe aktarımında da bu limitler denetlenir.</p>
+                            <summary>Kurulumda "Windows kişisel bilgisayarınızı korudu" (SmartScreen) uyarısı alıyorum, ne yapmalıyım?</summary>
+                            <p>Mavi renkli güvenlik uyarısında <strong>"Daha fazla bilgi"</strong> (<em>More info</em>) bağlantısına tıklayıp pencerenin altında açılan <strong>"Yine de çalıştır"</strong> (<em>Run anyway</em>) butonuna basarak kurulumu başlatabilirsiniz. RADPYS V3 dijital sertifika aşamasında olup tamamen güvenlidir.</p>
                         </details>
                         <details>
-                            <summary>Uygulamayı nasıl aktifleştiririm?</summary>
-                            <p>Hakkında penceresindeki Cihaz Kimliğini kopyalayıp yazılım temsilcisine
-                                (<code>radpys.iletisim@gmail.com</code>) iletin. Üretilen Lisans Anahtarını girerek Tam
-                                Sürüme geçebilirsiniz.</p>
+                            <summary>İlk kurulumda varsayılan Yönetici (Admin) şifresi nerededir?</summary>
+                            <p>Uygulama dizinindeki <code>data/ilk_admin_bilgileri.txt</code> dosyasını açarak geçici <code>admin</code> şifrenizi görebilirsiniz. İlk girişte sistem sizi otomatik olarak şifre yenilemeye yönlendirir. Güvenlik amacıyla bu dosyayı ilk girişten sonra siliniz.</p>
                         </details>
                         <details>
-                            <summary>Teknik hata durumunda log dosyası nasıl gönderilir?</summary>
-                            <p>Hakkında sayfasından <strong>"Destek Paketi (Log) Oluştur"</strong> butonuna basarak KVKK
-                                uyumlu teknik kayıt loglarını zip formatında masaüstünüze çıkarıp e-posta ile iletebilirsiniz.
-                            </p>
+                            <summary>☢️ NDK Yıllık Limit Aşımı (>20 mSv) uyarısı alındığında ne yapılmalıdır?</summary>
+                            <p>Sistem personeli otomatik 🔴 <strong>"Yüksek Riskli / Limit Aşıldı"</strong> statüsüne alır. Personel derhal radyasyonlu alandan (BT/Röntgen/Nükleer Tıp) çıkarılıp radyasyonsuz birime çekilmelidir. <em>Olay Bildirim / DÖF</em> panelinde otomatik oluşturulan DÖF kaydı işlenip Sağlık Bakanlığı sağlık tarama tutanağı sisteme yüklenir.</p>
                         </details>
                         <details>
-                            <summary>Verilerim bulut sunucularında saklanıyor mu?</summary>
-                            <p>Hayır. Tüm verileriniz tamamen yerel olarak bilgisayarınızda AES-256 SQLCipher şifreli
-                                olarak saklanır (Local-First). Dış sunuculara kişisel veri aktarılmaz.</p>
+                            <summary>🤰 Personel gebelik bildirimi yaptığında nöbetler ve mesai nasıl etkilenir?</summary>
+                            <p>Radyasyonlu alan personelinin tüm gece ve gündüz nöbetleri otomatik olarak <code>IPTAL_MAZERET</code> durumuna getirilir. Yönetici, <strong>Yönetici Aksiyon Merkezi</strong> (<em>Onay Bekleyen Görevler > Gebelik Aksiyonları</em>) üzerinden tek tıkla personelin yeni radyasyonsuz birim atamasını ve 160 saatlik gündüz mesai dengelemesini tamamlar.</p>
+                        </details>
+                        <details>
+                            <summary>Şua İzni (Sağlık İzni) parçalı kullanılabilir mi?</summary>
+                            <p>Hayır. Sağlık Bakanlığı ve NDK mevzuatı gereği 4 haftalık Şua İzni parçalı kullanılamaz; tek seferde blok olarak kullandırılmalıdır.</p>
+                        </details>
+                        <details>
+                            <summary>☢️ Radyasyon kazası veya ihlalinde NDK 3 Günlük Yasal Bildirim Takibi nasıl çalışır?</summary>
+                            <p>Olay kategorisi "RADYASYON" olduğunda veya NDK bildirimi gerekli işaretlendiğinde NDK mevzuatı gereği 3 takvim günü (72 saat) içinde resmi bildirim yapılması yasal zorunluluktur. Sistem son tarihi otomatik hesaplar ve zamanında yapılmayan bildirimlerde panelde 🔴 <strong>"NDK Bildirimi Bekliyor / Gecikmiş"</strong> uyarısı verir.</p>
+                        </details>
+                        <details>
+                            <summary>🔓 Veriler başka bir sisteme aktarılırken SQLCipher şifrelemesi kaldırılabilir mi?</summary>
+                            <p>Evet. <em>Yönetim > Veritabanı & Bakım</em> sekmesindeki <strong>"🔓 Şifresiz Veritabanı Dışa Aktar (Unencrypted Export)"</strong> butonuna basarak <code>radpys_unencrypted_YYYYMMDD.zip</code> yedeğini indirebilirsiniz. İçindeki SQLite veritabanı tüm standart SQLite istemcileriyle açılabilir.</p>
+                        </details>
+                        <details>
+                            <summary>Demo sürüm kısıtlamaları nelerdir ve nasıl aktifleştirilir?</summary>
+                            <p>Demo modunda uygulama 15 gün deneme süresi ve en fazla 6 aktif personel kaydıyla kısıtlanmıştır. Hakkında sayfasındaki Cihaz Kimliğini kopyalayıp <code>radpys.iletisim@gmail.com</code> adresine ileterek aldığınız Lisans Anahtarıyla Tam Sürüme geçebilirsiniz.</p>
                         </details>
                     </div>
 
