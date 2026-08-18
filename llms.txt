@@ -1,6 +1,7 @@
 # RADPYS V3 — Radyasyon Çalışanları Yönetim Sistemi
 
-> RADPYS V3; hastane ve radyoloji departmanları için SKS 6.1, KVKK ve NDK/TAEK mevzuatlarına tam uyumlu dozimetre takibi, otomatik nöbet planlama, Şua izinleri ve kalite yönetim platformudur.
+> RADPYS V3; hastane ve radyoloji departmanları için SKS 6.1, KVKK ve NDK/TAEK mevzuatlarına tam uyumlu dozimetre takibi, otomatik nöbet planlama, Şua izinleri ve kalite yönetim platformudur.  
+> **Kapsamlı İçerik (Full Content):** [llms-full.txt](https://radpys.com.tr/llms-full.txt)
 
 ## Genel Bakış
 RADPYS V3, radyasyon alanında çalışan sağlık personelinin (Radyoloji Teknisyenleri/Teknikerleri, Radyoloji Uzmanları, Sağlık Fizikçileri) tüm idari, tıbbi ve yasal takip süreçlerini %100 yerel ve şifreli veritabanı altyapısıyla yönetir.
@@ -8,7 +9,7 @@ RADPYS V3, radyasyon alanında çalışan sağlık personelinin (Radyoloji Tekni
 ## Temel Modüller
 - **Nöbet Planlaması:** Kısıt-bilinçli, adil ve otomatik nöbet çizelgesi oluşturma.
 - **Dozimetre Takibi:** Kişisel dozimetre ölçüm verileri, yıllık/5 yıllık doz limit takibi ve uyarı mekanizması.
-- **İzin ve Şua İzni Takibi:** 3153 sayılı kanun uyumlu Şua izdi hakkı ve mazeret izni yönetimi.
+- **İzin ve Şua İzni Takibi:** 3153 sayılı kanun uyumlu Şua izni hakkı ve mazeret izni yönetimi.
 - **Fiili Hizmet Zammı (FHZ):** Yıllık yıpranma payı ve riskli birim süre hesaplamaları.
 - **Sağlık Muayeneleri:** Periyodik kan (hemogram), göz ve dermatoloji muayene takibi.
 - **Olay & DÖF Bildirimi:** SKS 6.1 uyumlu radyolojik kaza, doz aşımı ve düzeltici önleyici faaliyet yönetimi.
@@ -23,6 +24,7 @@ RADPYS V3, radyasyon alanında çalışan sağlık personelinin (Radyoloji Tekni
 - [Kaynaklar & Blog](https://radpys.com.tr/kaynaklar.html)
 - [Hakkımızda](https://radpys.com.tr/hakkimizda.html)
 - [İletişim](https://radpys.com.tr/iletisim.html)
-- [Kullanım Kılavuzu Markdown](https://radpys.com.tr/docs/RADPYS_V3_Kullanim_Kilavuzu.md)
+- [Tam Kullanım Kılavuzu (llms-full.txt)](https://radpys.com.tr/llms-full.txt)
+- [Kullanım Kılavuzu Markdown (docs)](https://radpys.com.tr/docs/RADPYS_V3_Kullanim_Kilavuzu.md)
 - [Sıkça Sorulan Sorular (SSS)](https://radpys.com.tr/docs/RADPYS_V3_sss.md)
 
