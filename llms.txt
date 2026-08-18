@@ -17,8 +17,12 @@ RADPYS V3, radyasyon alanında çalışan sağlık personelinin (Radyoloji Tekni
 - [Ana Sayfa](https://radpys.com.tr/)
 - [Modüller](https://radpys.com.tr/moduller.html)
 - [Fiyatlandırma](https://radpys.com.tr/fiyatlandirma.html)
+- [Referanslar & Kurumlar](https://radpys.com.tr/referanslar.html)
 - [Dokümanlar & Rehber](https://radpys.com.tr/dokumanlar.html)
+- [Sürüm Notları (Changelog)](https://radpys.com.tr/changelog.html)
+- [Kaynaklar & Blog](https://radpys.com.tr/kaynaklar.html)
 - [Hakkımızda](https://radpys.com.tr/hakkimizda.html)
 - [İletişim](https://radpys.com.tr/iletisim.html)
-- [Kullanım Kılavuzu Markdown](https://radpys.com.tr/Kullanim_Kilavuzu.md)
+- [Kullanım Kılavuzu Markdown](https://radpys.com.tr/docs/RADPYS_V3_Kullanim_Kilavuzu.md)
+- [Sıkça Sorulan Sorular (SSS)](https://radpys.com.tr/docs/RADPYS_V3_sss.md)
 
