@@ -1,4 +1,4 @@
-# RADPYS V3 — Güncel Operasyonel Kullanım Kılavuzu
+# RADPYS V4 — Güncel Operasyonel Kullanım Kılavuzu
 
 ---
 
@@ -6,35 +6,39 @@
 
 ### I. GENEL BİLGİLER VE KURULUM
 
-* 1. [RADPYS V3 Kurulumu ve Windows Güvenlik İzinleri Nasıl Verilir?](#bolum-1)
-* 1. [Sisteme Giriş, Şifre Değiştirme ve Kullanıcı Yetkileri Nasıl Yönetilir?](#bolum-2)
+* 1. [RADPYS V4 Kurulumu ve Windows Güvenlik İzinleri Nasıl Verilir?](#bolum-1)
+* 2. [Sisteme Giriş, Şifre Değiştirme ve Kullanıcı Yetkileri Nasıl Yönetilir?](#bolum-2)
 
 ### II. OPERASYONEL MODÜLLER VE GÜNLÜK İŞLEMLER
 
-* 1. [Personel Modülü Kullanımı ve Radyasyon Çalışanı Sınıflandırması](#bolum-3)
-* 1. [İzin Takip & Fiili Hizmet (Şua İzni) Takip Modülü Kullanımı](#bolum-4)
-* 1. [Dozimetre Takip, Doz Trendi ve Birim Risk Analiz Modülü Kullanımı](#bolum-5)
-* 1. [Nöbet Modülü Yönetimi ve Nöbet Ayarları (Kısıtlar, Kurallar ve Algoritma Parametreleri)](#bolum-6)
-* 1. [Radyasyon Güvenliği, Olay Bildirim ve DÖF (Düzeltici Önleyici Faaliyet) Modülü](#bolum-7)
+* 3. [Personel Modülü Yönetimi ve Özlük Dosyası İşlemleri](#bolum-3)
+* 4. [İzin Takip, Şua İzni ve Fiili Hizmet Takip Modülü ve Şua İzni Hak Ediş İşlemleri](#bolum-4)
+* 5. [Dozimetre Takip, Doz Trendi ve Birim Risk Analiz Modülü](#bolum-5)
+* 6. [Nöbet Modülü Yönetimi ve Nöbet Ayarları (Kısıtlar, Kurallar ve Algoritma Parametreleri)](#bolum-6)
+* 7. [Radyasyon Güvenliği, Olay Bildirim ve DÖF (Düzeltici Önleyici Faaliyet) Modülü](#bolum-7)
+* 8. [Radyasyon Ortam Dozu Ölçümleri, İnteraktif Kroki ve SKS 6.1 Alan İzleme Sistemi](#bolum-8)
+* 9. [Hizmet İçi Eğitim, Sınav Soruları Havuzu, Online Sınav ve Uyum Takip Modülü](#bolum-9)
+* 10. [Tıbbi Cihaz Envanteri, NDK Lisans Takibi, Kalite Kontrol & Mobil QR Arıza Portalı](#bolum-10)
+* 11. [Radyasyon Koruyucu Ekipman (RKE) & DIN 6857-1 Kalite Kontrol Muayene Yönetimi](#bolum-11)
 
 ### III. KURUMSAL YÖNETİM VE RAPORLAMA
 
-* 1. [Onay Bekleyen Görevler Paneli (Evrensel Onay ve Veri Değişiklik Denetim Sistemi)](#bolum-8)
-* 1. [Raporlar Modülü (Rapor Merkezi, Kurumsal Matbu ve Dinamik Raporlar)](#bolum-9)
-* 1. [Tanımlamalar (Lookup / Sabit Veriler) Modülü](#bolum-10)
-* 1. [Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü](#bolum-11)
+* 12. [Onay Bekleyen Görevler Paneli (Evrensel Onay ve Veri Değişiklik Denetim Sistemi)](#bolum-12)
+* 13. [Raporlar Modülü (Rapor Merkezi, Kurumsal Matbu ve Dinamik Raporlar)](#bolum-13)
+* 14. [Tanımlamalar (Lookup / Sabit Veriler) Modülü](#bolum-14)
+* 15. [Çoklu Kullanıcı Web Portalı ve REST API Senkronizasyon Modülü](#bolum-15)
 
 ### IV. SİSTEM YÖNETİMİ VE VERİ İŞLEMLERİ
 
-* 1. [Merkezi Bildirim ve Durum Çubuğu Sistemi](#bolum-12)
-* 1. [Program Ayarları & Temalar (Karanlık/Aydınlık Görünüm Yönetimi)](#bolum-13)
-* 1. [Veritabanı Modülü & SQLCipher Şifreli Yedekleme ve Geri Yükleme](#bolum-14)
-* 1. [Toplu İçe Aktarma (Excel / CSV Import) Sihirbazları](#bolum-15)
+* 16. [Merkezi Bildirim ve Durum Çubuğu Sistemi](#bolum-16)
+* 17. [Program Ayarları & Temalar (Karanlık/Aydınlık Görünüm Yönetimi)](#bolum-17)
+* 18. [Veritabanı Modülü & PostgreSQL Bakım ve Yedekleme](#bolum-18)
+* 19. [Toplu İçe Aktarma (Excel / CSV Import) Sihirbazları](#bolum-19)
 
 ### V. DESTEK VE SORUN GİDERME
 
-* 1. [Sık Karşılaşılan Durumlar, İpuçları ve Sorun Giderme (Troubleshooting / SSS)](#bolum-16)
-* 1. [Sürüm Notları ve Güncelleme Geçmişi (Update Log)](#bolum-17)
+* 20. [Sık Karşılaşılan Durumlar, İpuçları ve Sorun Giderme (Troubleshooting / SSS)](#bolum-20)
+* 21. [Sürüm Notları ve Güncelleme Geçmişi (Update Log)](#bolum-21)
 
 ---
 

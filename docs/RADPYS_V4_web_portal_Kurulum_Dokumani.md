@@ -1,4 +1,4 @@
-# RADPYS V3 Web Portal — Kurulum ve Dış Erişim Dokümanı
+# RADPYS V4 Web Portal — Kurulum ve Dış Erişim Dokümanı
 
 **Hedef kitle:** Hastane BT/IT departmanı
 **Amaç:** Uygulamayı sunucuda çalıştırmak ve (istenirse) güvenli şekilde dış erişime açmak.
@@ -9,7 +9,7 @@
 ## 1. Önkoşullar
 
 | Gereksinim | Not |
-|---|---|
+| --- | --- |
 | Node.js 18+ | `node -v` ile kontrol edin |
 | Açık bir dahili port (varsayılan `3000`) | Sadece `127.0.0.1` üzerinde dinler, dışarıdan doğrudan erişilemez (bkz. Madde 2) |
 | (Dış erişim isteniyorsa) bir alan adı veya sabit iç IP | `radpys.hastaneadi.local` gibi |
@@ -150,12 +150,13 @@ sudo certbot --nginx -d radpys.hastaneadi.com
 ## 5. Güvenlik Duvarı Kuralları
 
 | Port | Yön | Kaynak | Not |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 443 | Gelen | İnternet (veya izin verilen IP aralığı) | TLS trafiği |
 | 80 | Gelen | İnternet | Sadece Let's Encrypt doğrulaması ve HTTP→HTTPS yönlendirmesi için |
 | 3000 | — | **Sadece localhost** | Dışarıya asla açılmamalı — reverse proxy zaten `127.0.0.1` üzerinden erişiyor |
 
 `ufw` örneği:
+
 ```bash
 sudo ufw allow 443/tcp
 sudo ufw allow 80/tcp
@@ -180,6 +181,7 @@ sudo ufw deny 3000/tcp   # zaten localhost'a bağlı olduğu için ek güvenlik 
 
 - **Sertifika yenileme:** Caddy otomatik; nginx+certbot için sistemde bir `certbot.timer`/cron zaten kurulur, ayda bir kontrol edilmesi önerilir.
 - **Log rotasyonu:** `logs/web_access.log` dosyası zamanla büyür. `logrotate` ile haftalık/aylık rotasyon önerilir (örnek `/etc/logrotate.d/radpys`):
+
   ```
   /path/to/web_portal/logs/*.log {
       weekly
@@ -189,20 +191,40 @@ sudo ufw deny 3000/tcp   # zaten localhost'a bağlı olduğu için ek güvenlik 
       notifempty
   }
   ```
+
 - **Güncelleme:** Yeni bir sürüm geldiğinde `npm install && python build_server.py && pm2 restart radpys-portal` adımları yeterlidir.
 
 ---
 
 ## 8. Progressive Web App (PWA) Mobil Saha Desteği
 
-RADPYS V3 Saha Veri Giriş Portalı; saha çalışanlarının (nöbetçi teknikerler, doktorlar) mobil cihazlarında (Android/iOS) yerel bir uygulama gibi yüklenebilmesi için PWA (Progressive Web App) desteği ile donatılmıştır.
+RADPYS V4 Saha Veri Giriş Portalı; saha çalışanlarının (nöbetçi teknikerler, doktorlar) mobil cihazlarında (Android/iOS) yerel bir uygulama gibi yüklenebilmesi için PWA (Progressive Web App) desteği ile donatılmıştır.
 
 ### 📌 PWA Teknik Önkoşulları & Güvenlik
+
 1. **HTTPS Zorunluluğu:** Service Worker ve PWA manifest kayıtları tarayıcı güvenlik kuralları gereği **sadece geçerli bir TLS/HTTPS bağlantısı** (Madde 4'te anlatılan Reverse Proxy) üzerinden aktif olur.
 2. **Kapsam İzolasyonu:** PWA desteği yalnızca Saha Veri Giriş Portalı (`index.html`) için aktiftir. Yönetici/Analiz paneli (`dashboard.html`) PWA önbellek kapsamının dışında tutulur.
 3. **Çevrimdışı (Offline) Veri Güvenliği:** KVKK ve kişisel veri gizliliği standartları gereğince canlı nöbet ve hasta verileri asla cihaz önbelleğinde saklanmaz. Bağlantı koptuğunda sistem kullanıcıyı özel güvenli çevrimdışı bildirim ekranına (`/offline.html`) yönlendirir.
 
 ### 📱 Mobil Cihazlara Yükleme (Ana Ekrana Ekleme)
-* **Android (Chrome):** Siteye girildiğinde beliren *"Ana ekrana ekle"* veya *"Uygulamayı Yükle"* istemine tıklayın.
-* **iOS (Safari):** Alt menüdeki **Paylaş (Share)** simgesine dokunup **"Ana Ekrana Ekle"** seçeneğini seçin.
 
+* **Android (Chrome):** Siteye girildiğinde beliren *"Ana ekrana ekle"* veya *"Uygulamayı Yükle"* istemine tıklayın.
+- **iOS (Safari):** Alt menüdeki **Paylaş (Share)** simgesine dokunup **"Ana Ekrana Ekle"** seçeneğini seçin.
+
+---
+
+## 9. Hizmet İçi Eğitim LMS & Online Sınav Motoru
+
+Web Portalı, personellerin kendilerine atanan zorunlu eğitim dokümanlarını inceleyebileceği, video materyallerini izleyebileceği ve online sınavları tamamlayabileceği entegre bir LMS (Learning Management System) motoruna sahiptir.
+
+### 📌 LMS ve Sınav API Uç Noktaları
+
+- `GET /api/trainings/assigned` — Personele atanmış aktif eğitimleri, materyal linklerini ve sınav durumlarını döndürür.
+- `GET /api/trainings/:id/questions` — İlgili eğitimin sınav soru havuzundaki aktif soruları (A, B, C, D seçenekleriyle) listeler.
+- `POST /api/trainings/:id/submit-exam` — Personelin sınav cevaplarını toplar, sistem puanını hesaplar; baraj notu geçildiğinde otomatik tamamlama ve onay kaydı oluşturur.
+- `GET /api/trainings/:id/material` — Şifreli KVKK Kasasında saklanan eğitim PDF/dokümanlarını yetkili personele güvenli stream olarak sunar.
+
+### 🔒 Güvenlik & Doğrulama
+
+* Personeller yalnızca kendilerine atanan eğitimlerin sınav sorularına erişebilir.
+- Doğru cevap anahtarı istemciye (client) asla gönderilmez; puanlama ve değerlendirme sunucu tarafında (`server.ts`) güvenli şekilde hesaplanır.

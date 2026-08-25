@@ -1,6 +1,6 @@
 /* ==========================================================================
-   RADPYS V3 — Static Site Shared Data
-   Blog yazıları, testimonial'lar ve stats burada tutuluyor.
+   RADPYS V4 — Static Site Shared Data
+   Blog yazıları, testimonial'lar, stats ve modüller burada tutuluyor.
    Yeni yazı eklemek için sadece BLOG_POSTS listesine bir obje ekleyin.
    ========================================================================== */
 
@@ -9,13 +9,13 @@
         institutions: 84,
         users: 6200,
         years: 8,
-        modules: 8,
+        modules: 14,
     };
 
     const TESTIMONIALS = [
         {
             quote:
-                "RADPYS'i kullanmaya başladıktan sonra dozimetre takibinde harcadığımız süre %70 azaldı. Denetimlere hazırlık artık iki gün değil, iki saat.",
+                "RADPYS V4'ün DIN 6857-1 RKE modülü ve İnteraktif Ortam Dozu Krokisi sayesinde SKS denetimlerinde teftiş heyetine tüm odaların ve kurşun önlüklerin durumunu canlı haritada sunduk. Denetime hazırlık süremiz 2 saate indi.",
             author: "Prof. Dr. M. Aydın",
             role: "Radyoloji Bölüm Başkanı",
             org: "Anadolu Üniversite Hastanesi",
@@ -24,7 +24,7 @@
         },
         {
             quote:
-                "Nöbet çizelgesi tartışmaları bitti. Algoritmanın şeffaflığı ekipte güven yarattı. İzin süreçleri de birleşince kurum içi intranete gerek kalmadı.",
+                "Nöbet dağıtım algoritması ve web portal üzerinden 2 aşamalı devir onayı nöbet tartışmalarını tamamen bitirdi. Mobil PWA ile teknikerlerimiz vardiyalarını telefonlarından anlık takip ediyor.",
             author: "Dr. Ece K.",
             role: "Nükleer Tıp Uzmanı",
             org: "Mavi Görüntüleme Merkezi",
@@ -33,10 +33,10 @@
         },
         {
             quote:
-                "KVKK uyumu için ayrı süreç kurmak zorunda kalmadık. RADPYS ile yerleşik geldi. Olay bildirimlerinde Kurumlara sunulacak raporları saniyeler içinde hazır hale getiriyoruz.",
+                "Cihazların üzerindeki QR karekodları telefonla okutup arıza bildirme ve online sınav LMS motoru kliniğimizin dijitalleşmesinde devrim yarattı. PostgreSQL altyapısı ve KVKK AES-256 evrak kasası tam güven veriyor.",
             author: "Uzm. S. Yılmaz",
-            role: "Radyasyondan Sorumlu Uzman",
-            org: "Beyaz Diş Hastaneleri",
+            role: "Radyasyondan Sorumlu Uzman (RKS)",
+            org: "Beyaz Diş & Sağlık Grubu",
             avatar:
                 "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB0ZWNoJTIwb2ZmaWNlJTIwdGVhbXxlbnwwfHx8fDE3ODQ3MjI2OTd8MA&ixlib=rb-4.1.0&q=85",
         },
@@ -106,7 +106,7 @@
                 "Hastanelerin kalite denetimlerinde ve günlük işleyişinde uymak zorunda olduğu Sağlıkta Kalite Standartları ve Bakanlık idari talimatlarıdır:",
                 "<strong>Sağlık Bakanlığı Radyasyon Kaynaklarıyla Çalışan Personele İlişkin Genelge (2012/34):</strong> Nöbet, şua izinleri ve çalışma biçimleri üzerine pratik idari genelgedir. <a href=\"https://www.saglik.gov.tr/TR-11051/radyasyon-kaynaklariyla-calisan-personele-iliskin-genelge-201234.html\" target=\"_blank\" class=\"text-neon-teal underline\">Bakanlık Portalı Bağlantısı 🔗</a>",
                 "<strong>Sağlık Bakanlığı Çalışan Güvenliğinin Sağlanması Genelgesi (2012/23):</strong> Sağlık kurumlarında güvenli çalışma koşullarının tesisi için asgari kriterleri koyar. <a href=\"https://www.saglik.gov.tr/TR,3282/calisan-guvenligi-genelgesi-14052012.html\" target=\"_blank\" class=\"text-neon-teal underline\">Genelge Metni 🔗</a>",
-                "<strong>Sağlıkta Kalite Standartları (SKS) Sürüm 6.1 - Radyasyon Güvenliği (SRG) Bölümü:</strong> Kalite denetimlerinde hastanelerin uymak zorunda olduğu 18 temel standardı ve çekirdek ölçütleri belirler. <a href=\"https://skskalite.com.tr/\" target=\"_blank\" class=\"text-neon-teal underline\">SKS Kalite Portalı 🔗</a>"
+                "<strong>Sağlıkta Kalite Standartları (SKS) Sürüm 6.1 - Radyasyon Güvenliği (SRG) Bölümü:</strong> Kalite denetimlerinde hastanelerin uymak zorunda olduğu SRG11.02 gibi temel standartları ve kümülatif doz takip ölçütlerini belirler. <a href=\"https://skskalite.com.tr/\" target=\"_blank\" class=\"text-neon-teal underline\">SKS Kalite Portalı 🔗</a>"
             ],
             category: "Mevzuat & Kanunlar",
             cover: "images/cover_mevzuat_kanunlar.jpg",
@@ -118,9 +118,9 @@
             title: "Dozimetre Takibi ve NDK/ICRP Kümülatif Doz Sınırları Rehberi",
             excerpt: "Aylık ve yıllık dozimetre okumaları, kümülatif doz sınırları (ICRP 103) ve eşik aşım uyarıları.",
             content: [
-                "Nükleer Düzenleme Kurumu (NDK) ve uluslararası ICRP 103 (International Commission on Radiological Protection) standartlarına göre radyasyon çalışanlarının kümülatif dozimetre verileri düzenli saklanmalıdır.",
+                "Nükleer Düzenleme Kurumu (NDK) ve uluslararası ICRP 103 standartlarına göre radyasyon çalışanlarının kümülatif dozimetre verileri düzenli saklanmalıdır.",
                 "Aylık ve yıllık doz sınırlarının takibinde eşik aşımı ulaşıldığında otomatik uyarı sistemlerinin bulunması olası ihlallerin önüne geçer.",
-                "RADPYS V3 dozimetre takip modülü, geçmiş döneme ait verileri AES-256 ile saklar ve denetim anında tek tıkla resmi standartlara uygun rapor çıktısı verir."
+                "RADPYS V4 dozimetre takip modülü, geçmiş döneme ait verileri PostgreSQL ve AES-256 ile saklar ve denetim anında tek tıkla resmi standartlara uygun rapor çıktısı verir."
             ],
             category: "Radyasyon Güvenliği",
             cover: "images/cover_dozimetre_analiz.jpg",
@@ -133,7 +133,7 @@
             excerpt: "Radyasyon kaynaklı olay bildirimlerinin zaman damgalı loglanması ve DÖF (Düzeltici Önleyici Faaliyet) süreçleri.",
             content: [
                 "Sağlıkta Kalite Standartları (SKS 6.1) çerçevesinde hastanelerde yaşanan radyasyon olaylarının takibi ve bildirimi zorunludur.",
-                "RADPYS olay bildirim modülü, olay tespitinden bildirim gönderimine kadar tüm süreci dijitalleştirir. Zaman damgalı loglar ve otomatik hatırlatıcılar ile sıfır kaçırılan bildirim garantisi sağlar."
+                "RADPYS V4 olay bildirim modülü, Web Portalı üzerinden 3 adımda anonim bildirimden DÖF aksiyon takibine kadar tüm süreci dijitalleştirir. Zaman damgalı loglar ve 72 saatlik NDK bildirim sayacı ile sıfır ceza garantisi sağlar."
             ],
             category: "Radyasyon Güvenliği",
             cover: "images/cover_dozimetre_analiz.jpg",
@@ -151,7 +151,7 @@
                 "3. Kişisel izin taleplerinin ve hamilelik/sağlık kısıtlarının takip edilememesi.",
                 "4. Nöbet değişim taleplerinin sözlü yapılması sonucu yaşanan takipsizlik.",
                 "5. Çizelgelerin gecikmeli yayınlanarak personelin kişisel planlamasını zorlaştırması.",
-                "RADPYS kısıt-tabanlı akıllı nöbet algoritması tüm bu değişkenleri hesaplayarak saniyeler içinde adil nöbet çizelgeleri üretir."
+                "RADPYS V4 kısıt-tabanlı akıllı nöbet algoritması ve çapraz görevlendirme desteği ile tüm bu değişkenleri hesaplayarak saniyeler içinde adil nöbet çizelgeleri üretir."
             ],
             category: "Rehber & Ürün",
             cover: "images/cover_nobet_planlama.jpg",
@@ -161,10 +161,10 @@
         {
             slug: "kvkk-ve-saglik-verileri-guvenligi-rehberi",
             title: "KVKK (6698) ve Özel Nitelikli Sağlık Verilerinin Yerel Ağda Korunması",
-            excerpt: "Sağlık ve dozimetri verilerinin AES-256 ile şifrelenmesi ve çevrimdışı masaüstü veritabanı güvenliği.",
+            excerpt: "Sağlık ve dozimetri verilerinin AES-256 ile şifrelenmesi, KVKK ZIP ihracı ve çevrimdışı masaüstü veritabanı güvenliği.",
             content: [
                 "Kişisel Verilerin Korunması Kanunu (KVKK), sağlık verilerini özel nitelikli kişisel veri olarak sınıflandırır.",
-                "RADPYS V3, tüm personel, dozimetre ve sağlık muayenesi verilerini AES-256 ile şifreler ve rol bazlı erişim kontrolü sağlar. İnternete ihtiyaç duymadan %100 yerel ağda (Offline Desktop) çalışarak dış sızıntıları tamamen engeller."
+                "RADPYS V4, tüm personel, dozimetre ve sağlık muayenesi evraklarını PostgreSQL veritabanında AES-256 Fernet ile şifreler. KVKK Madde 11 uyarınca personelin tüm verilerini tek tıkla taşınabilir ZIP paketi olarak ihraç etme ve rol bazlı erişim logu (Audit Trail) altyapısı sunar."
             ],
             category: "Rehber & Ürün",
             cover: "images/cover_mevzuat_kanunlar.jpg",
@@ -174,14 +174,20 @@
     ];
 
     const MODULES = [
-        { icon: "M13 3 6 12h5l-1 9 7-9h-5l1-9Z", name: "Nöbet Planlaması", desc: "Şeffaf algoritma ile adil, kısıt-bilinçli çizelgeler.", tag: "01" },
-        { icon: "M12 2v6M12 16v6M4 12h6M14 12h6M6.34 6.34l4.24 4.24M13.42 13.42l4.24 4.24M6.34 17.66l4.24-4.24M13.42 10.58l4.24-4.24", name: "Dozimetre Takibi", desc: "Kümülatif doz analitiği ve eşik aşım uyarıları.", tag: "02" },
-        { icon: "M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z", name: "İzin Yönetimi", desc: "Onay akışı, bakiye ve fiili hizmet entegrasyonu.", tag: "03" },
-        { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z", name: "Fiili Hizmet", desc: "Sağlık (Şua) izin takibi.", tag: "04" },
-        { icon: "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z", name: "Sağlık Muayeneleri", desc: "Periyodik muayene planı, hatırlatma ve raporlama.", tag: "05" },
-        { icon: "M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z", name: "Olay Bildirimi", desc: "Çok kullanıcılı olay bildirim altyapısı, kurum içi bildirim şablonu ve delil zinciri.", tag: "06" },
-        { icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z", name: "Gebelik Bildirimi", desc: "Doktor raporu entegreli hamilelik bildirimi, nöbet ve dozimetre kısıt entegrasyonu.", tag: "07" },
-        { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", name: "NDK Resmi Bildirimler", desc: "72 saatlik yasal kaza/olay bildirim takibi ve dijital zaman sayacı.", tag: "08" },
+        { icon: "M13 3 6 12h5l-1 9 7-9h-5l1-9Z", name: "Nöbet Planlaması", desc: "Şeffaf Solver algoritması ile adil, kısıt-bilinçli çizelgeler ve çapraz görevlendirme.", tag: "01" },
+        { icon: "M12 2v6M12 16v6M4 12h6M14 12h6M6.34 6.34l4.24 4.24M13.42 13.42l4.24 4.24M6.34 17.66l4.24-4.24M13.42 10.58l4.24-4.24", name: "Dozimetre Takibi", desc: "Hp10/Hp0.07/Hp3 doz analitiği, NDK limit uyarıları ve risk haritası.", tag: "02" },
+        { icon: "M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z", name: "İzin Yönetimi", desc: "2-Aşamalı onay akışı (Ön onay/Resmi onay), bakiye ve takım takvimi.", tag: "03" },
+        { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z", name: "Fiili Hizmet & Şua Hakedişi", desc: "Hibrit model ile 0-30 gün yasal Sağlık (Şua) İzni gün tespiti.", tag: "04" },
+        { icon: "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z", name: "Sağlık Muayeneleri", desc: "NDK 365 gün kuralı, Dahiliye/Dermatoloji/Göz onayları ve evrak arşivi.", tag: "05" },
+        { icon: "M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z", name: "Olay Bildirimi & DÖF", desc: "Web Portal 3 adımlı sihirbaz, kök neden analizi ve CAPA yönetimi.", tag: "06" },
+        { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", name: "NDK 72s Bildirim Takibi", desc: "72 saatlik yasal kaza/olay bildirim takibi ve dijital geri sayım sayacı.", tag: "07" },
+        { icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z", name: "Gebelik & Yönetici Aksiyonu", desc: "Otomatik nöbet iptali ve 3 adımlı ikame atama sihirbazı.", tag: "08" },
+        { icon: "M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z", name: "Koruyucu Ekipman (RKE)", desc: "DIN 6857-1 skopi muayenesi, akıllı kodlama ve otomatik karar motoru.", tag: "09" },
+        { icon: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7", name: "Ortam Dozu & İnteraktif Kroki", desc: "Mimari plan canlı pinleri, SKS 6.1 SRG11.02 resmi Excel denetim raporu.", tag: "10" },
+        { icon: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z", name: "Tıbbi Cihaz & QR Arıza", desc: "2D QR etiketler, sahada kamerayla anında arıza bildirme ve teknik servis.", tag: "11" },
+        { icon: "M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z", name: "Hizmet İçi Eğitim LMS", desc: "Merkezi soru bankası havuzu, online sınav motoru ve eğitim uyum matrisi.", tag: "12" },
+        { icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4", name: "Evrensel Onay & Diff View", desc: "5 kategori onay kuyruğu, görsel Diff karşılaştırması ve şifahi onay bypass.", tag: "13" },
+        { icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", name: "Raporlar & KVKK Kasası", desc: "7 kategori kurumsal matbu rapor, dinamik başlıklar ve tek tıkla ZIP veri ihracı.", tag: "14" },
     ];
 
     window.RADPYS = { STATS, TESTIMONIALS, BLOG_POSTS, MODULES };

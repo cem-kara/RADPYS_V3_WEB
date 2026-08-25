@@ -2,6 +2,51 @@
 
 Tüm önemli değişiklikler bu dosyada kayıt altına alınacaktır.
 
+## [4.1.2] - 2026-08-25
+
+### Koruyucu Donanım (RKE) ve KKD Yönetim Merkezi, DIN 6857-1 Kalite Kontrol Muayenesi ve Akıllı Kodlama Motoru
+
+- **Radyasyon Koruyucu Ekipman (RKE) & KKD Yönetim Merkezi:** `rke_envanter`, `rke_muayeneler` ve `rke_zimmet_hareketleri` tabloları ile kurşun önlük, tiroid, gonad, gözlük, eldiven ve paravan donanımlarının tam envanter takibi.
+- **Akıllı Kodlama Motoru (`RkeKodGenerator`):** Departman ve ekipman türü tanımları öncelikli dinamik `RKE-[Tür]-[SıraNo]` (örn: `RKE-O-001`) ve `[AnaBilimDali]-[Birim]-[Tür]-[SıraNo]` kurumsal tekil kod üretimi.
+- **DIN 6857-1 / IEC 61331-3 Skopi Muayene & Otomatik Karar Motoru:** Skopi/Floroskopi altında yapılan kalite kontrol testinde hasar bölgesi (Kritik/Non-Kritik) ve kusur alanına ($mm^2$) göre anlık `KULLANIMA_UYGUN`, `SARTLI_KULLANIM` veya `HEK_HURDAYA_AYIR` kararı üretimi.
+- **Canlı KPI Kartları & QR Etiketler:** Muayenesi yaklaşanlar (≤30 gün), süresi dolanlar ve hurdaya ayrılanlar için anlık KPI kartları; 2D QR etiket yazdırma ve Excel/CSV toplu içe aktarma sihirbazları.
+
+## [4.1.0] - 2026-08-22
+
+### Tıbbi Cihaz Envanteri, NDK Lisans Takibi, 2D QR Etiketleme ve Mobil QR Hızlı Arıza Portalı
+
+- **Tıbbi Cihaz Envanteri & 3'lü Hızlı Filtre:** `Tümü`, `Radyasyonlu (X-Ray)`, `Radyasyonsuz (MR/USG)` hızlı filtreleri, NDK lisansı, marka/model, seri no, tüp seri no ve garanti takibi.
+- **Dinamik Yerel IP Algılamalı 2D QR Karekod Etiket Üretim Modülü (`CihazQrDialog`):** Cihazın üzerine yapıştırılacak karekod etiket üretimi ve yazdırma.
+- **Web & Mobil Portal Entegre Hızlı Arıza Bildirimi (`CihazArizaView`):** Sahada telefon kamerasıyla QR okutulduğunda cihaz seçili arıza formunun açılması; biyomedikal teknik servis müdahale ve parça değişim takibi.
+- **NDK Resmi Denetim Çizelgesi:** Sağlık Bakanlığı ve NDK resmi denetimlerine sunulan standart formatlı Excel denetim çizelgesi çıktısı.
+
+## [4.0.2] - 2026-08-20
+
+### Radyasyon Ortam Dozu Ölçümleri, İnteraktif Mimari Plan Krokisi ve SKS 6.1 Alan İzleme Sistemi
+
+- **Masaüstü & Web İnteraktif Mimari Plan Krokisi:** Vektörel PDF ve PNG kat planlarında donanım hızlandırmalı sınırsız Zoom ve Pan desteği.
+- **Mimari Plan Canlı Pinleri & Doz Girişi:** *Denetimli Alan*, *Gözetimli Alan* ve *Halka Açık Alan* eşiklerine sahip çift katmanlı parlayan canlı pinler; haritadan tek tıkla dedektör ($\mu Sv/h$) doz girişi.
+- **SKS 6.1 SRG11.02 Resmi Excel Denetim Raporu:** Sağlık Bakanlığı kalite denetimlerine hazır tek tıkla resmi Excel rapor üretimi.
+- **Web Portalı & Mobil Alan İzleme (`OrtamDozuView.tsx`):** Sahada tablet ve telefondan krokileri canlı izleme ve ölçüm kaydetme.
+
+## [4.0.1] - 2026-08-18
+
+### Hizmet İçi Eğitim Kataloğu, Çoktan Seçmeli Soru Bankası ve Online Sınav Motoru (LMS)
+
+- **Zorunlu Periyodik Eğitim Kataloğu:** Video/PDF materyal yükleme ve departman personellerine toplu eğitim atama.
+- **Sınav Soruları Havuzu (Soru Bankası):** Çoktan seçmeli A/B/C/D soru bankası, eğitimden kopyalama ve Excel'den soru aktarma.
+- **Web Portalı Online Sınav Motoru:** Personellerin web ve mobilden doküman çalışıp sınava girmesi (%70 baraj), otomatik puanlama ve sertifikasyon.
+- **Departman Eğitim Uyum Matrisi (Compliance Matrix):** Yasal geçerlilik süreleri ve teftiş denetim listeleri.
+
+## [4.0.0] - 2026-08-16
+
+### PostgreSQL 14+/16 Kurumsal Veritabanı Mimarisi, PWA Web Portalı, Evrensel Onay Diff View ve KVKK Kasası
+
+- **PostgreSQL 14+/16 Kurumsal Mimarisi (`psycopg3`):** Çok kullanıcılı, yüksek eşzamanlılıklı ve ACID uyumlu ilişkisel veritabanı motoruna geçiş.
+- **Mobil Ana Ekrana Yüklenebilir (Installable) PWA Web Portalı:** React + Vite + Tailwind mimarisiyle mobil uygulama benzeri çalışma deneyimi.
+- **Görsel Diff Destekli Evrensel Onay Sistemi:** 5 onay kategorisi (İzinler, Nöbet Devirleri, Nöbet İstekleri, Nöbet Planları, Veri Değişiklikleri) ve eski/yeni verileri yan yana kıyaslayan onay paneli.
+- **KVKK AES-256 Fernet Şifreli Evrak Kasası (`stored_files`):** Belgelerin PostgreSQL veritabanında şifreli depolanması ve KVKK Madde 11 Kişisel Veri İhraç Paketi (ZIP).
+
 ## [3.8.6.2] - 2026-08-10
 
 ### PySide6/PyQt Regresyon Test Düzeltmeleri, Türkçe Karakter Lookup Normalizasyonu ve Qt Asenkron Zamanlayıcı Güvenliği

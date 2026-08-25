@@ -29,7 +29,7 @@ body {
     color: var(--text-hi);
     font-family:
         "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    overflow-x: hidden;
+    overflow-x: clip;
     line-height: 1.55;
 }
 

@@ -66,7 +66,7 @@
                 <span class="font-display text-lg font-bold tracking-wide">RADPYS<span class="text-neon-teal">.</span></span>
               </a>
               <p class="mt-4 text-sm text-slate-400 max-w-md leading-relaxed">
-                Radyasyon çalışanları yönetim sistemi. Nöbet, dozimetre, izin ve olay bildirimi süreçlerini KVKK uyumlu tek platformda toplar.
+                Radyasyon çalışanları & departman yönetim sistemi. Nöbet, dozimetre, izin, RKE DIN 6857-1, ortam dozu krokisi ve olay bildirimi süreçlerini KVKK uyumlu PostgreSQL altyapısıyla tek platformda toplar.
               </p>
               <p class="mt-6 text-xs font-mono uppercase tracking-[0.2em] text-slate-500">© ${new Date().getFullYear()} RADPYS — Tüm hakları saklıdır</p>
             </div>
